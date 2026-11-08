@@ -1,0 +1,66 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { POST_BY_SLUG } from "@/content/blog";
+import { REGIONS } from "@/site";
+import { dealsIn } from "@/lib/data";
+import { TileGrid } from "@/components/ProductTile";
+import { PageHead } from "@/components/Section";
+import { blackFriday, cyberMonday, holidayFaq, longDate, seasonYear } from "@/lib/black-friday";
+
+// The Black Friday page (DECISIONS.md, "Black Friday page", 2026-11-02): today's deals at one URL kept every year,
+// prerendered at the daily build like every page.
+const year = () => seasonYear(new Date().toISOString().slice(0, 10));
+
+export function generateMetadata(): Metadata {
+  const y = year();
+  return {
+    title: `Fragrance Black Friday deals ${y}`,
+    description: `Black Friday and Cyber Monday ${y} perfume deals: in stock today and at least 10% under the dearest store. Same barcode, same size, updated daily.`,
+    alternates: { canonical: "/black-friday" },
+  };
+}
+
+export default function BlackFriday() {
+  const guide = POST_BY_SLUG["black-friday-perfume-2026"]; // only once the post is live (its date)
+  const y = year();
+  const bf = blackFriday(y);
+  const before = new Date().toISOString().slice(0, 10) < bf;
+  return (
+    <div className="mx-auto max-w-6xl px-4">
+      <PageHead
+        eyebrow="Black Friday"
+        title={`Fragrance Black Friday deals ${y}`}
+        sub={
+          <>
+            Black Friday is {longDate(bf)} and Cyber Monday is {longDate(cyberMonday(y))} {y}.{before ? " Many stores start their sales earlier." : ""} These are
+            today&apos;s in-stock products where the cheapest store is at least 10% under the dearest in your region: same barcode, same size. The page updates every
+            day through the sales. We only see what a store asks when we read its prices, so check the store&apos;s page before you buy.
+          </>
+        }
+      />
+      {REGIONS.map((r) => {
+        const deals = dealsIn(r.code, 60).map((d) => d.f);
+        return (
+          <div key={r.code} className={`rp rp-${r.code}`}>
+            {deals.length ? <TileGrid products={deals} region={r.code} /> : <p className="card p-6 text-center text-soft">No product is 10% under the dearest store {r.phrase} today.</p>}
+          </div>
+        );
+      })}
+      <p className="mt-8 text-sm text-soft">
+        <Link prefetch={false} href="/cyber-monday" className="underline">Cyber Monday deals</Link> ·{" "}
+        <Link prefetch={false} href="/deals" className="underline">fragrance deals today</Link> · <Link prefetch={false} href="/popular" className="underline">Popular products</Link> ·{" "}
+        <Link prefetch={false} href="/stores" className="underline">Stores we compare</Link>
+        {guide ? <> · <Link prefetch={false} href={`/blog/${guide.slug}`} className="underline">{guide.short}: how to tell a real deal</Link></> : null}
+      </p>
+      <section className="mt-10 max-w-3xl">
+        <h2 className="font-display text-xl font-semibold">Black Friday {y}: questions</h2>
+        {holidayFaq("black-friday", y, "fragrance").map((f) => (
+          <div key={f.q} className="mt-3 text-sm">
+            <h3 className="font-semibold">{f.q}</h3>
+            <p className="text-soft">{f.a}</p>
+          </div>
+        ))}
+      </section>
+    </div>
+  );
+}

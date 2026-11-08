@@ -1,0 +1,90 @@
+// MotorCompare's one config file: name, host, region and part categories.
+// Store lists live in src/content/stores.ts.
+
+export const SITE = {
+  key: "mc",
+  name: "MotorCompare",
+  domain: "motorcompare.vercel.app",
+  url: (process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://motorcompare.vercel.app")).replace(/\/$/, ""),
+  slogan: "The right part. The best price.",
+  tagline: "Compare car part prices across Australian parts stores",
+  description:
+    "Compare prices on engine oil, car batteries, wiper blades, globes, filters and more across Australian car parts stores, matched part for part.",
+  /** Every contact address on the site (owner, 2026-10-30: the family inbox). */
+  email: "compareempire@gmail.com",
+  /** A product gets a page only when this many stores sell it (comparing one shop is pointless). */
+  minStoresPerRegion: 2,
+} as const;
+
+export type RegionCode = "US" | "UK" | "CA" | "AU" | "NZ" | "EU";
+
+export interface Region {
+  code: RegionCode;
+  name: string;
+  /** "in Australia" */
+  phrase: string;
+  currency: string;
+  /** Shopify Markets country asked for on every request (prices follow the
+   *  visitor's country, and GitHub's runners are in the US). */
+  shopifyCountry: string;
+  flag: string;
+  ebayHost: string | null;
+  amazonHost: string | null;
+  /** IANA time zone prefixes that pick this region for a first-time visitor. */
+  zones: string[];
+}
+
+/** Australia only for now (owner, 2026-11-08). The type keeps every code so the
+ *  engine's shared code compiles unchanged; only AU is listed and served. */
+export const REGIONS: Region[] = [
+  { code: "AU", name: "Australia", phrase: "in Australia", currency: "AUD", shopifyCountry: "AU", flag: "🇦🇺", ebayHost: "www.ebay.com.au", amazonHost: "www.amazon.com.au", zones: ["Australia/"] },
+];
+
+export const REGION_BY_CODE = Object.fromEntries(REGIONS.map((r) => [r.code, r])) as Record<RegionCode, Region>;
+
+/** The one region every visitor gets. */
+export const DEFAULT_REGION: RegionCode = "AU";
+
+/** Pick a region from the browser's time zone; the more specific match wins
+ *  (America/Toronto is Canada, not the US). */
+export function regionForZone(_zone: string | undefined | null): RegionCode {
+  return DEFAULT_REGION;
+}
+
+/**
+ * The part categories. v1 sells parts whose fit is a code printed on the old
+ * part or in the owner's manual (oil grade, battery size, wiper length, globe
+ * code, filter number), so a buyer can check fit without a vehicle database.
+ */
+export type CatKey = "oil" | "batteries" | "wipers" | "globes" | "filters" | "plugs" | "brakes" | "fluids" | "care" | "accessories" | "other";
+
+export interface Category {
+  key: CatKey;
+  name: string;
+  /** "car batteries": what people search for */
+  plural: string;
+  /** One sentence for hub pages; facts only. */
+  about: string;
+  /** Where the buyer finds the code that decides fit. */
+  fit: string;
+}
+
+/** "other" is last and has no hub of its own in the nav. */
+export const CATEGORIES: Category[] = [
+  { key: "oil", name: "Engine oil", plural: "engine oils", about: "Engine oil by grade and size, from Penrite, Castrol, Nulon, Mobil, Shell, Valvoline and more.", fit: "Your owner's manual or the oil cap names the grade (5W-30) and the spec (API SP, ACEA C3)." },
+  { key: "batteries", name: "Car batteries", plural: "car batteries", about: "Car, 4WD and deep-cycle batteries by size code, from Century, Exide, Varta, Bosch and more.", fit: "The size code (N70ZZ, NS40ZL, DIN55) and CCA are printed on top of your old battery." },
+  { key: "wipers", name: "Wiper blades", plural: "wiper blades", about: "Wiper blades and refills by length, from Bosch, Valeo, Rain-X, Trico, PIAA and more.", fit: "Measure your old blades in millimetres; driver and passenger are often different lengths." },
+  { key: "globes", name: "Globes & lighting", plural: "headlight globes and car lights", about: "Headlight, fog, indicator and interior globes by code, from Philips, Narva, Osram and more.", fit: "The globe code (H4, H7, 9005, T10) is printed on the base of the old globe." },
+  { key: "filters", name: "Filters", plural: "oil, air, cabin and fuel filters", about: "Oil, air, cabin and fuel filters by part number, from Ryco, Wesfil, Sakura, Mann and more.", fit: "Match the number on your old filter (Ryco Z386) or your service book." },
+  { key: "plugs", name: "Spark plugs", plural: "spark plugs and glow plugs", about: "Spark and glow plugs by part number, from NGK, Denso, Bosch and Champion.", fit: "Match the code printed on your old plug, or your owner's manual." },
+  { key: "brakes", name: "Brakes", plural: "brake pads, rotors and brake fluid", about: "Brake pads, rotors and brake fluid, from Bendix, Brembo, DBA, Protex and more.", fit: "Brake parts fit by make, model and year: check the store's fitment list before you buy." },
+  { key: "fluids", name: "Coolant & fluids", plural: "coolant, transmission and other fluids", about: "Coolant, transmission and diff oil, power steering fluid and additives.", fit: "The spec on your manual or reservoir decides (OAT coolant, Dexron VI, 75W-90)." },
+  { key: "care", name: "Car care", plural: "car care and detailing products", about: "Car wash, wax, polish, ceramic coatings, microfibre and interior cleaners.", fit: "Fits any car: compare by size." },
+  { key: "accessories", name: "Accessories & 12V", plural: "car accessories and 12V gear", about: "Jump starters, battery chargers, dash cams, tyre inflators and 12V accessories.", fit: "Check the voltage and the plug for your car." },
+  { key: "other", name: "More parts", plural: "more car parts", about: "Everything else parts stores sell under one barcode.", fit: "Check the part number against your old part." },
+];
+
+/** Menu order: the easy-fit consumables first. */
+export const STEP_MENU_ORDER: CatKey[] = ["oil", "batteries", "wipers", "globes", "filters", "plugs", "brakes", "fluids", "care", "accessories", "other"];
+
+export const CAT_BY_KEY = Object.fromEntries(CATEGORIES.map((c) => [c.key, c])) as Record<CatKey, Category>;
