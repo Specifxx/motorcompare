@@ -3,7 +3,7 @@
 // key). Off until EBAY_CLIENT_ID / EBAY_CLIENT_SECRET exist (a green no-op).
 // One call per (product, region), home-page, popular and new products first,
 // the US first among equals, the rest weekly and empty searches every three weeks
-// (planEbay), capped at 2,500 per eBay quota day however many runs there are.
+// (planEbay), capped at 600 per eBay quota day (this site's share of Compare Empire's keyset) however many runs there are.
 import fs from "node:fs";
 import path from "node:path";
 import { REGIONS, type RegionCode } from "@/site";
@@ -13,6 +13,10 @@ import { popularity, popularNow } from "@/lib/ratings";
 import { featuredIn, isFeatured } from "@/lib/featured";
 import { partNoOf } from "@/lib/partno";
 import type { EbayData, Meta } from "@/lib/types";
+
+/** This site's share of Compare Empire's eBay keyset (owner, 2026-11-08). Never raised without the owner: the three sites' shares
+ * must stay under the keyset's 5,000 a day, or a 429 blanks the day for all three. */
+const EBAY_MAX_DAILY_CALLS = 600;
 
 const DATA = path.join(process.cwd(), "data");
 const read = <T>(p: string, f: T): T => {
@@ -54,10 +58,10 @@ async function main() {
     console.log("eBay keys not set: skipping (no-op).");
     return;
   }
-  // MotorCompare's own keyset (owner, 2026-11-05: Bill is creating it), 2,500
-  // calls a day. EBAY_DAILY_CAP can only lower it.
+  // MotorCompare shares Compare Empire's keyset (owner, 2026-11-08: its 5,000 a day is split Compare Empire 2,900,
+  // SportsCardCompare 1,400, MotorCompare 600, 100 spare): 600 calls a day, and EBAY_DAILY_CAP can only lower it.
   // A second run on the same quota day (a manual dispatch) gets only what is left.
-  const cap = Math.min(2500, Number(process.env.EBAY_DAILY_CAP || 2500));
+  const cap = Math.min(EBAY_MAX_DAILY_CALLS, Number(process.env.EBAY_DAILY_CAP || EBAY_MAX_DAILY_CALLS));
   const qday = ebayQuotaDay();
   const spent = meta?.ebay?.qday === qday ? meta.ebay.qcalls ?? 0 : 0;
   const budget = Math.max(0, cap - spent);
@@ -67,7 +71,8 @@ async function main() {
   for (const [ean, by] of Object.entries(data)) for (const [region, pick] of Object.entries(by)) if (pick && pick.sh == null) delete checked[`${ean}:${region}`];
   const products = getProducts();
   const today = new Date().toISOString().slice(0, 10);
-  const regions = Object.keys(MARKET) as RegionCode[];
+  // Australia only (owner, 2026-11-08): never spend a call on a market the site does not show.
+  const regions = (Object.keys(MARKET) as RegionCode[]).filter((r) => REGIONS.some((x) => x.code === r));
   // Tier 0: what the home page shows in each region; tier 1: the top of /popular
   // and anything first seen in the last 30 days (after the launch-day catalogue,
   // which was all "first seen" on one day); tier 2: the rest.
