@@ -6,7 +6,7 @@ import { demandSlugs, focusCatalog, widelyStocked } from "../src/lib/focus";
 import type { Offer, Product } from "../src/lib/types";
 
 const o = (s: string, st: Offer["st"] = "in"): Offer => ({ s, p: 1000, st, u: "https://x" });
-const P = (slug: string, offers: Product["offers"]) => ({ ean: slug, slug, name: slug, brand: "B", b: "b", cat: "women", size: null, img: null, first: "2026-11-01", offers }) as unknown as Product;
+const P = (slug: string, offers: Product["offers"]) => ({ ean: slug, slug, name: slug, brand: "B", b: "b", cat: "oil", size: null, img: null, first: "2026-11-01", offers }) as unknown as Product;
 
 test("widely stocked: three stores selling today in one region, or two in two regions", () => {
   assert.equal(widelyStocked({ offers: { US: [o("a"), o("b"), o("c")] } }), true);
@@ -18,8 +18,8 @@ test("widely stocked: three stores selling today in one region, or two in two re
 test("search demand keeps a page; the rest is culled to its category", () => {
   const { listed, culled } = focusCatalog([P("wide", { US: [o("a"), o("b"), o("c")] }), P("thin", { US: [o("a"), o("b")] }), P("searched", { US: [o("a")] })], new Set(["searched"]));
   assert.deepEqual(listed.map((p) => p.slug), ["wide", "searched"]);
-  assert.deepEqual(culled, { thin: "women" });
-  assert.deepEqual([...demandSlugs({ "/product/a": [1, 1, 3], "/product/b": [0, 10, 5], "/product/c": [0, 9, 5], "/women": [9, 99, 1] })].sort(), ["a", "b"]);
+  assert.deepEqual(culled, { thin: "oil" });
+  assert.deepEqual([...demandSlugs({ "/product/a": [1, 1, 3], "/product/b": [0, 10, 5], "/product/c": [0, 9, 5], "/oil": [9, 99, 1] })].sort(), ["a", "b"]);
 });
 
 test("the import applies it, the half-size guard reads the merged count, and a culled page 301s", () => {

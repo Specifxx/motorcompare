@@ -27,10 +27,9 @@ test("advice posts make no medical claims", () => {
 
 test("a scheduled post is not live before its date, and a live post never links to one that isn't out yet", async () => {
   const { isLive } = await import("@/content/blog");
-  const future = ALL_POSTS.find((p) => p.date > "2026-10-30");
-  assert.ok(future, "some posts are scheduled");
-  assert.equal(isLive(future!, "2026-10-30"), false);
-  assert.equal(isLive(future!, future!.date), true);
+  const future = { ...(ALL_POSTS[0] ?? {}), date: "2026-12-01" } as (typeof ALL_POSTS)[number];
+  assert.equal(isLive(future, "2026-11-30"), false);
+  assert.equal(isLive(future, "2026-12-01"), true);
   const date = Object.fromEntries(ALL_POSTS.map((p) => [p.slug, p.date]));
   for (const p of ALL_POSTS)
     for (const s of p.sections ?? [])

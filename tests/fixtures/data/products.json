@@ -1,64 +1,16 @@
 {
  "products": [
   {
-   "ean": "3348000000000",
-   "slug": "brand-alpha-sample-eau-de-parfum-for-women-100ml",
-   "name": "Brand Alpha Sample Eau de Parfum for Women 100ml",
+   "ean": "9300000000002",
+   "slug": "brand-alpha-sample-5w-30-engine-oil-5l",
+   "name": "Brand Alpha Sample 5W-30 Engine Oil 5L",
    "brand": "Brand Alpha",
    "b": "brand-alpha",
-   "cat": "women",
-   "size": "100ml",
+   "cat": "oil",
+   "size": null,
    "img": null,
    "first": "2026-10-10",
    "offers": {
-    "US": [
-     {
-      "s": "us-a",
-      "p": 2199,
-      "st": "in",
-      "u": "https://example.com/us-a/0"
-     },
-     {
-      "s": "us-b",
-      "p": 2499,
-      "st": "in",
-      "u": "https://example.com/us-b/0"
-     },
-     {
-      "s": "us-c",
-      "p": 2799,
-      "st": "in",
-      "u": "https://example.com/us-c/0"
-     }
-    ],
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1799,
-      "st": "in",
-      "u": "https://example.com/uk-a/0"
-     },
-     {
-      "s": "uk-b",
-      "p": 2099,
-      "st": "in",
-      "u": "https://example.com/uk-b/0"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2899,
-      "st": "in",
-      "u": "https://example.com/ca-a/0"
-     },
-     {
-      "s": "ca-b",
-      "p": 3199,
-      "st": "in",
-      "u": "https://example.com/ca-b/0"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -78,157 +30,53 @@
       "st": "in",
       "u": "https://example.com/au-c/0"
      }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1999,
-      "st": "in",
-      "u": "https://example.com/eu-a/0"
-     },
-     {
-      "s": "eu-b",
-      "p": 2299,
-      "st": "in",
-      "u": "https://example.com/eu-b/0"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000017",
-   "slug": "brand-beta-test-eau-de-toilette-for-men-100ml",
-   "name": "Brand Beta Test Eau de Toilette for Men 100ml",
+   "ean": "9300000000019",
+   "slug": "brand-beta-test-n70zz-car-battery",
+   "name": "Brand Beta Test N70ZZ Car Battery",
    "brand": "Brand Beta",
    "b": "brand-beta",
-   "cat": "men",
-   "size": "100ml",
+   "cat": "batteries",
+   "size": null,
    "img": null,
    "first": "2026-10-11",
    "offers": {
-    "US": [
+    "AU": [
      {
-      "s": "us-a",
-      "p": 2099,
+      "s": "au-a",
+      "p": 3195,
       "st": "in",
-      "u": "https://example.com/us-a/1"
+      "u": "https://example.com/au-a/1"
      },
      {
-      "s": "us-b",
-      "p": 2399,
+      "s": "au-b",
+      "p": 3495,
       "st": "in",
-      "u": "https://example.com/us-b/1"
+      "u": "https://example.com/au-b/1"
      },
      {
-      "s": "us-c",
-      "p": 2699,
+      "s": "au-c",
+      "p": 3795,
       "st": "out",
-      "u": "https://example.com/us-c/1"
-     }
-    ],
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1699,
-      "st": "in",
-      "u": "https://example.com/uk-a/1"
-     },
-     {
-      "s": "uk-b",
-      "p": 1999,
-      "st": "in",
-      "u": "https://example.com/uk-b/1"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2799,
-      "st": "in",
-      "u": "https://example.com/ca-a/1"
-     },
-     {
-      "s": "ca-b",
-      "p": 3099,
-      "st": "in",
-      "u": "https://example.com/ca-b/1"
-     }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3395,
-      "st": "in",
-      "u": "https://example.com/nz-a/1"
-     },
-     {
-      "s": "nz-b",
-      "p": 3695,
-      "st": "in",
-      "u": "https://example.com/nz-b/1"
-     }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1899,
-      "st": "in",
-      "u": "https://example.com/eu-a/1"
-     },
-     {
-      "s": "eu-b",
-      "p": 2199,
-      "st": "in",
-      "u": "https://example.com/eu-b/1"
+      "u": "https://example.com/au-c/1"
      }
     ]
    }
   },
   {
-   "ean": "3348000000024",
-   "slug": "brand-gamma-fixture-unisex-extrait-100ml",
-   "name": "Brand Gamma Fixture Unisex Extrait 100ml",
+   "ean": "9300000000026",
+   "slug": "brand-gamma-fixture-wiper-blade-600mm",
+   "name": "Brand Gamma Fixture Wiper Blade 600mm",
    "brand": "Brand Gamma",
    "b": "brand-gamma",
-   "cat": "unisex",
-   "size": "100ml",
+   "cat": "wipers",
+   "size": null,
    "img": null,
    "first": "2026-10-12",
    "offers": {
-    "US": [
-     {
-      "s": "us-a",
-      "p": 1999,
-      "st": "in",
-      "u": "https://example.com/us-a/2"
-     },
-     {
-      "s": "us-b",
-      "p": 2299,
-      "st": "out",
-      "u": "https://example.com/us-b/2"
-     },
-     {
-      "s": "us-c",
-      "p": 2599,
-      "st": "in",
-      "u": "https://example.com/us-c/2"
-     }
-    ],
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1599,
-      "st": "in",
-      "u": "https://example.com/uk-a/2"
-     },
-     {
-      "s": "uk-b",
-      "p": 1899,
-      "st": "out",
-      "u": "https://example.com/uk-b/2"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -248,82 +96,20 @@
       "st": "in",
       "u": "https://example.com/au-c/2"
      }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3295,
-      "st": "in",
-      "u": "https://example.com/nz-a/2"
-     },
-     {
-      "s": "nz-b",
-      "p": 3595,
-      "st": "out",
-      "u": "https://example.com/nz-b/2"
-     }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1799,
-      "st": "in",
-      "u": "https://example.com/eu-a/2"
-     },
-     {
-      "s": "eu-b",
-      "p": 2099,
-      "st": "out",
-      "u": "https://example.com/eu-b/2"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000031",
-   "slug": "brand-alpha-demo-gift-set-100ml",
-   "name": "Brand Alpha Demo Gift Set 100ml",
+   "ean": "9300000000033",
+   "slug": "brand-alpha-demo-h4-headlight-globe",
+   "name": "Brand Alpha Demo H4 Headlight Globe",
    "brand": "Brand Alpha",
    "b": "brand-alpha",
-   "cat": "sets",
-   "size": "100ml",
+   "cat": "globes",
+   "size": null,
    "img": null,
    "first": "2026-10-13",
    "offers": {
-    "US": [
-     {
-      "s": "us-a",
-      "p": 1899,
-      "st": "out",
-      "u": "https://example.com/us-a/3"
-     },
-     {
-      "s": "us-b",
-      "p": 2199,
-      "st": "in",
-      "u": "https://example.com/us-b/3"
-     },
-     {
-      "s": "us-c",
-      "p": 2499,
-      "st": "in",
-      "u": "https://example.com/us-c/3"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2599,
-      "st": "out",
-      "u": "https://example.com/ca-a/3"
-     },
-     {
-      "s": "ca-b",
-      "p": 2899,
-      "st": "in",
-      "u": "https://example.com/ca-b/3"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -343,76 +129,20 @@
       "st": "in",
       "u": "https://example.com/au-c/3"
      }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3195,
-      "st": "out",
-      "u": "https://example.com/nz-a/3"
-     },
-     {
-      "s": "nz-b",
-      "p": 3495,
-      "st": "in",
-      "u": "https://example.com/nz-b/3"
-     }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1699,
-      "st": "out",
-      "u": "https://example.com/eu-a/3"
-     },
-     {
-      "s": "eu-b",
-      "p": 1999,
-      "st": "in",
-      "u": "https://example.com/eu-b/3"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000048",
-   "slug": "brand-beta-example-travel-spray-100ml",
-   "name": "Brand Beta Example Travel Spray 100ml",
+   "ean": "9300000000040",
+   "slug": "brand-beta-example-z386-oil-filter",
+   "name": "Brand Beta Example Z386 Oil Filter",
    "brand": "Brand Beta",
    "b": "brand-beta",
-   "cat": "minis",
-   "size": "100ml",
+   "cat": "filters",
+   "size": null,
    "img": null,
    "first": "2026-10-14",
    "offers": {
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1799,
-      "st": "in",
-      "u": "https://example.com/uk-a/4"
-     },
-     {
-      "s": "uk-b",
-      "p": 2099,
-      "st": "in",
-      "u": "https://example.com/uk-b/4"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2899,
-      "st": "in",
-      "u": "https://example.com/ca-a/4"
-     },
-     {
-      "s": "ca-b",
-      "p": 3199,
-      "st": "in",
-      "u": "https://example.com/ca-b/4"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -432,82 +162,20 @@
       "st": "in",
       "u": "https://example.com/au-c/4"
      }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3495,
-      "st": "in",
-      "u": "https://example.com/nz-a/4"
-     },
-     {
-      "s": "nz-b",
-      "p": 3795,
-      "st": "in",
-      "u": "https://example.com/nz-b/4"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000055",
-   "slug": "brand-gamma-mock-body-mist-100ml",
-   "name": "Brand Gamma Mock Body Mist 100ml",
+   "ean": "9300000000057",
+   "slug": "brand-gamma-mock-iridium-spark-plug",
+   "name": "Brand Gamma Mock Iridium Spark Plug",
    "brand": "Brand Gamma",
    "b": "brand-gamma",
-   "cat": "body",
-   "size": "100ml",
+   "cat": "plugs",
+   "size": null,
    "img": null,
    "first": "2026-10-15",
    "offers": {
-    "US": [
-     {
-      "s": "us-a",
-      "p": 2099,
-      "st": "in",
-      "u": "https://example.com/us-a/5"
-     },
-     {
-      "s": "us-b",
-      "p": 2399,
-      "st": "in",
-      "u": "https://example.com/us-b/5"
-     },
-     {
-      "s": "us-c",
-      "p": 2699,
-      "st": "in",
-      "u": "https://example.com/us-c/5"
-     }
-    ],
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1699,
-      "st": "in",
-      "u": "https://example.com/uk-a/5"
-     },
-     {
-      "s": "uk-b",
-      "p": 1999,
-      "st": "in",
-      "u": "https://example.com/uk-b/5"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2799,
-      "st": "in",
-      "u": "https://example.com/ca-a/5"
-     },
-     {
-      "s": "ca-b",
-      "p": 3099,
-      "st": "in",
-      "u": "https://example.com/ca-b/5"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -527,157 +195,53 @@
       "st": "in",
       "u": "https://example.com/au-c/5"
      }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1899,
-      "st": "in",
-      "u": "https://example.com/eu-a/5"
-     },
-     {
-      "s": "eu-b",
-      "p": 2199,
-      "st": "in",
-      "u": "https://example.com/eu-b/5"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000062",
-   "slug": "brand-alpha-placeholder-cologne-for-men-100ml",
-   "name": "Brand Alpha Placeholder Cologne for Men 100ml",
+   "ean": "9300000000064",
+   "slug": "brand-alpha-placeholder-brake-pads",
+   "name": "Brand Alpha Placeholder Brake Pads",
    "brand": "Brand Alpha",
    "b": "brand-alpha",
-   "cat": "women",
-   "size": "100ml",
+   "cat": "brakes",
+   "size": null,
    "img": null,
    "first": "2026-10-16",
    "offers": {
-    "US": [
+    "AU": [
      {
-      "s": "us-a",
-      "p": 1999,
+      "s": "au-a",
+      "p": 3095,
       "st": "in",
-      "u": "https://example.com/us-a/6"
+      "u": "https://example.com/au-a/6"
      },
      {
-      "s": "us-b",
-      "p": 2299,
+      "s": "au-b",
+      "p": 3395,
       "st": "in",
-      "u": "https://example.com/us-b/6"
+      "u": "https://example.com/au-b/6"
      },
      {
-      "s": "us-c",
-      "p": 2599,
+      "s": "au-c",
+      "p": 3695,
       "st": "in",
-      "u": "https://example.com/us-c/6"
-     }
-    ],
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1599,
-      "st": "in",
-      "u": "https://example.com/uk-a/6"
-     },
-     {
-      "s": "uk-b",
-      "p": 1899,
-      "st": "in",
-      "u": "https://example.com/uk-b/6"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2699,
-      "st": "in",
-      "u": "https://example.com/ca-a/6"
-     },
-     {
-      "s": "ca-b",
-      "p": 2999,
-      "st": "in",
-      "u": "https://example.com/ca-b/6"
-     }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3295,
-      "st": "in",
-      "u": "https://example.com/nz-a/6"
-     },
-     {
-      "s": "nz-b",
-      "p": 3595,
-      "st": "in",
-      "u": "https://example.com/nz-b/6"
-     }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1799,
-      "st": "in",
-      "u": "https://example.com/eu-a/6"
-     },
-     {
-      "s": "eu-b",
-      "p": 2099,
-      "st": "in",
-      "u": "https://example.com/eu-b/6"
+      "u": "https://example.com/au-c/6"
      }
     ]
    }
   },
   {
-   "ean": "3348000000079",
-   "slug": "brand-beta-stub-parfum-for-women-100ml",
-   "name": "Brand Beta Stub Parfum for Women 100ml",
+   "ean": "9300000000071",
+   "slug": "brand-beta-stub-long-life-coolant-5l",
+   "name": "Brand Beta Stub Long Life Coolant 5L",
    "brand": "Brand Beta",
    "b": "brand-beta",
-   "cat": "men",
-   "size": "100ml",
+   "cat": "fluids",
+   "size": null,
    "img": null,
    "first": "2026-10-17",
    "offers": {
-    "US": [
-     {
-      "s": "us-a",
-      "p": 1899,
-      "st": "in",
-      "u": "https://example.com/us-a/7"
-     },
-     {
-      "s": "us-b",
-      "p": 2199,
-      "st": "in",
-      "u": "https://example.com/us-b/7"
-     },
-     {
-      "s": "us-c",
-      "p": 2499,
-      "st": "in",
-      "u": "https://example.com/us-c/7"
-     }
-    ],
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1499,
-      "st": "in",
-      "u": "https://example.com/uk-a/7"
-     },
-     {
-      "s": "uk-b",
-      "p": 1799,
-      "st": "in",
-      "u": "https://example.com/uk-b/7"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -697,82 +261,20 @@
       "st": "in",
       "u": "https://example.com/au-c/7"
      }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3195,
-      "st": "in",
-      "u": "https://example.com/nz-a/7"
-     },
-     {
-      "s": "nz-b",
-      "p": 3495,
-      "st": "in",
-      "u": "https://example.com/nz-b/7"
-     }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1699,
-      "st": "in",
-      "u": "https://example.com/eu-a/7"
-     },
-     {
-      "s": "eu-b",
-      "p": 1999,
-      "st": "in",
-      "u": "https://example.com/eu-b/7"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000086",
-   "slug": "brand-gamma-dummy-oud-unisex-100ml",
-   "name": "Brand Gamma Dummy Oud Unisex 100ml",
+   "ean": "9300000000088",
+   "slug": "brand-gamma-dummy-car-wash-2l",
+   "name": "Brand Gamma Dummy Car Wash 2L",
    "brand": "Brand Gamma",
    "b": "brand-gamma",
-   "cat": "unisex",
-   "size": "100ml",
+   "cat": "care",
+   "size": null,
    "img": null,
    "first": "2026-10-18",
    "offers": {
-    "US": [
-     {
-      "s": "us-a",
-      "p": 2199,
-      "st": "in",
-      "u": "https://example.com/us-a/8"
-     },
-     {
-      "s": "us-b",
-      "p": 2499,
-      "st": "in",
-      "u": "https://example.com/us-b/8"
-     },
-     {
-      "s": "us-c",
-      "p": 2799,
-      "st": "out",
-      "u": "https://example.com/us-c/8"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2899,
-      "st": "in",
-      "u": "https://example.com/ca-a/8"
-     },
-     {
-      "s": "ca-b",
-      "p": 3199,
-      "st": "in",
-      "u": "https://example.com/ca-b/8"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -792,76 +294,20 @@
       "st": "out",
       "u": "https://example.com/au-c/8"
      }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3495,
-      "st": "in",
-      "u": "https://example.com/nz-a/8"
-     },
-     {
-      "s": "nz-b",
-      "p": 3795,
-      "st": "in",
-      "u": "https://example.com/nz-b/8"
-     }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1999,
-      "st": "in",
-      "u": "https://example.com/eu-a/8"
-     },
-     {
-      "s": "eu-b",
-      "p": 2299,
-      "st": "in",
-      "u": "https://example.com/eu-b/8"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000093",
-   "slug": "brand-alpha-trial-aftershave-100ml",
-   "name": "Brand Alpha Trial Aftershave 100ml",
+   "ean": "9300000000095",
+   "slug": "brand-alpha-trial-jump-starter",
+   "name": "Brand Alpha Trial Jump Starter",
    "brand": "Brand Alpha",
    "b": "brand-alpha",
-   "cat": "sets",
-   "size": "100ml",
+   "cat": "accessories",
+   "size": null,
    "img": null,
    "first": "2026-10-19",
    "offers": {
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1699,
-      "st": "in",
-      "u": "https://example.com/uk-a/9"
-     },
-     {
-      "s": "uk-b",
-      "p": 1999,
-      "st": "out",
-      "u": "https://example.com/uk-b/9"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2799,
-      "st": "in",
-      "u": "https://example.com/ca-a/9"
-     },
-     {
-      "s": "ca-b",
-      "p": 3099,
-      "st": "out",
-      "u": "https://example.com/ca-b/9"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -881,82 +327,20 @@
       "st": "in",
       "u": "https://example.com/au-c/9"
      }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3395,
-      "st": "in",
-      "u": "https://example.com/nz-a/9"
-     },
-     {
-      "s": "nz-b",
-      "p": 3695,
-      "st": "out",
-      "u": "https://example.com/nz-b/9"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000109",
-   "slug": "brand-beta-proto-candle-100ml",
-   "name": "Brand Beta Proto Candle 100ml",
+   "ean": "9300000000101",
+   "slug": "brand-beta-proto-cabin-filter",
+   "name": "Brand Beta Proto Cabin Filter",
    "brand": "Brand Beta",
    "b": "brand-beta",
-   "cat": "minis",
-   "size": "100ml",
+   "cat": "oil",
+   "size": null,
    "img": null,
    "first": "2026-10-20",
    "offers": {
-    "US": [
-     {
-      "s": "us-a",
-      "p": 1999,
-      "st": "out",
-      "u": "https://example.com/us-a/10"
-     },
-     {
-      "s": "us-b",
-      "p": 2299,
-      "st": "in",
-      "u": "https://example.com/us-b/10"
-     },
-     {
-      "s": "us-c",
-      "p": 2599,
-      "st": "in",
-      "u": "https://example.com/us-c/10"
-     }
-    ],
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1599,
-      "st": "out",
-      "u": "https://example.com/uk-a/10"
-     },
-     {
-      "s": "uk-b",
-      "p": 1899,
-      "st": "in",
-      "u": "https://example.com/uk-b/10"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2699,
-      "st": "out",
-      "u": "https://example.com/ca-a/10"
-     },
-     {
-      "s": "ca-b",
-      "p": 2999,
-      "st": "in",
-      "u": "https://example.com/ca-b/10"
-     }
-    ],
     "AU": [
      {
       "s": "au-a",
@@ -976,108 +360,38 @@
       "st": "in",
       "u": "https://example.com/au-c/10"
      }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1799,
-      "st": "out",
-      "u": "https://example.com/eu-a/10"
-     },
-     {
-      "s": "eu-b",
-      "p": 2099,
-      "st": "in",
-      "u": "https://example.com/eu-b/10"
-     }
     ]
    }
   },
   {
-   "ean": "3348000000116",
-   "slug": "brand-gamma-beta-hair-mist-100ml",
-   "name": "Brand Gamma Beta Hair Mist 100ml",
+   "ean": "9300000000118",
+   "slug": "brand-gamma-beta-brake-fluid-500ml",
+   "name": "Brand Gamma Beta Brake Fluid 500ml",
    "brand": "Brand Gamma",
    "b": "brand-gamma",
-   "cat": "body",
-   "size": "100ml",
+   "cat": "batteries",
+   "size": null,
    "img": null,
    "first": "2026-10-21",
    "offers": {
-    "US": [
+    "AU": [
      {
-      "s": "us-a",
-      "p": 1899,
+      "s": "au-a",
+      "p": 2995,
       "st": "in",
-      "u": "https://example.com/us-a/11"
+      "u": "https://example.com/au-a/11"
      },
      {
-      "s": "us-b",
-      "p": 2199,
+      "s": "au-b",
+      "p": 3295,
       "st": "in",
-      "u": "https://example.com/us-b/11"
+      "u": "https://example.com/au-b/11"
      },
      {
-      "s": "us-c",
-      "p": 2499,
+      "s": "au-c",
+      "p": 3595,
       "st": "in",
-      "u": "https://example.com/us-c/11"
-     }
-    ],
-    "UK": [
-     {
-      "s": "uk-a",
-      "p": 1499,
-      "st": "in",
-      "u": "https://example.com/uk-a/11"
-     },
-     {
-      "s": "uk-b",
-      "p": 1799,
-      "st": "in",
-      "u": "https://example.com/uk-b/11"
-     }
-    ],
-    "CA": [
-     {
-      "s": "ca-a",
-      "p": 2599,
-      "st": "in",
-      "u": "https://example.com/ca-a/11"
-     },
-     {
-      "s": "ca-b",
-      "p": 2899,
-      "st": "in",
-      "u": "https://example.com/ca-b/11"
-     }
-    ],
-    "NZ": [
-     {
-      "s": "nz-a",
-      "p": 3195,
-      "st": "in",
-      "u": "https://example.com/nz-a/11"
-     },
-     {
-      "s": "nz-b",
-      "p": 3495,
-      "st": "in",
-      "u": "https://example.com/nz-b/11"
-     }
-    ],
-    "EU": [
-     {
-      "s": "eu-a",
-      "p": 1699,
-      "st": "in",
-      "u": "https://example.com/eu-a/11"
-     },
-     {
-      "s": "eu-b",
-      "p": 1999,
-      "st": "in",
-      "u": "https://example.com/eu-b/11"
+      "u": "https://example.com/au-c/11"
      }
     ]
    }

@@ -59,31 +59,7 @@ export interface Section {
 }
 
 export const POSTS: Post[] = [
-  {
-    slug: "same-product-different-price",
-    title: "Same bottle, very different price: today's biggest perfume price gaps",
-    short: "Today's biggest price gaps",
-    description: "The same barcode, the same bottle size, at very different prices. The biggest gaps between fragrance stores right now, in your country's own currency.",
-    date: "2026-11-05",
-    art: "women",
-  },
-  {
-    slug: "avoid-fake-perfume",
-    title: "How to avoid fake perfume when you shop online",
-    short: "Avoiding fake perfume",
-    description: "Counterfeit designer fragrance is common on open marketplaces. What to check before you buy, and why MotorCompare only lists real fragrance stores.",
-    date: "2026-11-05",
-    sources: [{ title: "Dangerous fakes: counterfeit perfume", by: "Intellectual Property Office (UK government)", url: "https://www.gov.uk/government/news/dangerous-fakes-counterfeit-goods-put-consumers-at-risk" }],
-    art: "men",
-  },
-  {
-    slug: "brand-stores-vs-fragrance-shops",
-    title: "Are fragrance houses' own stores cheaper than the shops that stock them?",
-    short: "Brand stores vs fragrance shops",
-    description: "Some houses sell from their own online stores. We compared their prices with every specialist shop selling the same barcode.",
-    date: "2026-11-24",
-    art: "unisex",
-  },
+  // Car parts posts come once the first import has real prices.
 ];
 
 /** Every post written, the advice posts after the launch posts, including

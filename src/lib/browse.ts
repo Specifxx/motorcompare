@@ -65,10 +65,8 @@ export function norm(s: string) {
  *  concentrations, nicknames and French (content/synonyms.ts) and a few of our own. */
 export const SYNONYMS: Record<string, string[]> = {
   ...SEARCH_SYNONYMS,
-  perfume: ["parfum", "perfume", "toilette"],
-  fragrance: ["parfum", "perfume", "toilette", "cologne"],
-  scent: ["parfum", "perfume", "toilette", "cologne"],
-  mist: ["mist"],
+  "engine oil": ["oil"],
+  "car battery": ["battery"],
 };
 
 /** Every query word must appear in the name, brand or extra words; names

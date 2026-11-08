@@ -183,10 +183,6 @@ async function main() {
     check("Data size", () =>
       size < 12e6 ? { status: "ok", detail: `${(size / 1e6).toFixed(1)} MB` } : { status: "warn", detail: `products.json is ${(size / 1e6).toFixed(1)} MB: builds slow down; trim fields in src/lib/products-file.ts before raising minStoresPerRegion` },
     ),
-    check("Smells like notes", () => {
-      const f = path.join(DATA, "notes.json");
-      return judgeNotes(fs.existsSync(f) ? Object.keys(JSON.parse(fs.readFileSync(f, "utf8"))).length : null, meta.products);
-    }),
     check("Ratings and reviews", async () => {
       const f = path.join(DATA, "reviews.json");
       const probe: { error?: string; tokenExpires?: string } = {};

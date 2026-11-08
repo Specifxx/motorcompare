@@ -1,4 +1,5 @@
 import { isProductEan } from "./ean";
+import { isPartKeyShape } from "./partno";
 // Shopper ratings and reviews (owner, 2026-10-30: "users should be able to rate
 // the products … stars … and reviews"). The pure, client-safe half: limits,
 // what a review may say, the spam rules and the summary maths. No storage and
@@ -107,7 +108,7 @@ export function cleanText(s: unknown, max: number): string | null {
 /** Check a submission; an error is a sentence for the shopper. */
 export function validateReview(raw: Partial<ReviewInput>): { ok: true; review: CleanReview } | { ok: false; error: string } {
   const ean = typeof raw.ean === "string" ? raw.ean.trim() : "";
-  if (!isProductEan(ean)) return { ok: false, error: "That product isn't one we compare." };
+  if (!isProductEan(ean) && !isPartKeyShape(ean)) return { ok: false, error: "That product isn't one we compare." };
   const stars = Number(raw.stars);
   if (!Number.isInteger(stars) || stars < 1 || stars > 5) return { ok: false, error: "Pick from one to five stars." };
   const body = cleanText(raw.body, BODY_MAX + 1);

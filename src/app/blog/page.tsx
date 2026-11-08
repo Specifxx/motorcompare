@@ -6,8 +6,8 @@ import { PageHead } from "@/components/Section";
 import { niceDate } from "@/lib/format";
 
 export const metadata: Metadata = {
-  title: "Fragrance price blog",
-  description: "Perfume prices, read closely: brand stores against fragrance shops, men's and women's bestsellers, gift sets and the biggest price gaps, from today's prices.",
+  title: "Car parts price blog",
+  description: "Car part prices, read closely, from today's prices.",
   alternates: { canonical: "/blog" },
 };
 
@@ -16,7 +16,7 @@ export default function Blog() {
     <div className="mx-auto max-w-6xl px-4">
       <PageHead
         eyebrow="Blog"
-        title="The fragrance price blog"
+        title="The car parts price blog"
         sub="Questions the prices answer: are brands' own stores cheaper, what the bestsellers really cost, where gift sets are cheapest. Every number comes from today's store prices."
       />
       <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">

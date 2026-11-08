@@ -1,6 +1,6 @@
 // Every outbound link is tagged here, at build time (there is no /go route:
 // a click costs no function). Tag format, as on every sister site:
-// `sc-<region>-<placement>-<ean>` in EPN's `customid` and Amazon's
+// `mc-<region>-<placement>-<ean>` in EPN's `customid` and Amazon's
 // `ascsubtag`, so the earnings reports split by site, market and placement.
 // Store links get utm_source so a store sees what we send it (the start of a
 // partner-code conversation).
@@ -10,7 +10,7 @@ import { STORE_BY_ID, STORES } from "@/content/stores";
 import type { Offer } from "./types";
 
 /** One EPN campaign for every site in the family, hard-coded (owner,
- *  2026-10-30); no variable overrides it. The customid tag (`sc-…`) tells the
+ *  2026-10-30); no variable overrides it. The customid tag (`mc-…`) tells the
  *  sites apart in the reports. */
 export const EBAY_CAMPAIGN_ID = "5339155912";
 
@@ -152,19 +152,15 @@ export function amazonSearchUrl(query: string, region: RegionCode, sub: string):
 }
 
 /**
- * Fragrance retailers that sell the same bottles and pay through their own
- * programs or a network (FragranceX and Sobelia on CJ, Notino on CJ, The Scent
- * Store, Parfumdreams, LOOKFANTASTIC and Cult Beauty on Awin, Adore Beauty on
- * Commission Factory, Sephora and FragranceNet on FlexOffers, YesStyle's own
- * program; KaeYoung's Stylevana and Olive Young are left out (no fragrance range),
- * which sell no designer fragrance). None has a price feed we read yet, so
- * each is a labelled search link pinned above the stores, shown ONLY once its
- * env var holds our tracking link template, set after the program accepts us
- * (see the Chrome setup prompt). The template carries {url} (the encoded
- * search URL, for network deep links) or {q} (the encoded query, for programs
- * that take a search URL plus a code):
- *   AFF_FRAGRANCEX="https://www.anrdoezrs.net/click-XXXX-YYYY?url={url}"
- *   AFF_YESSTYLE="https://www.yesstyle.com/en/list.html?q={q}&rco=OURCODE"
+ * The big Australian parts chains, whose own websites we cannot read (custom
+ * platforms, no product feed yet). Each is a labelled search link for the
+ * product's name, pinned with eBay and Amazon above the store rows, never a
+ * store, a price or "the cheapest". Supercheap Auto pays on Commission
+ * Factory (1-7% by category, tyres excluded); Repco and Sparesbox have no
+ * programme we have found yet. A row shows as a plain search link (`always`)
+ * until its env var holds our tracking template, set after the programme
+ * accepts us. The template carries {url} (the encoded search URL) or {q}:
+ *   AFF_SUPERCHEAP="https://t.cfjump.com/<our id>/t/<programme>?Url={url}"
  */
 export interface Partner {
   key: string;
@@ -188,23 +184,9 @@ export interface Partner {
 }
 
 export const PARTNERS: Partner[] = [
-  { key: "fragrancex", name: "FragranceX", envVar: "AFF_FRAGRANCEX", regions: ["US", "UK", "CA", "AU", "NZ", "EU"], search: (q) => `https://www.fragrancex.com/search/search_results?stext=${q}`, note: "ships worldwide from the US", always: true },
-  { key: "fragrancenet", name: "FragranceNet", envVar: "AFF_FRAGRANCENET", regions: ["US", "UK", "CA", "AU", "NZ", "EU"], search: (q) => `https://www.fragrancenet.com/search?q=${q}`, note: "ships worldwide from the US", always: true },
-  { key: "perfumania", name: "Perfumania", envVar: "AFF_PERFUMANIA", regions: ["US"], search: (q) => `https://www.perfumania.com/search?q=${q}`, note: "US discounter" },
-  { key: "sephora", name: "Sephora", envVar: "AFF_SEPHORA", regions: ["US", "CA"], search: (q) => `https://www.sephora.com/search?keyword=${q}`, note: "US retailer" },
-  { key: "notino-uk", name: "Notino", envVar: "AFF_NOTINO_UK", regions: ["UK"], search: (q) => `https://www.notino.co.uk/search/?q=${q}`, note: "UK discounter" },
-  { key: "notino-eu", name: "Notino", envVar: "AFF_NOTINO_EU", regions: ["EU"], search: (q) => `https://www.notino.de/search/?q=${q}`, note: "European discounter" },
-  { key: "scentstore", name: "The Scent Store", envVar: "AFF_SCENTSTORE", regions: ["UK"], search: (q) => `https://www.thescentstore.co.uk/search?q=${q}`, note: "UK discounter" },
-  { key: "lookfantastic", name: "LOOKFANTASTIC", envVar: "AFF_LOOKFANTASTIC", regions: ["UK", "US", "AU"], search: (q) => `https://www.lookfantastic.com/search?q=${q}`, note: "UK retailer" },
-  { key: "cultbeauty", name: "Cult Beauty", envVar: "AFF_CULTBEAUTY", regions: ["UK"], search: (q) => `https://www.cultbeauty.co.uk/search?q=${q}`, note: "UK retailer" },
-  { key: "parfumdreams", name: "Parfumdreams", envVar: "AFF_PARFUMDREAMS", regions: ["EU"], search: (q) => `https://www.parfumdreams.de/search?q=${q}`, note: "German discounter" },
-  { key: "sobelia", name: "Sobelia", envVar: "AFF_SOBELIA", regions: ["EU", "UK"], search: (q) => `https://www.sobelia.com/en/search?q=${q}`, note: "ships across Europe" },
-  { key: "adorebeauty", name: "Adore Beauty", envVar: "AFF_ADOREBEAUTY", regions: ["AU", "NZ"], search: (q) => `https://www.adorebeauty.com.au/search?q=${q}`, note: "Australian retailer" },
-  { key: "sephora-au", name: "Sephora", envVar: "AFF_SEPHORA_AU", regions: ["AU", "NZ"], search: (q) => `https://www.sephora.com.au/search?q=${q}`, note: "Australian retailer" },
-  // Stylevana accepted us on Awin (2026-11-06). A K-beauty shop with some fragrance: a row only on the products
-  // its US feed lists by barcode, never a search (lib/partner-feed.ts; DECISIONS.md 2026-11-06).
-  { key: "stylevana", name: "Stylevana", envVar: "AFF_STYLEVANA", regions: ["US"], search: (q) => `https://www.stylevana.com/en_US/catalogsearch/result/?q=${q}`, note: "ships worldwide", awinMid: 90791, feedEnv: "AWIN_FEED_STYLEVANA", feedOnly: true },
-  { key: "yesstyle", name: "YesStyle", envVar: "AFF_YESSTYLE", regions: ["US", "UK", "CA", "AU", "NZ", "EU"], search: (q) => `https://www.yesstyle.com/en/list.html?q=${q}`, note: "ships from Hong Kong" },
+  { key: "supercheap", name: "Supercheap Auto", envVar: "AFF_SUPERCHEAP", regions: ["AU"], search: (q) => `https://www.supercheapauto.com.au/search?q=${q}`, note: "Australian chain", always: true },
+  { key: "repco", name: "Repco", envVar: "AFF_REPCO", regions: ["AU"], search: (q) => `https://www.repco.com.au/search?text=${q}`, note: "Australian chain", always: true },
+  { key: "sparesbox", name: "Sparesbox", envVar: "AFF_SPARESBOX", regions: ["AU"], search: (q) => `https://www.sparesbox.com.au/search?q=${q}`, note: "Australian online store", always: true },
 ];
 
 /** A partner's tracked search link for a query, or null while its template is unset. */

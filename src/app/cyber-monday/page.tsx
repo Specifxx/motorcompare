@@ -14,8 +14,8 @@ const year = () => seasonYear(new Date().toISOString().slice(0, 10));
 export function generateMetadata(): Metadata {
   const y = year();
   return {
-    title: `Fragrance Cyber Monday deals ${y}`,
-    description: `Cyber Monday ${y} online perfume deals: in stock today and at least 10% under the dearest store. Same barcode, same size, updated daily.`,
+    title: `Car parts Cyber Monday deals ${y}`,
+    description: `Cyber Monday ${y} online car parts deals: in stock today and at least 10% under the dearest store. Same part number, same size, updated daily.`,
     alternates: { canonical: "/cyber-monday" },
   };
 }
@@ -29,11 +29,11 @@ export default function CyberMonday() {
     <div className="mx-auto max-w-6xl px-4">
       <PageHead
         eyebrow="Cyber Monday"
-        title={`Fragrance Cyber Monday deals ${y}`}
+        title={`Car parts Cyber Monday deals ${y}`}
         sub={
           <>
             Cyber Monday is {longDate(cyberMonday(y))} {y}, the Monday after Black Friday ({longDate(bf)}).{before ? " Many stores start their sales earlier." : ""} These are
-            today&apos;s in-stock products where the cheapest store is at least 10% under the dearest in your region: same barcode, same size. The page updates every
+            today&apos;s in-stock products where the cheapest store is at least 10% under the dearest in your region: same part number, same size. The page updates every
             day through the sales. We only see what a store asks when we read its prices, so check the store&apos;s page before you buy.
           </>
         }
@@ -48,13 +48,13 @@ export default function CyberMonday() {
       })}
       <p className="mt-8 text-sm text-soft">
         <Link prefetch={false} href="/black-friday" className="underline">Black Friday deals</Link> ·{" "}
-        <Link prefetch={false} href="/deals" className="underline">fragrance deals today</Link> · <Link prefetch={false} href="/popular" className="underline">Popular products</Link> ·{" "}
+        <Link prefetch={false} href="/deals" className="underline">car parts deals today</Link> · <Link prefetch={false} href="/popular" className="underline">Popular products</Link> ·{" "}
         <Link prefetch={false} href="/stores" className="underline">Stores we compare</Link>
         {guide ? <> · <Link prefetch={false} href={`/blog/${guide.slug}`} className="underline">{guide.short}: how to tell a real deal</Link></> : null}
       </p>
       <section className="mt-10 max-w-3xl">
         <h2 className="font-display text-xl font-semibold">Cyber Monday {y}: questions</h2>
-        {holidayFaq("cyber-monday", y, "fragrance").map((f) => (
+        {holidayFaq("cyber-monday", y, "car parts").map((f) => (
           <div key={f.q} className="mt-3 text-sm">
             <h3 className="font-semibold">{f.q}</h3>
             <p className="text-soft">{f.a}</p>

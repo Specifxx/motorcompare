@@ -4,8 +4,8 @@ import { GUIDES } from "@/lib/guides";
 import { PageHead } from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "Fragrance price guides",
-  description: "Price guides for perfume, rebuilt every day from real store prices: the cheapest places to buy each kind of product, and where to buy fragrance in your country.",
+  title: "Car parts price guides",
+  description: "Price guides for car parts, rebuilt every day from real store prices: the cheapest places to buy each kind of part in Australia.",
   alternates: { canonical: "/guides" },
 };
 

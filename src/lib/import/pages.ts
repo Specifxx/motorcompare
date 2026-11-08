@@ -1,4 +1,4 @@
-// The product-page reader, for fragrance stores that are not on Shopify and
+// The product-page reader, for parts stores that are not on Shopify and
 // have no open product API (Magento, BigCommerce, PrestaShop, custom shops):
 // their sitemap lists the product pages, and each page's schema.org Product
 // (lib/import/jsonld.ts) gives the name, the GTIN the shop prints, the price,

@@ -1,31 +1,34 @@
-// MotorCompare's drawings: simple flat perfume bottles, flacons and atomisers
-// in the pastel set, drawn in SVG so they cost nothing to load and follow the
-// theme. No house's bottle is drawn: these are generic shapes.
+// MotorCompare's drawings: flat, generic car parts (an oil bottle, a battery,
+// a wiper blade, a globe, a filter…), drawn in SVG so they cost nothing to
+// load. No maker's own packaging is drawn: these are generic shapes.
 import type { CatKey } from "@/site";
 
-/** Each section's tile colour (globals.css .tint-*). */
+/** Each category's tile colour (globals.css .tint-*). */
 export const CAT_TINT: Record<CatKey, string> = {
-  women: "tint-lavender",
-  men: "tint-sky",
-  unisex: "tint-rose", // accent-pale, the pale blue
-  sets: "tint-peach",
-  minis: "tint-butter",
-  body: "tint-mint",
-  other: "tint-lavender",
+  oil: "tint-butter",
+  batteries: "tint-rose",
+  wipers: "tint-sky",
+  globes: "tint-butter",
+  filters: "tint-mint",
+  plugs: "tint-lavender",
+  brakes: "tint-peach",
+  fluids: "tint-sky",
+  care: "tint-mint",
+  accessories: "tint-lavender",
+  other: "tint-peach",
 };
 
-const INK = "#1f2a44";
-const ROSE = "#5b8def"; // the accent blue; the name is KaeYoung's
-const PEACH = "#9ec5ff"; // ice blue
-const LAV = "#aeb4f2";
-const MINT = "#7fd3b2";
-const BUTTER = "#ffd66b";
-const SKY = "#8ec5ff";
-const WHITE = "#fdfdff";
+const INK = "#1d2430";
+const ORANGE = "#e2570f";
+const AMBER = "#f2b233";
+const STEEL = "#9aa6b4";
+const BLUE = "#4a7bd0";
+const GREEN = "#2f9e63";
+const WHITE = "#fbfcfd";
 
 const S = { stroke: INK, strokeWidth: 1.6, strokeLinejoin: "round" as const, strokeLinecap: "round" as const };
 
-/** A small drawing for a section, 48×48. */
+/** A small drawing for a category, 48×48. */
 export function CatIcon({ cat, size = 40 }: { cat: CatKey; size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden>
@@ -35,141 +38,146 @@ export function CatIcon({ cat, size = 40 }: { cat: CatKey; size?: number }) {
 }
 
 const ICONS: Record<CatKey, React.ReactNode> = {
-  // rounded flacon with a gold cap and a sprayer
-  women: (
+  // a 5 L oil bottle with a handle and a label
+  oil: (
     <g {...S}>
-      <rect x="20" y="4" width="8" height="5" rx="1.5" fill={BUTTER} />
-      <path d="M28 6h5" />
-      <rect x="18" y="9" width="12" height="6" rx="2" fill={WHITE} />
-      <path d="M12 24q0-9 12-9t12 9v10q0 8-8 8h-8q-8 0-8-8z" fill={ROSE} />
-      <path d="M17 27q0 7 6 8" stroke={WHITE} strokeWidth="2" />
+      <rect x="25" y="5" width="7" height="5" rx="1" fill={INK} />
+      <path d="M12 16q0-6 6-6h14q6 0 6 6v24q0 3-3 3H15q-3 0-3-3z" fill={AMBER} />
+      <path d="M14 12q-4 4-2 10" fill="none" />
+      <rect x="16" y="22" width="18" height="12" rx="1.5" fill={WHITE} />
+      <path d="M20 28h10" />
     </g>
   ),
-  // square cologne bottle with a dark cap
-  men: (
+  // a car battery with two terminals
+  batteries: (
     <g {...S}>
-      <rect x="18" y="5" width="12" height="9" rx="2" fill={INK} />
-      <rect x="20" y="14" width="8" height="4" fill={WHITE} />
-      <rect x="11" y="18" width="26" height="24" rx="4" fill={SKY} />
-      <rect x="16" y="25" width="16" height="10" rx="1.5" fill={WHITE} />
+      <rect x="12" y="10" width="6" height="5" rx="1" fill={STEEL} />
+      <rect x="30" y="10" width="6" height="5" rx="1" fill={STEEL} />
+      <rect x="6" y="15" width="36" height="26" rx="3" fill={INK} />
+      <path d="M13 23h4M15 21v4M31 23h4" stroke={WHITE} strokeWidth="2" />
+      <path d="M22 26l-3 7h4l-2 6 6-9h-4l2-4z" fill={AMBER} stroke={AMBER} />
     </g>
   ),
-  // tall cylinder with a round cap
-  unisex: (
+  // a wiper blade across a windscreen arc
+  wipers: (
     <g {...S}>
-      <circle cx="24" cy="9" r="5" fill={LAV} />
-      <rect x="20" y="13" width="8" height="4" fill={WHITE} />
-      <path d="M15 21q0-4 4-4h10q4 0 4 4v17q0 4-4 4H19q-4 0-4-4z" fill={WHITE} />
-      <rect x="19" y="26" width="10" height="9" rx="1" fill={LAV} />
+      <path d="M5 38q19-26 38 0" fill="none" stroke={STEEL} strokeWidth="2" />
+      <path d="M24 40L9 14" strokeWidth="3" />
+      <path d="M9 14l3-2 14 25-3 2z" fill={INK} />
+      <circle cx="24" cy="40" r="3" fill={ORANGE} />
     </g>
   ),
-  // gift box with a bow
-  sets: (
+  // a headlight globe with an H4-style base
+  globes: (
     <g {...S}>
-      <rect x="8" y="20" width="32" height="22" rx="3" fill={PEACH} />
-      <rect x="6" y="14" width="36" height="8" rx="2" fill={WHITE} />
-      <path d="M24 14v28" />
-      <path d="M24 14q-8-10-10-2 2 3 10 2zM24 14q8-10 10-2-2 3-10 2z" fill={ROSE} />
+      <path d="M24 5q10 0 10 11 0 6-4 10v4H18v-4q-4-4-4-10 0-11 10-11z" fill={AMBER} />
+      <rect x="17" y="30" width="14" height="6" rx="1" fill={STEEL} />
+      <path d="M19 36h10v4H19z" fill={INK} />
+      <path d="M21 41v4M27 41v4" />
+      <path d="M20 14q4-4 8 0" fill="none" stroke={WHITE} strokeWidth="2" />
     </g>
   ),
-  // three little bottles
-  minis: (
+  // a spin-on oil filter
+  filters: (
     <g {...S}>
-      <rect x="8" y="22" width="9" height="18" rx="2.5" fill={BUTTER} />
-      <rect x="10" y="17" width="5" height="5" rx="1" fill={INK} />
-      <rect x="19.5" y="18" width="9" height="22" rx="2.5" fill={WHITE} />
-      <rect x="21.5" y="13" width="5" height="5" rx="1" fill={INK} />
-      <rect x="31" y="24" width="9" height="16" rx="2.5" fill={ROSE} />
-      <rect x="33" y="19" width="5" height="5" rx="1" fill={INK} />
+      <rect x="11" y="9" width="26" height="32" rx="4" fill={BLUE} />
+      <path d="M11 16h26M11 34h26" />
+      <rect x="15" y="20" width="18" height="10" rx="1.5" fill={WHITE} />
+      <rect x="17" y="5" width="14" height="4" rx="1" fill={STEEL} />
     </g>
   ),
-  // body mist spray bottle
-  body: (
+  // a spark plug
+  plugs: (
     <g {...S}>
-      <path d="M22 4h4v6h-4zM26 6h7" />
-      <rect x="19" y="10" width="10" height="5" rx="1.5" fill={MINT} />
-      <path d="M13 21q0-6 6-6h10q6 0 6 6v17q0 5-5 5H18q-5 0-5-5z" fill={WHITE} />
-      <path d="M18 28q3-3 6 0t6 0" stroke={MINT} strokeWidth="2.2" />
-      <circle cx="38" cy="8" r="1.5" fill={MINT} stroke="none" />
-      <circle cx="41" cy="12" r="1.2" fill={MINT} stroke="none" />
+      <rect x="21" y="3" width="6" height="8" rx="1" fill={STEEL} />
+      <path d="M19 11h10l-1 14h-8z" fill={WHITE} />
+      <rect x="17" y="25" width="14" height="6" fill={STEEL} />
+      <path d="M20 31h8v8h-8z" fill={STEEL} />
+      <path d="M21 33h6M21 36h6" />
+      <path d="M24 39v4h5" fill="none" />
     </g>
   ),
-  // candle and sparkle
+  // a brake disc with a caliper
+  brakes: (
+    <g {...S}>
+      <circle cx="22" cy="26" r="17" fill={STEEL} />
+      <circle cx="22" cy="26" r="7" fill={WHITE} />
+      <circle cx="22" cy="26" r="2.5" fill={INK} />
+      <path d="M33 10q9 6 9 16-1 4-4 4l-6-2q2-8-3-14z" fill={ORANGE} />
+    </g>
+  ),
+  // a coolant jug
+  fluids: (
+    <g {...S}>
+      <rect x="17" y="5" width="9" height="5" rx="1" fill={INK} />
+      <path d="M12 14q0-4 4-4h12q8 0 8 8v22q0 3-3 3H15q-3 0-3-3z" fill={GREEN} />
+      <path d="M30 14q4 0 4 6" fill="none" stroke={WHITE} />
+      <path d="M17 26q5-6 10 0-5 6-10 0z" fill={WHITE} />
+    </g>
+  ),
+  // a spray bottle and a bubble
+  care: (
+    <g {...S}>
+      <path d="M18 6h10v6h-10z" fill={INK} />
+      <path d="M28 8h6l2 3" fill="none" />
+      <path d="M15 18q0-6 6-6h4q6 0 6 6v22q0 3-3 3H18q-3 0-3-3z" fill={BLUE} />
+      <rect x="18" y="24" width="10" height="9" rx="1.5" fill={WHITE} />
+      <circle cx="40" cy="20" r="3" fill={WHITE} />
+      <circle cx="38" cy="28" r="2" fill={WHITE} />
+    </g>
+  ),
+  // a jump starter with clamps
+  accessories: (
+    <g {...S}>
+      <rect x="10" y="12" width="22" height="28" rx="4" fill={INK} />
+      <rect x="14" y="17" width="14" height="8" rx="1.5" fill={AMBER} />
+      <circle cx="21" cy="32" r="3" fill={WHITE} />
+      <path d="M32 18q8 0 8 8v6" fill="none" stroke={ORANGE} strokeWidth="2" />
+      <path d="M37 32h6l-1 6h-4z" fill={ORANGE} />
+    </g>
+  ),
+  // a spanner
   other: (
     <g {...S}>
-      <rect x="12" y="20" width="22" height="22" rx="4" fill={LAV} />
-      <path d="M12 24h22" />
-      <path d="M23 8q-5 7 0 11 5-4 0-11z" fill={BUTTER} />
-      <path d="M39 30q1 4 4 5-3 1-4 5-1-4-4-5 3-1 4-5z" fill={ROSE} />
+      <path d="M33 6a9 9 0 0 0-8 12L8 35a4 4 0 1 0 5 5l17-17a9 9 0 0 0 12-8l-5 3-5-2-1-5z" fill={STEEL} />
     </g>
   ),
 };
 
-/** The hero drawing: a shelf of generic perfume bottles among petals. */
+/** The hero drawing: a workshop shelf of generic car parts. */
 export function HeroArt({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 420 340" className={className} aria-hidden role="presentation">
-      <defs>
-        <linearGradient id="sc-glass" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#dbe8ff" />
-          <stop offset="1" stopColor="#5b8def" />
-        </linearGradient>
-        <linearGradient id="sc-lav" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#ecedff" />
-          <stop offset="1" stopColor="#aeb4f2" />
-        </linearGradient>
-        <linearGradient id="sc-amber" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0" stopColor="#fff1c9" />
-          <stop offset="1" stopColor="#f3b64a" />
-        </linearGradient>
-        <linearGradient id="sc-sky" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0" stopColor="#e6f1ff" />
-          <stop offset="1" stopColor="#8ec5ff" />
-        </linearGradient>
-      </defs>
-      {/* soft round backdrop */}
-      <circle cx="215" cy="170" r="150" fill="#eaf1fd" />
-      <circle cx="320" cy="95" r="60" fill="#e4ecfb" />
-      <circle cx="95" cy="250" r="55" fill="#f4f0e4" />
+      <circle cx="215" cy="170" r="150" fill="#eef1f5" />
+      <circle cx="330" cy="90" r="56" fill="#fde9dc" />
       {/* shelf */}
-      <rect x="55" y="268" width="320" height="12" rx="6" fill="#c9d8f5" />
+      <rect x="45" y="270" width="330" height="12" rx="6" fill="#c3cbd6" />
       <g {...S} strokeWidth="2.2">
-        {/* tall cylinder (unisex) */}
-        <circle cx="107" cy="102" r="17" fill="#aeb4f2" />
-        <rect x="96" y="116" width="22" height="12" fill={WHITE} />
-        <path d="M82 136q0-8 8-8h34q8 0 8 8v124q0 8-8 8H90q-8 0-8-8z" fill="url(#sc-lav)" />
-        <rect x="92" y="170" width="30" height="46" rx="4" fill={WHITE} />
-        {/* rounded flacon with gold cap (women) */}
-        <rect x="178" y="48" width="20" height="14" rx="4" fill="#f3b64a" />
-        <path d="M198 54h18" />
-        <rect x="171" y="62" width="34" height="16" rx="4" fill={WHITE} />
-        <path d="M150 118q0-40 42-40t42 40v110q0 40-40 40h-4q-40 0-40-40z" fill="url(#sc-glass)" />
-        <path d="M170 130q0 26 24 30" stroke={WHITE} strokeWidth="5" opacity=".8" />
-        {/* square cologne bottle (men) */}
-        <rect x="266" y="112" width="40" height="28" rx="6" fill={INK} />
-        <rect x="276" y="140" width="20" height="10" fill={WHITE} />
-        <path d="M246 160q0-10 10-10h60q10 0 10 10v98q0 10-10 10h-60q-10 0-10-10z" fill="url(#sc-sky)" />
-        <rect x="258" y="190" width="56" height="40" rx="3" fill={WHITE} />
-        {/* small amber bottle leaning (mini) */}
-        <g transform="rotate(14 350 230)">
-          <rect x="338" y="190" width="18" height="12" rx="3" fill={INK} />
-          <path d="M330 206q0-6 6-6h20q6 0 6 6v50q0 8-8 8h-16q-8 0-8-8z" fill="url(#sc-amber)" />
+        {/* 5 L oil bottle */}
+        <rect x="118" y="88" width="22" height="16" rx="3" fill={INK} />
+        <path d="M70 128q0-24 24-24h48q24 0 24 24v134q0 8-8 8H78q-8 0-8-8z" fill={AMBER} />
+        <path d="M80 112q-14 14-8 36" fill="none" strokeWidth="6" stroke={INK} />
+        <rect x="88" y="160" width="62" height="58" rx="5" fill={WHITE} />
+        <path d="M98 180h42M98 196h30" />
+        {/* car battery */}
+        <rect x="200" y="166" width="20" height="14" rx="3" fill={STEEL} />
+        <rect x="286" y="166" width="20" height="14" rx="3" fill={STEEL} />
+        <rect x="186" y="180" width="134" height="90" rx="8" fill={INK} />
+        <path d="M204 204h16M212 196v16M286 204h16" stroke={WHITE} strokeWidth="5" />
+        <path d="M258 206l-14 30h18l-8 26 26-38h-18l8-18z" fill={AMBER} stroke={AMBER} />
+        {/* globe on top of the battery */}
+        <path d="M268 74q24 0 24 26 0 14-10 24v10h-28v-10q-10-10-10-24 0-26 24-26z" fill="#ffe9a8" />
+        <rect x="252" y="134" width="32" height="12" rx="2" fill={STEEL} />
+        <rect x="256" y="146" width="24" height="10" fill={INK} />
+        {/* wiper blade leaning */}
+        <g transform="rotate(-24 360 200)">
+          <rect x="354" y="80" width="12" height="190" rx="4" fill={INK} />
+          <rect x="350" y="90" width="4" height="170" fill={STEEL} />
         </g>
       </g>
-      {/* petals and sparkles */}
-      <g fill="#5b8def" opacity=".85">
-        <path d="M60 80q12-14 22 0-10 12-22 0z" />
-        <path d="M352 290q12-14 22 0-10 12-22 0z" transform="rotate(30 363 290)" />
-        <path d="M250 30q10-12 18 0-8 10-18 0z" transform="rotate(-20 259 30)" />
-      </g>
-      <g fill="#f3b64a">
-        <path d="M372 150q2 10 10 12-8 2-10 12-2-10-10-12 8-2 10-12z" />
-        <path d="M44 170q1.5 7 7 8.5-5.5 1.5-7 8.5-1.5-7-7-8.5 5.5-1.5 7-8.5z" />
-      </g>
-      <g fill="#aeb4f2">
-        <circle cx="140" cy="50" r="5" />
-        <circle cx="392" cy="60" r="4" />
-        <circle cx="30" cy="120" r="3.5" />
+      <g fill={ORANGE}>
+        <circle cx="58" cy="92" r="6" />
+        <circle cx="388" cy="48" r="4" />
       </g>
     </svg>
   );

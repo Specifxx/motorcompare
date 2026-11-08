@@ -5,8 +5,8 @@ import { TileGrid } from "@/components/ProductTile";
 import { PageHead } from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "Fragrance deals today",
-  description: "Perfume where the cheapest store is at least 10% under the dearest, in stock today. Same barcode, same size, per region, updated daily.",
+  title: "Car parts deals today",
+  description: "Car parts where the cheapest store is at least 10% under the dearest, in stock today. Same part number, same size, updated daily.",
   alternates: { canonical: "/deals" },
 };
 
@@ -15,8 +15,8 @@ export default function Deals() {
     <div className="mx-auto max-w-6xl px-4">
       <PageHead
         eyebrow="Save"
-        title="Fragrance deals today"
-        sub="In-stock products where the cheapest store is at least 10% under the dearest one in your region, biggest gap first. Same barcode, same size, different price."
+        title="Car parts deals today"
+        sub="In-stock products where the cheapest store is at least 10% under the dearest one in your region, biggest gap first. Same part number, same size, different price."
       />
       {REGIONS.map((r) => {
         const deals = dealsIn(r.code, 60).map((d) => d.f);

@@ -160,6 +160,9 @@ const NOISE = [
   /\s{2,}/g,
 ];
 
+/** Words a shouting title keeps in capitals. */
+const ACRONYM = /^(HPR|ATF|AGM|CCA|LED|HID|DOT|CVT|SUV|UTE|4WD|AWD|EFB|MF|NGK|DBA|EBC|STP|ARB|TJM|SCA|CTEK|K&N|USB|OBD|OBD2|ABS|ECU|API|ACEA|VW|BMW|PIAA|RDA|TRW|ACL|KYB|II|III|IV)$/;
+
 /** A clean display name from a store title. */
 export function cleanName(title: string): string {
   let t = title;
@@ -175,7 +178,7 @@ export function cleanName(title: string): string {
   if (t.length > 12 && t === t.toUpperCase() && /[A-Z]{4}/.test(t)) {
     t = t
       .split(" ")
-      .map((w) => (/\d/.test(w) || w.length <= 3 ? w : w.charAt(0) + w.slice(1).toLowerCase()))
+      .map((w) => (/\d/.test(w) || ACRONYM.test(w) ? w : w.charAt(0) + w.slice(1).toLowerCase()))
       .join(" ");
   }
   t = t.replace(/\b(\d+(?:\.\d+)?)\s?(?:LTR|LT|LITRES?|LITERS?)\b/gi, "$1L").replace(/\b(\d+(?:\.\d+)?)\s?ML\b/g, "$1ml");

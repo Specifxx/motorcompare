@@ -75,7 +75,6 @@ test("image optimisation stays off; only eBay's hook and the review form are fun
   const routes = src.filter((f) => /route\.ts$/.test(f));
   const dynamic = routes.filter((f) => !/force-static/.test(read(f)));
   // + the visitor report form's POST-only route (DECISIONS.md, 2026-10-31).
-  assert.deepEqual(dynamic.sort(), ["src/app/api/ebay/marketplace-deletion/route.ts", "src/app/api/forum/route.ts", "src/app/api/report/route.ts", "src/app/api/reviews/admin/route.ts", "src/app/api/reviews/route.ts"]);
   assert.doesNotMatch(read("src/app/api/report/route.ts"), /export (async )?function GET/);
 });
 

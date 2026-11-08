@@ -15,12 +15,16 @@ export { norm, searchRows, type IndexRow };
 
 /** Words that point at a section. */
 const STEP_WORDS: Record<string, string[]> = {
-  women: ["women", "womens", "for her", "ladies", "femme", "perfume for women"],
-  men: ["men", "mens", "for him", "cologne", "homme", "aftershave", "men's cologne"],
-  unisex: ["unisex", "niche", "oud", "for all"],
-  sets: ["gift set", "set", "gift", "coffret"],
-  minis: ["mini", "travel", "travel spray", "miniature", "small"],
-  body: ["body mist", "mist", "lotion", "shower gel", "deodorant", "hair mist"],
+  oil: ["oil", "engine oil", "motor oil", "5w-30", "10w-40", "synthetic"],
+  batteries: ["battery", "batteries", "car battery", "agm", "deep cycle"],
+  wipers: ["wiper", "wipers", "wiper blade", "wiper blades"],
+  globes: ["globe", "globes", "bulb", "bulbs", "headlight", "h4", "h7"],
+  filters: ["filter", "filters", "oil filter", "air filter", "cabin filter"],
+  plugs: ["spark plug", "spark plugs", "plug", "plugs"],
+  brakes: ["brake", "brakes", "brake pads", "rotors"],
+  fluids: ["coolant", "fluid", "atf", "transmission fluid"],
+  care: ["car wash", "detailing", "wax", "polish", "snow foam"],
+  accessories: ["jump starter", "charger", "dash cam", "12v"],
 };
 
 type Brand = { name: string; slug: string; count: number; key: string };
@@ -117,8 +121,8 @@ export function SearchBox({ big = false }: { big?: boolean }) {
             }
             if (e.key === "Escape") setOpen(false);
           }}
-          placeholder={big ? "Search a house, a scent or a barcode…" : "Search fragrance…"}
-          aria-label="Search perfume"
+          placeholder={big ? "Search a part, a code like N70ZZ or H7, or a brand…" : "Search parts…"}
+          aria-label="Search car parts"
           aria-expanded={open}
           aria-controls={listId}
           aria-autocomplete="list"
@@ -151,7 +155,7 @@ export function SearchBox({ big = false }: { big?: boolean }) {
             </div>
           )}
           {rows && !empty && nq.length < 2 && <p className="px-3 py-2 text-sm text-soft">Keep typing…</p>}
-          {rows && nq.length > 1 && !items.length && <p className="px-3 py-2 text-sm text-soft">Nothing matches yet. Try the house&apos;s name or a word like cologne.</p>}
+          {rows && nq.length > 1 && !items.length && <p className="px-3 py-2 text-sm text-soft">Nothing matches yet. Try a brand or a code like 5W-30.</p>}
           {(brandHits.length > 0 || stepHits.length > 0) && (
             <ul className="border-b border-line pb-1">
               {brandHits.map((b) => (

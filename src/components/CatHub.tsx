@@ -38,7 +38,7 @@ export function CatHub({ cat, page }: { cat: CatKey; page: number }) {
         title={`${c.plural.replace(/^./, (x) => x.toUpperCase())} prices${page > 1 ? `, page ${page}` : ""}`}
         sub={
           <p>
-            {c.about} {all.length.toLocaleString("en-US")} products compared across stores, matched by barcode, most popular first. Sort and filter by brand, rating or stock below. Prices show for your region; change it at the top.{" "}
+            {c.about} {all.length.toLocaleString("en-US")} products compared across stores, matched part for part, most popular first. Sort and filter by brand, rating or stock below. Prices show for your region; change it at the top.{" "}
             <Link prefetch={false} href={`/guides/cheapest-${cat}`} className="font-medium text-ink underline underline-offset-4">
               See the cheapest
             </Link>

@@ -5,7 +5,7 @@ import { CoffeeIcon, CreatorCard, StarIcon } from "@/components/creators/Creator
 import { featuredCreators } from "@/lib/creators";
 import { Crumbs, JsonLd, faqLd } from "@/lib/seo";
 
-// /creators: the fragrance creators hub, RiftCompare's /creators brought over (owner, 2026-11-03: "a really nice formatted
+// /creators: the car creators hub, RiftCompare's /creators brought over (owner, 2026-11-03: "a really nice formatted
 // creators page, just like how RiftCompare does it", on every site). Two audiences: shoppers finding creators to follow
 // and tip, and creators deciding whether a listing is worth a mention in their content. The list is static
 // (src/lib/creators.ts), so the page is prerendered like every other: no data read, no request read. No emoji
@@ -98,7 +98,7 @@ export default function CreatorsPage() {
             <StarIcon className="h-3.5 w-3.5" /> Creators
           </p>
           <h1 className="h-display mt-3 text-[2.4rem] leading-[1.05] sm:text-5xl">
-            fragrance creators we <span className="italic text-accent">love</span>
+            car creators we <span className="italic text-accent">love</span>
           </h1>
           <p className="mt-3 text-base leading-7 text-soft">
             The people who make perfume easy to follow: morning and night routines, honest reviews, ingredient explainers and the
@@ -241,7 +241,7 @@ export default function CreatorsPage() {
       <p className="mb-16 mt-10 text-sm text-soft">
         While you&rsquo;re here:{" "}
         <Link prefetch={false} href="/deals" className="font-semibold text-accent-deep hover:underline">
-          see today&rsquo;s fragrance deals
+          see today&rsquo;s car parts deals
         </Link>
         .
       </p>

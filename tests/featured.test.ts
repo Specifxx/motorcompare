@@ -7,7 +7,7 @@ import { planEbay } from "../src/lib/ebay";
 import type { Product } from "../src/lib/types";
 
 const prod = (ean: string, region: "US" | "AU", prices: number[], st: ("in" | "out")[] = []): Product => ({
-  ean, slug: ean, name: ean, brand: "b", b: "b", cat: "women", size: "50ml", img: null, first: "2026-10-30",
+  ean, slug: ean, name: ean, brand: "b", b: "b", cat: "oil", size: "50ml", img: null, first: "2026-10-30",
   offers: { [region]: prices.map((p, i) => ({ s: `s${i}`, p, st: st[i] ?? "in", u: "https://x" })) },
 } as Product);
 

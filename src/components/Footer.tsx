@@ -14,7 +14,7 @@ export function Footer({ updated }: { updated?: string | null }) {
             <span className="font-display text-xl font-semibold">MotorCompare</span>
           </div>
           <p className="mt-3 text-soft">
-            perfume prices from real fragrance stores, matched by the barcode on the box and checked every day. {SITE.slogan}
+            prices from real parts stores, matched by the maker&apos;s part number and checked every day. {SITE.slogan}
           </p>
           {updated && <p className="mt-3 text-xs text-soft">Prices updated {updated}.</p>}
           <p className="mt-3 text-xs text-soft">
@@ -37,23 +37,18 @@ export function Footer({ updated }: { updated?: string | null }) {
         <div>
           <h2 className="eyebrow mb-3">MotorCompare</h2>
           <ul className="space-y-1.5">
-            <li><Link prefetch={false} href="/deals" className="text-soft hover:text-ink">fragrance deals today</Link></li>
-            <li><Link prefetch={false} href="/black-friday" className="text-soft hover:text-ink">Black Friday fragrance deals</Link></li>
-            <li><Link prefetch={false} href="/cyber-monday" className="text-soft hover:text-ink">Cyber Monday fragrance deals</Link></li>
-            <li><Link prefetch={false} href="/boxing-day" className="text-soft hover:text-ink">Boxing Day fragrance deals</Link></li>
+            <li><Link prefetch={false} href="/deals" className="text-soft hover:text-ink">car parts deals today</Link></li>
+            <li><Link prefetch={false} href="/black-friday" className="text-soft hover:text-ink">Black Friday car parts deals</Link></li>
+            <li><Link prefetch={false} href="/cyber-monday" className="text-soft hover:text-ink">Cyber Monday car parts deals</Link></li>
+            <li><Link prefetch={false} href="/boxing-day" className="text-soft hover:text-ink">Boxing Day car parts deals</Link></li>
             <li><Link prefetch={false} href="/january-sales" className="text-soft hover:text-ink">January sales</Link></li>
-            <li><Link prefetch={false} href="/lunar-new-year" className="text-soft hover:text-ink">Lunar New Year deals</Link></li>
-            <li><Link prefetch={false} href="/valentines-day" className="text-soft hover:text-ink">Valentine&apos;s Day gifts</Link></li>
-            <li><Link prefetch={false} href="/brands" className="text-soft hover:text-ink">perfume brands</Link></li>
+            <li><Link prefetch={false} href="/brands" className="text-soft hover:text-ink">car parts brands</Link></li>
             <li><Link prefetch={false} href="/guides" className="text-soft hover:text-ink">Price guides</Link></li>
-            <li><Link prefetch={false} href="/blog" className="text-soft hover:text-ink">Blog</Link></li>
-            <li><Link prefetch={false} href="/stores" className="text-soft hover:text-ink">Where to buy fragrance online</Link></li>
+            {POSTS.length > 0 && <li><Link prefetch={false} href="/blog" className="text-soft hover:text-ink">Blog</Link></li>}
+            <li><Link prefetch={false} href="/stores" className="text-soft hover:text-ink">Where to buy car parts online</Link></li>
             <li><Link prefetch={false} href="/about" className="text-soft hover:text-ink">About &amp; how matching works</Link></li>
-            <li><Link prefetch={false} href="/forum" className="text-soft hover:text-ink">Community (beta)</Link></li>
             <li><Link prefetch={false} href="/creators" className="text-soft hover:text-ink">Creators</Link></li>
             <li><Link prefetch={false} href="/basket" className="text-soft hover:text-ink">Compare a basket</Link></li>
-            <li><Link prefetch={false} href="/price-report" className="text-soft hover:text-ink">Monthly fragrance price report</Link></li>
-            <li><Link prefetch={false} href="/widgets" className="text-soft hover:text-ink">Free price links for your site</Link></li>
             <li><Link prefetch={false} href="/disclosure" className="text-soft hover:text-ink">How we make money</Link></li>
             <li><Link prefetch={false} href="/privacy" className="text-soft hover:text-ink">Privacy</Link></li>
             <li><Link prefetch={false} href="/terms" className="text-soft hover:text-ink">Terms</Link></li>

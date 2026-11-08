@@ -57,7 +57,7 @@ const BOOTLEG_ORIGINS = new Set(["CN", "HK"]);
  * seller in the region (localSeller) with postage eBay states, priced delivered. No
  * store reference, no eBay row (family rule).
  */
-export function ebayPick(items: EbayItem[], storeOffers: Offer[], region: RegionCode): EbayPick | null {
+export function ebayPick(items: EbayItem[], storeOffers: Offer[], region: RegionCode, mustName?: { brand: string; pn: string }): EbayPick | null {
   if (!storeOffers.length) return null;
   const ref = median(storeOffers.map((o) => o.p));
   const cur = REGION_BY_CODE[region].currency;
@@ -70,12 +70,22 @@ export function ebayPick(items: EbayItem[], storeOffers: Offer[], region: Region
     const sh = statedPostage(it, cur, minor);
     if (sh == null) continue;
     if ("refused" in readTitle(it.title)) continue;
+    // Found by keywords, not a barcode: the title must name the brand and the exact part number.
+    if (mustName && !namesPart(it.title, mustName.brand, mustName.pn)) continue;
     const p = Math.round(Number(it.price.value) * minor);
     if (!(p > 0) || p < ref * 0.6 || p > ref * 3) continue;
     // The row shows the DELIVERED price, and the cheapest delivered wins.
     if (!best || p + sh < best.p) best = { p: p + sh, sh, u: it.itemWebUrl.split("?")[0], t: it.title.slice(0, 120), img: it.image?.imageUrl ?? null };
   }
   return best;
+}
+
+/** Does a title name this brand and this exact part number (Z386 matches "Z386" and "Z-386", never "Z386A")? */
+export function namesPart(title: string, brand: string, pn: string): boolean {
+  const flat = title.toUpperCase().replace(/[^A-Z0-9 ]+/g, "");
+  const tokens = title.toUpperCase().split(/[^A-Z0-9-]+/).map((t) => t.replace(/-/g, ""));
+  const b = brand.toUpperCase().replace(/[^A-Z0-9]+/g, "");
+  return flat.replace(/ /g, "").includes(b) && tokens.includes(pn);
 }
 
 /** How a (product, region) pair ranks for eBay: tier 0 is on the home page,

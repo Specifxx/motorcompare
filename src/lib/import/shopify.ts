@@ -10,6 +10,8 @@
 import { REGION_BY_CODE } from "@/site";
 import type { Store } from "@/content/stores";
 import { eanOf } from "../ean";
+import { listingBrand } from "../brand";
+import { partKey } from "../partno";
 import { readTitle } from "../title";
 import { readNotes } from "../notes";
 import type { Listing, Stock } from "../types";
@@ -64,11 +66,11 @@ const MAX_PAGES = 80;
 export const PRODUCT_LOOKUPS_PER_RUN = 2400;
 export const PACE_MS = 1000;
 
-/** Words that mark a listing as a fragrance in a shop that also sells other
- *  things (`mixed` stores: a pharmacy, a beauty store): only these are worth a
+/** Words that mark a listing as a car part in a shop that also sells other
+ *  things (`mixed` stores: a hardware or camping store): only these are worth a
  *  barcode lookup there. The barcode still decides. */
-export const FRAGRANCE_WORDS =
-  /(eau de parfum|eau de toilette|eau de cologne|parfum|perfume|cologne|fragrance|extrait|edp|edt|edc|body mist|aftershave|after shave|elixir|intense|absolu)/i;
+export const PART_WORDS =
+  /(engine oil|motor oil|\d{1,2}w-?\d{2}|battery|batteries|wiper|globe|headlight|bulb|filter|spark plug|brake|coolant|transmission fluid|car wash|detail|polish|wax|jump start|charger|dash cam|12v|4wd|automotive|car\b)/i;
 
 export function stockOf(available: boolean): Stock {
   return available ? "in" : "out";
@@ -99,7 +101,8 @@ export function needsLookup(store: Store, p: ShopifyProduct): boolean {
   if ("refused" in readTitle(p.title)) return false;
   if (!p.variants.some((v) => Number(v.price) > 0)) return false;
   if (p.variants.some((v) => eanOf({ sku: v.sku, barcode: v.barcode }))) return false;
-  return !store.mixed || FRAGRANCE_WORDS.test(`${p.title} ${p.product_type ?? ""}`);
+  if (p.variants.some((v) => partKey(listingBrand(p.vendor ?? "", p.title, store.name), v.sku))) return false;
+  return !store.mixed || PART_WORDS.test(`${p.title} ${p.product_type ?? ""}`);
 }
 
 /** One store product → its listings (one per variant with a barcode). */
@@ -126,7 +129,8 @@ export function listingsFromProduct(
       res.refused.push(info.refused);
       continue;
     }
-    const ean = eanOf({ barcode: v.barcode, sku: v.sku, text }) ?? eanOf({ barcode: codes?.[String(v.id)] ?? null });
+    // Brand + the maker's part number first (lib/partno.ts: what parts shops fill in), else a barcode.
+    const ean = partKey(listingBrand(p.vendor ?? "", title, store.name), v.sku) ?? eanOf({ barcode: v.barcode, sku: v.sku, text }) ?? eanOf({ barcode: codes?.[String(v.id)] ?? null });
     if (!ean) {
       res.noEan++;
       continue;

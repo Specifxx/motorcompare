@@ -21,8 +21,8 @@ export default function Disclosure() {
         <h2>Which links can earn us money</h2>
         <ul>
           <li><strong>eBay</strong> (eBay Partner Network): the eBay row above the stores on a product page.</li>
-          <li><strong>Amazon</strong> (Amazon Associates, US and Australia): the Amazon row above the stores. As an Amazon Associate we earn from qualifying purchases.</li>
-          <li><strong>Big fragrance retailers</strong> such as FragranceX, FragranceNet, Notino, LOOKFANTASTIC, Sephora and Adore Beauty, through their own programs or networks such as CJ, Awin, Impact, FlexOffers and Commission Factory, only once they accept us. Until then their links are plain searches that earn nothing.</li>
+          <li><strong>Amazon</strong> (Amazon Associates Australia): the Amazon row above the stores. As an Amazon Associate we earn from qualifying purchases.</li>
+          <li><strong>Big parts chains</strong>: Supercheap Auto through Commission Factory, only once it accepts us. Until then its link, and the Repco and Sparesbox links, are plain searches that earn nothing.</li>
           <li>
             <strong>Stores in the comparison:</strong> {paying ? `${paying} of the ${STORES.length} stores pay us a commission, and their rows say "Paid link".` : `none of the ${STORES.length} stores pays us today. If one ever does, its row will say "Paid link".`}
           </li>
@@ -32,7 +32,7 @@ export default function Disclosure() {
         <ul>
           <li>It never changes the order. Stores are sorted by their item price, cheapest first, by a program that does not know who pays.</li>
           <li>It never makes a row &quot;the cheapest&quot;. eBay, Amazon and the big retailers sit in their own labelled rows, apart from the stores, and are never counted as a store.</li>
-          <li>It never decides which stores we list. We list every specialist fragrance shop we can read reliably, paying or not; we leave out open marketplaces because counterfeits are common there.</li>
+          <li>It never decides which stores we list. We list every specialist parts shop we can read reliably, paying or not; we leave out open marketplaces.</li>
         </ul>
         <h2>The referral tag on store links</h2>
         <p>Links to stores that pay us nothing carry a referral tag (utm_source={SITE.domain}) so the store can see we sent you. It doesn&apos;t change the price or track you across sites.</p>

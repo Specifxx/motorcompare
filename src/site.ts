@@ -14,6 +14,8 @@ export const SITE = {
   email: "compareempire@gmail.com",
   /** A product gets a page only when this many stores sell it (comparing one shop is pointless). */
   minStoresPerRegion: 2,
+  /** The eBay and Amazon side rails and the phone dock (components/SideRails.tsx). Off at launch (owner, 2026-11-08: no ad banners in the first build). */
+  sideRails: false as boolean,
 } as const;
 
 export type RegionCode = "US" | "UK" | "CA" | "AU" | "NZ" | "EU";
@@ -36,11 +38,20 @@ export interface Region {
 
 /** Australia only for now (owner, 2026-11-08). The type keeps every code so the
  *  engine's shared code compiles unchanged; only AU is listed and served. */
-export const REGIONS: Region[] = [
+export const ALL_REGIONS: Region[] = [
+  { code: "US", name: "United States", phrase: "in the US", currency: "USD", shopifyCountry: "US", flag: "🇺🇸", ebayHost: "www.ebay.com", amazonHost: "www.amazon.com", zones: ["America/"] },
+  { code: "UK", name: "United Kingdom", phrase: "in the UK", currency: "GBP", shopifyCountry: "GB", flag: "🇬🇧", ebayHost: "www.ebay.co.uk", amazonHost: "www.amazon.co.uk", zones: ["Europe/London"] },
+  { code: "CA", name: "Canada", phrase: "in Canada", currency: "CAD", shopifyCountry: "CA", flag: "🇨🇦", ebayHost: "www.ebay.ca", amazonHost: "www.amazon.ca", zones: ["America/Toronto"] },
   { code: "AU", name: "Australia", phrase: "in Australia", currency: "AUD", shopifyCountry: "AU", flag: "🇦🇺", ebayHost: "www.ebay.com.au", amazonHost: "www.amazon.com.au", zones: ["Australia/"] },
+  { code: "NZ", name: "New Zealand", phrase: "in New Zealand", currency: "NZD", shopifyCountry: "NZ", flag: "🇳🇿", ebayHost: null, amazonHost: null, zones: ["Pacific/Auckland"] },
+  { code: "EU", name: "Europe", phrase: "in Europe", currency: "EUR", shopifyCountry: "DE", flag: "🇪🇺", ebayHost: "www.ebay.de", amazonHost: "www.amazon.de", zones: ["Europe/"] },
 ];
 
-export const REGION_BY_CODE = Object.fromEntries(REGIONS.map((r) => [r.code, r])) as Record<RegionCode, Region>;
+/** The regions the site serves: Australia only (owner, 2026-11-08). The engine's shared code can still look up any
+ *  region (REGION_BY_CODE), but nothing iterates more than these. */
+export const REGIONS: Region[] = ALL_REGIONS.filter((r) => r.code === "AU");
+
+export const REGION_BY_CODE = Object.fromEntries(ALL_REGIONS.map((r) => [r.code, r])) as Record<RegionCode, Region>;
 
 /** The one region every visitor gets. */
 export const DEFAULT_REGION: RegionCode = "AU";

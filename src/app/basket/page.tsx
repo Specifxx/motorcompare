@@ -3,8 +3,8 @@ import { PageHead } from "@/components/Section";
 import { Basket } from "@/components/Basket";
 
 export const metadata: Metadata = {
-  title: "Compare a whole fragrance basket, delivery included",
-  description: "Add the perfume you want and see which single store sells it all for the least, with each store's own delivery cost and free-delivery threshold.",
+  title: "Compare a whole car parts basket, delivery included",
+  description: "Add the parts you want and see which single store sells it all for the least, with each store's own delivery cost and free-delivery threshold.",
   alternates: { canonical: "/basket" },
 };
 
@@ -14,7 +14,7 @@ export default function BasketPage() {
       <PageHead
         eyebrow="Basket"
         title="Compare a whole basket"
-        sub="The cheapest store for one bottle isn't always the cheapest for three items once delivery is added. Add what you want to buy and see each store's total, with its own delivery cost and free-delivery threshold."
+        sub="The cheapest store for one part isn't always the cheapest for three items once delivery is added. Add what you want to buy and see each store's total, with its own delivery cost and free-delivery threshold."
       />
       <Basket />
     </div>

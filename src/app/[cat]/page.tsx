@@ -13,9 +13,9 @@ export function generateMetadata({ params }: { params: { cat: string } }): Metad
   return {
     title: fitTitle(`${CAT_SEO[c.key]}: compare every store`, `${CAT_SEO[c.key]} compared`, CAT_SEO[c.key]),
     description: fitDescription(
-      `Compare ${c.plural} prices across real fragrance stores in the US, UK, Canada, Australia, New Zealand and Europe. Matched by barcode, size by size, updated daily.`,
-      `Compare ${c.plural} prices across real fragrance stores in the US, UK, Canada, Australia, NZ and Europe. Matched by barcode, updated daily.`,
-      `${c.name} prices compared across real fragrance stores in six regions. Matched by barcode, updated daily.`,
+      `Compare ${c.plural} prices across Australian parts stores. Matched by part number, size by size, updated daily.`,
+      `Compare ${c.plural} prices across Australian parts stores. Matched by part number, updated daily.`,
+      `${c.name} prices compared across Australian parts stores. Matched by part number, updated daily.`,
     ),
     alternates: { canonical: `/${c.key}` },
   };

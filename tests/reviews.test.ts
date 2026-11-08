@@ -186,25 +186,24 @@ const row = (slug: string, name: string, cat: string, brand: string, us: number 
   slug, name, cat, "8800000000000", us == null ? {} : { US: us }, brand, brand.toLowerCase(), rating, n, pop, first,
 ];
 
-test("search keeps Hangul, matches the brand and synonyms, popular first among equals", () => {
-  assert.equal(norm("조선미녀 맑은쌀 선크림"), "조선미녀 맑은쌀 선크림");
+test("search folds accents, matches the brand and synonyms, popular first among equals", () => {
   assert.equal(norm("Crème Légère"), "creme legere");
   const rows = [
-    row("a", "Sauvage Eau de Parfum 100ml", "men", "Dior", 12900, 0, 0, 12, "2026-10-01"),
-    row("b", "Sauvage Eau de Toilette 100ml", "men", "Dior", 11900, 0, 0, 3, "2026-10-01"),
-    row("c", "Black Opium Eau de Parfum 90ml", "women", "Yves Saint Laurent", 13000, 0, 0, 8, "2026-10-01"),
+    row("a", "Penrite HPR 5 5W-40 Engine Oil 5L", "oil", "Penrite", 6900, 0, 0, 12, "2026-10-01"),
+    row("b", "Penrite Enviro+ 10W-30 Engine Oil 5L", "oil", "Penrite", 5900, 0, 0, 3, "2026-10-01"),
+    row("c", "Narva H4 Plus 120 Headlight Globe Twin Pack", "globes", "Narva", 3500, 0, 0, 8, "2026-10-01"),
   ];
-  assert.deepEqual(searchRows(rows, "dior sauvage").map((r) => r[0]), ["a", "b"], "brand words count");
-  assert.deepEqual(searchRows(rows, "sauvage").map((r) => r[0]), ["a", "b"], "the popular one first");
-  assert.deepEqual(searchRows(rows, "sauvage edp").map((r) => r[0]), ["a"], "EDP finds eau de parfum");
-  assert.deepEqual(searchRows(rows, "ysl").map((r) => r[0]), ["c"], "a house's nickname finds it");
+  assert.deepEqual(searchRows(rows, "penrite oil").map((r) => r[0]), ["a", "b"], "brand words count");
+  assert.deepEqual(searchRows(rows, "engine oil").map((r) => r[0]), ["a", "b"], "the popular one first");
+  assert.deepEqual(searchRows(rows, "penrite 5w-40").map((r) => r[0]), ["a"], "the grade narrows it");
+  assert.deepEqual(searchRows(rows, "h4 bulb").map((r) => r[0]), ["c"], "bulb finds globe");
 });
 
 test("filters and sorts", () => {
   const rows = [
-    row("a", "Alpha Parfum", "women", "Dior", 2000, 46, 12, 9, "2026-10-01"),
-    row("b", "Beta Cologne", "men", "Versace", 1500, 38, 4, 12, "2026-10-20"),
-    row("c", "Gamma Parfum", "women", "Dior", undefined, 0, 0, 4, "2026-10-25"),
+    row("a", "Alpha Oil", "oil", "Penrite", 2000, 46, 12, 9, "2026-10-01"),
+    row("b", "Beta Battery", "batteries", "Century", 1500, 38, 4, 12, "2026-10-20"),
+    row("c", "Gamma Oil", "oil", "Penrite", undefined, 0, 0, 4, "2026-10-25"),
   ];
   const ids = (f: Partial<typeof NO_FILTERS>) => applyFilters(rows, { ...NO_FILTERS, ...f }, "US").map((r) => r[0]);
   assert.deepEqual(ids({}), ["b", "a", "c"], "most popular first");
@@ -213,10 +212,10 @@ test("filters and sorts", () => {
   assert.deepEqual(ids({ sort: "price-desc" }), ["a", "b", "c"]);
   assert.deepEqual(ids({ sort: "name" }), ["a", "b", "c"]);
   assert.deepEqual(ids({ sort: "new" }), ["c", "b", "a"]);
-  assert.deepEqual(ids({ cat: "women" }), ["a", "c"]);
-  assert.deepEqual(ids({ brand: "Dior", inStock: true }), ["a"]);
+  assert.deepEqual(ids({ cat: "oil" }), ["a", "c"]);
+  assert.deepEqual(ids({ brand: "Penrite", inStock: true }), ["a"]);
   assert.deepEqual(ids({ minStars: 4 }), ["a"]);
-  assert.deepEqual(ids({ q: "parfum", sort: "new" }), ["c", "a"]);
+  assert.deepEqual(ids({ q: "oil", sort: "new" }), ["c", "a"]);
 });
 
 test("photos pack small and come back at the width asked for", () => {
@@ -227,12 +226,11 @@ test("photos pack small and come back at the width asked for", () => {
   assert.equal(imageUrl("", 120), null);
 });
 
-test("abbreviations and nicknames find the long names", () => {
+test("Australian and US spellings find each other", () => {
   const rows = [
-    row("a", "Bleu de Chanel Eau de Parfum 100ml", "men", "Chanel", 15000, 0, 0, 12, "2026-10-01"),
-    row("b", "Le Male Eau de Toilette 125ml", "men", "Jean Paul Gaultier", 9900, 0, 0, 3, "2026-10-01"),
+    row("a", "Nulon Long Life Coolant Concentrate 5L", "fluids", "Nulon", 4500, 0, 0, 12, "2026-10-01"),
+    row("b", "Bosch Aerotwin Wiper Blade 600mm", "wipers", "Bosch", 3900, 0, 0, 3, "2026-10-01"),
   ];
-  assert.deepEqual(searchRows(rows, "bdc").map((r) => r[0]), ["a"]);
-  assert.deepEqual(searchRows(rows, "jpg le male").map((r) => r[0]), ["b"]);
-  assert.deepEqual(searchRows(rows, "le male edt").map((r) => r[0]), ["b"]);
+  assert.deepEqual(searchRows(rows, "antifreeze").map((r) => r[0]), ["a"]);
+  assert.deepEqual(searchRows(rows, "wipers 600mm").map((r) => r[0]), ["b"]);
 });

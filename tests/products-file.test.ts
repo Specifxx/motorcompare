@@ -12,7 +12,7 @@ const sample: Product[] = [
     name: "A Mask 25g",
     brand: "107",
     b: "107",
-    cat: "women",
+    cat: "oil",
     size: "25g",
     img: "https://cdn.shopify.com/s/files/1/0800/9883/files/a.webp?v=1&width=600",
     first: "2026-10-30",

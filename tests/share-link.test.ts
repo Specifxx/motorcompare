@@ -31,7 +31,7 @@ test("each basket item shows its cheapest in-stock store", () => {
 test("share buttons on the product page, quick view and basket; robots lets previews fetch shared links", () => {
   assert.match(read("src/app/product/[slug]/page.tsx"), /<ShareButton /);
   assert.match(read("src/components/QuickView.tsx"), /<ShareButton /);
-  assert.match(read("src/components/Basket.tsx"), /<ShareButton title="My fragrance basket"/);
+  assert.match(read("src/components/Basket.tsx"), /<ShareButton title="My car parts basket"/);
   assert.match(read("src/components/Basket.tsx"), /noindex, follow/);
   assert.match(read("src/app/layout.tsx"), /<ShareArrival \/>/);
   assert.match(read("src/app/robots.ts"), /"\/\*utm_source=share"/);

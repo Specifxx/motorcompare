@@ -1,5 +1,5 @@
 import { CATEGORIES, SITE } from "@/site";
-import { getBrands, getMeta, getProducts, notePages } from "@/lib/data";
+import { getBrands, getMeta, getProducts } from "@/lib/data";
 import { sitemapProducts } from "@/lib/index-tiers";
 import { GUIDES } from "@/lib/guides";
 import { LIVE_POSTS } from "@/content/blog";
@@ -62,20 +62,16 @@ function pageUrls(): SitemapUrl[] {
     u("/deals", 0.8),
     u("/black-friday", 0.8),
     u("/cyber-monday", 0.8),
-    ...["/boxing-day", "/january-sales", "/lunar-new-year", "/valentines-day"].map((p) => u(p, 0.7)),
+    ...["/boxing-day", "/january-sales"].map((p) => u(p, 0.7)),
     u("/basket", 0.5),
     u("/new", 0.7),
     u("/brands", 0.8),
     ...((core) => getBrands().filter((b) => b.products.some((f) => core.has(f.slug))))(new Set(coreProducts().map((f) => f.slug))).map((b) => u(`/brands/${b.slug}`, 0.8)),
-    u("/notes", 0.7),
-    ...notePages().map((x) => u(`/notes/${x.note.key}`, 0.7)),
     u("/guides", 0.7),
     ...GUIDES.map((g) => u(`/guides/${g.slug}`, 0.8)),
     u("/blog", 0.6),
     ...LIVE_POSTS.map((p) => u(`/blog/${p.slug}`, 0.7)),
     u("/stores", 0.6),
-    u("/widgets", 0.4),
-    u("/price-report", 0.6),
     u("/about", 0.3),
     u("/creators", 0.4),
     u("/contact", 0.2),

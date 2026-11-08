@@ -144,7 +144,7 @@ export function ReviewForm({ ean, name }: { ean: string; name: string }) {
               maxLength={BODY_MAX}
               rows={4}
               onChange={(e) => setF({ ...f, body: e.target.value })}
-              placeholder="How did it feel on your skin? Texture, scent, results, would you buy it again?"
+              placeholder="How did it work on your car? Fit, quality, would you buy it again?"
               className="rounded-xl border border-line bg-bg px-3 py-2 focus:border-accent focus:outline-none"
             />
           </label>

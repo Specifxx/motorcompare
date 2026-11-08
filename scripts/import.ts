@@ -10,7 +10,7 @@ import { STORES, type Store } from "@/content/stores";
 import { REGION_BY_CODE } from "@/site";
 import { dropMirrors, mergeListings, type MergeState } from "@/lib/merge";
 import { recordHistory } from "@/lib/history";
-import { readShopify, shopifyOwnCurrency, PRODUCT_LOOKUPS_PER_RUN, FRAGRANCE_WORDS, type BarcodeCache, type ReadResult } from "@/lib/import/shopify";
+import { readShopify, shopifyOwnCurrency, PRODUCT_LOOKUPS_PER_RUN, PART_WORDS, type BarcodeCache, type ReadResult } from "@/lib/import/shopify";
 import { readWoo } from "@/lib/import/woocommerce";
 import { listingsFromState, type PagesFile } from "@/lib/import/pages";
 import { packProducts, unpackProducts } from "@/lib/products-file";
@@ -48,7 +48,7 @@ function pagesFromState(store: Store): ReadResult {
   if (!file) throw new Error("not read yet (no page state)");
   const today = new Date().toISOString().slice(0, 10);
   let listings = listingsFromState(store, file.pages, today);
-  if (store.mixed) listings = listings.filter((l) => FRAGRANCE_WORDS.test(l.title));
+  if (store.mixed) listings = listings.filter((l) => PART_WORDS.test(l.title));
   const refused: Record<string, number> = {};
   if (file.run?.stopped) refused[file.run.stopped] = 1;
   return { listings, seen: Object.keys(file.pages).length, refused, noEan: Object.values(file.pages).filter((p) => !p.p.length).length };

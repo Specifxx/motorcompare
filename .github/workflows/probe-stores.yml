@@ -56,9 +56,10 @@ jobs:
           # The branch may have moved while the shards ran: put the new results on its tip.
           for i in 1 2 3 4 5; do
             git fetch origin ${GITHUB_REF_NAME}
-            git stash push -q -- probe/results.json probe/summary.md
-            git checkout -q -B ${GITHUB_REF_NAME} FETCH_HEAD
-            git checkout -q stash@{0} -- probe/results.json probe/summary.md && git stash drop -q
+            # The results are new (untracked) files: keep them aside, never in a stash.
+            cp probe/results.json probe/summary.md "$RUNNER_TEMP/"
+            git checkout -q -f -B ${GITHUB_REF_NAME} FETCH_HEAD
+            cp "$RUNNER_TEMP/results.json" "$RUNNER_TEMP/summary.md" probe/
             git add probe/results.json probe/summary.md
             git commit -q -m "probe: store results" || exit 0
             git push origin HEAD:${GITHUB_REF_NAME} && exit 0

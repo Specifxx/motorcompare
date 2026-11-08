@@ -56,20 +56,20 @@ test("no barcode, no listing; a cached product-page barcode is used", () => {
   assert.ok(!needsLookup(shop, product()), "a SKU barcode needs no lookup");
 });
 
-test("mixed stores look up only fragrance titles", () => {
+test("mixed stores look up only car part titles", () => {
   const mixed = { ...shop, mixed: true };
   const p = (vendor: string, title: string) => product({ vendor, title, variants: [{ id: 9, title: "Default Title", price: "29.95", available: true, sku: "X" }], product_type: "" });
-  assert.ok(needsLookup(mixed, p("Dior", "Sauvage Eau de Parfum 100ml")));
-  assert.ok(!needsLookup(mixed, p("L'Oreal", "Revitalift Serum")));
+  assert.ok(needsLookup(mixed, p("Penrite", "HPR 5 5W-40 Engine Oil 5L")));
+  assert.ok(!needsLookup(mixed, p("Acme", "Kids Camping Chair")));
 });
 
-test("a sample variant is refused, the full size kept", () => {
+test("a used variant is refused, the new one kept", () => {
   const r = listingsFromProduct(
     shop,
-    product({ variants: [{ id: 1, title: "100ml", price: "129.95", available: true, sku: A }, { id: 2, title: "Sample 1ml", price: "3.00", available: true, sku: B }] }),
+    product({ variants: [{ id: 1, title: "New", price: "129.95", available: true, sku: A }, { id: 2, title: "Used", price: "30.00", available: true, sku: B }] }),
   );
   assert.equal(r.listings.length, 1);
-  assert.deepEqual(r.refused, ["decant"]);
+  assert.deepEqual(r.refused, ["pre-owned"]);
 });
 
 test("barcode cache: found codes kept, empty ones re-asked after 30 days", () => {

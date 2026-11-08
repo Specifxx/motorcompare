@@ -4,12 +4,13 @@ import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
 import { ShareArrival } from "@/components/ShareArrival";
 import "@fontsource-variable/inter";
-import "@fontsource-variable/fraunces";
+import "@fontsource/barlow-condensed/600.css";
+import "@fontsource/barlow-condensed/700.css";
 import "./globals.css";
 // The cart list's styles (components/cart): imported here, never from a component, so node tests can load them.
 import "@/components/cart/cart.css";
 import "@/components/site-reviews/site-reviews.css";
-import { SITE } from "@/site";
+import { DEFAULT_REGION, SITE } from "@/site";
 import { ACTIVE_REGIONS } from "@/lib/regions";
 import { Header } from "@/components/Header";
 import { HolidayStrip } from "@/components/HolidayStrip";
@@ -40,7 +41,7 @@ export const viewport: Viewport = {
 // Runs before paint: the visitor's saved region (else one guessed from their
 // time zone) and theme, so the right prices show with no flash and no cookie.
 const zones = JSON.stringify(ACTIVE_REGIONS.map((r) => [r.code, r.zones]));
-const BOOT = `(function(){var d=document.documentElement;try{var r=localStorage.getItem("sc-region");if(!r){var z=Intl.DateTimeFormat().resolvedOptions().timeZone||"",b="US",l=0;${zones}.forEach(function(e){e[1].forEach(function(p){if(z.indexOf(p)===0&&p.length>l){b=e[0];l=p.length}})});r=b}d.dataset.region=r;var t=localStorage.getItem("sc-theme");d.dataset.theme=t||"day"}catch(e){d.dataset.region="US"}})();`;
+const BOOT = `(function(){var d=document.documentElement;try{var r=${ACTIVE_REGIONS.length > 1 ? 'localStorage.getItem("sc-region")' : "null"};if(!r){var z=Intl.DateTimeFormat().resolvedOptions().timeZone||"",b="${DEFAULT_REGION}",l=0;${zones}.forEach(function(e){e[1].forEach(function(p){if(z.indexOf(p)===0&&p.length>l){b=e[0];l=p.length}})});r=b}d.dataset.region=r;var t=localStorage.getItem("sc-theme");d.dataset.theme=t||"day"}catch(e){d.dataset.region="${DEFAULT_REGION}"}})();`;
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const meta = getMeta();
@@ -58,8 +59,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: SEASON_BOOT_SCRIPT }} />
         {/* The motion layer (lib/motion.ts): data-motion before paint, unless the visitor prefers reduced motion. */}
         <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT }} />
-        {/* Impact (affiliate network) site check, in the exact form Impact gives: a `value` attribute. */}
-        <meta {...({ name: "impact-site-verification", value: "59ec5beb-7403-4ebf-8dc5-d42ff5b432ce" } as object)} />
       </head>
       <body className="min-h-screen font-sans antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-card focus:px-3 focus:py-1">
@@ -69,19 +68,20 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <HolidayStrip />
         <div className="flex">
           <SideNav groups={groups} />
-          {/* The side rails (components/SideRails.tsx): eBay left, Amazon right, from 1440px; empty in the server HTML. */}
-          <RailSlot side="left" />
+          {/* The side rails (components/SideRails.tsx): eBay left, Amazon right, from 1440px; empty in the server HTML.
+              Off at launch (owner, 2026-11-08: no ad banners in the first build): SITE.sideRails. */}
+          {SITE.sideRails && <RailSlot side="left" />}
           <main id="main" className="min-w-0 flex-1 pb-6">
             {children}
           </main>
-          <RailSlot side="right" />
+          {SITE.sideRails && <RailSlot side="right" />}
         </div>
         <Footer updated={meta ? niceDate(meta.updatedAt) : null} />
         <QuickView />
         {/* Rate us (owner, 2026-11-03): the corner card, asking only after real use; the ratings are kept by the shared review service. */}
         <RateCard />
         {/* Below the rails' width: their eBay tiles in the phone dock, after a scroll, never on a product page. */}
-        <RailDock />
+        {SITE.sideRails && <RailDock />}
         <Analytics />
         <ShareArrival />
         {/* Scroll reveals: shows what is on screen, then lets the rest ease in as it scrolls into view. */}

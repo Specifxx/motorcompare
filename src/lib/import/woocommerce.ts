@@ -9,13 +9,15 @@
 import { REGION_BY_CODE } from "@/site";
 import type { Store } from "@/content/stores";
 import { eanOf } from "../ean";
+import { listingBrand } from "../brand";
+import { partKey } from "../partno";
 import { readTitle } from "../title";
 import type { Listing } from "../types";
 import { fetchJson, fetchText, sleep } from "./http";
 import { isBotWall, readPageProducts } from "./jsonld";
 import { readRobots } from "./pages";
 import { robotsAllows } from "./robots";
-import { cachedCodes, FRAGRANCE_WORDS, PACE_MS, type BarcodeCache, type ReadResult } from "./shopify";
+import { cachedCodes, PART_WORDS, PACE_MS, type BarcodeCache, type ReadResult } from "./shopify";
 
 export interface WooProduct {
   id: number;
@@ -121,12 +123,13 @@ export async function readWoo(store: Store, cache: BarcodeCache, budget: { looku
     const parent = p.type === "variation" ? parents.get(p.parent ?? -1) : undefined;
     if (p.type === "variation" && !parent) continue;
     res.seen++;
-    let ean = eanOf({ sku: p.sku ?? null });
     const name = decode(parent?.name ?? p.name);
+    // Brand + the maker's part number first (lib/partno.ts), else a barcode.
+    let ean = partKey(listingBrand(wooBrand(p) || wooBrand(parent ?? p), name, store.name), p.sku) ?? eanOf({ sku: p.sku ?? null });
     if (!ean && p.type !== "variation") {
       const key = `${store.id}:w${p.id}`;
       let codes = cachedCodes(cache[key]);
-      if (codes === undefined && budget.lookups > 0 && !("refused" in readTitle(name)) && (!store.mixed || FRAGRANCE_WORDS.test(name))) {
+      if (codes === undefined && budget.lookups > 0 && !("refused" in readTitle(name)) && (!store.mixed || PART_WORDS.test(name))) {
         budget.lookups--;
         const found = await pageCode(p.permalink).catch((e: Error) => {
           if (/bot wall/.test(e.message)) budget.lookups = 0;

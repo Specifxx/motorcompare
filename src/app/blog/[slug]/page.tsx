@@ -114,7 +114,7 @@ const BODIES: Record<string, (p: BodyProps) => ReactNode> = {
   "avoid-fake-perfume": AvoidFakes,
 };
 
-// ---- Brand stores vs fragrance shops -------------------------------------
+// ---- Brand stores vs parts shops -------------------------------------
 
 type Duel = { f: Product; official: { s: string; p: number; u: string }; shop: { s: string; p: number; u: string } };
 
@@ -136,7 +136,7 @@ function BrandStores() {
     <>
       <P>
         Some fragrance houses sell from their own online stores as well as through the shops that stock them. It is natural to assume the brand&apos;s own store is the safe, fair-price choice. We
-        checked that against every specialist fragrance shop that sells the same product, matched by the barcode on the box, so the size and version are identical.
+        checked that against every specialist parts shop that sells the same product, matched by the barcode on the box, so the size and version are identical.
       </P>
       <PerRegion
         render={(r) => {
@@ -150,7 +150,7 @@ function BrandStores() {
             <>
               <H2>What the prices say</H2>
               <P>
-                Of the {d.length} products both a brand store and a fragrance shop have in stock, a shop is cheaper for <b>{cheaper}</b>
+                Of the {d.length} products both a brand store and a parts shop have in stock, a shop is cheaper for <b>{cheaper}</b>
                 {same ? `, the price is the same for ${same}` : ""} and the brand&apos;s own store is cheaper for {d.length - cheaper - same}.
                 {savings.length ? ` When a shop is cheaper, the typical saving is ${pct(median)} off the brand's own price.` : ""} Brand stores often run their own sales and
                 bundles, so check both before you buy; and remember shipping, which brand stores sometimes make free above a lower threshold.
@@ -239,12 +239,12 @@ function AvoidFakes() {
   return (
     <>
       <P>
-        Popular perfume is copied. Counterfeits turn up most on open marketplaces, where anyone can list a product, and they can look very close to the real thing. A fake is not just a waste of money: you do not know what is in it.
+        Popular car parts is copied. Counterfeits turn up most on open marketplaces, where anyone can list a product, and they can look very close to the real thing. A fake is not just a waste of money: you do not know what is in it.
         Here is what we check, and what you can.
       </P>
       <H2>1. Buy from a store, not a stranger</H2>
       <P>
-        Specialist fragrance stores and the brands&apos; own stores buy their stock from the brand or its distributors. Many brands publish a list of authorised sellers on their website; if a shop is on it, that is a good sign. Every store MotorCompare
+        Specialist parts stores and the brands&apos; own stores buy their stock from the brand or its distributors. Many brands publish a list of authorised sellers on their website; if a shop is on it, that is a good sign. Every store MotorCompare
         compares is a real shop selling new, sealed products; open marketplaces and second-hand sellers are never part of the store comparison. You can see all of them on <A href="/stores">Stores we compare</A>. We do show an eBay and an Amazon row
         above the stores on product pages, labelled as ads and kept out of the &quot;cheapest&quot; ranking; on either site, buy from the brand&apos;s official shop or a seller with a long record.
       </P>

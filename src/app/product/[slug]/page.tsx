@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { culledTarget } from "@/lib/culled";
 import { CAT_BY_KEY, REGIONS, SITE, type RegionCode } from "@/site";
-import { bestIn, cheapestDelivered, getMeta, notesOf, brandPages, getEbay, getHistory, getProduct, getProducts, productsOfBrand, productsOfCat, regionsOf, spreadIn, storeCount, storeName, variantLabel, variantLabels, variantsOf } from "@/lib/data";
+import { bestIn, cheapestDelivered, getMeta, brandPages, getEbay, getHistory, getProduct, getProducts, productsOfBrand, productsOfCat, regionsOf, spreadIn, storeCount, storeName, variantLabel, variantLabels, variantsOf } from "@/lib/data";
 import { dayNumber, lowestOrderable } from "@/lib/history";
 import { decimal, money, niceDate, pct } from "@/lib/format";
 import { isIndexable, prebuiltProducts } from "@/lib/index-tiers";
@@ -24,8 +24,16 @@ import { ReviewsSection } from "@/components/reviews/ReviewsSection";
 import { ShareButton } from "@/components/ShareButton";
 import { shareTexts } from "@/lib/share-texts";
 import { JsonLd, breadcrumbLd, fitDescription, fitTitle } from "@/lib/seo";
-import { SmellsLike, notesSentence } from "@/components/SmellsLike";
-import { headlineNotes, smellsLikeText, type Pyramid } from "@/lib/notes";
+import { isPartKey, partNoOf } from "@/lib/partno";
+
+/** How a product id reads: the maker's part number, or the barcode on the box. */
+function idOf(id: string) {
+  const pn = partNoOf(id);
+  return pn
+    ? { label: "Part number", value: pn, same: `Same part number (${pn})`, ours: `this part's brand and part number (${pn})` }
+    : { label: "Barcode (EAN)", value: id, same: `Same barcode (${id})`, ours: `this product's barcode (${id})` };
+}
+import { partCode } from "@/lib/title";
 
 // The build prerenders only the top products (prebuiltProducts, 500 of ~37,000):
 // writing every page made the daily build 15+ minutes. Any other product renders
@@ -50,14 +58,11 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   // Store titles are long (median 55 characters), so the name always leads and the rest drops away to fit 60 (fitTitle).
   const title = fitTitle(`${f.name} price: compare ${stores}`, `${f.name}: compare ${stores}`, `${f.name} price comparison`, `${f.name} price`);
   const from = (k: number) => (k && lows.length ? `, from ${lows.slice(0, k).join(" and ")}` : "");
-  const notes = notesOf(f);
-  const smells = notes ? `${f.name} smells like ${smellsLikeText(headlineNotes(notes))}.` : "";
   const description = fitDescription(
-    ...(smells ? [`${smells} Compare ${n} fragrance stores${from(2)}, updated daily.`, `${smells} Compare ${n} fragrance stores${from(1)}, updated daily.`] : []),
-    `${f.name} prices across ${n} fragrance stores${from(2)}. Same barcode (${f.ean}), every store side by side, updated daily.`,
-    `${f.name} prices across ${n} fragrance stores${from(2)}. Every store side by side, updated daily.`,
-    `${f.name} prices across ${n} fragrance stores${from(1)}. Every store side by side, updated daily.`,
-    `${f.name}: ${n} fragrance stores compared${from(1)}.`,
+    `${f.name} prices across ${n} parts stores${from(2)}. ${idOf(f.ean).same}, every store side by side, updated daily.`,
+    `${f.name} prices across ${n} parts stores${from(2)}. Every store side by side, updated daily.`,
+    `${f.name} prices across ${n} parts stores${from(1)}. Every store side by side, updated daily.`,
+    `${f.name}: ${n} parts stores compared${from(1)}.`,
   );
   const ogTitle = typeof title === "string" ? title : title.absolute;
   return {
@@ -92,19 +97,18 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
     .slice(0, 8);
 
   const rated = reviewsOf(f);
-  const notes = notesOf(f);
+  const code = partCode(f.name, f.cat);
   const meta = getMeta();
   const showSchema = !!rated && rated.n >= SCHEMA_MIN_RATINGS;
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
     name: f.name,
-    gtin13: f.ean,
-    sku: f.ean,
+    ...(isPartKey(f.ean) ? { mpn: partNoOf(f.ean) } : { gtin13: f.ean, sku: f.ean }),
     size: f.size ?? undefined,
     brand: f.brand ? { "@type": "Brand", name: f.brand } : undefined,
-    // Google's product taxonomy path for fragrance (it was KaeYoung's skin-care path).
-    category: `Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne`,
+    // Google's product taxonomy path for vehicle parts.
+    category: `Vehicles & Parts > Vehicle Parts & Accessories`,
     image: f.img ?? undefined,
     url: `${SITE.url}/product/${f.slug}`,
     // Only from a real sample (SCHEMA_MIN_RATINGS), and only what the page shows.
@@ -158,7 +162,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       <section className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         <div>
           <div className="card relative mx-auto max-w-[240px] overflow-hidden bg-white sm:max-w-sm md:max-w-none">
-            <ProductImage src={f.img} alt={f.name} label={f.brand || "fragrance"} eager className="relative aspect-square w-full object-contain p-8" />
+            <ProductImage src={f.img} alt={f.name} label={f.brand || "car part"} eager className="relative aspect-square w-full object-contain p-8" />
           </div>
           <p className="mt-2 text-center text-xs text-soft">Photo from a store listing.</p>
         </div>
@@ -179,7 +183,8 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           <div className="mt-3 flex flex-wrap gap-1.5 text-xs">
             <span className="chip bg-subtle text-ink">{cat.name}</span>
             {f.size && <span className="chip bg-subtle text-ink">{f.size}</span>}
-            <span className="chip bg-subtle text-soft">Barcode {f.ean}</span>
+            {code && <span className="chip bg-accent-pale text-accent-deep">Fit code {code}</span>}
+            <span className="chip bg-subtle text-soft">{idOf(f.ean).label} {idOf(f.ean).value}</span>
           </div>
           {rated && rated.n > 0 && (
             <a href="#reviews" className="mt-3 inline-flex items-center gap-2 text-sm text-soft hover:text-ink">
@@ -194,7 +199,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
           {variants.length > 0 && (
             <div className="mt-4">
-              <p className="eyebrow mb-1.5">Other sizes and shades</p>
+              <p className="eyebrow mb-1.5">Other sizes</p>
               <ul className="flex max-h-40 flex-wrap gap-1.5 overflow-y-auto text-xs">
                 <li>
                   <span aria-current="page" className="chip border border-ink bg-card font-semibold text-ink">{labels.get(f.ean)}</span>
@@ -267,11 +272,15 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               </div>
             );
           })}
-          {notes && (
-            <div className="mt-5">
-              <SmellsLike name={f.name} notes={notes} />
-            </div>
-          )}
+          <section className="card mt-6 p-5">
+            <h2 className="h-display text-xl">Will it fit?</h2>
+            {code && (
+              <p className="mt-2 text-sm">
+                Fit code: <span className="rounded border border-dashed border-ink px-2 py-0.5 font-mono font-semibold">{code}</span>
+              </p>
+            )}
+            <p className="mt-2 text-sm leading-relaxed text-soft">{CAT_BY_KEY[f.cat].fit} Check the code against your old part or your owner&apos;s manual before you buy.</p>
+          </section>
         </div>
       </section>
 
@@ -285,12 +294,12 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           ))}
           <p className="mt-3 text-xs leading-relaxed text-soft">
             Prices are what each store&apos;s own site showed at our last daily check{meta ? ` (${niceDate(meta.updatedAt)})` : ""}, before delivery, and they can change at any time: the store&apos;s checkout is always the final price. Delivery
-            costs are each store&apos;s own quote for a small order to one city in your region, checked weekly; they can differ for your address. Every store listing here carries this product&apos;s barcode ({f.ean}), so it is the same product and
+            costs are each store&apos;s own quote for a small order to one city in your region, checked weekly; they can differ for your address. Every store listing here carries {idOf(f.ean).ours}, so it is the same part and
             size, not a look-alike. Multi-buys and free gifts are what the store&apos;s own cart charged for 1, 2 and 3 of this product in the last two days; stores stay in single-item price order.{" "}
             <Link prefetch={false} href="/basket" className="font-medium text-accent-deep hover:underline">Buying several products? Compare a whole basket →</Link>
           </p>
           <ReportPrice
-            product={`${f.name} (${f.ean})`}
+            product={`${f.name} (${idOf(f.ean).value})`}
             stores={REGIONS.flatMap((r) => (f.offers[r.code] ?? []).map((o) => ({ name: `${storeName(o.s)} (${r.code})`, price: money(o.p, r.code) })))}
           />
         </div>
@@ -321,8 +330,8 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                   <dd>{f.size}</dd>
                 </>
               )}
-              <dt className="text-soft">Barcode (EAN)</dt>
-              <dd className="tabular-nums">{f.ean}</dd>
+              <dt className="text-soft">{idOf(f.ean).label}</dt>
+              <dd className="tabular-nums">{idOf(f.ean).value}</dd>
               <dt className="text-soft">Stores</dt>
               <dd>{storeCount(f)}</dd>
               <dt className="text-soft">First seen</dt>
@@ -343,7 +352,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
       <section className="mt-12 max-w-3xl">
         <h2 className="h-display mb-4 text-2xl">Questions</h2>
-        <Faq f={f} regions={regions} rated={rated} notes={notes} />
+        <Faq f={f} regions={regions} rated={rated} />
       </section>
 
       {/* Phone buy bar: the region's cheapest orderable store, always in reach. */}
@@ -387,9 +396,9 @@ function DeliveredLine({ f, region }: { f: Product; region: RegionCode }) {
   );
 }
 
-function Faq({ f, regions, rated, notes }: { f: Product; regions: RegionCode[]; rated: ProductReviews | undefined; notes?: Pyramid }) {
+function Faq({ f, regions, rated }: { f: Product; regions: RegionCode[]; rated: ProductReviews | undefined }) {
   const qa: [string, string][] = [];
-  if (notes) qa.push([`What does ${f.name} smell like?`, notesSentence(f.name, notes)]);
+  qa.push([`Will ${f.name} fit my car?`, `${CAT_BY_KEY[f.cat].fit} Check that code against your old part or your owner's manual before you buy; when in doubt, ask the store.`]);
   for (const r of regions) {
     const b = bestIn(f, r);
     const reg = REGIONS.find((x) => x.code === r)!;
@@ -400,7 +409,9 @@ function Faq({ f, regions, rated, notes }: { f: Product; regions: RegionCode[]; 
   }
   qa.push([
     `How do you know every store sells the same ${f.name}?`,
-    `We match listings only by the barcode printed on the box (${f.ean}). A listing without that barcode is left out rather than guessed, so other sizes, refills, old packaging and look-alikes never get mixed up.`,
+    isPartKey(f.ean)
+      ? `We match listings only by the brand and the maker's own part number (${f.brand} ${partNoOf(f.ean)}). A listing without that exact number is left out rather than guessed, so other sizes, look-alike parts and different fitments never get mixed up.`
+      : `We match listings only by the barcode printed on the box (${f.ean}). A listing without that barcode is left out rather than guessed, so other sizes, look-alike parts and different fitments never get mixed up.`,
   ]);
   qa.push([
     "Are these prices with shipping?",

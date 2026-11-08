@@ -92,7 +92,7 @@ export function railsFor(region: RegionCode): Rails {
   const host = ebayShopHost(region);
   const rails: Rails = {
     region,
-    ebay: { label: host ? host.replace(/^www\./, "") : "eBay", more: ebaySearchUrl("perfume", region, subId(region, "side-ebay")), tiles: ebayTiles },
+    ebay: { label: host ? host.replace(/^www\./, "") : "eBay", more: ebaySearchUrl("car parts", region, subId(region, "side-ebay")), tiles: ebayTiles },
     amazon,
   };
   cache.set(region, rails);

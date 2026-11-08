@@ -5,7 +5,7 @@
 // page's URL plus utm_source=share. One Vercel event per tap, share { medium }; the growth report counts them.
 import { useEffect, useRef, useState } from "react";
 import { track } from "@vercel/analytics";
-import { SITE } from "@/site";
+import { DEFAULT_REGION, SITE } from "@/site";
 import { shareUrl, type ShareMedium } from "@/lib/share-link";
 
 export function ShareButton({ title, path, texts, medium = "product", className = "" }: { title: string; path: string; texts?: Partial<Record<string, string>>; medium?: ShareMedium; className?: string }) {
@@ -19,7 +19,7 @@ export function ShareButton({ title, path, texts, medium = "product", className 
   };
   async function share() {
     const url = shareUrl(SITE.url, path, medium);
-    const text = texts?.[document.documentElement.dataset.region || "US"] || `${title}: every store's price on ${SITE.name}`;
+    const text = texts?.[document.documentElement.dataset.region || DEFAULT_REGION] || `${title}: every store's price on ${SITE.name}`;
     try {
       track("share", { medium });
     } catch {}

@@ -5,6 +5,7 @@
 // one list, so the two never disagree. Static links to pages that exist.
 // No data import here: the client menus import isActive from this file.
 import { saleStrip } from "@/lib/black-friday";
+import { POSTS } from "@/content/blog";
 import { CAT_BY_KEY, STEP_MENU_ORDER, type CatKey } from "@/site";
 
 export type NavItem = { href: string; label: string; count?: number; cat?: CatKey };
@@ -27,12 +28,11 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
         // Black Friday, then Cyber Monday, while the strip shows (lib/black-friday.ts saleStrip).
         ...saleLinks(),
         { href: "/popular", label: "Popular" },
-        { href: "/notes", label: "Shop by scent note" },
         { href: "/deals", label: "Deals today" },
         { href: "/basket", label: "Basket compare" },
         { href: "/new", label: "New arrivals" },
         { href: "/guides", label: "Price guides" },
-        { href: "/blog", label: "Blog" },
+        ...(POSTS.length ? [{ href: "/blog", label: "Blog" }] : []),
       ],
     },
     {
@@ -42,7 +42,6 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
     {
       title: "MotorCompare",
       links: [
-        { href: "/forum", label: "Community" },
         { href: "/creators", label: "Creators" },
         { href: "/stores", label: "Stores we compare" },
         { href: "/about", label: "How it works" },

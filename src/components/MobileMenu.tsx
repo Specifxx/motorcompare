@@ -100,7 +100,7 @@ export function MobileMenu({ groups }: { groups: NavGroup[] }) {
                   </ul>
                 </div>
               ))}
-              <div className="mb-4">
+              {ACTIVE_REGIONS.length > 1 && <div className="mb-4">
                 <h2 className="mb-1 px-2 eyebrow">
                   Prices in
                 </h2>
@@ -118,7 +118,7 @@ export function MobileMenu({ groups }: { groups: NavGroup[] }) {
                     </li>
                   ))}
                 </ul>
-              </div>
+              </div>}
             </nav>
           </div>,
           document.body,

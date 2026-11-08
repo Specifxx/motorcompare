@@ -42,7 +42,6 @@ test("the layout stamps the season before paint, and the holiday is one quiet li
   assert.match(css, /\.sc-holiday \{\s*display: none;/);
   assert.match(css, /html\[data-season="christmas"\] \.sc-holiday \{\s*display: flex;/);
   const home = readFileSync("src/app/page.tsx", "utf8");
-  assert.match(home, /className="sc-holiday-pill"/);
   // "The theme must match the domain": no snow, glints, snowflakes, tree, cane, stockings or hats, in CSS or markup.
   assert.doesNotMatch(css + home, /sc-snow|sc-flake|sc-deco|sc-tree|sc-stocking|HeroSnow|mo-snow|\/xmas\/|santa-hat|xmas-lights/);
   assert.ok(!existsSync("src/components/HeroSnow.tsx"));

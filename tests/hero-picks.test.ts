@@ -12,7 +12,7 @@ const prod = (slug: string, b: string, prices: number[], img: string | null = "h
   name: slug,
   brand: b,
   b,
-  cat: "women",
+  cat: "oil",
   size: "50ml",
   img,
   first: "2026-10-30",
@@ -40,7 +40,7 @@ test("the most-stocked products with a photo, 3+ stores in stock, one per brand"
 
 test("the home share card is drawn at build from the hero's picks, never per request, and survives a missing photo", () => {
   const route = fs.readFileSync("src/app/opengraph-image.tsx", "utf8");
-  assert.match(route, /heroPicks\("US"/);
+  assert.match(route, /heroPicks\(DEFAULT_REGION/);
   assert.doesNotMatch(route, /force-dynamic|revalidate|generateStaticParams|cookies\(|headers\(/);
   assert.ok(!fs.existsSync("src/app/opengraph-image.jpg"), "the static card is gone: the route draws it");
   const card = fs.readFileSync("src/lib/og/home-image.tsx", "utf8");

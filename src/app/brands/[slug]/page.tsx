@@ -19,16 +19,16 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!b) return {};
   const stores = new Set(b.products.flatMap((f) => Object.values(f.offers).flatMap((o) => (o ?? []).map((x) => x.s)))).size;
   return {
-    // The house name with "perfume" first (what people search: "Dior perfume price"), then the counts while they fit.
+    // The brand name first (what people search: "Penrite oil price"), then the counts while they fit.
     title: fitTitle(
-      `${b.name} perfume prices: ${b.products.length} products, ${stores} stores`,
-      `${b.name} perfume prices compared`,
-      `${b.name} perfume prices`,
+      `${b.name} prices: ${b.products.length} products, ${stores} stores`,
+      `${b.name} prices compared`,
+      `${b.name} prices`,
     ),
     description: fitDescription(
-      `Compare ${b.name} perfume and cologne prices across ${stores} fragrance stores in the US, UK, Canada, Australia, New Zealand and Europe. ${b.products.length} products, matched by barcode.`,
-      `Compare ${b.name} perfume prices across ${stores} fragrance stores in the US, UK, Canada, Australia, NZ and Europe. ${b.products.length} products, matched by barcode.`,
-      `Compare ${b.name} perfume prices across ${stores} fragrance stores in six regions: ${b.products.length} products, matched by barcode, updated daily.`,
+      `Compare ${b.name} prices across ${stores} Australian parts stores. ${b.products.length} products, matched by part number.`,
+      `Compare ${b.name} prices across ${stores} Australian parts stores. ${b.products.length} products, matched by part number.`,
+      `Compare ${b.name} prices across ${stores} Australian parts stores: ${b.products.length} products, matched by part number, updated daily.`,
     ),
     alternates: { canonical: `/brands/${b.slug}` },
   };
@@ -50,7 +50,7 @@ export default function BrandPage({ params }: { params: { slug: string } }) {
       <PageHead
         eyebrow="Brand"
         title={`${b.name} prices`}
-        sub={`${list.length} ${b.name} fragrances compared across real fragrance stores, matched by barcode, bottle by bottle. Most widely stocked first; prices show for your region.`}
+        sub={`${list.length} ${b.name} products compared across real parts stores, matched by part number, size by size. Most widely stocked first; prices show for your region.`}
       />
       <Browse brand={b.slug}>
       {cats.map((c) => {

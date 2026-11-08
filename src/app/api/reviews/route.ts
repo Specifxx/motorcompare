@@ -8,6 +8,7 @@
 // Runs only when someone presses Send; no page calls it.
 import { SITE } from "@/site";
 import { isProductEan } from "@/lib/ean";
+import { isPartKeyShape } from "@/lib/partno";
 import { MIN_FILL_SECONDS, validateReview } from "@/lib/reviews";
 import { addReview, reviewsConfigured, PER_IP_PER_DAY } from "@/lib/reviews-store";
 import { clientIp, sameSite, verifyTurnstile, visitorLimit } from "@/lib/reviews-http";
@@ -31,7 +32,7 @@ export async function POST(req: Request) {
   if (body.website || !Number.isFinite(elapsed) || elapsed < MIN_FILL_SECONDS) return json({ ok: true, status: "published" });
   const v = validateReview(body);
   if (!v.ok) return json({ ok: false, error: v.error }, 400);
-  if (!isProductEan(v.review.ean)) return json({ ok: false, error: "That product isn't one we compare." }, 400);
+  if (!isProductEan(v.review.ean) && !isPartKeyShape(v.review.ean)) return json({ ok: false, error: "That product isn't one we compare." }, 400);
   const ip = clientIp(req);
   if (!(await verifyTurnstile(body.turnstile, ip))) return json({ ok: false, error: "Please tick the check box and send again." }, 400);
   try {

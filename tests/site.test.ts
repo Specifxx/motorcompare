@@ -11,41 +11,34 @@ import { searchRows, type IndexRow } from "@/components/SearchBox";
 
 const walk = (d: string): string[] => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${d}/${e.name}`) : [`${d}/${e.name}`]));
 
-test("regions from time zones, the specific one wins", () => {
-  assert.equal(regionForZone("America/New_York"), "US");
-  assert.equal(regionForZone("America/Toronto"), "CA");
-  assert.equal(regionForZone("Europe/London"), "UK");
-  assert.equal(regionForZone("Europe/Berlin"), "EU");
+test("Australia only: every visitor gets the Australian prices", () => {
   assert.equal(regionForZone("Australia/Sydney"), "AU");
-  assert.equal(regionForZone("Pacific/Auckland"), "NZ");
-  assert.equal(regionForZone("Asia/Seoul"), "US", "no Korea region (DECISIONS.md)");
-  assert.equal(regionForZone(undefined), "US");
+  assert.equal(regionForZone("Australia/Perth"), "AU");
+  assert.equal(regionForZone("America/New_York"), "AU");
+  assert.equal(regionForZone(undefined), "AU");
 });
 
 test("affiliate tags name the site, region, placement and product", () => {
-  assert.equal(subId("AU", "table_pinned", "3348901150811"), "sc-au-table_pinned-3348901150811");
-  const e = new URL(ebayAffiliateUrl("https://www.ebay.com.au/itm/1", "sc-au-x"));
-  assert.equal(e.searchParams.get("customid"), "sc-au-x");
+  assert.equal(subId("AU", "table_pinned", "9300289012345"), "mc-au-table_pinned-9300289012345");
+  const e = new URL(ebayAffiliateUrl("https://www.ebay.com.au/itm/1", "mc-au-x"));
+  assert.equal(e.searchParams.get("customid"), "mc-au-x");
   assert.equal(e.searchParams.get("mkrid"), "705-53470-19255-0");
   assert.ok(e.searchParams.get("campid"));
-  assert.match(ebaySearchUrl("Dior Sauvage", "UK", "t")!, /ebay\.co\.uk.*LH_BIN=1/);
-  assert.match(ebaySearchUrl("Dior Sauvage", "NZ", "t")!, /ebay\.com\.au.*campid=/, "NZ shops on eBay Australia");
-  assert.match(amazonSearchUrl("x", "US", "sc-us-y")!, /amazon\.com\/s\?.*tag=riftcompare-20.*ascsubtag=sc-us-y/);
-  assert.match(amazonSearchUrl("x", "AU", "t")!, /amazon\.com\.au\/s\?.*tag=motorcompare-22/, "the AU tag on amazon.com.au, never the US one");
+  assert.match(ebaySearchUrl("Penrite HPR 5", "UK", "t")!, /ebay\.co\.uk.*LH_BIN=1/);
+  assert.match(ebaySearchUrl("Penrite HPR 5", "NZ", "t")!, /ebay\.com\.au.*campid=/, "NZ shops on eBay Australia");
+  assert.match(amazonSearchUrl("x", "US", "mc-us-y")!, /amazon\.com\/s\?.*tag=riftcompare-20.*ascsubtag=mc-us-y/);
+  assert.match(amazonSearchUrl("x", "AU", "t")!, /amazon\.com\.au\/s\?.*tag=compareempire-22/, "the AU tag on amazon.com.au, never the US one");
   assert.match(amazonSearchUrl("x", "UK", "t")!, /amazon\.co\.uk\/.*tag=compareempi03-21/, "the owner's UK account");
   assert.match(amazonSearchUrl("x", "EU", "t")!, /amazon\.de\/.*tag=compareempire-21/);
   assert.equal(amazonSearchUrl("x", "NZ", "t"), null, "no Amazon NZ");
   assert.doesNotMatch(readFileSync(new URL("../src/lib/affiliate.ts", import.meta.url), "utf8"), /AMAZON_TAG_|AMAZON_ASSOCIATE_TAG/, "tags are hard-coded");
-  assert.match(storeUrl("nope", "https://shop.example/p?a=1"), /utm_source=motorcompare\.app&utm_medium=referral/);
+  assert.match(storeUrl("nope", "https://shop.example/p?a=1"), /utm_source=motorcompare\.vercel\.app&utm_medium=referral/);
 });
 
 test("retailer rows appear only once their tracking template is set", () => {
-  const ys = PARTNERS.find((p) => p.key === "yesstyle")!;
-  assert.equal(partnerUrl(ys, "Dior Sauvage", "sc-us-t", {}), null);
-  assert.equal(partnerUrl(ys, "Dior Sauvage", "sc-us-t", { AFF_YESSTYLE: "https://www.yesstyle.com/en/list.html?q={q}&rco=ABC" }), "https://www.yesstyle.com/en/list.html?q=Dior%20Sauvage&rco=ABC");
-  const net = partnerUrl(ys, "Dior", "sc-us-t", { AFF_YESSTYLE: "https://network.example/c?u={url}&s={sub}" })!;
-  assert.equal(decodeURIComponent(new URL(net).searchParams.get("u")!), "https://www.yesstyle.com/en/list.html?q=Dior");
-  assert.equal(new URL(net).searchParams.get("s"), "sc-us-t");
+  const sc = PARTNERS.find((p) => p.key === "supercheap")!;
+  assert.equal(partnerUrl(sc, "Penrite HPR 5", "mc-au-t", {}), null);
+  assert.equal(partnerUrl(sc, "Penrite HPR 5", "mc-au-t", { AFF_SUPERCHEAP: "https://x.example/?q={q}&s={sub}" }), "https://x.example/?q=Penrite%20HPR%205&s=mc-au-t");
 });
 
 test("money stays in its own currency", () => {
@@ -57,7 +50,8 @@ test("money stays in its own currency", () => {
 test("stores: unique ids and hosts, every region covered", () => {
   assert.equal(new Set(STORES.map((s) => s.id)).size, STORES.length);
   assert.equal(new Set(STORES.map((s) => new URL(s.base).host)).size, STORES.length);
-  for (const r of ["US", "UK", "CA", "AU", "NZ", "EU"]) assert.ok(STORES.filter((s) => s.region === r).length >= 2, r);
+  assert.ok(STORES.length >= 20, "20 or more Australian stores");
+  assert.ok(STORES.every((s) => s.region === "AU"), "Australia only");
 });
 
 test("MotorCompare stands alone: no sister-site links (owner, 2026-10-30, kept for MotorCompare)", () => {
@@ -67,13 +61,13 @@ test("MotorCompare stands alone: no sister-site links (owner, 2026-10-30, kept f
 
 test("search: every word must match; a barcode finds its product", () => {
   const rows: IndexRow[] = [
-    ["a", "Dior Sauvage Eau de Parfum 100ml", "men", "3348901150811", {}, "Dior", "dior", 0, 0, 5, "2026-10-01"],
-    ["b", "Creed Aventus Eau de Parfum 100ml", "unisex", "3508441001114", {}, "Creed", "creed", 0, 0, 5, "2026-10-01"],
-    ["c", "Dior Sauvage Elixir 60ml", "men", "3348901567671", {}, "Dior", "dior", 0, 0, 5, "2026-10-01"],
+    ["a", "Penrite HPR 5 5W-40 Engine Oil 5L", "oil", "9300289012345", {}, "Penrite", "penrite", 0, 0, 5, "2026-10-01"],
+    ["b", "Century N70ZZ Car Battery", "batteries", "9312345000017", {}, "Century", "century", 0, 0, 5, "2026-10-01"],
+    ["c", "Penrite HPR 30 20W-60 Engine Oil 5L", "oil", "9300289012352", {}, "Penrite", "penrite", 0, 0, 5, "2026-10-01"],
   ];
-  assert.deepEqual(searchRows(rows, "sauvage").map((r) => r[0]).sort(), ["a", "c"]);
-  assert.deepEqual(searchRows(rows, "dior elixir").map((r) => r[0]), ["c"]);
-  assert.deepEqual(searchRows(rows, "3508441001114").map((r) => r[0]), ["b"]);
+  assert.deepEqual(searchRows(rows, "penrite").map((r) => r[0]).sort(), ["a", "c"]);
+  assert.deepEqual(searchRows(rows, "penrite 20w-60").map((r) => r[0]), ["c"]);
+  assert.deepEqual(searchRows(rows, "9312345000017").map((r) => r[0]), ["b"]);
 });
 
 test("ops monitor judgements", () => {
@@ -113,14 +107,14 @@ test("no banner ads (owner, 2026-10-30): paid links live in the price table only
 test("the site is MotorCompare on motorcompare.vercel.app", () => {
   assert.equal(SITE.name, "MotorCompare");
   assert.equal(SITE.domain, "motorcompare.vercel.app");
-  assert.equal(SITE.key, "sc");
+  assert.equal(SITE.key, "mc");
 });
 
-test("the homepage's section tiles lead with women's, men's and unisex (owner, 2026-11-05)", () => {
+test("the homepage's part tiles lead with the parts you can fit yourself", () => {
   const src = fs.readFileSync("src/app/page.tsx", "utf8");
   const steps = src.match(/const HOME_STEPS: CatKey\[\] = \[([^\]]*)\]/);
   assert.ok(steps, "HOME_STEPS is listed in the homepage");
-  assert.ok(steps[1].startsWith('"women", "men", "unisex"'));
+  assert.ok(steps[1].startsWith('"oil", "batteries", "wipers", "globes"'));
   assert.ok(!/CATEGORIES\.(filter|map)/.test(src), "the homepage lists its own tiles, not every category");
 });
 

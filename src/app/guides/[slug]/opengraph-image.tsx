@@ -1,4 +1,4 @@
-import { CAT_BY_KEY, REGION_BY_CODE } from "@/site";
+import { CAT_BY_KEY, DEFAULT_REGION, REGION_BY_CODE } from "@/site";
 import { getMeta, getProducts, productsOfCat } from "@/lib/data";
 import { GUIDES, GUIDE_BY_SLUG, countryName } from "@/lib/guides";
 import { guideImage, GUIDE_IMAGE_SIZE } from "@/lib/og/guide-image";
@@ -9,7 +9,7 @@ import { shareRows } from "@/lib/og/share-rows";
 // whose price differs most between stores. src/lib/og/guide-image.tsx.
 export const dynamicParams = false;
 export const generateStaticParams = () => GUIDES.map((g) => ({ slug: g.slug }));
-export const alt = "The same perfume product at different fragrance stores: cheapest and dearest price";
+export const alt = "The same car part at different parts stores: cheapest and dearest price";
 export const size = GUIDE_IMAGE_SIZE;
 export const contentType = "image/png";
 
@@ -19,10 +19,10 @@ export default function Image({ params }: { params: { slug: string } }) {
   if (!g || g.kind === "cat") {
     const c = g ? CAT_BY_KEY[g.cat] : null;
     return guideImage({
-      region: "US",
-      title: c ? `${c.plural.replace(/^./, (x) => x.toUpperCase())}: one product, many prices` : "Same barcode, different price",
+      region: DEFAULT_REGION,
+      title: c ? `${c.plural.replace(/^./, (x) => x.toUpperCase())}: one product, many prices` : "Same part, different price",
       kicker: "United States · USD",
-      rows: shareRows("US", c ? productsOfCat(c.key) : getProducts(), 5),
+      rows: shareRows(DEFAULT_REGION, c ? productsOfCat(c.key) : getProducts(), 5),
       asOf,
     });
   }
@@ -30,7 +30,7 @@ export default function Image({ params }: { params: { slug: string } }) {
   const n = g.region === "NZ" ? 2 : 3;
   return guideImage({
     region: g.region,
-    title: `Same fragrance, different price in ${countryName(g.region)}`,
+    title: `Same part, different price in ${countryName(g.region)}`,
     kicker: `${r.name} · ${r.currency}`,
     rows: shareRows(g.region, getProducts(), 5, n),
     asOf,

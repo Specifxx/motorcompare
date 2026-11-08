@@ -120,7 +120,7 @@ test("a WooCommerce product: minor units, stock, the brand attribute, SKU barcod
   assert.equal(r.listing?.vendor, "Dior");
   assert.equal(r.listing?.url, "https://w.example/product/sauvage/");
   assert.equal(wooListing(woo, wp({ prices: { price: "0", currency_code: "AUD", currency_minor_unit: 2 } }), A).refused, "no-price");
-  assert.equal(wooListing(woo, wp({ name: "Dior Sauvage EDP 100ml Tester" }), A).refused, "tester");
+  assert.equal(wooListing(woo, wp({ name: "Bosch Brake Caliper (Reconditioned, exchange)" }), A).refused, "pre-owned");
   assert.equal(wooListing(woo, wp(), null).noEan, true);
   assert.equal(wooBrand(wp({ attributes: [], brands: [{ name: "Chanel" }] })), "Chanel");
 });

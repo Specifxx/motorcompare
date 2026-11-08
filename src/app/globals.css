@@ -2,55 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
-/* MotorCompare's look (owner, 2026-11-05: KaeYoung's layout, "less peachy … blue
-   themed so it's a little more masculine", still polished enough for the women's
-   section): ice-white page, white cards with soft blue hairlines, a cobalt accent
-   for prices and buttons, and a cool pastel set (ice blue "peach", lavender, mint,
-   sand "butter", sky) for tiles and illustrations. The token names are KaeYoung's
-   so the engine's classes still work. Green only for savings. Fraunces for
-   headings, Inter for everything else. */
+/* MotorCompare's look (2026-11-08): a workshop parts counter. Cool steel-white
+   page, white cards with grey hairlines, a signal-orange accent for prices and
+   buttons, and quiet steel, amber, mint and sky tints for part tiles. The token
+   names are the engine's (KaeYoung's) so its classes still work. Green only for
+   savings. Barlow Condensed for headings (parts-catalogue lettering), Inter for
+   everything else. */
 :root {
-  --bg: 247 250 253;
+  --bg: 245 247 249;
   --card: 255 255 255;
-  --ink: 23 32 51;
-  --soft: 96 110 134;
-  --line: 226 233 243;
-  --accent: 37 99 235;
-  --accent-deep: 29 78 216;
-  --accent-pale: 229 238 255;
-  --subtle: 240 245 252;
+  --ink: 24 31 41;
+  --soft: 92 104 118;
+  --line: 222 227 233;
+  --accent: 214 82 14;
+  --accent-deep: 176 64 8;
+  --accent-pale: 253 236 225;
+  --subtle: 238 241 245;
   --save: 22 125 80;
   --save-pale: 228 245 236;
-  --ad: 246 249 254;
-  --buy: 37 99 235;
-  --peach: 232 240 250;
-  --lavender: 234 232 252;
-  --mint: 222 244 238;
-  --butter: 252 243 220;
-  --sky: 219 234 254;
+  --ad: 246 248 250;
+  --buy: 214 82 14;
+  --peach: 250 238 230;
+  --lavender: 232 236 243;
+  --mint: 224 242 234;
+  --butter: 252 242 214;
+  --sky: 226 236 250;
   --star: 232 150 38;
   color-scheme: light;
 }
 
 [data-theme="night"] {
-  --bg: 15 20 32;
-  --card: 24 31 46;
-  --ink: 236 241 248;
-  --soft: 160 172 192;
-  --line: 46 58 80;
-  --accent: 96 165 250;
-  --accent-deep: 147 197 253;
-  --accent-pale: 30 48 82;
-  --subtle: 30 40 58;
+  --bg: 16 20 26;
+  --card: 25 31 39;
+  --ink: 234 238 243;
+  --soft: 156 166 178;
+  --line: 45 54 66;
+  --accent: 255 128 60;
+  --accent-deep: 255 162 110;
+  --accent-pale: 60 36 22;
+  --subtle: 32 39 49;
   --save: 84 206 146;
   --save-pale: 22 48 36;
-  --ad: 28 36 54;
-  --buy: 96 165 250;
-  --peach: 38 52 74;
-  --lavender: 44 44 78;
-  --mint: 28 56 50;
-  --butter: 62 56 38;
-  --sky: 32 52 84;
+  --ad: 29 36 45;
+  --buy: 255 128 60;
+  --peach: 52 38 30;
+  --lavender: 38 44 56;
+  --mint: 28 54 46;
+  --butter: 58 50 30;
+  --sky: 30 44 66;
   --star: 247 186 84;
   color-scheme: dark;
 }
@@ -104,7 +103,7 @@ html:not([data-region]) .rn-US { display: none; }
     @apply inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-semibold;
   }
   .h-display {
-    @apply font-display font-medium tracking-tight;
+    @apply font-display font-semibold tracking-normal;
   }
   .tile-hover {
     @apply transition hover:-translate-y-0.5 hover:border-accent/30 hover:shadow-[0_10px_30px_-14px_rgb(var(--accent)/0.45)];
@@ -218,7 +217,7 @@ html[data-season="christmas"] .sc-holiday {
   --fm-on-accent: rgb(var(--card));
   --fm-accent-soft: rgb(var(--accent-pale));
   --fm-radius: 16px;
-  --fm-head: "Fraunces Variable", Georgia, serif;
+  --fm-head: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
 }
 
 /* Rate us card and "What people say" (components/site-reviews): drawn in the site's own theme, light and night. */

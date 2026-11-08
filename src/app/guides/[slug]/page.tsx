@@ -46,7 +46,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
           title={g.title}
           sub={
             <p>
-              The {c.plural} stocked by the most stores {updated ? `as of ${updated}` : "today"}, cheapest first, with where each is cheapest and how much you save over the dearest store. Same barcode, same size: only the price differs. See every product in{" "}
+              The {c.plural} stocked by the most stores {updated ? `as of ${updated}` : "today"}, cheapest first, with where each is cheapest and how much you save over the dearest store. Same part number, same size: only the price differs. See every product in{" "}
               <Link prefetch={false} href={`/${c.key}`} className="font-medium text-ink underline underline-offset-4">
                 {c.name}
               </Link>
@@ -78,7 +78,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       <PageHead
         eyebrow="Price guide"
         title={g.title}
-        sub={`${stores.length} specialist fragrance stores sell in ${countryName(g.region)} in ${r.currency}. Here is who they are, which is cheapest for the best-known products, and today's biggest price gaps${updated ? `, as of ${updated}` : ""}.`}
+        sub={`${stores.length} parts stores sell in ${countryName(g.region)} in ${r.currency}. Here is who they are, which is cheapest for the best-known products, and today's biggest price gaps${updated ? `, as of ${updated}` : ""}.`}
       />
       <section className="mb-10">
         <h2 className="h-display mb-3 text-xl">The stores</h2>
@@ -96,7 +96,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       {gaps.length > 0 && (
         <section className="mb-10">
           <h2 className="h-display mb-3 text-xl">Same product, different price</h2>
-          <p className="mb-3 text-sm text-soft">Well-known products where one store charges much less than another for the same barcode and size. These are the rows on this guide&apos;s share card.</p>
+          <p className="mb-3 text-sm text-soft">Well-known products where one store charges much less than another for the same part and size. These are the rows on this guide&apos;s share card.</p>
           <PriceList region={g.region} products={gaps} />
         </section>
       )}

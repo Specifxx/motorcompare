@@ -4,8 +4,8 @@ import { getBrands } from "@/lib/data";
 import { PageHead } from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "Perfume brands: compare prices by brand",
-  description: "Every perfume and fragrance brand MotorCompare compares, A to Z, with how many of its products are priced across stores today.",
+  title: "Car parts brands: compare prices by brand",
+  description: "Every car parts, oil and care brand MotorCompare compares, A to Z, with how many of its products are priced across stores today.",
   alternates: { canonical: "/brands" },
 };
 
@@ -18,7 +18,7 @@ export default function Brands() {
   }
   return (
     <div className="mx-auto max-w-6xl px-4">
-      <PageHead eyebrow="Brands" title="Perfume brands" sub={`${brands.length} brands with three or more products compared across stores. The most stocked first, then A to Z.`} />
+      <PageHead eyebrow="Brands" title="Car parts brands" sub={`${brands.length} brands with three or more products compared across stores. The most stocked first, then A to Z.`} />
       <section className="mb-10 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {brands.slice(0, 12).map((b) => (
           <Link key={b.slug} prefetch={false} href={`/brands/${b.slug}`} className="card tile-hover p-4">

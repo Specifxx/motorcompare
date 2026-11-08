@@ -58,12 +58,14 @@ test("basket: the store with everything and the lowest total with delivery first
   assert.deepEqual(r[3].has, [0]);
 });
 
-test("FragranceX and FragranceNet always show, unpaid until their program accepts us; others only once paid", () => {
-  const none = partnersFor("AU", "Dior Sauvage", "sc-au-t", {});
-  assert.deepEqual(none.map((x) => [x.p.key, x.paid]), [["fragrancex", false], ["fragrancenet", false]]);
-  assert.match(none[0].href, /^https:\/\/www\.fragrancex\.com\/search\/search_results\?stext=Dior%20Sauvage$/);
-  const paid = partnersFor("AU", "Sauvage", "s", { AFF_FRAGRANCENET: "https://n.example/?u={url}", AFF_ADOREBEAUTY: "https://n.example/?u={url}" });
-  assert.deepEqual(paid.map((x) => [x.p.key, x.paid]), [["fragrancex", false], ["fragrancenet", true], ["adorebeauty", true]]);
+test("Supercheap Auto, Repco and Sparesbox always show, unpaid until a program accepts us", () => {
+  const none = partnersFor("AU", "Penrite HPR 5", "mc-au-t", {});
+  assert.deepEqual(none.map((x) => [x.p.key, x.paid]), [["supercheap", false], ["repco", false], ["sparesbox", false]]);
+  assert.match(none[0].href, /^https:\/\/www\.supercheapauto\.com\.au\/search\?q=Penrite%20HPR%205$/);
+  const paid = partnersFor("AU", "Penrite", "s", { AFF_SUPERCHEAP: "https://t.cfjump.com/1/t/2?Url={url}" });
+  assert.deepEqual(paid.map((x) => [x.p.key, x.paid]), [["supercheap", true], ["repco", false], ["sparesbox", false]]);
+  assert.equal(decodeURIComponent(new URL(paid[0].href).searchParams.get("Url")!), "https://www.supercheapauto.com.au/search?q=Penrite");
+  assert.deepEqual(partnersFor("US", "Penrite", "s", {}), [], "Australia only");
 });
 
 test("ops monitor watches the weekly delivery quotes", () => {

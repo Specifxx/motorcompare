@@ -1206,3 +1206,25 @@ logo, candy-cane stripes and seasonal palette swaps) is gone, with its art in `p
 touch, drawn in the site's own colours: "The Holiday Edit" line above the hero (`.sc-holiday-pill`), a plain pill on the site's own hairline. The snow canvas (`HeroSnow`), gold glints and snowflakes, tree, cane and stockings, header hairline and warm wash are gone. It still starts and ends by itself (`lib/season.ts`, 1 November to
 Boxing Day), and the tests pin that nothing else comes back. Black Friday and Cyber Monday (strip, pages, nav) are
 unchanged. The same rule went to every sister site: the site's own identity first.
+
+## 2026-11-08: MotorCompare starts from ScentCompare's engine, Australia only
+
+The owner asked for a car parts price comparison site: AU only to keep the scope small, 20 to 100 stores, the
+affiliate rows visible from day one (eBay, Amazon, Supercheap Auto) but no keys yet, no ad banners, the vercel.app
+host until motorcompare.app is bought.
+
+- **Engine:** ScentCompare's static engine, because car parts are boxed goods with barcodes, like perfume: one
+  product per EAN, every Shopify variant its own listing, no title matching. Fragrance-only features (scent notes,
+  "smells like", the forum, widgets, price reports, Valentine's and Lunar New Year pages, the blog posts) are
+  removed, not hidden.
+- **Fit:** we never claim a part fits a car. Each product shows the code a buyer can read off the old part (oil
+  grade, battery code, wiper length, globe code, filter number, from `partCode` in `src/lib/title.ts`) and says to
+  check it. Make-and-model fitment would need a licensed catalogue; that is a later decision for the owner.
+- **Big chains:** Supercheap Auto, Repco and Sparesbox can't be read (custom platforms), so each is an unpaid search
+  row above the stores (`PARTNERS`, `always: true`). Supercheap pays through Commission Factory once it accepts us:
+  `AFF_SUPERCHEAP` then holds the tracking template and the row says "Paid link".
+- **Regions:** `REGIONS` is AU only and every visitor gets it; `ALL_REGIONS` keeps the engine's other regions so
+  shared helpers (money, Amazon hosts) still work if a region is ever added.
+- **No banners:** `SITE.sideRails = false` turns off the eBay/Amazon side rails and the phone dock.
+- **Look:** steel greys, signal orange, Barlow Condensed headings; icon options in `docs/icon-options/`, the gauge
+  is the default until the owner picks.

@@ -24,16 +24,20 @@ export function fitDescription(...candidates: string[]): string {
   return last.slice(0, DESCRIPTION_MAX - 1).replace(/\s+\S*$/, "") + "…";
 }
 
-/** Each section's search phrase, singular as people type it ("women's perfume prices"), each under 45 characters so
+/** Each section's search phrase, singular as people type it ("women's prices"), each under 45 characters so
  *  the hub's title keeps " | MotorCompare" (2026-11-06; the plurals read "Women's perfumes prices"). */
 export const CAT_SEO: Record<CatKey, string> = {
-  women: "Women's perfume prices",
-  men: "Men's cologne & aftershave prices",
-  unisex: "Unisex fragrance prices",
-  sets: "Perfume gift set prices",
-  minis: "Travel spray & mini perfume prices",
-  body: "Body mist & scented body care prices",
-  other: "Candle, home scent & discovery set prices",
+  oil: "Engine oil prices in Australia",
+  batteries: "Car battery prices in Australia",
+  wipers: "Wiper blade prices in Australia",
+  globes: "Headlight globe prices",
+  filters: "Oil, air & cabin filter prices",
+  plugs: "Spark plug prices in Australia",
+  brakes: "Brake pad & rotor prices",
+  fluids: "Coolant & transmission fluid prices",
+  care: "Car care & detailing prices",
+  accessories: "Jump starter & 12V accessory prices",
+  other: "Car parts prices",
 };
 
 export const ldJson = (obj: unknown) => JSON.stringify(obj).replace(/</g, "\\u003c");

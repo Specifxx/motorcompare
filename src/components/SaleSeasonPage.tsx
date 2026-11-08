@@ -15,8 +15,8 @@ const PLACES = listRegions(REGIONS.map((r) => r.phrase.replace(/^(in|from) /, ""
 export function saleMetadata(slug: SaleSlug): Metadata {
   const y = year(slug);
   return {
-    title: `Fragrance ${saleHeading(slug, y)}`,
-    description: `${SALE_SEASONS[slug].name} ${y} perfume deals: in stock today and at least 10% under the dearest store. Same barcode, same size, updated daily.`,
+    title: `Car parts ${saleHeading(slug, y)}`,
+    description: `${SALE_SEASONS[slug].name} ${y} car parts deals: in stock today and at least 10% under the dearest store. Same part number, same size, updated daily.`,
     alternates: { canonical: `/${slug}` },
   };
 }
@@ -27,11 +27,11 @@ export function SaleSeasonPage({ slug }: { slug: SaleSlug }) {
     <div className="mx-auto max-w-6xl px-4">
       <PageHead
         eyebrow={SALE_SEASONS[slug].name}
-        title={`Fragrance ${saleHeading(slug, y)}`}
+        title={`Car parts ${saleHeading(slug, y)}`}
         sub={
           <>
             {saleIntro(slug, y, PLACES)} These are
-            today&apos;s in-stock products where the cheapest store is at least 10% under the dearest in your region: same barcode, same size. The page updates every
+            today&apos;s in-stock products where the cheapest store is at least 10% under the dearest in your region: same part number, same size. The page updates every
             day through the sales. We only see what a store asks when we read its prices, so check the store&apos;s page before you buy.
           </>
         }
@@ -45,7 +45,7 @@ export function SaleSeasonPage({ slug }: { slug: SaleSlug }) {
         );
       })}
       <p className="mt-8 text-sm text-soft">
-        <Link prefetch={false} href="/black-friday" className="underline">Black Friday deals</Link> · <Link prefetch={false} href="/deals" className="underline">fragrance deals today</Link> · <Link prefetch={false} href="/popular" className="underline">Popular products</Link> ·{" "}
+        <Link prefetch={false} href="/black-friday" className="underline">Black Friday deals</Link> · <Link prefetch={false} href="/deals" className="underline">car parts deals today</Link> · <Link prefetch={false} href="/popular" className="underline">Popular products</Link> ·{" "}
         <Link prefetch={false} href="/stores" className="underline">Stores we compare</Link>
       </p>
     </div>

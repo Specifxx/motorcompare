@@ -11,6 +11,7 @@ import { dealsIn, getProducts, newestIn } from "@/lib/data";
 import { ebayPick, ebayQuotaDay, planEbay, type EbayItem, type EbayPrio } from "@/lib/ebay";
 import { popularity, popularNow } from "@/lib/ratings";
 import { featuredIn, isFeatured } from "@/lib/featured";
+import { partNoOf } from "@/lib/partno";
 import type { EbayData, Meta } from "@/lib/types";
 
 const DATA = path.join(process.cwd(), "data");
@@ -97,7 +98,10 @@ async function main() {
   for (const { f, region } of plan) {
     const m = MARKET[region]!;
     const cur = REGIONS.find((r) => r.code === region)!.currency;
-    const url = `https://api.ebay.com/buy/browse/v1/item_summary/search?gtin=${f.ean}&limit=25&sort=price&filter=${encodeURIComponent(`buyingOptions:{FIXED_PRICE},conditionIds:{1000},deliveryCountry:${m.country},priceCurrency:${cur}`)}`;
+    // A part key (lib/partno.ts) is searched by brand + part number, and a title must carry both (ebayPick's `mustName`).
+    const pn = partNoOf(f.ean);
+    const what = pn ? `q=${encodeURIComponent(`${f.brand} ${pn}`)}` : `gtin=${f.ean}`;
+    const url = `https://api.ebay.com/buy/browse/v1/item_summary/search?${what}&limit=25&sort=price&filter=${encodeURIComponent(`buyingOptions:{FIXED_PRICE},conditionIds:{1000},deliveryCountry:${m.country},priceCurrency:${cur}`)}`;
     calls++;
     const r = await fetch(url, {
       headers: {
@@ -116,7 +120,7 @@ async function main() {
       continue;
     }
     const items = ((await r.json()) as { itemSummaries?: EbayItem[] }).itemSummaries ?? [];
-    const pick = ebayPick(items, f.offers[region] ?? [], region);
+    const pick = ebayPick(items, f.offers[region] ?? [], region, pn ? { brand: f.brand, pn } : undefined);
     const entry = (data[f.ean] ??= {});
     if (pick) entry[region] = pick;
     else delete entry[region];

@@ -1,4 +1,4 @@
-import { SITE } from "@/site";
+import { DEFAULT_REGION, SITE } from "@/site";
 import { getMeta, getProducts } from "@/lib/data";
 import { heroPicks } from "@/lib/hero-picks";
 import { homeImage, HOME_IMAGE_SIZE, photoDataUri } from "@/lib/og/home-image";
@@ -7,21 +7,21 @@ import { homeImage, HOME_IMAGE_SIZE, photoDataUri } from "@/lib/og/home-image";
 // brand line beside the two products the hero shows, with their photos,
 // cheapest US price and store count (owner, 2026-11-05). Drawn at the day's
 // build, never per request (no params: a static route). src/lib/og/home-image.tsx.
-export const alt = "MotorCompare: perfume prices compared across fragrance stores, matched by barcode";
+export const alt = "MotorCompare: prices compared across parts stores, matched by part number";
 export const size = HOME_IMAGE_SIZE;
 export const contentType = "image/png";
 
 export default async function Image() {
-  const picks = heroPicks("US", getProducts(), 2);
+  const picks = heroPicks(DEFAULT_REGION, getProducts(), 2);
   const photos = await Promise.all(picks.map((p) => photoDataUri(p.f.img)));
   return homeImage({
-    region: "US",
+    region: DEFAULT_REGION,
     picks: picks.map((pick, i) => ({ pick, photo: photos[i] })),
     asOf: getMeta()?.updatedAt ?? null,
     brand: SITE.name,
     line1: "Smell expensive.",
     line2: "Pay less.",
-    blurb: "Perfume and cologne prices from real fragrance stores, side by side. Matched by the barcode on the box.",
+    blurb: "Car part prices from Australian parts stores, side by side. Matched part for part.",
     domain: "motorcompare.vercel.app",
   });
 }

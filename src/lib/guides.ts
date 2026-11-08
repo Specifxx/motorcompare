@@ -1,7 +1,7 @@
 // The price guides: pages written from the day's data, never by hand, so
 // every number on them is a real store price (the Compare Empire AU guide
 // playbook). Two kinds: per section ("Cheapest men's cologne today") and
-// per region ("Where to buy perfume in Australia").
+// per region ("Where to buy car parts in Australia").
 import { CATEGORIES, REGIONS, type CatKey, type RegionCode } from "@/site";
 
 export type Guide =
@@ -17,16 +17,16 @@ export const GUIDES: Guide[] = [
       kind: "cat",
       cat: c.key,
       title: `Cheapest ${c.plural} today: the most-stocked, compared`,
-      description: `The ${c.plural} most fragrance stores carry, with the lowest price, the cheapest store and the saving in your region. From today's prices.`,
+      description: `The ${c.plural} most parts stores carry, with the lowest price, the cheapest store and the saving in your region. From today's prices.`,
     }),
   ),
   ...REGIONS.map(
     (r): Guide => ({
-      slug: `buy-perfume-${COUNTRY[r.code].replace(/^the /, "").toLowerCase().replace(/\s+/g, "-")}`,
+      slug: `buy-car-parts-${COUNTRY[r.code].replace(/^the /, "").toLowerCase().replace(/\s+/g, "-")}`,
       kind: "region",
       region: r.code,
-      title: `Where to buy perfume in ${COUNTRY[r.code]}`,
-      description: `The fragrance stores that sell in ${COUNTRY[r.code]} in ${r.currency}, which one is cheapest for the best-known products, and today's biggest savings.`,
+      title: `Where to buy car parts in ${COUNTRY[r.code]}`,
+      description: `The parts stores that sell in ${COUNTRY[r.code]} in ${r.currency}, which one is cheapest for the best-known products, and today's biggest savings.`,
     }),
   ),
 ];

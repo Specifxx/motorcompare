@@ -29,7 +29,7 @@ export default {
       },
       fontFamily: {
         sans: ['"Inter Variable"', "system-ui", "Segoe UI", "Arial", "sans-serif"],
-        display: ['"Fraunces Variable"', "Georgia", "Times New Roman", "serif"],
+        display: ['"Barlow Condensed"', "Arial Narrow", "Arial", "sans-serif"],
       },
       borderRadius: { blob: "14px" },
       boxShadow: {

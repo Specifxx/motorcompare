@@ -1,21 +1,9 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { partnerProductUrl, partnersFor, PARTNERS } from "@/lib/affiliate";
-import { feedHeader, keepRow, byBrandName, nameIndex, nameKey, partnerPriceIn, productLink, rowBarcode, splitCells, type PartnerPricesFile } from "@/lib/partner-feed";
+import { feedHeader, keepRow, partnerPriceIn, productLink, rowBarcode, splitCells, type PartnerPricesFile } from "@/lib/partner-feed";
 import { judgePartnerFeeds } from "../scripts/ops-monitor";
 
-const sv = PARTNERS.find((p) => p.key === "stylevana")!;
 const EAN = "3348901250146";
-
-test("Stylevana is feed-only: never a search row, a product link through Awin 90791 with our clickref", () => {
-  assert.ok(!partnersFor("US", "Dior Sauvage", "sc-us-t", {}).some((x) => x.p.key === "stylevana"));
-  const u = new URL(partnerProductUrl(sv, "https://www.stylevana.com/en_US/x.html", "sc-us-table_pinned-1", {})!);
-  assert.equal(u.host, "www.awin1.com");
-  assert.equal(u.searchParams.get("awinmid"), "90791");
-  assert.equal(u.searchParams.get("awinaffid"), "3144410");
-  assert.equal(u.searchParams.get("clickref"), "sc-us-table_pinned-1");
-  assert.equal(u.searchParams.get("ued"), "https://www.stylevana.com/en_US/x.html");
-});
 
 test("Awin CSV header and quoted cells", () => {
   const h = feedHeader(splitCells("aw_deep_link,product_name,search_price,currency,ean,in_stock,merchant_deep_link", ",").cells);
@@ -64,25 +52,3 @@ test("both stock columns must say in stock", () => {
   assert.equal(keepRow({ ...row, stock: "0", stockStatus: "in stock" }, stores), null);
 });
 
-test("brand + name fallback: only without a barcode, exact and unique", () => {
-  const products = [
-    { ean: EAN, brand: "Dior", name: "Dior Sauvage Eau de Parfum 100ml" },
-    { ean: "3348901250153", brand: "Dior", name: "Dior Sauvage Eau de Toilette 100ml" },
-    { ean: "3348901368247", brand: "Dior", name: "Dior Sauvage Elixir 60ml" },
-    { ean: "3614272049529", brand: "Ralph Lauren", name: "Ralph Lauren Polo Blue EDT 125ml" },
-    { ean: "3614272049536", brand: "Ralph Lauren", name: "Ralph Lauren Polo Blue Eau de Toilette 125 ml" },
-  ];
-  const idx = nameIndex(products);
-  assert.equal(byBrandName(idx, "Dior", "SAUVAGE EDP 3.4 oz"), EAN);
-  assert.equal(byBrandName(idx, "Dior", "Sauvage EDT 100ml"), "3348901250153");
-  assert.equal(byBrandName(idx, "Dior", "Sauvage EDP 50ml"), null, "another size");
-  assert.equal(nameKey("Dior", "Sauvage Eau de Parfum"), null, "no size, no key");
-  const stores = (r: string, e: string) => (r === "US" && e === EAN ? [9000, 10000, 11000] : [9000]);
-  const row = { brand: "Dior", name: "Sauvage Eau de Parfum 100ml", price: "95.00", currency: "USD", stock: "1", link: "https://www.stylevana.com/en_US/x.html" };
-  assert.deepEqual(keepRow(row, stores, undefined, idx), { region: "US", ean: EAN, p: 9500, u: row.link, by: "name" });
-  assert.equal(keepRow(row, stores, undefined, undefined), null, "no index, no fallback");
-  assert.equal(keepRow({ ...row, name: "Sauvage Eau de Parfum 100ml Tester" }, stores, undefined, idx), null, "a tester never");
-  assert.equal(keepRow({ ...row, name: "Sauvage Eau de Parfum Intense 100ml" }, stores, undefined, idx), null, "an extra word is another product");
-  assert.equal(keepRow({ ...row, brand: "Ralph Lauren", name: "Polo Blue EDT 125ml" }, stores, undefined, idx), null, "two products share the key: no match");
-  assert.equal(keepRow({ ...row, ean: "3348901250153" }, () => [9000, 10000, 11000], undefined, idx)?.ean, "3348901250153", "a barcode beats the name");
-});

@@ -20,38 +20,34 @@ import { SiteReviews } from "@/components/site-reviews/SiteReviews";
 
 export const metadata: Metadata = {
   // 60 characters, keyword first, brand last (SEO audit, 2026-11-03).
-  title: { absolute: `Perfume Price Comparison: Fragrance Stores | ${SITE.name}` },
+  title: { absolute: `Car Parts Price Comparison Australia | ${SITE.name}` },
   description: SITE.description,
   alternates: { canonical: "/" },
 };
 
-/**
- * The homepage's section tiles (owner, 2026-11-05: women's, men's cologne and unisex, "so it's not mainly targeting
- * women but all genders"). The three sections for people lead, then the extras; "More fragrance" is reachable from the
- * nav and the sections' pages.
- */
-const HOME_STEPS: CatKey[] = ["women", "men", "unisex", "sets", "minis", "body"];
+/** The homepage's category tiles: the easy-fit consumables first. */
+const HOME_STEPS: CatKey[] = ["oil", "batteries", "wipers", "globes", "filters", "plugs", "brakes", "fluids", "care", "accessories"];
 
 const FAQ: [string, string][] = [
   [
-    "Where is the cheapest place to buy perfume?",
-    "It depends on the bottle and where you live: a different fragrance store is cheapest for different scents, and prices move every week. We compare every store's own price for the same barcode, bottle size by bottle size, every day, and show the cheapest in-stock store first for your country.",
+    "Where is the cheapest place to buy car parts in Australia?",
+    "It depends on the part: a different store is cheapest for different parts, and the chains run new promotions every week. We compare each store's own price for the same part, matched by the maker's part number, and show the cheapest in-stock store first.",
   ],
   [
-    "Are the fragrances genuine?",
-    "We only list real fragrance stores selling new, boxed bottles, never open marketplaces where fakes hide. A listing is matched only by the barcode on the box, so testers, unboxed bottles, decants, samples, dupes and damaged stock are left out.",
+    "How do I know a part fits my car?",
+    "We start with parts whose fit is a code you can read yourself: the oil grade in your owner's manual, the size printed on your old battery, the length of your old wiper blade, the code on your old globe and the number on your old filter. Always check that code against the part before you buy.",
   ],
   [
-    "Is it for men, women or both?",
-    "All three. Fragrances sold for men are in Men's cologne, those sold for women in Women's perfume, and everything sold for anyone, including most niche houses, in Unisex. Gift sets, travel sprays and body mists have their own sections.",
+    "Do the prices include delivery?",
+    "No. They are each store's listed price in Australian dollars. Delivery costs and click and collect differ by store, so check the checkout before you buy.",
   ],
   [
-    "Do the prices include shipping?",
-    "No. They are each store's listed item price in its own currency, never converted. Shipping and free-delivery thresholds differ by store, so check the checkout before you buy.",
+    "Which stores do you compare?",
+    "Australian car parts, battery, oil, lighting and car care stores that sell online, listed on our stores page. eBay and Amazon rows are labelled as ads and never count as the cheapest store.",
   ],
   [
-    "Which countries do you compare?",
-    "The United States, the United Kingdom, Canada, Australia, New Zealand and Europe. Each country compares only the stores that sell there in its own currency.",
+    "Is MotorCompare free?",
+    "Yes. Some store links earn us a small commission when you buy, at no cost to you. It never changes the order: stores are always sorted by price.",
   ],
 ];
 
@@ -62,8 +58,6 @@ export default function Home() {
   const stores = Object.keys(activeStores()).length;
   const counts = catCounts();
   const brands = getBrands().slice(0, 16);
-  // The Holiday Edit line goes to the gift sets post once it is live (it is dated), else to the gift sets section.
-  const giftHref = POST_BY_SLUG["fragrance-gift-sets-priced"] ? "/blog/fragrance-gift-sets-priced" : "/sets";
   return (
     <>
       <section className="sc-hero wash relative overflow-hidden border-b border-line">
@@ -73,27 +67,19 @@ export default function Home() {
           <div className="min-w-0">
             {/* The creators hub, above the fold (owner, 2026-11-03): top-right corner of the hero from sm, a pill above the holiday line on a phone. */}
             <CreatorsCornerBadge />
-            <p className="sc-holiday mb-4">
-              <Link prefetch={false} href={giftHref} className="sc-holiday-pill">
-                <b>The Holiday Edit</b>
-                <span className="hidden sm:inline">· fragrance gift sets, cheapest store first →</span>
-              </Link>
-            </p>
-            <p className="mo-enter eyebrow mb-4 text-accent-deep">Perfume and cologne price comparison</p>
+            <p className="mo-enter eyebrow mb-4 text-accent-deep">Car parts price comparison · Australia</p>
             <h1 className="mo-enter h-display max-w-3xl [--mo-d:1] text-[2.4rem] leading-[1.05] sm:text-6xl">
-              Smell expensive. <span className="mo-shine italic text-accent">Pay less.</span>
+              The right part. <span className="mo-shine text-accent">The best price.</span>
             </h1>
             <p className="mo-enter mt-5 max-w-xl text-lg leading-relaxed text-soft [--mo-d:2]">
-              Every fragrance store&apos;s price for the same bottle, side by side: women&apos;s, men&apos;s and unisex. {stores ? `${stores} stores` : "Real stores"}, matched by the barcode on the box and checked every day.
+              Oil, batteries, wipers, globes, filters and more: every parts store&apos;s price for the same product, side by side. {stores ? `${stores} Australian stores` : "Australian stores"}, matched part for part and checked every day.
             </p>
-            <RegionChips className="mo-enter mt-6 [--mo-d:2]" />
-            <div className="mo-enter mt-4 max-w-xl [--mo-d:3]">
+                        <div className="mo-enter mt-4 max-w-xl [--mo-d:3]">
               <SearchBox big />
             </div>
             <div className="mo-enter mt-6 flex flex-wrap items-center gap-2 text-sm text-soft [--mo-d:4]">
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{total.toLocaleString("en-US")}</b> products</span>
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{stores}</b> stores</span>
-              <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{ACTIVE_REGIONS.length}</b> countries</span>
               {meta && <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line">Checked {ago(meta.updatedAt)}</span>}
             </div>
           </div>
@@ -107,7 +93,7 @@ export default function Home() {
 
       <div className="mx-auto max-w-6xl px-4">
         <section className="mt-10">
-          <h2 data-reveal className="h-display mb-4 text-2xl">Shop by section</h2>
+          <h2 data-reveal className="h-display mb-4 text-2xl">Shop by part</h2>
           <div data-reveal="stagger" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
             {HOME_STEPS.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).map((c) => (
               <Link prefetch={false} key={c.key} href={`/${c.key}`} className={`tile-hover flex items-center gap-3 rounded-2xl px-3.5 py-3.5 ${CAT_TINT[c.key]}`}>
@@ -124,7 +110,7 @@ export default function Home() {
         </section>
 
         {REGIONS.map((r) => {
-          // Only products of about US$20 or more are featured here (owner, 2026-11-06, lib/featured.ts).
+          // Featured products (lib/featured.ts).
           const feat = featuredIn(r.code, all);
           const deals = dealsIn(r.code, 8, feat).map((d) => d.f);
           const pop = popularNow(r.code, 8, feat);
@@ -132,12 +118,12 @@ export default function Home() {
           return (
             <div key={r.code} className={`rp rp-${r.code}`}>
               {pop.length > 0 && (
-                <Section title={`Popular ${r.phrase}`} sub="The bestsellers: stocked by the most stores and rated by shoppers." href="/popular" more="All popular">
+                <Section title={`Popular ${r.phrase}`} sub="Stocked by the most stores." href="/popular" more="All popular">
                   <TileGrid products={pop} region={r.code} />
                 </Section>
               )}
               {deals.length > 0 && (
-                <Section title={`Biggest savings ${r.phrase}`} sub="Same barcode, same bottle, at least 10% cheaper at one store." href="/deals" more="All deals">
+                <Section title={`Biggest savings ${r.phrase}`} sub="Same part, at least 10% cheaper at one store." href="/deals" more="All deals">
                   <TileGrid products={deals} region={r.code} />
                 </Section>
               )}
@@ -147,7 +133,7 @@ export default function Home() {
                 </Section>
               )}
               {!deals.length && !pop.length && (
-                <p className="card mt-10 p-6 text-center text-soft">No store {r.phrase} has products in stock right now. Try another region.</p>
+                <p className="card mt-10 p-6 text-center text-soft">No store has products in stock right now.</p>
               )}
             </div>
           );
@@ -171,9 +157,9 @@ export default function Home() {
           <h2 data-reveal className="h-display mb-6 text-2xl sm:text-3xl">How MotorCompare works</h2>
           <ol data-reveal="stagger" className="grid gap-4 sm:grid-cols-3">
             {[
-              ["Matched by barcode", "Every listing is matched on the barcode printed on the box, bottle size by bottle size. No barcode, no match: we never guess from a title."],
-              ["Real fragrance stores", "Perfume shops selling new, boxed bottles. No decants, testers or dupes, and no open marketplaces, where fakes hide. Paid links are labelled."],
-              ["Checked every day", "Prices and stock are re-read daily, and each product keeps its price history, so you can tell a real deal from a usual price."],
+              ["Matched part for part", "Every listing is matched on the brand and the maker's own part number (or the barcode on the box). No exact number, no match: we never guess from a title, because a wrong part is worse than no price."],
+              ["Fit you can check", "Each part shows the code that decides fit: oil grade, battery size, wiper length, globe code or filter number. Check it against your old part."],
+              ["Checked every day", "Prices and stock are re-read daily, and each product keeps its price history, so you can tell a real deal from the usual promo price."],
             ].map(([t, d], i) => (
               <li key={t} className={`rounded-2xl p-5 ${["tint-rose", "tint-lavender", "tint-mint"][i]}`}>
                 <span className="text-sm font-semibold tabular-nums text-accent-deep">0{i + 1}</span>

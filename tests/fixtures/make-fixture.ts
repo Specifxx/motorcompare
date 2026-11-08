@@ -7,10 +7,10 @@ import type { History, Meta, Product } from "@/lib/types";
 import { summarize, type ReviewsFile } from "@/lib/reviews";
 import { CATEGORIES, type RegionCode } from "@/site";
 
-const names = ["Sample Eau de Parfum for Women", "Test Eau de Toilette for Men", "Fixture Unisex Extrait", "Demo Gift Set", "Example Travel Spray", "Mock Body Mist", "Placeholder Cologne for Men", "Stub Parfum for Women", "Dummy Oud Unisex", "Trial Aftershave", "Proto Candle", "Beta Hair Mist"];
+const names = ["Sample 5W-30 Engine Oil 5L", "Test N70ZZ Car Battery", "Fixture Wiper Blade 600mm", "Demo H4 Headlight Globe", "Example Z386 Oil Filter", "Mock Iridium Spark Plug", "Placeholder Brake Pads", "Stub Long Life Coolant 5L", "Dummy Car Wash 2L", "Trial Jump Starter", "Proto Cabin Filter", "Beta Brake Fluid 500ml"];
 const brands = ["Brand Alpha", "Brand Beta", "Brand Gamma"];
-const stores: Record<RegionCode, string[]> = { US: ["us-a", "us-b", "us-c"], UK: ["uk-a", "uk-b"], CA: ["ca-a", "ca-b"], AU: ["au-a", "au-b", "au-c"], NZ: ["nz-a", "nz-b"], EU: ["eu-a", "eu-b"] };
-const base: Record<RegionCode, number> = { US: 2199, UK: 1799, CA: 2899, AU: 3295, NZ: 3495, EU: 1999 };
+const stores: Partial<Record<RegionCode, string[]>> = { AU: ["au-a", "au-b", "au-c"] };
+const base: Partial<Record<RegionCode, number>> = { AU: 3295 };
 
 function ean(prefix: string): string {
   const d = prefix.padEnd(12, "0").slice(0, 12);
@@ -21,29 +21,28 @@ function ean(prefix: string): string {
 
 const products: Product[] = names.map((n, i) => {
   const brand = brands[i % 3];
-  const name = `${brand} ${n} 100ml`;
+  const name = `${brand} ${n}`;
   const offers: Product["offers"] = {};
-  (Object.keys(stores) as RegionCode[]).forEach((r, k) => {
-    if ((i + k) % 5 === 4) return;
-    offers[r] = stores[r].map((s, j) => ({ s, p: base[r] + j * 300 - (i % 4) * 100, st: (i + j) % 7 === 3 ? "out" : "in", u: `https://example.com/${s}/${i}` }));
+  (Object.keys(stores) as RegionCode[]).forEach((r) => {
+    offers[r] = stores[r]!.map((s, j) => ({ s, p: base[r]! + j * 300 - (i % 4) * 100, st: (i + j) % 7 === 3 ? "out" : "in", u: `https://example.com/${s}/${i}` }));
   });
   return {
-    ean: ean(`33480000${String(i).padStart(4, "0")}`),
+    ean: ean(`93000000${String(i).padStart(4, "0")}`),
     slug: name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
     name,
     brand,
     b: brand.toLowerCase().replace(/\s+/g, "-"),
     cat: CATEGORIES[i % (CATEGORIES.length - 1)].key,
-    size: "100ml",
+    size: null,
     img: null,
     first: `2026-10-${String(10 + i).padStart(2, "0")}`,
     offers,
   };
 });
-const history: History = Object.fromEntries(products.map((f) => [f.ean, { US: [[20740, 2599], [20750, 2399], [20755, f.offers.US?.[0]?.p ?? 2199]] }]));
+const history: History = Object.fromEntries(products.map((f) => [f.ean, { AU: [[20740, 3599], [20750, 3399], [20755, f.offers.AU?.[0]?.p ?? 3295]] }]));
 const meta: Meta = { updatedAt: "2026-10-30T08:00:00Z", products: products.length, stores: {} };
 // Obviously synthetic ratings on the first three products (one with too few for review schema).
-const said = ["Fixture review: lasts all day, soft sillage, exactly like the boutique bottle.", "Fixture review: fine, but the bottle is small for the price."];
+const said = ["Fixture review: fitted in five minutes, same as the old one.", "Fixture review: fine, but dearer than the shop down the road."];
 const reviews: ReviewsFile = {
   exportedAt: "2026-10-30T08:00:00Z",
   held: 0,
@@ -71,10 +70,7 @@ fs.writeFileSync(
     {
       "au-a": quote("Sydney", 995, 7990, 7490),
       "au-b": quote("Sydney", 0, 500, 0),
-      "au-c": quote("Sydney", 1200, null, 25000),
-      "us-a": quote("New York", 599, 5000, 4800),
-      "us-b": quote("New York", 0, 1000, 0),
-      "uk-a": quote("London", 299, 3500, 3300),
+      "au-c": quote("Sydney", 1200, null, 25000)
     },
     null,
     1,

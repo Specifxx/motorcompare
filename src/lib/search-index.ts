@@ -4,6 +4,7 @@ import { brandPages, getProducts } from "./data";
 import { lowestOrderable } from "./history";
 import { popularity, reviewsOf } from "./ratings";
 import type { IndexRow } from "./browse";
+import { partNoOf } from "./partno";
 
 export function indexRows(): IndexRow[] {
   const pages = brandPages();
@@ -14,6 +15,6 @@ export function indexRows(): IndexRow[] {
       if (low) prices[r.code] = low.p;
     }
     const rv = reviewsOf(f);
-    return [f.slug, f.name, f.cat, f.ean, prices, f.brand, f.b && pages.has(f.b) ? f.b : "", rv ? Math.round(rv.avg * 10) : 0, rv?.n ?? 0, Math.round(popularity(f) * 10) / 10, f.first, ""];
+    return [f.slug, f.name, f.cat, f.ean, prices, f.brand, f.b && pages.has(f.b) ? f.b : "", rv ? Math.round(rv.avg * 10) : 0, rv?.n ?? 0, Math.round(popularity(f) * 10) / 10, f.first, partNoOf(f.ean)?.toLowerCase() ?? ""];
   });
 }

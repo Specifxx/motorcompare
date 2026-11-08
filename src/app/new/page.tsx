@@ -5,8 +5,8 @@ import { TileGrid } from "@/components/ProductTile";
 import { PageHead } from "@/components/Section";
 
 export const metadata: Metadata = {
-  title: "New perfume in stores",
-  description: "Fragrances that just appeared at two or more stores, newest first, with every store's price compared.",
+  title: "New car parts in stores",
+  description: "Parts that just appeared at two or more stores, newest first, with every store's price compared.",
   alternates: { canonical: "/new" },
 };
 

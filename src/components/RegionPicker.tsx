@@ -2,7 +2,7 @@
 // The visitor's region: picked from their time zone by the <head> script on
 // the first visit, changed here, remembered in this browser only.
 import { useEffect, useState } from "react";
-import { REGIONS, type RegionCode } from "@/site";
+import { DEFAULT_REGION, REGIONS, type RegionCode } from "@/site";
 import { ACTIVE_REGIONS } from "@/lib/regions";
 import { Flag } from "./Flag";
 
@@ -15,9 +15,9 @@ export function setRegion(code: RegionCode) {
 }
 
 export function useRegion(): RegionCode {
-  const [r, setR] = useState<RegionCode>("US");
+  const [r, setR] = useState<RegionCode>(DEFAULT_REGION);
   useEffect(() => {
-    const read = () => setR((document.documentElement.dataset.region as RegionCode) || "US");
+    const read = () => setR((document.documentElement.dataset.region as RegionCode) || DEFAULT_REGION);
     read();
     window.addEventListener("sc-region", read);
     return () => window.removeEventListener("sc-region", read);
@@ -31,6 +31,8 @@ export function useRegion(): RegionCode {
 // (owner, 2026-11-02: flags on the region switcher).
 export function RegionPicker({ compact = false }: { compact?: boolean }) {
   const region = useRegion();
+  // One region (MotorCompare is Australia only): nothing to pick.
+  if (ACTIVE_REGIONS.length < 2) return null;
   const current = REGIONS.find((r) => r.code === region);
   return (
     <label className="relative inline-flex items-center gap-1.5 rounded-full border border-line bg-card py-1.5 pl-3 pr-2.5 text-sm font-medium text-ink focus-within:ring-2 focus-within:ring-accent/40 hover:border-soft">
@@ -61,6 +63,7 @@ export function RegionPicker({ compact = false }: { compact?: boolean }) {
  */
 export function RegionChips({ className = "" }: { className?: string }) {
   const region = useRegion();
+  if (ACTIVE_REGIONS.length < 2) return null;
   return (
     <div className={`flex flex-wrap items-center gap-1.5 ${className}`} role="group" aria-label="Choose your region">
       <span className="mr-0.5 text-sm font-medium text-soft">Prices for</span>
@@ -88,6 +91,7 @@ export function RegionChips({ className = "" }: { className?: string }) {
 /** Buttons that switch region inside a page ("Prices in:" flag + code). */
 export function RegionTabs({ available }: { available: RegionCode[] }) {
   const region = useRegion();
+  if (ACTIVE_REGIONS.length < 2) return null;
   return (
     <div className="flex flex-wrap gap-1.5" role="tablist" aria-label="Prices by region">
       {REGIONS.filter((r) => available.includes(r.code)).map((r) => (

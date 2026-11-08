@@ -55,7 +55,7 @@ test("a price is shown for 24 hours after it was fetched, never from the future"
 
 test("an item link goes to Amazon's own page with the region's tag and the sub id", () => {
   assert.match(amazonItemUrl("B0ABCDEFGH", "US", "sc-us-table_pinned-880")!, /^https:\/\/www\.amazon\.com\/dp\/B0ABCDEFGH\?tag=riftcompare-20&ascsubtag=sc-us-table_pinned-880$/);
-  assert.match(amazonItemUrl("B0ABCDEFGH", "AU", "t")!, /amazon\.com\.au\/dp\/.*tag=motorcompare-22/);
+  assert.match(amazonItemUrl("B0ABCDEFGH", "AU", "t")!, /amazon\.com\.au\/dp\/.*tag=compareempire-22/);
   assert.equal(amazonItemUrl("B0ABCDEFGH", "NZ", "t"), null, "no Amazon NZ");
   assert.equal(amazonItemUrl("not-an-asin", "US", "t"), null);
 });

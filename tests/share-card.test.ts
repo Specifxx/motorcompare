@@ -12,7 +12,7 @@ const prod = (slug: string, b: string, prices: number[], st: ("in" | "out")[] = 
   name: slug,
   brand: b,
   b,
-  cat: "women",
+  cat: "oil",
   size: "50ml",
   img: null,
   first: "2026-10-30",
