@@ -42,17 +42,22 @@ const CAT_RULES: [CatKey, RegExp][] = [
   ["accessories", /\b(jump\s*starters?|jumpstarters?|battery\s*(?:chargers?|maintainers?|testers?|monitors?|isolators?|boxes?|box|terminals?|clamps?|leads?)|smart\s*chargers?|dash\s*cams?|dashcams?|tyre\s*inflators?|air\s*compressors?|inverters?|usb\s*charger|phone\s*holder|reversing\s*camera|obd2?|scan\s*tool|code\s*reader|tow\s*(?:ball|bar|hitch)|roof\s*racks?|seat\s*covers?|floor\s*mats?|sun\s*shade|tyre\s*gauge|torque\s*wrench|jack\s*stands?|trolley\s*jack|socket\s*set|led\s*light\s*bar|light\s*bars?|work\s*lights?)\b/i],
   ["brakes", /\b(brake\s*(?:pads?|shoes?|rotors?|discs?|fluid|cleaner|calipers?|kits?|lines?|hoses?)|disc\s*brake|rotors?\b|dot\s*[345](?:\.1)?\b|bendix|brembo|dba\s*\d)\b/i],
   ["fluids", /\b(coolant|anti-?freeze|radiator\s*(?:fluid|flush|treatment|cleaner)|transmission\s*fluid|atf\b|cvt\s*fluid|dexron|mercon|power\s*steering\s*fluid|diff(?:erential)?\s*oil|gear\s*oil|\d{2}w-?\d{2,3}\s*gear|wash(?:er)?\s*fluid|windscreen\s*(?:wash|cleaner|fluid)|fuel\s*(?:system\s*)?(?:cleaner|treatment|additive)|injector\s*cleaner|oil\s*(?:treatment|additive|flush)|engine\s*flush|octane\s*boost|adblue|grease)\b/i],
-  ["oil", /\b(engine\s*oil|motor\s*oil|\d{1,2}w-?\d{2}\b|synthetic\s*(?:engine\s*)?oil|semi[-\s]?synthetic|mineral\s*oil|diesel\s*(?:engine\s*)?oil|2[-\s]?stroke\s*oil|4[-\s]?stroke\s*oil|motorcycle\s*oil)\b/i],
   ["filters", /\b(oil\s*filters?|air\s*filters?|cabin\s*(?:air\s*)?filters?|pollen\s*filters?|fuel\s*filters?|transmission\s*filters?|filter\s*kits?|service\s*kits?|ryco\s*[a-z]{0,3}\d|wesfil|sakura\s*[a-z]{0,3}\d|mann\s*filter|filters?\b)\b/i],
+  ["oil", /\b(engine\s*oil|motor\s*oil|\d{1,2}w-?\d{2}\b|synthetic\s*(?:engine\s*)?oil|semi[-\s]?synthetic|mineral\s*oil|diesel\s*(?:engine\s*)?oil|2[-\s]?stroke\s*oil|4[-\s]?stroke\s*oil|motorcycle\s*oil)\b/i],
   ["plugs", /\b(spark\s*plugs?|glow\s*plugs?|iridium\s*plugs?|ignition\s*coils?|plug\s*leads?|ngk\s*[a-z]{0,6}\d)\b/i],
   ["wipers", /\b(wiper\s*(?:blades?|refills?|rubbers?|arms?|kits?)|wipers?\b|wiper)\b/i],
-  ["globes", /\b(globes?|headlight\s*(?:bulbs?|globes?|kits?)|head\s*lamp\s*bulbs?|bulbs?|h1|h3|h4|h7|h8|h9|h11|h13|h16|hb3|hb4|hir2|9003|9004|9005|9006|9007|9012|d1s|d2s|d3s|d4s|t10|w5w|t20|w21w|p21w|py21w|ba15s|bay15d|led\s*conversion|hid\s*kit)\b/i],
+  ["globes", /(?<!-)\b(globes?|headlight\s*(?:bulbs?|globes?|kits?)|head\s*lamp\s*bulbs?|bulbs?|h1|h3|h4|h7|h8|h9|h11|h13|h16|hb3|hb4|hir2|9003|9004|9005|9006|9007|9012|d1s|d2s|d3s|d4s|t10|w5w|t20|w21w|p21w|py21w|ba15s|bay15d|led\s*conversion|hid\s*kit)\b/i],
   ["batteries", /\b(car\s*batter(?:y|ies)|4wd\s*batter(?:y|ies)|deep\s*cycle|agm\b|lithium\s*batter(?:y|ies)|calcium\s*batter(?:y|ies)|start(?:ing|er)\s*batter(?:y|ies)|batter(?:y|ies)|ns40z?l?|ns60l?s?|ns70|n50z?l?|n70z{0,2}l?|n100|din\s?\d{2,3}[a-z]{0,3}|mf\d{2,3}[a-z]?|\d{2,3}d\d{2}[lr])\b/i],
   ["care", /\b(car\s*wash|wash\s*(?:and|&)\s*wax|snow\s*foam|shampoo|detailer|detailing|quick\s*detail|ceramic\s*(?:coating|spray)|sealant|tyre\s*(?:shine|dressing|gel)|tire\s*shine|microfib(?:re|er)|drying\s*towel|wash\s*mitt|clay\s*(?:bar|mitt)|polish|compound|wax\b|degreaser|interior\s*(?:cleaner|detailer|protectant)|leather\s*(?:cleaner|conditioner)|glass\s*cleaner|wheel\s*cleaner|bug\s*(?:and|&)\s*tar|iron\s*remover|air\s*freshener|vinyl\s*(?:cleaner|protectant)|upholstery)\b/i],
 ];
 
+// Electrical bits named after what they measure or plug into.
+const NOT_A_CONSUMABLE = /\b(sensors?|sender|connectors?|pigtail|wiring\s*(?:harness|loom)|adapt(?:er|or)\s*(?:harness|loom)|harness|plug\s*(?:and|&)\s*pins)\b/i;
+
 /** The category a title (or, failing that, the store's product type and tags) says. */
 export function categoryOf(title: string, kind = ""): CatKey {
+  // A sensor, connector or loom for a system is not that system's part ("Coolant Temp Sensor" is no coolant).
+  if (NOT_A_CONSUMABLE.test(title)) return "other";
   for (const [cat, re] of CAT_RULES) if (re.test(title)) return cat;
   for (const [cat, re] of CAT_RULES) if (re.test(kind)) return cat;
   return "other";
