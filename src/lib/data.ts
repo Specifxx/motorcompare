@@ -39,7 +39,9 @@ function once<T>(key: string, build: () => T): T {
 }
 
 export const getProducts = (): Product[] =>
-  once("products", () => unpackProducts(load<Parameters<typeof unpackProducts>[0]>("products.json", null)).filter((f) => f.offers && Object.values(f.offers).some((o) => o?.length)));
+  once("products", () => unpackProducts(load<Parameters<typeof unpackProducts>[0]>("products.json", null)).filter((f) => f.offers && Object.values(f.offers).some((o) => o?.length))
+    // One page per slug: a file that holds a slug twice (the import's merge no longer writes one) keeps the first.
+    .filter(function (this: Set<string>, f) { return !this.has(f.slug) && !!this.add(f.slug); }, new Set<string>()));
 export const getMeta = (): Meta | null => load<Meta | null>("meta.json", null);
 export const getHistory = (): History => load<History>("history.json", {});
 // Rows from before 2026-10-31 carry no postage (the search took any seller anywhere): not shown (lib/ebay.ts ebayRowShown).

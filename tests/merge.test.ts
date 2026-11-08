@@ -106,3 +106,14 @@ test("one brand spelling across the catalogue", () => {
   );
   assert.deepEqual([...new Set(out.map((p) => p.brand))], ["Penrite"], "the known brand spelling");
 });
+
+test("two part keys never share a slug, even when a kept slug collides", () => {
+  const st = fresh();
+  const mk = (pn: string): Listing[] =>
+    ["a", "b"].map((s) => L(s, "AU", 30000, { ean: `pn:injectordynamics:${pn}`, vendor: "Injector Dynamics", kind: "", title: "Injector Dynamics XDS Fuel Injectors" }));
+  st.slugs["pn:injectordynamics:13006011D6"] = "injector-dynamics-xds-fuel-injectors-011d6";
+  st.slugs["pn:injectordynamics:17506011D6"] = "injector-dynamics-xds-fuel-injectors-011d6";
+  const out = mergeListings([...mk("10506011D6"), ...mk("13006011D6"), ...mk("17506011D6")], st, "2026-11-08");
+  const slugs = out.map((p) => p.slug);
+  assert.equal(new Set(slugs).size, 3, slugs.join(" "));
+});

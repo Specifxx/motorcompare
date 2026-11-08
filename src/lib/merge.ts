@@ -6,6 +6,7 @@ import { STORE_BY_ID } from "@/content/stores";
 import { listingAmounts, pickName, readTitle, sizesConflict, tidyName, type Amount } from "./title";
 import { brandName, brandSlug, canonicalKey, listingBrand } from "./brand";
 import { slugify } from "./slug";
+import { partNoOf } from "./partno";
 import type { Listing, Offer, Product } from "./types";
 
 const STOCK_RANK = { in: 0, out: 1 } as const;
@@ -136,6 +137,7 @@ export function mergeListings(listings: Listing[], state: MergeState, today: str
   }
   const spelling = new Map([...spellings].map(([k, v]) => [k, brandName(k, v)]));
   const usedSlugs = new Set(Object.values(state.slugs));
+  const slugOwner = new Map<string, string>();
   const out: Product[] = [];
   for (const [ean, all] of byEan) {
     const read = all.map((l) => ({ l, info: readTitle(l.title, l.kind) }));
@@ -173,12 +175,17 @@ export function mergeListings(listings: Listing[], state: MergeState, today: str
     if (size && !name.toLowerCase().replace(/\s/g, "").includes(size.toLowerCase().replace(/\s/g, ""))) name = `${name} ${size}`;
 
     let slug = state.slugs[ean];
-    if (!slug) {
+    // A kept slug is kept, unless another product already holds it (two part keys that share a tail once
+    // shared one slug, and only one of them could be reached).
+    if (!slug || (slugOwner.has(slug) && slugOwner.get(slug) !== ean)) {
       const base = slugify(name) || `product-${ean}`;
-      slug = usedSlugs.has(base) ? `${base}-${ean.slice(-5)}` : base;
-      usedSlugs.add(slug);
+      const tail = slugify(partNoOf(ean) ?? ean.slice(-5));
+      slug = !usedSlugs.has(base) ? base : `${base}-${tail}`;
+      for (let n = 2; usedSlugs.has(slug); n++) slug = `${base}-${tail}-${n}`;
       state.slugs[ean] = slug;
     }
+    usedSlugs.add(slug);
+    slugOwner.set(slug, ean);
     if (!state.first[ean]) state.first[ean] = today;
     const img = kept.find((r) => r.l.img)?.l.img ?? null;
     out.push({ ean, slug, name, brand, b: key ? brandSlug(key, brand) : "", cat, size, img, first: state.first[ean], offers });
