@@ -112,8 +112,8 @@ export function listingsFromProduct(
   codes?: Record<string, string | null>,
 ): { listings: Listing[]; refused: string[]; noEan: number } {
   const res = { listings: [] as Listing[], refused: [] as string[], noEan: 0 };
-  const tags = Array.isArray(p.tags) ? p.tags : String(p.tags || "").split(",");
-  const kind = `${p.product_type ?? ""} ${tags.join(" ")}`;
+  // The product type only: tags carry fitment and collection noise ("Batteries" on an ECU harness).
+  const kind = p.product_type ?? "";
   const variants = p.variants.filter((v) => Number(v.price) > 0);
   if (!variants.length) {
     res.refused.push("no-price");

@@ -51,6 +51,8 @@ test("categories: what it is decides, chargers are accessories", () => {
   assert.equal(c("Meguiar's Ultimate Snow Foam 1.9L"), "care");
   assert.equal(c("Mystery Widget", "Engine Oil"), "oil", "the store's type decides when the title says nothing");
   assert.equal(c("Bonnet Strut"), "other");
+  assert.equal(c("Century 12V NS70ZZ Car Battery"), "batteries", "12V is a battery's voltage, not an accessory");
+  assert.equal(c("Haltech 1/4\" Open Tip Thermocouple Length: 0.72m"), "other");
 });
 
 test("sizes and the fit code", () => {
