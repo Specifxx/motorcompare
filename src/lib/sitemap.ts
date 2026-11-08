@@ -61,6 +61,7 @@ function pageUrls(): SitemapUrl[] {
     ...CATEGORIES.map((c) => u(`/${c.key}`, 0.9)),
     u("/popular", 0.8),
     u("/deals", 0.8),
+    u("/is-this-a-good-price", 0.6),
     u("/black-friday", 0.8),
     u("/cyber-monday", 0.8),
     ...["/boxing-day", "/january-sales"].map((p) => u(p, 0.7)),
