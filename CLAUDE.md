@@ -72,8 +72,8 @@ owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deplo
 
 A clean workshop look: steel greys, one signal orange (`--accent`), Barlow Condensed headings and Inter text
 (fontsource), flat SVG drawings of generic parts (`src/components/Art.tsx`), never a maker's own packaging or logo.
-The token names (`--peach`, `--butter`…) are the engine's. The icon is the gauge (`src/app/icon.svg`; the other
-options are in `docs/icon-options/`).
+The token names (`--peach`, `--butter`…) are the engine's. The icon is the spanner tag (owner, 2026-11-08: `src/app/icon.svg`;
+the other options are in `docs/icon-options/`).
 
 ## The site watches itself
 
