@@ -27,6 +27,7 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
       links: [
         // Black Friday, then Cyber Monday, while the strip shows (lib/black-friday.ts saleStrip).
         ...saleLinks(),
+        { href: "/fit", label: "Shop by part code" },
         { href: "/popular", label: "Popular" },
         { href: "/deals", label: "Deals today" },
         { href: "/basket", label: "Basket compare" },

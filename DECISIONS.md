@@ -1228,3 +1228,16 @@ host until motorcompare.app is bought.
 - **No banners:** `SITE.sideRails = false` turns off the eBay/Amazon side rails and the phone dock.
 - **Look:** steel greys, signal orange, Barlow Condensed headings; icon options in `docs/icon-options/`, the gauge
   is the default until the owner picks.
+
+## 2026-11-08 — Shop by the code on your old part, not by car
+
+Owner approved the competitor scan's search-by-need hubs (2026-11-08), which named "vehicle fitment" for MotorCompare.
+We hold no fitment data and this site's rule is that make-and-model fitment is claimed nowhere, so the need is met the
+way a buyer at the counter does it: by the code on the old part. `/fit/<section>/<code>` (oil grade 5W-30, battery size
+N70ZZ, globe code H4, wiper length 600mm, filter number Z386) lists every product whose own listing states that code
+(`partCode`, lib/title.ts; never guessed), with `/fit` as the index (`lib/fit-codes.ts`).
+
+- Indexed and in the sitemap only with 3+ products (`FIT_INDEX_MIN`, owner: 3+); fewer is `noindex, follow`.
+- The page says we don't say which cars a part fits, and to check the code against the old part (`tests/fit-codes.test.ts`).
+- The product page's "Fit code" chip links its hub once the hub is indexed.
+- Real vehicle pages (rego or make/model lookup) need a licensed fitment source; revisit only with one.

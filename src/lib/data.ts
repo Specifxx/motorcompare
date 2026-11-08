@@ -13,6 +13,8 @@ import { deliveryFor, MAX_SMALL_ORDER_FEE, type ShippingData } from "./shipping"
 import type { PartnerPricesFile } from "./partner-feed";
 import type { PromoData } from "./promos";
 import { allNotes, NOTES, type NoteInfo, type NotesFile, type Pyramid } from "./notes";
+import { codeSlug, FIT_CAT_KEYS } from "./fit-codes";
+import { partCode } from "./title";
 
 // SC_DATA_DIR points local development and tests at a fixture; production
 // always reads the committed files.
@@ -333,3 +335,26 @@ export function notePages(): { note: NoteInfo; count: number }[] {
 export function hasNotePage(key: string): boolean {
   return once("notePageSet", () => new Set(notePages().map((x) => x.note.key))).has(key);
 }
+
+// Shop by part code (lib/fit-codes.ts, DECISIONS.md 2026-11-08): section → code slug → its code and products,
+// most widely stocked first.
+export function fitHubs(): Map<CatKey, Map<string, { code: string; products: Product[] }>> {
+  return once("fitHubs", () => {
+    const m = new Map<CatKey, Map<string, { code: string; products: Product[] }>>();
+    for (const f of getProducts()) {
+      if (!FIT_CAT_KEYS.has(f.cat)) continue;
+      const code = partCode(f.name, f.cat);
+      if (!code) continue;
+      const bySlug = m.get(f.cat) ?? new Map();
+      m.set(f.cat, bySlug);
+      const k = codeSlug(code);
+      const hub = bySlug.get(k) ?? { code, products: [] };
+      hub.products.push(f);
+      bySlug.set(k, hub);
+    }
+    for (const bySlug of m.values()) for (const h of bySlug.values()) h.products.sort((a, b) => storeCount(b) - storeCount(a) || a.name.localeCompare(b.name));
+    return m;
+  });
+}
+
+export const fitHub = (cat: string, slug: string) => fitHubs().get(cat as CatKey)?.get(slug);

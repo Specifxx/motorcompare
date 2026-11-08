@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { culledTarget } from "@/lib/culled";
 import { CAT_BY_KEY, REGIONS, SITE, type RegionCode } from "@/site";
-import { bestIn, cheapestDelivered, getMeta, brandPages, getEbay, getHistory, getProduct, getProducts, productsOfBrand, productsOfCat, regionsOf, spreadIn, storeCount, storeName, variantLabel, variantLabels, variantsOf } from "@/lib/data";
+import { fitHub, bestIn, cheapestDelivered, getMeta, brandPages, getEbay, getHistory, getProduct, getProducts, productsOfBrand, productsOfCat, regionsOf, spreadIn, storeCount, storeName, variantLabel, variantLabels, variantsOf } from "@/lib/data";
 import { dayNumber, lowestOrderable } from "@/lib/history";
 import { decimal, money, niceDate, pct } from "@/lib/format";
 import { isIndexable, prebuiltProducts } from "@/lib/index-tiers";
@@ -34,6 +34,7 @@ function idOf(id: string) {
     : { label: "Barcode (EAN)", value: id, same: `Same barcode (${id})`, ours: `this product's barcode (${id})` };
 }
 import { partCode } from "@/lib/title";
+import { codeSlug, FIT_INDEX_MIN, fitPath } from "@/lib/fit-codes";
 
 // The build prerenders only the top products (prebuiltProducts, 500 of ~37,000):
 // writing every page made the daily build 15+ minutes. Any other product renders
@@ -183,7 +184,14 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           <div className="mt-3 flex flex-wrap gap-1.5 text-xs">
             <span className="chip bg-subtle text-ink">{cat.name}</span>
             {f.size && <span className="chip bg-subtle text-ink">{f.size}</span>}
-            {code && <span className="chip bg-accent-pale text-accent-deep">Fit code {code}</span>}
+            {code &&
+              (fitHub(f.cat, codeSlug(code))?.products.length ?? 0) >= FIT_INDEX_MIN ? (
+              <Link prefetch={false} href={fitPath(f.cat, code)} className="chip bg-accent-pale text-accent-deep hover:underline" title={`Every ${code} we compare`}>
+                Fit code {code}
+              </Link>
+            ) : (
+              code && <span className="chip bg-accent-pale text-accent-deep">Fit code {code}</span>
+            )}
             <span className="chip bg-subtle text-soft">{idOf(f.ean).label} {idOf(f.ean).value}</span>
           </div>
           {rated && rated.n > 0 && (
