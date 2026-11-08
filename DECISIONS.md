@@ -1271,3 +1271,17 @@ card sites): a visitor pastes a store's product link at `/is-this-a-good-price` 
 
 The owner picked option B of the four in `docs/icon-options/`: a signal-orange price tag with a white spanner on
 workshop dark. It is `src/app/icon.svg`, `src/app/apple-icon.png` (180 px), `LogoMark` and the share images' mark.
+
+## 2026-11-08: eBay rides Compare Empire's keyset, 600 calls a day (owner)
+
+The owner asked to split Compare Empire's eBay keyset (the "compareempire" app, 5,000 Browse calls a day) with the two new sites
+that had no keys, for the most affiliate earnings, and left the split to us: Compare Empire 2,900 (most traffic, ~30,700
+products, first eBay earnings), SportsCardCompare 1,400 (eBay is where sealed sports cards sell, at US$50–1,000+), MotorCompare
+600, 100 spare. This replaces "its own keyset" (2026-11-08 launch) at the owner's word.
+
+Why 600 here: Australia only, about 2,500 products of mostly A$10–80, and calls go only to featured products (about US$20+), so
+600 a day reaches every eligible product every few days; the site is new and has no eBay clicks to earn on yet. The pass now
+searches only the regions the site shows (it planned all five markets before, which would have spent calls on markets with no
+page). `EBAY_MAX_DAILY_CALLS` (600) is a ceiling `EBAY_DAILY_CAP` can only lower (`tests/ebay-cap.test.ts`), so the three sites
+can never pass eBay's 5,000 together. The secrets are Compare Empire's `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET`; the keyset's
+deletion endpoint stays compareempire.com's. Rebalance after two weeks of EPN earnings per call by customid (`ce-`, `wax-`, `mc-`).
