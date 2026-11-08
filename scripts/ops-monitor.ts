@@ -1,0 +1,242 @@
+// Runs in GitHub Actions every three hours (ops-monitor.yml), so it works when
+// the site or the deploy is what broke. A failing check fails the run, and
+// GitHub emails the owner. Add a check here for every new scheduled job, API
+// or limit (family rule: the owner is not watching).
+import fs from "node:fs";
+import path from "node:path";
+import { STORES, SHOPIFY_STORES } from "@/content/stores";
+import type { Meta } from "@/lib/types";
+import type { ReviewsFile } from "@/lib/reviews";
+import { loadStore, reviewsConfigured } from "@/lib/reviews-store";
+import type { PartnerPricesFile } from "@/lib/partner-feed";
+import { readAsinStatus, type AsinStatus } from "@/lib/amazon-asins";
+import type { RegionCode } from "@/site";
+
+type Status = "ok" | "warn" | "fail";
+type Result = { name: string; status: Status; detail: string };
+const site = (process.env.NEXT_PUBLIC_SITE_URL || "").replace(/\/$/, "");
+const DATA = path.join(process.cwd(), "data/public");
+
+async function check(name: string, fn: () => Promise<Omit<Result, "name">> | Omit<Result, "name">): Promise<Result> {
+  try {
+    return { name, ...(await fn()) };
+  } catch (e) {
+    return { name, status: "fail", detail: (e as Error).message };
+  }
+}
+
+async function get(p: string) {
+  const r = await fetch(`${site}${p}`, { signal: AbortSignal.timeout(20000), headers: { "User-Agent": "MotorCompare ops monitor" } });
+  return r;
+}
+
+export function judgeFreshness(updatedAt: string, now = Date.now()): Omit<Result, "name"> {
+  const h = (now - Date.parse(updatedAt)) / 3_600_000;
+  if (h < 30) return { status: "ok", detail: `${h.toFixed(1)}h old` };
+  return { status: h < 54 ? "warn" : "fail", detail: `prices are ${h.toFixed(0)}h old: check the Import prices workflow` };
+}
+
+/** "Smells like" (lib/notes.ts): the import should find notes for a good share of the catalogue
+ *  (about 30% on the 2026-11-06 probe). A sharp drop means the parser or the stores' copy changed. */
+export function judgeNotes(withNotes: number | null, products: number): Omit<Result, "name"> {
+  if (withNotes == null) return { status: "warn", detail: "no data/public/notes.json yet: the next daily import writes it" };
+  const share = products ? withNotes / products : 0;
+  return share >= 0.1 ? { status: "ok", detail: `${withNotes} products (${Math.round(share * 100)}%) have notes` } : { status: "warn", detail: `only ${withNotes} of ${products} products have notes: check readNotes against today's store copy` };
+}
+
+export function judgeStores(meta: Meta, total: number): Omit<Result, "name"> {
+  const bad = Object.entries(meta.stores).filter(([, s]) => !s.ok);
+  // A store that answered with no products at all: it moved, closed or
+  // stopped publishing products.json.
+  const empty = Object.entries(meta.stores).filter(([, s]) => s.ok && s.listings === 0);
+  if (!bad.length && !empty.length) return { status: "ok", detail: `${total} stores read` };
+  const detail = [...bad.map(([k, s]) => `${k}: ${s.error}`), ...empty.map(([k]) => `${k}: no products`)].join("; ");
+  return { status: bad.length > total / 3 ? "fail" : "warn", detail };
+}
+
+/** The daily reviews export (scripts/reviews-export.ts) and the reviews branch
+ *  it reads, probed live (one GitHub API read with the job's token). Held
+ *  reviews raise a warning once a day only (the 09:50 UTC run), so the owner
+ *  gets one daily count, never a mail per review. A token expiry header, when
+ *  there is one, is warned 14 days ahead (GitHub also emails the owner before
+ *  the Vercel token expires). */
+export function judgeReviews(
+  file: ReviewsFile | null,
+  configured: boolean,
+  now = Date.now(),
+  probe: { error?: string; tokenExpires?: string } = {},
+): Omit<Result, "name"> {
+  if (!configured) return { status: "warn", detail: "no token to read the reviews branch: ratings and reviews are off" };
+  if (probe.error) return { status: "warn", detail: `the reviews branch can't be read: ${probe.error}` };
+  if (probe.tokenExpires) {
+    const days = (Date.parse(probe.tokenExpires.replace(" UTC", "Z").replace(" ", "T")) - now) / 86_400_000;
+    if (Number.isFinite(days) && days < 14)
+      return { status: "warn", detail: `the reviews token expires in ${Math.max(0, Math.floor(days))} day(s): make a new one and update REVIEWS_GITHUB_TOKEN in Vercel` };
+  }
+  if (!file) return { status: "warn", detail: "no reviews export yet (data/public/reviews.json missing)" };
+  if (file.error) return { status: "warn", detail: `the last reviews export could not read the store: ${file.error}` };
+  const h = (now - Date.parse(file.exportedAt)) / 3_600_000;
+  if (h > 54) return { status: "warn", detail: `reviews last exported ${h.toFixed(0)}h ago: check the Import prices workflow` };
+  const rated = Object.keys(file.products).length;
+  if (file.held > 0 && new Date(now).getUTCHours() === 9) return { status: "warn", detail: `${file.held} review(s) waiting for you at /admin/reviews` };
+  return { status: "ok", detail: `${rated} products rated${file.held ? `, ${file.held} held` : ""}` };
+}
+
+/** Partner product feeds (scripts/partner-feeds.ts): quiet until a feed secret exists, amber when its last
+ *  read failed or is two days old (the rows fall back to tracked searches after three). */
+export function judgePartnerFeeds(file: PartnerPricesFile | null, now = Date.now()): Omit<Result, "name"> {
+  const feeds = Object.entries(file?.feeds ?? {});
+  if (!feeds.length) return { status: "ok", detail: "no partner feed set up yet " };
+  const bad: string[] = [];
+  const good: string[] = [];
+  for (const [k, r] of feeds) {
+    const h = r.at ? (now - Date.parse(r.at)) / 3_600_000 : Infinity;
+    if (r.error) bad.push(`${k}: ${r.error}`);
+    else if (h > 54) bad.push(`${k}: last read ${h.toFixed(0)}h ago`);
+    else good.push(`${k} ${r.kept}/${r.rows}`);
+  }
+  return bad.length ? { status: "warn", detail: bad.join("; ") } : { status: "ok", detail: `${good.join(", ")} prices kept` };
+}
+
+/** The weekly delivery quotes (scripts/shipping.ts, shipping.yml). */
+export function judgeShipping(file: Record<string, { at: string }> | null, stores: number, now = Date.now()): Omit<Result, "name"> {
+  if (!file) return { status: "warn", detail: "no delivery quotes yet (data/public/shipping.json missing): run the Delivery quotes workflow" };
+  const ats = Object.values(file).map((s) => Date.parse(s.at));
+  if (!ats.length) return { status: "warn", detail: "no delivery quotes yet (data/public/shipping.json is empty): the weekly Delivery quotes workflow writes it on Sunday" };
+  const newest = ats.length ? Math.max(...ats) : 0;
+  const days = (now - newest) / 86_400_000;
+  if (days > 9) return { status: "warn", detail: `delivery quotes last refreshed ${days.toFixed(0)} days ago: check the Delivery quotes workflow` };
+  const n = ats.length;
+  if (n < stores * 0.3) return { status: "warn", detail: `delivery quotes for only ${n} of ${stores} stores` };
+  return { status: "ok", detail: `${n} of ${stores} stores quoted` };
+}
+
+/** The product-page readers (import.yml's page jobs, scripts/read-pages.ts): each page store's last run, from
+ *  data/state/pages/<id>.json. Their readings age out after five days, so a stopped reader is amber at two days
+ *  and red when no page store has read anything in three. */
+export function judgePages(runs: Record<string, { at: string; read: number; stopped?: string } | null>, now = Date.now()): Omit<Result, "name"> {
+  const ids = Object.keys(runs);
+  if (!ids.length) return { status: "ok", detail: "no page stores" };
+  const age = (at?: string) => (at ? (now - Date.parse(at)) / 86_400_000 : Infinity);
+  const stale = ids.filter((id) => !(age(runs[id]?.at) < 2.5));
+  const fresh = ids.length - stale.length;
+  const stopped = ids.filter((id) => runs[id]?.stopped).map((id) => `${id}: ${runs[id]!.stopped}`);
+  if (!ids.some((id) => runs[id])) return { status: "warn", detail: "page stores not read yet: the next Import prices run reads them" };
+  if (!fresh) return { status: "fail", detail: `no page store read in days: check the page jobs of Import prices` };
+  if (stale.length || stopped.length) return { status: "warn", detail: [...stale.map((id) => `${id}: not read since ${runs[id]?.at ?? "never"}`), ...stopped].join("; ") };
+  return { status: "ok", detail: `${fresh} page stores read` };
+}
+
+/** The daily store-deals check (scripts/promos.ts, promos.yml). Deals older than two days are hidden by the pages,
+ *  so a stopped check only means no deal notes: amber, never red. */
+export function judgePromos(file: Record<string, { at: string; deals: Record<string, unknown> }> | null, stores: number, now = Date.now()): Omit<Result, "name"> {
+  if (!file || !Object.keys(file).length) return { status: "warn", detail: "no store deals checked yet (data/public/promos.json empty): run the Store deals workflow" };
+  const ats = Object.values(file).map((s) => Date.parse(s.at));
+  const days = (now - Math.max(...ats)) / 86_400_000;
+  if (days > 3) return { status: "warn", detail: `store deals last checked ${days.toFixed(0)} days ago: deal notes are hidden until the Store deals workflow runs` };
+  const n = ats.length;
+  if (n < stores * 0.3) return { status: "warn", detail: `store deals checked at only ${n} of ${stores} stores` };
+  const withDeals = Object.values(file).filter((s) => Object.keys(s.deals).length).length;
+  const deals = Object.values(file).reduce((t, s) => t + Object.keys(s.deals).length, 0);
+  return { status: "ok", detail: `${n} of ${stores} stores checked; ${withDeals} run multi-buys or gifts on ${deals} products` };
+}
+
+/** Amazon's ASIN finder (scripts/amazon-asins.ts) per store. Never red: without access the rows keep their
+ *  tagged search links. "refused" is Amazon's 10-sales gate and is expected for weeks, so it stays green with
+ *  its reason; only a finder that stopped reporting for two days is amber. */
+export function judgeAmazon(statuses: Partial<Record<RegionCode, AsinStatus | null>>, now = Date.now()): Omit<Result, "name"> {
+  const rows = Object.entries(statuses) as [RegionCode, AsinStatus | null][];
+  const seen = rows.filter(([, s]) => s);
+  if (!seen.length) return { status: "ok", detail: "no Amazon ASIN run recorded yet: the Amazon rows are tagged searches" };
+  const stale = seen.filter(([, s]) => (now - Date.parse(s!.at)) / 3_600_000 > 54).map(([r]) => r);
+  const parts = seen.map(([r, s]) =>
+    s!.state === "ok" ? `${r} ${s!.known ?? 0} ASINs (${s!.waiting ?? 0} waiting)` : s!.state === "refused" ? `${r} waiting for Amazon API access` : `${r} no credential`,
+  );
+  if (stale.length) return { status: "warn", detail: `Amazon ASIN finder last ran over two days ago for ${stale.join(", ")}: check the Import prices workflow. ${parts.join("; ")}` };
+  return { status: "ok", detail: parts.join("; ") };
+}
+
+async function main() {
+  if (!fs.existsSync(path.join(DATA, "meta.json"))) {
+    // Before the first import there is nothing to judge; a setup step, not an incident.
+    console.log("WARN Daily price import: no import has run yet (data/public/meta.json not set)");
+    return;
+  }
+  const meta = JSON.parse(fs.readFileSync(path.join(DATA, "meta.json"), "utf8")) as Meta;
+  const size = fs.statSync(path.join(DATA, "products.json")).size;
+  const results = await Promise.all([
+    check("Live site", async () => {
+      if (!site) return { status: "warn", detail: "SITE_URL repository variable not set: live checks skipped" };
+      const r = await get("/");
+      return r.ok ? { status: "ok", detail: `HTTP ${r.status}` } : { status: "fail", detail: `HTTP ${r.status}` };
+    }),
+    check("Search index", async () => {
+      if (!site) return { status: "warn", detail: "SITE_URL not set" };
+      const r = await get("/search-index.json");
+      if (!r.ok) return { status: "fail", detail: `HTTP ${r.status}` };
+      const n = ((await r.json()) as unknown[]).length;
+      return n >= meta.products * 0.5 ? { status: "ok", detail: `${n} products live` } : { status: "warn", detail: `live site has ${n} products, data has ${meta.products}: is the daily release deploying?` };
+    }),
+    check("Daily price import", () => judgeFreshness(meta.updatedAt)),
+    check("Store imports", () => judgeStores(meta, STORES.length)),
+    check("Catalogue", () => (meta.products > 0 ? { status: "ok", detail: `${meta.products} products` } : { status: "fail", detail: "no products in data/public/products.json" })),
+    check("Data size", () =>
+      size < 12e6 ? { status: "ok", detail: `${(size / 1e6).toFixed(1)} MB` } : { status: "warn", detail: `products.json is ${(size / 1e6).toFixed(1)} MB: builds slow down; trim fields in src/lib/products-file.ts before raising minStoresPerRegion` },
+    ),
+    check("Ratings and reviews", async () => {
+      const f = path.join(DATA, "reviews.json");
+      const probe: { error?: string; tokenExpires?: string } = {};
+      if (reviewsConfigured()) {
+        try {
+          probe.tokenExpires = (await loadStore()).tokenExpires;
+        } catch (e) {
+          probe.error = (e as Error).message.slice(0, 160);
+        }
+      }
+      return judgeReviews(fs.existsSync(f) ? (JSON.parse(fs.readFileSync(f, "utf8")) as ReviewsFile) : null, reviewsConfigured(), Date.now(), probe);
+    }),
+    check("Delivery quotes", () => {
+      const f = path.join(DATA, "shipping.json");
+      return judgeShipping(fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, "utf8")) : null, SHOPIFY_STORES.length);
+    }),
+    check("Store deals", () => {
+      const f = path.join(DATA, "promos.json");
+      return judgePromos(fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, "utf8")) : null, SHOPIFY_STORES.length);
+    }),
+    check("Page readers", () =>
+      judgePages(
+        Object.fromEntries(
+          STORES.filter((s) => s.platform === "pages").map((s) => {
+            const f = path.join("data/state/pages", `${s.id}.json`);
+            return [s.id, fs.existsSync(f) ? (JSON.parse(fs.readFileSync(f, "utf8")).run ?? null) : null];
+          }),
+        ),
+      ),
+    ),
+    check("Partner feeds", () => {
+      const f = path.join(DATA, "partners.json");
+      return judgePartnerFeeds(fs.existsSync(f) ? (JSON.parse(fs.readFileSync(f, "utf8")) as PartnerPricesFile) : null);
+    }),
+    check("Amazon ASINs", () => judgeAmazon(Object.fromEntries((["US", "UK", "CA", "EU", "AU"] as RegionCode[]).map((r) => [r, readAsinStatus(r)])))),
+    check("eBay listings", () => {
+      if (!process.env.EBAY_CLIENT_ID) return { status: "warn", detail: "EBAY_CLIENT_ID not set in GitHub secrets: no eBay listings yet (search links still earn)" };
+      if (!meta.ebay) return { status: "warn", detail: "no eBay run recorded yet" };
+      const age = (Date.now() - Date.parse(meta.ebay.at)) / 3_600_000;
+      if (age > 30) return { status: "warn", detail: `last eBay run ${age.toFixed(0)}h ago` };
+      return { status: "ok", detail: `${meta.ebay.calls}/${meta.ebay.budget} calls on ${meta.ebay.day}` };
+    }),
+  ]);
+  for (const r of results) console.log(`${r.status.toUpperCase().padEnd(4)} ${r.name}: ${r.detail}`);
+  // Empire HQ's copy (riftcompare.com/admin/hq and the one Monday report; owner, 2026-11-02): the
+  // workflow publishes it on the public `ops-status` branch. Status and our own sentences only.
+  const overall = results.some((r) => r.status === "fail") ? "fail" : results.some((r) => r.status === "warn") ? "warn" : "ok";
+  fs.writeFileSync(process.env.OPS_STATUS_FILE || "ops-status.json", JSON.stringify({ v: 1, site: "motorcompare.vercel.app", at: new Date().toISOString(), overall, checks: results }, null, 1) + "\n");
+  // Only red fails the run (GitHub's failed-run email is the alert); amber waits for HQ and Monday.
+  const bad = results.filter((r) => r.status === "fail");
+  if (bad.length) {
+    console.error(`\n${bad.length} check(s) failed: ${bad.map((r) => r.name).join(", ")}`);
+    process.exit(1);
+  }
+}
+
+if (process.argv[1]?.endsWith("ops-monitor.ts")) main();

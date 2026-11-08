@@ -1,0 +1,25 @@
+// Words a shopper types that mean a word our product names use: the trade
+// names, the abbreviations and the Australian spellings. Searchable, never shown.
+export const SEARCH_SYNONYMS: Record<string, string[]> = {
+  bulb: ["globe", "bulb"],
+  bulbs: ["globe", "bulb"],
+  globe: ["globe", "bulb"],
+  headlight: ["headlight", "globe"],
+  wiper: ["wiper"],
+  wipers: ["wiper"],
+  battery: ["battery"],
+  batteries: ["battery"],
+  oil: ["oil"],
+  coolant: ["coolant", "antifreeze"],
+  antifreeze: ["coolant", "antifreeze"],
+  tyre: ["tyre", "tire"],
+  tire: ["tyre", "tire"],
+  plug: ["plug"],
+  plugs: ["plug"],
+  pads: ["pad"],
+  rotor: ["rotor", "disc"],
+  jumpstarter: ["jump starter"],
+  dashcam: ["dash cam"],
+  "liqui moly": ["liqui moly"],
+  meguiars: ["meguiar"],
+};

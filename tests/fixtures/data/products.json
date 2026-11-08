@@ -1,0 +1,400 @@
+{
+ "products": [
+  {
+   "ean": "9300000000002",
+   "slug": "brand-alpha-sample-5w-30-engine-oil-5l",
+   "name": "Brand Alpha Sample 5W-30 Engine Oil 5L",
+   "brand": "Brand Alpha",
+   "b": "brand-alpha",
+   "cat": "oil",
+   "size": null,
+   "img": null,
+   "first": "2026-10-10",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3295,
+      "st": "in",
+      "u": "https://example.com/au-a/0"
+     },
+     {
+      "s": "au-b",
+      "p": 3595,
+      "st": "in",
+      "u": "https://example.com/au-b/0"
+     },
+     {
+      "s": "au-c",
+      "p": 3895,
+      "st": "in",
+      "u": "https://example.com/au-c/0"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000019",
+   "slug": "brand-beta-test-n70zz-car-battery",
+   "name": "Brand Beta Test N70ZZ Car Battery",
+   "brand": "Brand Beta",
+   "b": "brand-beta",
+   "cat": "batteries",
+   "size": null,
+   "img": null,
+   "first": "2026-10-11",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3195,
+      "st": "in",
+      "u": "https://example.com/au-a/1"
+     },
+     {
+      "s": "au-b",
+      "p": 3495,
+      "st": "in",
+      "u": "https://example.com/au-b/1"
+     },
+     {
+      "s": "au-c",
+      "p": 3795,
+      "st": "out",
+      "u": "https://example.com/au-c/1"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000026",
+   "slug": "brand-gamma-fixture-wiper-blade-600mm",
+   "name": "Brand Gamma Fixture Wiper Blade 600mm",
+   "brand": "Brand Gamma",
+   "b": "brand-gamma",
+   "cat": "wipers",
+   "size": null,
+   "img": null,
+   "first": "2026-10-12",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3095,
+      "st": "in",
+      "u": "https://example.com/au-a/2"
+     },
+     {
+      "s": "au-b",
+      "p": 3395,
+      "st": "out",
+      "u": "https://example.com/au-b/2"
+     },
+     {
+      "s": "au-c",
+      "p": 3695,
+      "st": "in",
+      "u": "https://example.com/au-c/2"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000033",
+   "slug": "brand-alpha-demo-h4-headlight-globe",
+   "name": "Brand Alpha Demo H4 Headlight Globe",
+   "brand": "Brand Alpha",
+   "b": "brand-alpha",
+   "cat": "globes",
+   "size": null,
+   "img": null,
+   "first": "2026-10-13",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 2995,
+      "st": "out",
+      "u": "https://example.com/au-a/3"
+     },
+     {
+      "s": "au-b",
+      "p": 3295,
+      "st": "in",
+      "u": "https://example.com/au-b/3"
+     },
+     {
+      "s": "au-c",
+      "p": 3595,
+      "st": "in",
+      "u": "https://example.com/au-c/3"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000040",
+   "slug": "brand-beta-example-z386-oil-filter",
+   "name": "Brand Beta Example Z386 Oil Filter",
+   "brand": "Brand Beta",
+   "b": "brand-beta",
+   "cat": "filters",
+   "size": null,
+   "img": null,
+   "first": "2026-10-14",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3295,
+      "st": "in",
+      "u": "https://example.com/au-a/4"
+     },
+     {
+      "s": "au-b",
+      "p": 3595,
+      "st": "in",
+      "u": "https://example.com/au-b/4"
+     },
+     {
+      "s": "au-c",
+      "p": 3895,
+      "st": "in",
+      "u": "https://example.com/au-c/4"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000057",
+   "slug": "brand-gamma-mock-iridium-spark-plug",
+   "name": "Brand Gamma Mock Iridium Spark Plug",
+   "brand": "Brand Gamma",
+   "b": "brand-gamma",
+   "cat": "plugs",
+   "size": null,
+   "img": null,
+   "first": "2026-10-15",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3195,
+      "st": "in",
+      "u": "https://example.com/au-a/5"
+     },
+     {
+      "s": "au-b",
+      "p": 3495,
+      "st": "in",
+      "u": "https://example.com/au-b/5"
+     },
+     {
+      "s": "au-c",
+      "p": 3795,
+      "st": "in",
+      "u": "https://example.com/au-c/5"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000064",
+   "slug": "brand-alpha-placeholder-brake-pads",
+   "name": "Brand Alpha Placeholder Brake Pads",
+   "brand": "Brand Alpha",
+   "b": "brand-alpha",
+   "cat": "brakes",
+   "size": null,
+   "img": null,
+   "first": "2026-10-16",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3095,
+      "st": "in",
+      "u": "https://example.com/au-a/6"
+     },
+     {
+      "s": "au-b",
+      "p": 3395,
+      "st": "in",
+      "u": "https://example.com/au-b/6"
+     },
+     {
+      "s": "au-c",
+      "p": 3695,
+      "st": "in",
+      "u": "https://example.com/au-c/6"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000071",
+   "slug": "brand-beta-stub-long-life-coolant-5l",
+   "name": "Brand Beta Stub Long Life Coolant 5L",
+   "brand": "Brand Beta",
+   "b": "brand-beta",
+   "cat": "fluids",
+   "size": null,
+   "img": null,
+   "first": "2026-10-17",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 2995,
+      "st": "in",
+      "u": "https://example.com/au-a/7"
+     },
+     {
+      "s": "au-b",
+      "p": 3295,
+      "st": "in",
+      "u": "https://example.com/au-b/7"
+     },
+     {
+      "s": "au-c",
+      "p": 3595,
+      "st": "in",
+      "u": "https://example.com/au-c/7"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000088",
+   "slug": "brand-gamma-dummy-car-wash-2l",
+   "name": "Brand Gamma Dummy Car Wash 2L",
+   "brand": "Brand Gamma",
+   "b": "brand-gamma",
+   "cat": "care",
+   "size": null,
+   "img": null,
+   "first": "2026-10-18",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3295,
+      "st": "in",
+      "u": "https://example.com/au-a/8"
+     },
+     {
+      "s": "au-b",
+      "p": 3595,
+      "st": "in",
+      "u": "https://example.com/au-b/8"
+     },
+     {
+      "s": "au-c",
+      "p": 3895,
+      "st": "out",
+      "u": "https://example.com/au-c/8"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000095",
+   "slug": "brand-alpha-trial-jump-starter",
+   "name": "Brand Alpha Trial Jump Starter",
+   "brand": "Brand Alpha",
+   "b": "brand-alpha",
+   "cat": "accessories",
+   "size": null,
+   "img": null,
+   "first": "2026-10-19",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3195,
+      "st": "in",
+      "u": "https://example.com/au-a/9"
+     },
+     {
+      "s": "au-b",
+      "p": 3495,
+      "st": "out",
+      "u": "https://example.com/au-b/9"
+     },
+     {
+      "s": "au-c",
+      "p": 3795,
+      "st": "in",
+      "u": "https://example.com/au-c/9"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000101",
+   "slug": "brand-beta-proto-cabin-filter",
+   "name": "Brand Beta Proto Cabin Filter",
+   "brand": "Brand Beta",
+   "b": "brand-beta",
+   "cat": "oil",
+   "size": null,
+   "img": null,
+   "first": "2026-10-20",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 3095,
+      "st": "out",
+      "u": "https://example.com/au-a/10"
+     },
+     {
+      "s": "au-b",
+      "p": 3395,
+      "st": "in",
+      "u": "https://example.com/au-b/10"
+     },
+     {
+      "s": "au-c",
+      "p": 3695,
+      "st": "in",
+      "u": "https://example.com/au-c/10"
+     }
+    ]
+   }
+  },
+  {
+   "ean": "9300000000118",
+   "slug": "brand-gamma-beta-brake-fluid-500ml",
+   "name": "Brand Gamma Beta Brake Fluid 500ml",
+   "brand": "Brand Gamma",
+   "b": "brand-gamma",
+   "cat": "batteries",
+   "size": null,
+   "img": null,
+   "first": "2026-10-21",
+   "offers": {
+    "AU": [
+     {
+      "s": "au-a",
+      "p": 2995,
+      "st": "in",
+      "u": "https://example.com/au-a/11"
+     },
+     {
+      "s": "au-b",
+      "p": 3295,
+      "st": "in",
+      "u": "https://example.com/au-b/11"
+     },
+     {
+      "s": "au-c",
+      "p": 3595,
+      "st": "in",
+      "u": "https://example.com/au-c/11"
+     }
+    ]
+   }
+  }
+ ]
+}

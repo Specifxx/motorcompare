@@ -1,0 +1,26 @@
+{
+ "au-a": {
+  "at": "2026-10-30",
+  "to": "Sydney",
+  "fee": 995,
+  "freeFrom": 7990,
+  "paidAt": 7490,
+  "maxTested": 7990
+ },
+ "au-b": {
+  "at": "2026-10-30",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 500,
+  "paidAt": 0,
+  "maxTested": 500
+ },
+ "au-c": {
+  "at": "2026-10-30",
+  "to": "Sydney",
+  "fee": 1200,
+  "freeFrom": null,
+  "paidAt": 25000,
+  "maxTested": 25000
+ }
+}

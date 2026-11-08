@@ -1,0 +1,92 @@
+import { SEASON_BOOT_SCRIPT } from "@/lib/season";
+import { MOTION_BOOT, MOTION_SCRIPT } from "@/lib/motion";
+import type { Metadata, Viewport } from "next";
+import { Analytics } from "@vercel/analytics/react";
+import { ShareArrival } from "@/components/ShareArrival";
+import "@fontsource-variable/inter";
+import "@fontsource/barlow-condensed/600.css";
+import "@fontsource/barlow-condensed/700.css";
+import "./globals.css";
+// The cart list's styles (components/cart): imported here, never from a component, so node tests can load them.
+import "@/components/cart/cart.css";
+import "@/components/site-reviews/site-reviews.css";
+import { DEFAULT_REGION, SITE } from "@/site";
+import { ACTIVE_REGIONS } from "@/lib/regions";
+import { Header } from "@/components/Header";
+import { HolidayStrip } from "@/components/HolidayStrip";
+import { Footer } from "@/components/Footer";
+import { SideNav } from "@/components/SideNav";
+import { QuickView } from "@/components/QuickView";
+import { RailDock, RailSlot } from "@/components/SideRails";
+import { RateCard } from "@/components/site-reviews/RateCard";
+import { navGroups } from "@/lib/nav";
+import { catCounts, getBrands, getMeta } from "@/lib/data";
+import { niceDate } from "@/lib/format";
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE.url),
+  title: { default: `${SITE.name}: ${SITE.tagline}`, template: `%s | ${SITE.name}` },
+  description: SITE.description,
+  openGraph: { siteName: SITE.name, type: "website", locale: "en" },
+  twitter: { card: "summary_large_image" },
+  verification: process.env.GOOGLE_SITE_VERIFICATION ? { google: process.env.GOOGLE_SITE_VERIFICATION } : undefined,
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { color: "#f7fafd" },
+  ],
+};
+
+// Runs before paint: the visitor's saved region (else one guessed from their
+// time zone) and theme, so the right prices show with no flash and no cookie.
+const zones = JSON.stringify(ACTIVE_REGIONS.map((r) => [r.code, r.zones]));
+const BOOT = `(function(){var d=document.documentElement;try{var r=${ACTIVE_REGIONS.length > 1 ? 'localStorage.getItem("sc-region")' : "null"};if(!r){var z=Intl.DateTimeFormat().resolvedOptions().timeZone||"",b="${DEFAULT_REGION}",l=0;${zones}.forEach(function(e){e[1].forEach(function(p){if(z.indexOf(p)===0&&p.length>l){b=e[0];l=p.length}})});r=b}d.dataset.region=r;var t=localStorage.getItem("sc-theme");d.dataset.theme=t||"day"}catch(e){d.dataset.region="${DEFAULT_REGION}"}})();`;
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const meta = getMeta();
+  const groups = navGroups(
+    catCounts(),
+    getBrands()
+      .slice(0, 8)
+      .map((b) => ({ slug: b.slug, name: b.name })),
+  );
+  return (
+    <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: BOOT }} />
+        {/* The holiday look (1 November to Boxing Day): data-season on <html> from the visitor's own date. lib/season.ts. */}
+        <script dangerouslySetInnerHTML={{ __html: SEASON_BOOT_SCRIPT }} />
+        {/* The motion layer (lib/motion.ts): data-motion before paint, unless the visitor prefers reduced motion. */}
+        <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT }} />
+      </head>
+      <body className="min-h-screen font-sans antialiased">
+        <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-card focus:px-3 focus:py-1">
+          Skip to content
+        </a>
+        <Header groups={groups} />
+        <HolidayStrip />
+        <div className="flex">
+          <SideNav groups={groups} />
+          {/* The side rails (components/SideRails.tsx): eBay left, Amazon right, from 1440px; empty in the server HTML.
+              Off at launch (owner, 2026-11-08: no ad banners in the first build): SITE.sideRails. */}
+          {SITE.sideRails && <RailSlot side="left" />}
+          <main id="main" className="min-w-0 flex-1 pb-6">
+            {children}
+          </main>
+          {SITE.sideRails && <RailSlot side="right" />}
+        </div>
+        <Footer updated={meta ? niceDate(meta.updatedAt) : null} />
+        <QuickView />
+        {/* Rate us (owner, 2026-11-03): the corner card, asking only after real use; the ratings are kept by the shared review service. */}
+        <RateCard />
+        {/* Below the rails' width: their eBay tiles in the phone dock, after a scroll, never on a product page. */}
+        {SITE.sideRails && <RailDock />}
+        <Analytics />
+        <ShareArrival />
+        {/* Scroll reveals: shows what is on screen, then lets the rest ease in as it scrolls into view. */}
+        <script dangerouslySetInnerHTML={{ __html: MOTION_SCRIPT }} />
+      </body>
+    </html>
+  );
+}
