@@ -1,5 +1,6 @@
 import { CATEGORIES, SITE } from "@/site";
-import { getBrands, getMeta, getProducts } from "@/lib/data";
+import { fitHubs, getBrands, getMeta, getProducts } from "@/lib/data";
+import { fitIndexable, fitPath } from "@/lib/fit-codes";
 import { sitemapProducts } from "@/lib/index-tiers";
 import { GUIDES } from "@/lib/guides";
 import { LIVE_POSTS } from "@/content/blog";
@@ -67,6 +68,9 @@ function pageUrls(): SitemapUrl[] {
     u("/new", 0.7),
     u("/brands", 0.8),
     ...((core) => getBrands().filter((b) => b.products.some((f) => core.has(f.slug))))(new Set(coreProducts().map((f) => f.slug))).map((b) => u(`/brands/${b.slug}`, 0.8)),
+    // Shop by part code (lib/fit-codes.ts): a code hub is listed once it has FIT_INDEX_MIN products.
+    u("/fit", 0.7),
+    ...[...fitHubs()].flatMap(([cat, hubs]) => [...hubs.values()].filter((h) => fitIndexable(h.products.length)).map((h) => u(fitPath(cat, h.code), 0.8))),
     u("/guides", 0.7),
     ...GUIDES.map((g) => u(`/guides/${g.slug}`, 0.8)),
     u("/blog", 0.6),
