@@ -1266,3 +1266,8 @@ card sites): a visitor pastes a store's product link at `/is-this-a-good-price` 
   above it "you can pay less", with the saving. A listing that was out of stock says so instead. Amazon, eBay, marketplaces, stores
   we don't read and unmatched pages offer a search with the link's words.
 - A link pasted into the header search opens the checker (`#link=` in the fragment). Linked from the footer and the sitemap.
+
+## 2026-11-08: the icon is the spanner tag
+
+The owner picked option B of the four in `docs/icon-options/`: a signal-orange price tag with a white spanner on
+workshop dark. It is `src/app/icon.svg`, `src/app/apple-icon.png` (180 px), `LogoMark` and the share images' mark.

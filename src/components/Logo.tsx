@@ -1,13 +1,12 @@
-// The mark (2026-11-08, option A of four in docs/icon-options until the owner picks): a
-// gauge whose needle sits low, on signal orange. Same as src/app/icon.svg.
+// The mark (owner, 2026-11-08: option B of the four in docs/icon-options): a price tag with a spanner, signal
+// orange on workshop dark. Same as src/app/icon.svg.
 export function LogoMark({ size = 32 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden>
-      <rect x="2" y="2" width="60" height="60" rx="16" fill="#d6520e" />
-      <path d="M14 42a18 18 0 1 1 36 0" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" />
-      <path d="M19 30l3 2M32 24v4M45 30l-3 2" stroke="#fff" strokeWidth="3" strokeLinecap="round" />
-      <path d="M32 42L20.5 33.5" stroke="#1d2430" strokeWidth="5" strokeLinecap="round" />
-      <circle cx="32" cy="42" r="5" fill="#1d2430" />
+      <rect x="2" y="2" width="60" height="60" rx="16" fill="#1d2430" />
+      <path d="M33 12h17a2 2 0 0 1 2 2v17L30 53a3 3 0 0 1-4 0L11 38a3 3 0 0 1 0-4z" fill="#d6520e" />
+      <circle cx="44" cy="20" r="3.5" fill="#1d2430" />
+      <path d="M36.5 27.5a7 7 0 0 0-9.4 8.7L20 43.3l3.7 3.7 7.1-7.1a7 7 0 0 0 8.7-9.4l-4 4-3.3-.9-.9-3.3z" fill="#fff" />
     </svg>
   );
 }
