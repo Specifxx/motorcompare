@@ -52,6 +52,10 @@ test("categories: what it is decides, chargers are accessories", () => {
   assert.equal(c("Mystery Widget", "Engine Oil"), "oil", "the store's type decides when the title says nothing");
   assert.equal(c("Bonnet Strut"), "other");
   assert.equal(c("Century 12V NS70ZZ Car Battery"), "batteries", "12V is a battery's voltage, not an accessory");
+  assert.equal(c("Turbosmart BOV GenV ProPort Spring (4 inHg) Pink TS-0208-9006"), "other", "a part number ending 9006 is no globe");
+  assert.equal(c("Narva 9006 Plus 110 Globe"), "globes");
+  assert.equal(c("Turbosmart Engine Oil Filter -6AN 44 Micron"), "filters", "an oil filter is a filter");
+  assert.equal(c("Haltech Coolant Temp Sensor - Large Thread HT010302"), "other", "a coolant sensor is not coolant");
   assert.equal(c("Haltech 1/4\" Open Tip Thermocouple Length: 0.72m"), "other");
 });
 
