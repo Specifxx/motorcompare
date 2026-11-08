@@ -33,11 +33,13 @@ Never dispatch a manual release just to ship a merge. DECISIONS.md, 2026-11-02.
 "Push to prod" means land on `main` and ride the next release; use *Production deploy* (or `[deploy]`) only when the
 owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deploy.
 
-## Matching: the barcode or nothing
+## Matching: brand + part number, or the barcode, or nothing
 
-- A listing is matched ONLY by a valid EAN-13 or UPC-A (`src/lib/ean.ts`), read from the variant barcode, the SKU or
-  a labelled "EAN:". No barcode, no listing. Never match on a title: a 1 L and a 5 L, a 600 mm and a 650 mm blade,
-  N70ZZ and N70ZZL batteries all look alike.
+- A listing is matched by its brand + the maker's part number read from the SKU (`src/lib/partno.ts`, key
+  `pn:<brand>:<PN>`), else by a valid EAN-13 or UPC-A (`src/lib/ean.ts`). No brand and part number and no barcode, no
+  listing. `partNumber` may only refuse: a word, digits alone, too short or too long is no key. Never match on a
+  title: a 1 L and a 5 L, a 600 mm and a 650 mm blade, N70ZZ and N70ZZL batteries all look alike. Every rule changed
+  gets a case in `tests/partno.test.ts`.
 - The title decides only whether a listing belongs (`src/lib/title.ts`): used, reconditioned, exchange/core charges,
   damaged, store-made bundles, mystery boxes and apparel are refused. It also gives the category, the size (L, ml,
   mm) and the fit code a buyer can read off the old part (`partCode`: oil grade, battery code, globe code, wiper

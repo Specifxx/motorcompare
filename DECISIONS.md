@@ -1241,3 +1241,11 @@ N70ZZ, globe code H4, wiper length 600mm, filter number Z386) lists every produc
 - The page says we don't say which cars a part fits, and to check the code against the old part (`tests/fit-codes.test.ts`).
 - The product page's "Fit code" chip links its hub once the hub is indexed.
 - Real vehicle pages (rego or make/model lookup) need a licensed fitment source; revisit only with one.
+## 2026-11-08: car parts match by brand + manufacturer part number
+
+The store probe found 43 barcodes sold by two or more Australian parts shops, against 17,130 shared SKUs: the shops
+put the maker's own part number (Ryco Z386, NGK BKR6E, Century NS70ZZ) in the SKU and almost never fill the barcode.
+The trade orders parts by that number. So a listing whose brand we know and whose SKU reads as a part number gets the
+key `pn:<brand>:<PN>` (`src/lib/partno.ts`); a barcode is the fallback. The rule may only refuse (no brand, a word, a
+store's running number), the merge still needs two stores and sane prices, and eBay searches brand + number and keeps
+only titles naming both (`namesPart`). Pages show "Part number" and JSON-LD `mpn` for these products.
