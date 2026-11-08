@@ -1228,3 +1228,12 @@ host until motorcompare.app is bought.
 - **No banners:** `SITE.sideRails = false` turns off the eBay/Amazon side rails and the phone dock.
 - **Look:** steel greys, signal orange, Barlow Condensed headings; icon options in `docs/icon-options/`, the gauge
   is the default until the owner picks.
+
+## 2026-11-08: car parts match by brand + manufacturer part number
+
+The store probe found 43 barcodes sold by two or more Australian parts shops, against 17,130 shared SKUs: the shops
+put the maker's own part number (Ryco Z386, NGK BKR6E, Century NS70ZZ) in the SKU and almost never fill the barcode.
+The trade orders parts by that number. So a listing whose brand we know and whose SKU reads as a part number gets the
+key `pn:<brand>:<PN>` (`src/lib/partno.ts`); a barcode is the fallback. The rule may only refuse (no brand, a word, a
+store's running number), the merge still needs two stores and sane prices, and eBay searches brand + number and keeps
+only titles naming both (`namesPart`). Pages show "Part number" and JSON-LD `mpn` for these products.
