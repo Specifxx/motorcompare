@@ -1,6 +1,6 @@
 // Every outbound link is tagged here, at build time (there is no /go route:
 // a click costs no function). Tag format, as on every sister site:
-// `mc-<region>-<placement>-<ean>` in EPN's `customid` and Amazon's
+// `motor-<region>-<placement>-<ean>` in EPN's `customid` and Amazon's
 // `ascsubtag`, so the earnings reports split by site, market and placement.
 // Store links get utm_source so a store sees what we send it (the start of a
 // partner-code conversation).
@@ -10,7 +10,7 @@ import { STORE_BY_ID, STORES } from "@/content/stores";
 import type { Offer } from "./types";
 
 /** One EPN campaign for every site in the family, hard-coded (owner,
- *  2026-10-30); no variable overrides it. The customid tag (`mc-…`) tells the
+ *  2026-10-30); no variable overrides it. The customid tag (`motor-…`) tells the
  *  sites apart in the reports. */
 export const EBAY_CAMPAIGN_ID = "5339155912";
 

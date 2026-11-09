@@ -2,7 +2,7 @@
 // Store lists live in src/content/stores.ts.
 
 export const SITE = {
-  key: "mc",
+  key: "motor",
   name: "MotorCompare",
   domain: "motorcompare.vercel.app",
   url: (process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://motorcompare.vercel.app")).replace(/\/$/, ""),

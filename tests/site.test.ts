@@ -19,14 +19,14 @@ test("Australia only: every visitor gets the Australian prices", () => {
 });
 
 test("affiliate tags name the site, region, placement and product", () => {
-  assert.equal(subId("AU", "table_pinned", "9300289012345"), "mc-au-table_pinned-9300289012345");
-  const e = new URL(ebayAffiliateUrl("https://www.ebay.com.au/itm/1", "mc-au-x"));
-  assert.equal(e.searchParams.get("customid"), "mc-au-x");
+  assert.equal(subId("AU", "table_pinned", "9300289012345"), "motor-au-table_pinned-9300289012345");
+  const e = new URL(ebayAffiliateUrl("https://www.ebay.com.au/itm/1", "motor-au-x"));
+  assert.equal(e.searchParams.get("customid"), "motor-au-x");
   assert.equal(e.searchParams.get("mkrid"), "705-53470-19255-0");
   assert.ok(e.searchParams.get("campid"));
   assert.match(ebaySearchUrl("Penrite HPR 5", "UK", "t")!, /ebay\.co\.uk.*LH_BIN=1/);
   assert.match(ebaySearchUrl("Penrite HPR 5", "NZ", "t")!, /ebay\.com\.au.*campid=/, "NZ shops on eBay Australia");
-  assert.match(amazonSearchUrl("x", "US", "mc-us-y")!, /amazon\.com\/s\?.*tag=riftcompare-20.*ascsubtag=mc-us-y/);
+  assert.match(amazonSearchUrl("x", "US", "motor-us-y")!, /amazon\.com\/s\?.*tag=riftcompare-20.*ascsubtag=motor-us-y/);
   assert.match(amazonSearchUrl("x", "AU", "t")!, /amazon\.com\.au\/s\?.*tag=compareempire-22/, "the AU tag on amazon.com.au, never the US one");
   assert.match(amazonSearchUrl("x", "UK", "t")!, /amazon\.co\.uk\/.*tag=compareempi03-21/, "the owner's UK account");
   assert.match(amazonSearchUrl("x", "EU", "t")!, /amazon\.de\/.*tag=compareempire-21/);
@@ -37,8 +37,8 @@ test("affiliate tags name the site, region, placement and product", () => {
 
 test("retailer rows appear only once their tracking template is set", () => {
   const sc = PARTNERS.find((p) => p.key === "supercheap")!;
-  assert.equal(partnerUrl(sc, "Penrite HPR 5", "mc-au-t", {}), null);
-  assert.equal(partnerUrl(sc, "Penrite HPR 5", "mc-au-t", { AFF_SUPERCHEAP: "https://x.example/?q={q}&s={sub}" }), "https://x.example/?q=Penrite%20HPR%205&s=mc-au-t");
+  assert.equal(partnerUrl(sc, "Penrite HPR 5", "motor-au-t", {}), null);
+  assert.equal(partnerUrl(sc, "Penrite HPR 5", "motor-au-t", { AFF_SUPERCHEAP: "https://x.example/?q={q}&s={sub}" }), "https://x.example/?q=Penrite%20HPR%205&s=motor-au-t");
 });
 
 test("money stays in its own currency", () => {
@@ -107,7 +107,7 @@ test("no banner ads (owner, 2026-10-30): paid links live in the price table only
 test("the site is MotorCompare on motorcompare.vercel.app", () => {
   assert.equal(SITE.name, "MotorCompare");
   assert.equal(SITE.domain, "motorcompare.vercel.app");
-  assert.equal(SITE.key, "mc");
+  assert.equal(SITE.key, "motor");
 });
 
 test("the homepage's part tiles lead with the parts you can fit yourself", () => {
