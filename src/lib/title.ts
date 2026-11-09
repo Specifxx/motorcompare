@@ -33,7 +33,8 @@ export function readTitle(title: string, kind = ""): TitleInfo | { refused: Refu
   if (MYSTERY.test(title)) return { refused: "mystery" };
   if (BUNDLE.test(title)) return { refused: "bundle" };
   if (APPAREL.test(title) && !CAT_RULES.some(([, re]) => re.test(title))) return { refused: "apparel" };
-  return { cat: categoryOf(title, kind), size: sizeOf(title) };
+  const cat = categoryOf(title, kind);
+  return { cat, size: sizeOf(title, cat) };
 }
 
 // Order matters: the first rule that matches decides (a "battery charger" is an accessory, not a battery;
@@ -65,9 +66,25 @@ export function categoryOf(title: string, kind = ""): CatKey {
 
 // Sizes: litres and millilitres (oil, fluids, care), millimetres or inches (wiper blades).
 const VOLUME = /(\d+(?:[.,]\d+)?)\s?(l|lt|ltr|litres?|liters?|ml)\b/gi;
-const LENGTH = /(\d{3})\s?mm\b|(\d{2})\s?(?:"|''|in\b|inch(?:es)?\b)/gi;
+// A length is whole numbers only: "1.625\"" is not 25 inches and "1.2m" is not 2 m (the digit before a point is never skipped).
+const LENGTH = /(?<![\d.])(\d{3})\s?mm\b|(?<![\d.])(\d{2})\s?(?:"|''|in\b|inch(?:es)?\b)/gi;
+// Litres that name an engine ("Suit Ford Falcon 5.0L V8", "2.8L Eng") are not a pack size.
+const DISPLACEMENT = /^\s*(?:v\d|turbo|eng\b|tdi|hdi|cdi|petrol|vvt|dohc|sohc)/i;
 
-function volumeLabel(m: RegExpMatchArray): string | null {
+/** What a size means in each category: litres for fluids, a blade's length for wipers, nothing for the rest.
+ *  A plug "5.6L" or a clutch "4L" is the engine it suits, a "635mm" on a tube mount is a misread inch. */
+const SIZE_RULES: Partial<Record<CatKey, { litres: boolean; ml: boolean; mm: boolean }>> = {
+  oil: { litres: true, ml: true, mm: false },
+  fluids: { litres: true, ml: true, mm: false },
+  care: { litres: true, ml: true, mm: false },
+  brakes: { litres: true, ml: true, mm: false }, // brake fluid only, see ruleFor
+  wipers: { litres: false, ml: false, mm: true },
+  filters: { litres: false, ml: true, mm: false },
+  accessories: { litres: false, ml: true, mm: false },
+};
+
+function volumeLabel(m: RegExpMatchArray, text = ""): string | null {
+  if (DISPLACEMENT.test(text.slice((m.index ?? 0) + m[0].length))) return null;
   const n = Number(m[1].replace(",", "."));
   if (!(n > 0)) return null;
   const u = m[2].toLowerCase();
@@ -76,14 +93,27 @@ function volumeLabel(m: RegExpMatchArray): string | null {
 }
 
 /** The size a title states: "5L", "500ml", "650mm". The variant's own trailing brackets win. */
-export function sizeOf(title: string): string | null {
+function ruleFor(title: string, cat: CatKey) {
+  if (cat === "brakes" && !/\b(fluid|dot\s?[345])\b/i.test(title)) return undefined;
+  return SIZE_RULES[cat];
+}
+
+export function sizeOf(title: string, cat: CatKey = categoryOf(title)): string | null {
+  const rule = ruleFor(title, cat);
+  if (!rule) return null;
   const tail = title.match(/\(([^()]*)\)\s*$/);
   const scan = (t: string): string | null => {
-    for (const m of t.matchAll(VOLUME)) { const s = volumeLabel(m); if (s) return s; }
-    for (const m of t.matchAll(LENGTH)) {
-      if (m[1]) return `${Number(m[1])}mm`;
-      if (m[2]) return `${Math.round(Number(m[2]) * 25.4)}mm`;
+    for (const m of t.matchAll(VOLUME)) {
+      const isMl = m[2].toLowerCase() === "ml";
+      if (isMl ? !rule.ml : !rule.litres) continue;
+      const s = volumeLabel(m, t);
+      if (s) return s;
     }
+    if (rule.mm)
+      for (const m of t.matchAll(LENGTH)) {
+        if (m[1]) return `${Number(m[1])}mm`;
+        if (m[2]) return `${Math.round(Number(m[2]) * 25.4)}mm`;
+      }
     return null;
   };
   return (tail && scan(tail[1])) || scan(title);
@@ -91,7 +121,7 @@ export function sizeOf(title: string): string | null {
 
 /** A size as a number: millilitres, or millimetres for a wiper blade. */
 export interface Amount {
-  dim: "amount" | "length";
+  dim: "amount" | "length" | "count";
   n: number;
 }
 
@@ -113,19 +143,43 @@ export function sizesConflict(a: Amount | null, b: Amount | null): boolean {
   return Math.abs(a.n - b.n) / Math.max(a.n, b.n) > 0.05;
 }
 
-/** The size a listing can be trusted to be, at most one: a title naming two different sizes says nothing. */
+/** How many come in the pack when the title says: "Set of 8", "4 Pack", "Twin Pack", "(Pair)". Never inferred. */
+export function packCount(title: string): number | null {
+  const found = new Set<number>();
+  for (const m of title.matchAll(/\b(?:set|pack|box|case|carton|kit)\s+of\s+(\d{1,3})\b/gi)) found.add(Number(m[1]));
+  for (const m of title.matchAll(/\b(\d{1,3})\s?-?\s?(?:pack|pk|pcs?|pieces?)\b/gi)) found.add(Number(m[1]));
+  if (/\b(?:twin|double)\s*pack\b|\bpair\b|\b2\s?x\s?(?:pack|pcs?)\b/i.test(title)) found.add(2);
+  found.delete(0);
+  // "1 pcs" is the store's own filler, and a title naming two counts says nothing.
+  found.delete(1);
+  return found.size === 1 ? [...found][0] : null;
+}
+
+/** The size and pack a listing can be trusted to be, at most one of each: a title naming two different sizes says nothing. */
 export function listingAmounts(title: string): Amount[] {
-  const tail = title.match(/\(([^()]*)\)\s*$/);
-  const read = (t: string) => {
-    const out: Amount[] = [];
-    for (const m of t.matchAll(VOLUME)) { const a = amountOf(volumeLabel(m)); if (a) out.push(a); }
-    return out;
-  };
-  const fromTail = tail ? read(tail[1]) : [];
-  if (fromTail.length) return [fromTail[0]];
-  const all = read(title);
-  if (all.length && !all.some((a) => sizesConflict(a, all[0]))) return [all[0]];
-  return [];
+  const out: Amount[] = [];
+  const rule = ruleFor(title, categoryOf(title));
+  if (rule) {
+    const tail = title.match(/\(([^()]*)\)\s*$/);
+    const read = (t: string) => {
+      const vs: Amount[] = [];
+      for (const m of t.matchAll(VOLUME)) {
+        if (m[2].toLowerCase() === "ml" ? !rule.ml : !rule.litres) continue;
+        const a = amountOf(volumeLabel(m, t));
+        if (a) vs.push(a);
+      }
+      return vs;
+    };
+    const fromTail = tail ? read(tail[1]) : [];
+    if (fromTail.length) out.push(fromTail[0]);
+    else {
+      const all = read(title);
+      if (all.length && !all.some((a) => sizesConflict(a, all[0]))) out.push(all[0]);
+    }
+  }
+  const n = packCount(title);
+  if (n) out.push({ dim: "count", n });
+  return out;
 }
 
 /** The code printed on the part that decides fit: shown on tiles and product pages, and what the
@@ -143,7 +197,7 @@ export function partCode(title: string, cat: CatKey): string | null {
     case "globes":
       return pick(/\b(H1|H3|H4|H7|H8|H9|H11|H13|H16|HB3|HB4|HIR2|9003|9004|9005|9006|9007|9012|D1S|D2S|D3S|D4S|T10|W5W|T20|W21W|P21W|PY21W)\b/);
     case "wipers": {
-      const s = sizeOf(title);
+      const s = sizeOf(title, "wipers");
       return s && s.endsWith("mm") ? s : null;
     }
     case "filters":
