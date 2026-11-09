@@ -48,3 +48,35 @@ test("a spec the title does not state is left out", () => {
   assert.deepEqual(specsOf("NGK Iridium Spark Plug - DILFR6D8 2.7L", "plugs"), [{ label: "Electrode", value: "Iridium" }]);
   assert.equal(get("Haltech Weld Fitting - Aluminium Thread: M14 x 1.5", "other").Thread, "M14 x 1.5");
 });
+
+import { crossRefs, matchSpecs, statedFit } from "@/lib/specs";
+import { mergeListings, sameSpecs } from "@/lib/merge";
+import type { Listing } from "@/lib/types";
+
+test("stated fitment and cross-references are quoted, never invented", () => {
+  assert.equal(statedFit("K&N Replacement Air Filter Suits Ford FG & FGX 2L"), "Ford FG & FGX 2L");
+  assert.equal(statedFit("Hulk 4X4 Dual Battery Tray to Suit Landcruiser 200 Series (2009-08/16)"), "Landcruiser 200 Series (2009-08/16)");
+  assert.equal(statedFit("Ryco Z386 Oil Filter"), null);
+  assert.deepEqual(crossRefs("Oil Filter OEM 04152-YZZA1 replaces 90915-YZZJ1"), ["04152-YZZA1", "90915-YZZJ1"]);
+  assert.deepEqual(crossRefs("Oil Filter - OEM Quality"), []);
+  assert.equal(matchSpecs("Front & Rear Brake Pad Set", "brakes").Position, undefined);
+});
+
+const row = (store: string, title: string, cat: "wipers" | "brakes" | "globes") => ({ l: { store, title } as Listing, info: { cat } });
+
+test("one part key, two blade lengths: the majority length wins, a tie drops the part", () => {
+  const rows = [row("a", "Bosch Wiper Blade A 650mm", "wipers"), row("b", "Bosch Wiper Blade A 650mm", "wipers"), row("c", "Bosch Wiper Blade A 600mm", "wipers"), row("d", "Bosch Wiper Blade A", "wipers")];
+  assert.deepEqual(sameSpecs(rows).map((r) => r.l.store), ["a", "b", "d"]);
+  assert.deepEqual(sameSpecs(rows.slice(1, 3)), []);
+});
+
+test("front and rear pads under one part number never share a price list", () => {
+  const rows = [row("a", "Bendix Front Brake Pads DB1395", "brakes"), row("b", "Bendix Rear Brake Pads DB1395", "brakes")];
+  assert.deepEqual(sameSpecs(rows), []);
+});
+
+test("12 V and 24 V globes under one key conflict", () => {
+  const rows = [row("a", "Narva H7 12V Globe", "globes"), row("b", "Narva H7 24V Globe", "globes")];
+  assert.deepEqual(sameSpecs(rows), []);
+  void mergeListings;
+});
