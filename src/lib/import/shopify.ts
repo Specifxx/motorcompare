@@ -7,6 +7,7 @@
 // shops in the 2026-10-30 probe), cached by product in
 // data/state/barcodes.json and capped per run. About a request a second:
 // Shopify answers 429 to a runner going faster.
+import { fitmentOf, oeNumbersOf } from "../fitment";
 import { REGION_BY_CODE } from "@/site";
 import type { Store } from "@/content/stores";
 import { eanOf } from "../ean";
@@ -122,6 +123,8 @@ export function listingsFromProduct(
   const text = variants.length === 1 ? `${p.body_html ?? ""}` : null;
   // The notes are the product's, so every size of it shares them (read once, only when a variant is kept).
   let notes: ReturnType<typeof readNotes> | undefined;
+  const fit = fitmentOf(p.tags, p.body_html);
+  const oe = oeNumbersOf(p.body_html);
   for (const v of variants) {
     const title = variantTitle(p, v);
     const info = readTitle(title, kind);
@@ -148,6 +151,9 @@ export function listingsFromProduct(
       vid: String(v.id),
       img: sizedImage(v.featured_image?.src ?? p.images?.[0]?.src),
     });
+    const last = res.listings[res.listings.length - 1];
+    if (fit.length) last.fit = fit;
+    if (oe.length) last.oe = oe;
     if (notes === undefined) notes = readNotes(p.body_html ?? "");
     if (notes) res.listings[res.listings.length - 1].notes = notes;
   }

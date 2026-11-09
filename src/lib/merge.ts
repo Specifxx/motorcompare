@@ -3,6 +3,7 @@
 // Pure, so tests/merge.test.ts can pin every rule.
 import { REGIONS, SITE, type CatKey, type RegionCode } from "@/site";
 import { STORE_BY_ID } from "@/content/stores";
+import { FIT_MAX_STORES } from "./fitment";
 import { MATCH_SPECS, matchSpecs } from "./specs";
 import { categoryOf, listingAmounts, pickName, readTitle, sizesConflict, tidyName, type Amount, type TitleInfo } from "./title";
 import { brandName, brandSlug, canonicalKey, listingBrand } from "./brand";
@@ -219,7 +220,13 @@ export function mergeListings(listings: Listing[], state: MergeState, today: str
     slugOwner.set(slug, ean);
     if (!state.first[ean]) state.first[ean] = today;
     const img = kept.find((r) => r.l.img)?.l.img ?? null;
-    out.push({ ean, slug, name, brand, b: key ? brandSlug(key, brand) : "", cat, size, img, first: state.first[ean], offers });
+    // Fitment, per store and in the store's words, from stores that still list the product (cheapest-region order does not matter).
+    const fit: Record<string, string[]> = {};
+    for (const r of [...kept].sort((a, b) => a.l.store.localeCompare(b.l.store))) {
+      if (r.l.fit?.length && !fit[r.l.store] && Object.keys(fit).length < FIT_MAX_STORES) fit[r.l.store] = r.l.fit;
+    }
+    const oe = [...new Set(kept.flatMap((r) => r.l.oe ?? []))].slice(0, 6);
+    out.push({ ean, slug, name, brand, b: key ? brandSlug(key, brand) : "", cat, size, img, first: state.first[ean], offers, ...(Object.keys(fit).length ? { fit } : {}), ...(oe.length ? { oe } : {}) });
   }
   return out.sort((a, b) => a.name.localeCompare(b.name));
 }
