@@ -1285,3 +1285,20 @@ searches only the regions the site shows (it planned all five markets before, wh
 page). `EBAY_MAX_DAILY_CALLS` (600) is a ceiling `EBAY_DAILY_CAP` can only lower (`tests/ebay-cap.test.ts`), so the three sites
 can never pass eBay's 5,000 together. The secrets are Compare Empire's `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET`; the keyset's
 deletion endpoint stays compareempire.com's. Rebalance after two weeks of EPN earnings per call by customid (`ce-`, `wax-`, `mc-`).
+
+## 2026-11-09 — Navigation audit (Bill): sections one swipe away, brands on a section, the niche's own filters
+
+Bill: a collector or someone deep in a space must reach it fast. Here a car-parts buyer goes by part category, then the code printed on the old part (oil grade, battery size, globe code, wiper length), then brand. One change for the KaeYoung / ScentCompare / MotorCompare
+engine (FigureCompare's variant has its own entry), made in step in the three repos.
+
+- **Quick row** (`components/CategoryStrip.tsx`, `quickLinks` in `lib/nav.ts`): below lg, where the side panel is not drawn, a swipeable row
+  of the sections, this niche's second way in and Brands sits under the header on every page, in the server's HTML, the current one
+  marked. It is a subset of the sidebar's own list, so the two never disagree (`tests/nav.test.ts`).
+- **Brands on a section** (`CatHub`): "Shop <section> by brand", the twelve brands with the most products there (only brands that have
+  a page), each a link to `/brands/<slug>`, and "All brands".
+- **The niche's filters** (`content/facets.ts`, `lib/browse.ts`, `components/Browse.tsx`): beside brand and rating, Part code (the code the title states, lib/title.ts partCode). Each reads only the
+  product's name that /search-index.json already holds, so nothing is fetched and nothing is guessed: a name that does not say has no
+  value. Fixed lists show before the index loads; the counts appear once it has.
+- The header search's short placeholder now names what it finds (brand, product, barcode / part code). "Shop by part code" moved out of "Save" into its own sidebar group, "Find your part".
+- Unchanged: every URL, title, description, canonical, h1 and JSON-LD. Not done: brand-within-section hub pages (a new indexable
+  page per pair needs its own thin-page rule), and the side rails and corner rating card (owner, 2026-11-06 / 2026-11-03).
