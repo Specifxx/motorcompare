@@ -53,7 +53,7 @@ owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deplo
 
 ## Money
 
-- Affiliate tags are added at build (`src/lib/affiliate.ts`): `mc-au-<placement>-<ean>` in EPN `customid` and
+- Affiliate tags are added at build (`src/lib/affiliate.ts`): `motor-au-<placement>-<ean>` in EPN `customid` and
   Amazon `ascsubtag`; stores get `utm_source=<SITE.domain>`.
 - Paid rows sit in a product's price table, above the stores, labelled "Ad"/"Paid link", rel sponsored, never a
   store, never "the cheapest"; commission never decides order. eBay (EPN campaign 5339155912, hard-coded), Amazon AU

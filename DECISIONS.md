@@ -1316,3 +1316,7 @@ Bill: navigation is very important, prefers dropdown menus, wants the best moder
 - **Side panel removed** (at Bill's 2026-11-09 direction): the menus carry every destination it
   had; the page is flush. Below lg the quick row and the phone menu are unchanged.
 - Unchanged: every URL, title, canonical, h1, JSON-LD. No new fetch, no revalidate change.
+
+## 2026-11-09: tag prefix `mc` becomes `motor`
+
+RiftCompare's earnings dashboard groups every affiliate tag by the letters before the first separator, and it reads `mc-` as the old MTG singles site (a late-sales alias), so MotorCompare's eBay and Amazon money would have landed on MTG Compare. `SITE.key` is now `motor`: eBay `customid` and Amazon `ascsubtag` read `motor-au-<placement>-<ean>`, Awin `clickref` starts `motor`. Clicks made under `mc-` in the first day stay counted to MTG; they are a few.

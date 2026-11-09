@@ -16,12 +16,12 @@ test("rails: eBay tiles are live listings, tagged side-ebay; Amazon tiles are ta
     for (const t of rails.ebay.tiles) {
       assert.ok(t.img && (t.price || /\/sch\/i\.html\?_nkw=/.test(t.href)), `${r.code}: an eBay tile is a live listing with its delivered price, or an exact-name search`);
       assert.match(t.href, /campid=5339155912/);
-      assert.match(t.href, new RegExp(`customid=mc-${r.code.toLowerCase()}-side-ebay-`));
+      assert.match(t.href, new RegExp(`customid=motor-${r.code.toLowerCase()}-side-ebay-`));
     }
     if (!r.amazonHost) assert.equal(rails.amazon, null, `${r.code}: no Amazon programme, no Amazon rail`);
     for (const t of rails.amazon?.tiles ?? []) {
       assert.equal(t.price, null, "never an Amazon price in a rail (no API price, and none may be stored)");
-      assert.match(t.href, /[?&]tag=[a-z0-9-]+-2[0-9]&ascsubtag=mc-[a-z]+-side-amazon-/);
+      assert.match(t.href, /[?&]tag=[a-z0-9-]+-2[0-9]&ascsubtag=motor-[a-z]+-side-amazon-/);
       assert.match(t.href, /\/dp\/[A-Z0-9]{10}\?|\/s\?k=/, "a specific product: its ASIN or its exact name");
     }
   }
