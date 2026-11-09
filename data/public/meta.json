@@ -1,51 +1,51 @@
 {
- "updatedAt": "2026-11-08T12:39:54.617Z",
- "products": 2467,
- "merged": 17115,
+ "updatedAt": "2026-11-09T08:46:22.065Z",
+ "products": 2471,
+ "merged": 16796,
  "stores": {
   "automegastore": {
    "ok": true,
    "listings": 3327,
-   "matched": 2921,
+   "matched": 3380,
    "refused": {
     "no-price": 4,
     "damaged": 14,
-    "apparel": 10,
+    "apparel": 12,
     "bundle": 3,
     "mystery": 3
    },
-   "noEan": 627,
-   "ms": 1347047
+   "noEan": 166,
+   "ms": 599372
   },
   "subieshop": {
    "ok": true,
    "listings": 4526,
    "matched": 1830,
    "refused": {
-    "pre-owned": 27,
+    "pre-owned": 28,
     "not-part": 30,
     "apparel": 510,
     "no-price": 1,
     "damaged": 1
    },
-   "noEan": 2170,
-   "ms": 27908
+   "noEan": 2169,
+   "ms": 756968
   },
   "ppdperformance": {
    "ok": true,
    "listings": 11496,
-   "matched": 3270,
+   "matched": 3372,
    "refused": {
     "apparel": 8,
     "pre-owned": 4
    },
-   "noEan": 12285,
-   "ms": 1400105
+   "noEan": 12183,
+   "ms": 1384371
   },
   "autocave": {
    "ok": true,
-   "listings": 11941,
-   "matched": 9087,
+   "listings": 11940,
+   "matched": 9086,
    "refused": {
     "apparel": 22,
     "damaged": 12,
@@ -54,7 +54,7 @@
     "not-part": 1
    },
    "noEan": 3306,
-   "ms": 60940
+   "ms": 59849
   },
   "wipersdirect": {
    "ok": true,
@@ -64,7 +64,7 @@
     "no-price": 106
    },
    "noEan": 5894,
-   "ms": 134927
+   "ms": 129577
   },
   "motoquipe": {
    "ok": true,
@@ -76,23 +76,23 @@
     "pre-owned": 15,
     "not-part": 5,
     "damaged": 6,
-    "apparel": 92
+    "apparel": 93
    },
-   "noEan": 10424,
-   "ms": 106842
+   "noEan": 10423,
+   "ms": 101979
   },
   "justjap": {
    "ok": true,
-   "listings": 13419,
-   "matched": 14461,
+   "listings": 13423,
+   "matched": 14464,
    "refused": {
     "apparel": 158,
     "bundle": 34,
     "core": 1,
     "not-part": 8
    },
-   "noEan": 12663,
-   "ms": 80144
+   "noEan": 12664,
+   "ms": 76521
   },
   "bcracing": {
    "ok": true,
@@ -104,7 +104,7 @@
     "not-part": 8
    },
    "noEan": 7224,
-   "ms": 37911
+   "ms": 35583
   },
   "clutchdirect": {
    "ok": true,
@@ -114,7 +114,7 @@
     "no-price": 3
    },
    "noEan": 367,
-   "ms": 113671
+   "ms": 109415
   },
   "universalautospares": {
    "ok": true,
@@ -126,12 +126,12 @@
     "pre-owned": 9
    },
    "noEan": 353,
-   "ms": 100726
+   "ms": 97504
   },
   "rampedup4x4": {
    "ok": true,
    "listings": 20000,
-   "matched": 24297,
+   "matched": 24290,
    "refused": {
     "apparel": 70,
     "not-part": 76,
@@ -140,21 +140,21 @@
     "bundle": 1
    },
    "noEan": 3259,
-   "ms": 109970
+   "ms": 107756
   },
   "halfpriceparts": {
    "ok": true,
    "listings": 20000,
-   "matched": 4236,
+   "matched": 4235,
    "refused": {
-    "pre-owned": 549,
+    "pre-owned": 547,
     "apparel": 236,
     "damaged": 9,
     "no-price": 8,
     "bundle": 1
    },
-   "noEan": 14969,
-   "ms": 125119
+   "noEan": 14972,
+   "ms": 119352
   },
   "partscity": {
    "ok": true,
@@ -166,7 +166,7 @@
     "apparel": 6
    },
    "noEan": 602,
-   "ms": 57979
+   "ms": 56291
   },
   "marsperformance": {
    "ok": true,
@@ -179,29 +179,40 @@
     "pre-owned": 3
    },
    "noEan": 3865,
-   "ms": 29252
+   "ms": 28251
   },
   "jtmauto": {
    "ok": true,
-   "listings": 6709,
-   "matched": 5639,
+   "listings": 6710,
+   "matched": 5648,
    "refused": {
     "apparel": 19,
     "no-price": 2,
     "damaged": 2,
     "not-part": 2
    },
-   "noEan": 2055,
-   "ms": 36317
+   "noEan": 2047,
+   "ms": 34695
+  },
+  "brettstruck": {
+   "ok": true,
+   "listings": 20000,
+   "matched": 18504,
+   "refused": {
+    "apparel": 105,
+    "not-part": 41,
+    "pre-owned": 2
+   },
+   "noEan": 1348,
+   "ms": 132928
   },
   "quickautoparts": {
-   "ok": false,
-   "error": "https://quickautoparts.com.au/wp-json/wc/store/v1/products?per_page=100&page=9: HTTP 429",
-   "listings": 0,
-   "matched": 0,
+   "ok": true,
+   "listings": 6000,
+   "matched": 5059,
    "refused": {},
-   "noEan": 0,
-   "ms": 146762
+   "noEan": 941,
+   "ms": 266597
   },
   "vagparts": {
    "ok": true,
@@ -214,42 +225,43 @@
     "pre-owned": 1
    },
    "noEan": 3536,
-   "ms": 102914
-  },
-  "brettstruck": {
-   "ok": true,
-   "listings": 20000,
-   "matched": 18504,
-   "refused": {
-    "apparel": 105,
-    "not-part": 41,
-    "pre-owned": 2
-   },
-   "noEan": 1348,
-   "ms": 138354
+   "ms": 99642
   },
   "mytuff4x4": {
    "ok": true,
    "listings": 20000,
-   "matched": 16186,
+   "matched": 16185,
    "refused": {
     "apparel": 70,
     "bundle": 97,
     "pre-owned": 4
    },
    "noEan": 13181,
-   "ms": 104236
+   "ms": 104116
   },
   "bavarianspeed": {
    "ok": true,
-   "listings": 2982,
-   "matched": 2279,
+   "listings": 2993,
+   "matched": 2281,
    "refused": {
-    "apparel": 65,
+    "apparel": 66,
     "no-price": 2
    },
-   "noEan": 2483,
-   "ms": 18952
+   "noEan": 2491,
+   "ms": 17426
+  },
+  "efs4wd": {
+   "ok": true,
+   "listings": 5924,
+   "matched": 0,
+   "refused": {
+    "no-price": 15,
+    "bundle": 1,
+    "apparel": 25,
+    "pre-owned": 22
+   },
+   "noEan": 5861,
+   "ms": 293713
   },
   "a1autopartsniddrie": {
    "ok": true,
@@ -261,7 +273,7 @@
     "pre-owned": 3
    },
    "noEan": 4198,
-   "ms": 97977
+   "ms": 97574
   },
   "autolines": {
    "ok": true,
@@ -275,20 +287,7 @@
     "bundle": 1
    },
    "noEan": 2574,
-   "ms": 18440
-  },
-  "efs4wd": {
-   "ok": true,
-   "listings": 5924,
-   "matched": 0,
-   "refused": {
-    "no-price": 15,
-    "bundle": 1,
-    "apparel": 25,
-    "pre-owned": 22
-   },
-   "noEan": 5861,
-   "ms": 282169
+   "ms": 17356
   },
   "swd": {
    "ok": true,
@@ -299,17 +298,17 @@
     "no-price": 9
    },
    "noEan": 141,
-   "ms": 27468
+   "ms": 23995
   },
   "sparkplugsdirect": {
    "ok": true,
-   "listings": 7968,
-   "matched": 7874,
+   "listings": 7967,
+   "matched": 7873,
    "refused": {
     "no-price": 2
    },
    "noEan": 92,
-   "ms": 38652
+   "ms": 38065
   },
   "myautoparts": {
    "ok": true,
@@ -320,7 +319,7 @@
     "no-price": 1
    },
    "noEan": 19847,
-   "ms": 102148
+   "ms": 99439
   },
   "deaperformance": {
    "ok": true,
@@ -330,20 +329,20 @@
     "apparel": 11
    },
    "noEan": 3379,
-   "ms": 13363
+   "ms": 12672
   },
   "frankiesautoelectrics": {
    "ok": true,
-   "listings": 19746,
-   "matched": 16857,
+   "listings": 19751,
+   "matched": 16882,
    "refused": {
     "apparel": 17,
     "bundle": 235,
     "not-part": 7,
     "damaged": 1
    },
-   "noEan": 3568,
-   "ms": 108711
+   "noEan": 3548,
+   "ms": 108262
   },
   "mcc4x4": {
    "ok": true,
@@ -351,7 +350,7 @@
    "matched": 3213,
    "refused": {},
    "noEan": 55,
-   "ms": 16055
+   "ms": 15292
   },
   "batteryspecialists": {
    "ok": true,
@@ -364,7 +363,7 @@
     "pre-owned": 3
    },
    "noEan": 704,
-   "ms": 43652
+   "ms": 42340
   },
   "shiftymods": {
    "ok": true,
@@ -375,32 +374,32 @@
     "bundle": 21
    },
    "noEan": 4079,
-   "ms": 18317
+   "ms": 16349
   },
   "empireperformance": {
    "ok": true,
-   "listings": 7668,
+   "listings": 7669,
    "matched": 7996,
    "refused": {
     "apparel": 129,
     "damaged": 5,
     "not-part": 11
    },
-   "noEan": 3730,
-   "ms": 42301
+   "noEan": 3731,
+   "ms": 41623
   },
   "golebysparts": {
    "ok": true,
-   "listings": 4252,
-   "matched": 7021,
+   "listings": 4249,
+   "matched": 7008,
    "refused": {
     "bundle": 77,
-    "apparel": 498,
+    "apparel": 493,
     "mystery": 7,
     "not-part": 12
    },
-   "noEan": 10169,
-   "ms": 26012
+   "noEan": 10149,
+   "ms": 24211
   },
   "autoone": {
    "ok": true,
@@ -414,7 +413,7 @@
     "damaged": 26
    },
    "noEan": 18378,
-   "ms": 104720
+   "ms": 103430
   },
   "dencodiesel": {
    "ok": true,
@@ -427,7 +426,7 @@
     "not-part": 80
    },
    "noEan": 30386,
-   "ms": 40277
+   "ms": 37347
   },
   "lamspeedracing": {
    "ok": true,
@@ -437,7 +436,7 @@
     "apparel": 22
    },
    "noEan": 1518,
-   "ms": 9510
+   "ms": 8641
   },
   "vcmperformance": {
    "ok": true,
@@ -450,7 +449,7 @@
     "not-part": 105
    },
    "noEan": 300,
-   "ms": 9134
+   "ms": 8777
   },
   "batterycentralbrisbane": {
    "ok": true,
@@ -461,7 +460,7 @@
     "bundle": 2
    },
    "noEan": 1329,
-   "ms": 59710
+   "ms": 67500
   },
   "neveraauto": {
    "ok": true,
@@ -472,7 +471,7 @@
     "no-price": 2
    },
    "noEan": 1034,
-   "ms": 11203
+   "ms": 10676
   },
   "performancewarehouse": {
    "ok": true,
@@ -483,21 +482,7 @@
     "apparel": 91
    },
    "noEan": 51,
-   "ms": 18504
-  },
-  "prospeedracing": {
-   "ok": true,
-   "listings": 5239,
-   "matched": 15242,
-   "refused": {
-    "apparel": 209,
-    "pre-owned": 11,
-    "bundle": 46,
-    "damaged": 1,
-    "no-price": 1
-   },
-   "noEan": 1555,
-   "ms": 35950
+   "ms": 16542
   },
   "ssmperformanceparts": {
    "ok": true,
@@ -509,7 +494,21 @@
     "not-part": 3
    },
    "noEan": 5571,
-   "ms": 222344
+   "ms": 209112
+  },
+  "prospeedracing": {
+   "ok": true,
+   "listings": 5239,
+   "matched": 15237,
+   "refused": {
+    "apparel": 209,
+    "pre-owned": 11,
+    "bundle": 46,
+    "damaged": 1,
+    "no-price": 1
+   },
+   "noEan": 1288,
+   "ms": 32544
   },
   "ausgo4wd": {
    "ok": true,
@@ -517,7 +516,16 @@
    "matched": 1081,
    "refused": {},
    "noEan": 727,
-   "ms": 11515
+   "ms": 10000
+  },
+  "thebatterybase": {
+   "ok": false,
+   "error": "https://thebatterybase.com.au/robots.txt: fetch failed",
+   "listings": 0,
+   "matched": 0,
+   "refused": {},
+   "noEan": 0,
+   "ms": 6646
   },
   "eagleautoparts": {
    "ok": true,
@@ -529,20 +537,12 @@
     "pre-owned": 7
    },
    "noEan": 7445,
-   "ms": 87436
-  },
-  "thebatterybase": {
-   "ok": true,
-   "listings": 1273,
-   "matched": 1167,
-   "refused": {},
-   "noEan": 106,
-   "ms": 68692
+   "ms": 84515
   },
   "autopartsguys": {
    "ok": true,
    "listings": 20000,
-   "matched": 25494,
+   "matched": 25491,
    "refused": {
     "apparel": 177,
     "pre-owned": 7,
@@ -551,7 +551,53 @@
     "not-part": 1
    },
    "noEan": 516,
-   "ms": 107331
+   "ms": 103655
+  },
+  "elevateauto": {
+   "ok": true,
+   "listings": 1534,
+   "matched": 1973,
+   "refused": {
+    "no-price": 1,
+    "apparel": 20,
+    "bundle": 13
+   },
+   "noEan": 617,
+   "ms": 13243
+  },
+  "clickableautomotive": {
+   "ok": true,
+   "listings": 1125,
+   "matched": 334,
+   "refused": {
+    "apparel": 6
+   },
+   "noEan": 785,
+   "ms": 5434
+  },
+  "campingaustralia": {
+   "ok": true,
+   "listings": 4147,
+   "matched": 2648,
+   "refused": {
+    "apparel": 40,
+    "bundle": 11,
+    "pre-owned": 16,
+    "not-part": 4
+   },
+   "noEan": 1903,
+   "ms": 21621
+  },
+  "dcjapautomotive": {
+   "ok": true,
+   "listings": 2259,
+   "matched": 1475,
+   "refused": {
+    "mystery": 1,
+    "apparel": 15
+   },
+   "noEan": 1457,
+   "ms": 13035
   },
   "enginemaster": {
    "ok": true,
@@ -565,53 +611,7 @@
     "not-part": 1
    },
    "noEan": 2659,
-   "ms": 100583
-  },
-  "clickableautomotive": {
-   "ok": true,
-   "listings": 1125,
-   "matched": 334,
-   "refused": {
-    "apparel": 6
-   },
-   "noEan": 785,
-   "ms": 5668
-  },
-  "elevateauto": {
-   "ok": true,
-   "listings": 1534,
-   "matched": 1973,
-   "refused": {
-    "no-price": 1,
-    "apparel": 20,
-    "bundle": 13
-   },
-   "noEan": 617,
-   "ms": 12313
-  },
-  "dcjapautomotive": {
-   "ok": true,
-   "listings": 2259,
-   "matched": 1475,
-   "refused": {
-    "mystery": 1,
-    "apparel": 15
-   },
-   "noEan": 1457,
-   "ms": 14197
-  },
-  "campingaustralia": {
-   "ok": true,
-   "listings": 4147,
-   "matched": 2648,
-   "refused": {
-    "apparel": 39,
-    "bundle": 11,
-    "pre-owned": 16,
-    "not-part": 4
-   },
-   "noEan": 1904,
-   "ms": 22865
+   "ms": 97919
   },
   "camdenvalley4x4": {
    "ok": true,
@@ -621,7 +621,7 @@
     "apparel": 4
    },
    "noEan": 537,
-   "ms": 7547
+   "ms": 6185
   },
   "gktech": {
    "ok": true,
@@ -634,7 +634,7 @@
     "not-part": 6
    },
    "noEan": 1329,
-   "ms": 6836
+   "ms": 6313
   },
   "narva": {
    "ok": true,
@@ -645,7 +645,7 @@
     "apparel": 16
    },
    "noEan": 2208,
-   "ms": 21587
+   "ms": 21198
   },
   "holdcom": {
    "ok": true,
@@ -658,7 +658,7 @@
     "not-part": 3
    },
    "noEan": 909,
-   "ms": 6425
+   "ms": 5807
   },
   "mkmotorsports": {
    "ok": true,
@@ -670,7 +670,7 @@
     "pre-owned": 1
    },
    "noEan": 531,
-   "ms": 9909
+   "ms": 10473
   },
   "automodellista": {
    "ok": true,
@@ -683,32 +683,19 @@
     "not-part": 3
    },
    "noEan": 1795,
-   "ms": 8942
+   "ms": 8876
   },
   "alliedautoonline": {
    "ok": true,
    "listings": 20000,
-   "matched": 18205,
+   "matched": 18206,
    "refused": {
     "no-price": 132,
     "damaged": 16,
     "apparel": 10
    },
-   "noEan": 1637,
-   "ms": 122142
-  },
-  "s1320motorsports": {
-   "ok": true,
-   "listings": 20000,
-   "matched": 28764,
-   "refused": {
-    "apparel": 1273,
-    "bundle": 16,
-    "pre-owned": 4,
-    "no-price": 1
-   },
-   "noEan": 13323,
-   "ms": 99513
+   "noEan": 1636,
+   "ms": 118587
   },
   "rooracing": {
    "ok": true,
@@ -720,7 +707,7 @@
     "pre-owned": 4
    },
    "noEan": 1711,
-   "ms": 7256
+   "ms": 6948
   },
   "australiaspeed": {
    "ok": true,
@@ -731,7 +718,20 @@
     "apparel": 35
    },
    "noEan": 723,
-   "ms": 4538
+   "ms": 4182
+  },
+  "s1320motorsports": {
+   "ok": true,
+   "listings": 20000,
+   "matched": 28749,
+   "refused": {
+    "apparel": 1289,
+    "bundle": 16,
+    "pre-owned": 4,
+    "no-price": 1
+   },
+   "noEan": 13322,
+   "ms": 98147
   },
   "s4wdpartshop": {
    "ok": false,
@@ -740,7 +740,7 @@
    "matched": 0,
    "refused": {},
    "noEan": 0,
-   "ms": 288
+   "ms": 383
   },
   "s4x4extrasonline": {
    "ok": true,
@@ -753,19 +753,19 @@
     "not-part": 6
    },
    "noEan": 835,
-   "ms": 10445
+   "ms": 9432
   },
   "homeof12voltonline": {
    "ok": true,
    "listings": 1804,
-   "matched": 2338,
+   "matched": 2337,
    "refused": {
     "apparel": 18,
     "bundle": 1,
     "not-part": 20
    },
-   "noEan": 608,
-   "ms": 12931
+   "noEan": 609,
+   "ms": 11639
   },
   "iilumo": {
    "ok": true,
@@ -776,7 +776,7 @@
     "apparel": 17
    },
    "noEan": 1671,
-   "ms": 6166
+   "ms": 5318
   },
   "tranzmile": {
    "ok": true,
@@ -790,52 +790,52 @@
     "pre-owned": 1
    },
    "noEan": 1202,
-   "ms": 36108
+   "ms": 34734
   },
   "demonproparts": {
    "ok": true,
-   "listings": 758,
+   "listings": 759,
    "matched": 12,
    "refused": {
     "apparel": 21,
     "not-part": 1
    },
-   "noEan": 757,
-   "ms": 4446
+   "noEan": 758,
+   "ms": 4523
   },
   "zerooffset": {
    "ok": true,
    "listings": 748,
-   "matched": 1206,
+   "matched": 1207,
    "refused": {
     "bundle": 45,
     "apparel": 17
    },
    "noEan": 683,
-   "ms": 5001
+   "ms": 4606
   },
   "kickassproducts": {
    "ok": true,
-   "listings": 1050,
-   "matched": 242,
+   "listings": 1043,
+   "matched": 240,
    "refused": {
-    "bundle": 475,
+    "bundle": 473,
     "apparel": 37
    },
-   "noEan": 316,
-   "ms": 5834
+   "noEan": 313,
+   "ms": 5392
   },
   "detailingshed": {
    "ok": true,
-   "listings": 1636,
-   "matched": 1819,
+   "listings": 1634,
+   "matched": 1818,
    "refused": {
     "bundle": 82,
     "apparel": 27,
     "not-part": 2
    },
-   "noEan": 1151,
-   "ms": 12469
+   "noEan": 1150,
+   "ms": 11658
   },
   "akracing": {
    "ok": false,
@@ -844,7 +844,7 @@
    "matched": 0,
    "refused": {},
    "noEan": 0,
-   "ms": 884
+   "ms": 710
   },
   "vicoffroad": {
    "ok": true,
@@ -856,7 +856,7 @@
     "apparel": 1
    },
    "noEan": 252,
-   "ms": 4171
+   "ms": 3383
   },
   "moorabbinbatteries": {
    "ok": true,
@@ -866,22 +866,12 @@
     "bundle": 18
    },
    "noEan": 182,
-   "ms": 4140
-  },
-  "jaydeeautocables": {
-   "ok": true,
-   "listings": 1237,
-   "matched": 2607,
-   "refused": {
-    "apparel": 1
-   },
-   "noEan": 650,
-   "ms": 8551
+   "ms": 3976
   },
   "everythingcaravans": {
    "ok": true,
-   "listings": 7698,
-   "matched": 3391,
+   "listings": 7699,
+   "matched": 3392,
    "refused": {
     "apparel": 161,
     "not-part": 10,
@@ -889,7 +879,7 @@
     "pre-owned": 5
    },
    "noEan": 4117,
-   "ms": 48389
+   "ms": 44095
   },
   "perthdiesel": {
    "ok": true,
@@ -901,29 +891,39 @@
     "not-part": 2
    },
    "noEan": 102,
-   "ms": 2224
+   "ms": 1899
+  },
+  "jaydeeautocables": {
+   "ok": true,
+   "listings": 1238,
+   "matched": 2607,
+   "refused": {
+    "apparel": 1
+   },
+   "noEan": 651,
+   "ms": 7132
   },
   "goind": {
    "ok": true,
    "listings": 3831,
-   "matched": 7903,
+   "matched": 7915,
    "refused": {
     "bundle": 9,
     "apparel": 182,
     "no-price": 123
    },
    "noEan": 1919,
-   "ms": 25042
+   "ms": 23375
   },
   "platinumracingproducts": {
    "ok": true,
-   "listings": 496,
-   "matched": 490,
+   "listings": 996,
+   "matched": 845,
    "refused": {
-    "apparel": 175
+    "apparel": 147
    },
-   "noEan": 3826,
-   "ms": 2983
+   "noEan": 3058,
+   "ms": 4944
   },
   "lightforce": {
    "ok": true,
@@ -935,19 +935,19 @@
     "not-part": 4
    },
    "noEan": 598,
-   "ms": 2194
+   "ms": 2020
   },
   "detailstore": {
    "ok": true,
-   "listings": 1207,
+   "listings": 1208,
    "matched": 1259,
    "refused": {
     "bundle": 46,
     "apparel": 4,
     "not-part": 6
    },
-   "noEan": 579,
-   "ms": 6544
+   "noEan": 580,
+   "ms": 5811
   },
   "spectr": {
    "ok": true,
@@ -957,7 +957,7 @@
     "apparel": 1
    },
    "noEan": 100,
-   "ms": 2013
+   "ms": 1836
   },
   "waxit": {
    "ok": true,
@@ -969,37 +969,37 @@
     "not-part": 4
    },
    "noEan": 314,
-   "ms": 8018
+   "ms": 6110
   },
   "itechworld": {
    "ok": true,
-   "listings": 323,
+   "listings": 319,
    "matched": 0,
    "refused": {
-    "no-price": 8,
+    "no-price": 4,
     "bundle": 21,
     "apparel": 7,
     "not-part": 9
    },
    "noEan": 330,
-   "ms": 2202
+   "ms": 1996
   },
   "carcareco": {
    "ok": true,
    "listings": 1256,
-   "matched": 893,
+   "matched": 894,
    "refused": {
     "apparel": 5,
     "bundle": 2,
     "no-price": 1
    },
-   "noEan": 355,
-   "ms": 72778
+   "noEan": 354,
+   "ms": 74434
   },
   "energyeco": {
    "ok": true,
-   "listings": 449,
-   "matched": 728,
+   "listings": 452,
+   "matched": 731,
    "refused": {
     "bundle": 6,
     "no-price": 2,
@@ -1007,7 +1007,7 @@
     "mystery": 1
    },
    "noEan": 111,
-   "ms": 2414
+   "ms": 2202
   },
   "outbax": {
    "ok": true,
@@ -1018,7 +1018,7 @@
     "apparel": 3
    },
    "noEan": 371,
-   "ms": 2000
+   "ms": 1805
   },
   "mdcarcare": {
    "ok": true,
@@ -1031,19 +1031,19 @@
     "not-part": 9
    },
    "noEan": 754,
-   "ms": 3272
+   "ms": 4558
   },
   "carcareproducts": {
    "ok": true,
-   "listings": 709,
+   "listings": 699,
    "matched": 8,
    "refused": {
     "bundle": 2,
     "apparel": 5,
     "not-part": 6
    },
-   "noEan": 954,
-   "ms": 3127
+   "noEan": 931,
+   "ms": 3178
   },
   "campervanbuilders": {
    "ok": true,
@@ -1054,11 +1054,11 @@
     "apparel": 3
    },
    "noEan": 975,
-   "ms": 7556
+   "ms": 7178
   },
   "savagetech": {
    "ok": true,
-   "listings": 719,
+   "listings": 718,
    "matched": 81,
    "refused": {
     "apparel": 11,
@@ -1066,8 +1066,8 @@
     "no-price": 4,
     "not-part": 32
    },
-   "noEan": 806,
-   "ms": 5027
+   "noEan": 805,
+   "ms": 3058
   },
   "premiumdiagnostics": {
    "ok": true,
@@ -1080,7 +1080,7 @@
     "pre-owned": 1
    },
    "noEan": 297,
-   "ms": 5304
+   "ms": 4763
   },
   "autobuff": {
    "ok": true,
@@ -1091,7 +1091,7 @@
     "not-part": 4
    },
    "noEan": 249,
-   "ms": 2752
+   "ms": 2362
   },
   "snowfoam": {
    "ok": true,
@@ -1101,7 +1101,7 @@
     "not-part": 13
    },
    "noEan": 549,
-   "ms": 866
+   "ms": 932
   },
   "altiq": {
    "ok": true,
@@ -1114,7 +1114,7 @@
     "not-part": 9
    },
    "noEan": 419,
-   "ms": 1181
+   "ms": 714
   },
   "ozcharge": {
    "ok": true,
@@ -1124,7 +1124,7 @@
     "no-price": 13
    },
    "noEan": 112,
-   "ms": 738
+   "ms": 686
   },
   "cleanaworx": {
    "ok": true,
@@ -1134,7 +1134,7 @@
     "bundle": 3
    },
    "noEan": 62,
-   "ms": 763
+   "ms": 587
   },
   "detailcentral": {
    "ok": true,
@@ -1147,7 +1147,7 @@
     "apparel": 3
    },
    "noEan": 614,
-   "ms": 3438
+   "ms": 2186
   },
   "meguiars": {
    "ok": true,
@@ -1157,18 +1157,18 @@
     "no-price": 1
    },
    "noEan": 151,
-   "ms": 8355
+   "ms": 8381
   },
   "enerdrive": {
    "ok": true,
-   "listings": 284,
-   "matched": 347,
+   "listings": 287,
+   "matched": 348,
    "refused": {
     "bundle": 4,
     "apparel": 5
    },
-   "noEan": 65,
-   "ms": 1845
+   "noEan": 70,
+   "ms": 1925
   },
   "sonax": {
    "ok": true,
@@ -1179,12 +1179,12 @@
     "not-part": 1
    },
    "noEan": 182,
-   "ms": 1372
+   "ms": 895
   },
   "aimsindustrial": {
    "ok": true,
    "listings": 20000,
-   "matched": 125445,
+   "matched": 125442,
    "refused": {
     "apparel": 2737,
     "bundle": 9,
@@ -1193,7 +1193,16 @@
     "not-part": 5
    },
    "noEan": 3,
-   "ms": 118823
+   "ms": 115928
   }
+ },
+ "ebay": {
+  "at": "2026-11-09T08:51:28.139Z",
+  "day": "2026-11-09",
+  "calls": 600,
+  "budget": 600,
+  "listings": 553,
+  "qday": "2026-11-09",
+  "qcalls": 600
  }
 }
