@@ -1339,3 +1339,18 @@ category-blind size reader does: spark plugs sized "2.7L" (the engine they suit)
   position, DOT grade and rotor diameter, thread and length where the title says them. A spec the title does not state is
   left out. Spark plug thread and reach are NOT decoded from the NGK code: that table is not ours to guess.
 - Still not claimed: make-and-model fitment. Specs are display only; the merge keys are unchanged.
+
+## 2026-11-09 (evening): store fitment is quoted per store, never vouched for
+
+The 2026-11-09 fitment probe (`probe/fitment-summary.md`, `.github/workflows/probe-fitment.yml`) showed 13 of the 14 biggest
+AU Shopify stores state fitment in text: `Make:` / `Model:` / `car:` tags (Autocave, JustJap), "Fit For ..." and "to suit:"
+blocks in descriptions (Universal Auto Spares, Autocave), "[Suit ...]" titles (Spark Plugs Direct) and "OE equivalent
+numbers". Bill: exact fitment is MotorCompare's selling point.
+
+- `lib/fitment.ts` reads those from each Shopify listing at import (`fitmentOf`, `oeNumbersOf`); `Product.fit` keeps them
+  PER STORE, in the store's words, at most 3 stores x 3 strings x 120 characters, `Product.oe` at most 6 OE numbers. The
+  product page says "<store> says it suits ...", "Quoted from each store's own listing, not checked by us".
+- Fitment never merges across stores, never decides a match, a rank or a filter, and is not in JSON-LD or metadata. A part a
+  store has not listed fitment for shows none. A "My car" make/model filter is NOT built: it would rest on one or two
+  stores' free text; it waits until a make/model table (stores' own, or TecDoc-class) can back it.
+- The file grows by the stored strings only; the probe's sample says about a third of products carry any.

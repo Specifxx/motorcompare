@@ -31,6 +31,10 @@ export interface Product {
   /** date (YYYY-MM-DD) the importer first saw this barcode */
   first: string;
   offers: Partial<Record<RegionCode, Offer[]>>;
+  /** What stores' own listings say the part suits, by store id (lib/fitment.ts): their words, at most 3 stores, never vouched for */
+  fit?: Record<string, string[]>;
+  /** OE / equivalent part numbers the stores' descriptions list (lib/fitment.ts), at most 6 */
+  oe?: string[];
 }
 
 export interface StoreRun {
@@ -73,6 +77,9 @@ export interface Listing {
   img: string | null;
   /** the notes the store's own description lists (lib/notes.ts readNotes), when it lists any */
   notes?: import("./notes").Pyramid;
+  /** the fitment the store's own listing states (lib/fitment.ts fitmentOf) and the OE numbers it lists */
+  fit?: string[];
+  oe?: string[];
 }
 
 /** Cheapest real eBay Buy It Now listing for a product (data/public/ebay.json). */

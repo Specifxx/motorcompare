@@ -357,7 +357,28 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                   <dd className="tabular-nums">{xrefs.join(", ")}</dd>
                 </>
               )}
-              {fitText && (
+              {f.oe && f.oe.length > 0 && (
+                <>
+                  <dt className="text-soft">OE numbers</dt>
+                  <dd className="tabular-nums">
+                    {f.oe.join(", ")}
+                    <span className="mt-0.5 block text-xs text-soft">As listed by stores; check against your old part.</span>
+                  </dd>
+                </>
+              )}
+              {f.fit && Object.keys(f.fit).length > 0 ? (
+                <>
+                  <dt className="text-soft">Fitment, per store</dt>
+                  <dd>
+                    {Object.entries(f.fit).map(([sid, lines]) => (
+                      <span key={sid} className="mb-1 block">
+                        <strong>{storeName(sid)}</strong> says it suits {lines.join("; ")}
+                      </span>
+                    ))}
+                    <span className="mt-0.5 block text-xs text-soft">Quoted from each store&apos;s own listing, not checked by us. Match the part number above before you buy.</span>
+                  </dd>
+                </>
+              ) : fitText && (
                 <>
                   <dt className="text-soft">Store listing says</dt>
                   <dd>
