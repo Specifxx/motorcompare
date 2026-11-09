@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Fragment } from "react";
 import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { culledTarget } from "@/lib/culled";
@@ -34,6 +35,7 @@ function idOf(id: string) {
     : { label: "Barcode (EAN)", value: id, same: `Same barcode (${id})`, ours: `this product's barcode (${id})` };
 }
 import { partCode } from "@/lib/title";
+import { specsOf } from "@/lib/specs";
 import { codeSlug, FIT_INDEX_MIN, fitPath } from "@/lib/fit-codes";
 
 // The build prerenders only the top products (prebuiltProducts, 500 of ~37,000):
@@ -99,6 +101,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
 
   const rated = reviewsOf(f);
   const code = partCode(f.name, f.cat);
+  const specs = specsOf(f.name, f.cat);
   const meta = getMeta();
   const showSchema = !!rated && rated.n >= SCHEMA_MIN_RATINGS;
   const jsonLd = {
@@ -332,12 +335,18 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               )}
               <dt className="text-soft">Category</dt>
               <dd>{cat.name}</dd>
-              {f.size && (
+              {f.size && !specs.some((x) => x.label === "Volume" || x.label === "Blade length") && (
                 <>
                   <dt className="text-soft">Size</dt>
                   <dd>{f.size}</dd>
                 </>
               )}
+              {specs.map((x) => (
+                <Fragment key={x.label}>
+                  <dt className="text-soft">{x.label}</dt>
+                  <dd>{x.value}</dd>
+                </Fragment>
+              ))}
               <dt className="text-soft">{idOf(f.ean).label}</dt>
               <dd className="tabular-nums">{idOf(f.ean).value}</dd>
               <dt className="text-soft">Stores</dt>

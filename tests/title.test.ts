@@ -1,7 +1,7 @@
 // Every rule in src/lib/title.ts has a store-style title here.
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { amountOf, categoryOf, cleanName, listingAmounts, partCode, pickName, readTitle, sizeOf, sizesConflict, tidyName } from "@/lib/title";
+import { amountOf, categoryOf, cleanName, listingAmounts, packCount, partCode, pickName, readTitle, sizeOf, sizesConflict, tidyName } from "@/lib/title";
 
 const refused = (t: string) => {
   const r = readTitle(t);
@@ -83,4 +83,39 @@ test("names", () => {
   assert.equal(cleanName("Ryco Z386 Oil Filter - Free Shipping"), "Ryco Z386 Oil Filter");
   assert.equal(tidyName("Century - NS40ZL Car Battery", "Century"), "Century NS40ZL Car Battery");
   assert.equal(pickName(["Ryco Z386 Oil Filter", "Ryco Z386 Oil Filter", "RYCO Z386"]), "Ryco Z386 Oil Filter");
+});
+
+// ---- 2026-11-09: sizes are per category, and a pack is not a single ----
+test("a size is only what the category means by one (real store titles)", () => {
+  // Engine displacement is not a pack size.
+  assert.equal(sizeOf("NGK Iridium Spark Plug - DILFR6D8 2.7L"), null);
+  assert.equal(sizeOf("Exedy Holden Commodore VT-VZ LS1 5.7l Exedy Sports Tuff Clutch Kit"), null);
+  assert.equal(sizeOf("K&N Replacement Air Filter Suit Ford BA & BF 4L"), null);
+  assert.equal(sizeOf("Bendix U4WD-BUK34 Ultimate 4WD Upgrade Kit for Toyota Land Cruiser 4.5L"), null);
+  assert.equal(sizeOf("Penrite HPR 5 5W-40 Engine Oil 5L"), "5L");
+  assert.equal(sizeOf("Penrite 5.0L V8 Race Oil 5L".replace("5L", ""), "oil"), null, "5.0L V8 names an engine");
+  assert.equal(sizeOf("K&N Filter Oil 12.25oz Aerosol Spray K99-0516 362ml"), "362ml");
+  assert.equal(sizeOf("Bosch Aerotwin A929S Wiper Blade 650mm"), "650mm");
+  // A decimal inch never loses its whole part: 1.625" is not 25".
+  assert.equal(sizeOf('Haltech Nexus PD16 Tube Mount Kit 1.625" HT-039082'), null);
+  assert.equal(sizeOf('Haltech Driveshaft Split Collar 1.875"/ 47.63mm I.D. 8 Magnet'), null);
+  assert.equal(sizeOf('Bosch Wiper Blade 26"'), "660mm");
+});
+
+test("pack counts come from the words, never guessed", () => {
+  assert.equal(packCount("NGK BKR6EIX Iridium Spark Plug 4 Pack"), 4);
+  assert.equal(packCount("Haltech Plug and Pins Suit Ford Coyote Ignition Coils (Set of 8)"), 8);
+  assert.equal(packCount("Narva H4 Plus 120 Headlight Globes (Pair)"), 2);
+  assert.equal(packCount("Meguiar's Gold Class Rich Leather Wipes 25 Pack"), 25);
+  assert.equal(packCount("Ryco Z386 Oil Filter"), null);
+  assert.equal(packCount("Cable 4 x 20AWG 10m"), null);
+});
+
+test("a single and a pack under one part number conflict", () => {
+  const a = listingAmounts("NGK BKR6E Spark Plug");
+  const b = listingAmounts("NGK BKR6E Spark Plug 4 Pack");
+  const c = listingAmounts("NGK BKR6E Spark Plugs Set of 4");
+  assert.equal(sizesConflict(b[0], c[0]), false);
+  const two = listingAmounts("Narva H7 Globes (Pair)");
+  assert.equal(sizesConflict(two[0], b[0]), true);
 });

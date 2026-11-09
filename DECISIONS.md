@@ -1320,3 +1320,22 @@ Bill: navigation is very important, prefers dropdown menus, wants the best moder
 ## 2026-11-09: tag prefix `mc` becomes `motor`
 
 RiftCompare's earnings dashboard groups every affiliate tag by the letters before the first separator, and it reads `mc-` as the old MTG singles site (a late-sales alias), so MotorCompare's eBay and Amazon money would have landed on MTG Compare. `SITE.key` is now `motor`: eBay `customid` and Amazon `ascsubtag` read `motor-au-<placement>-<ean>`, Awin `clickref` starts `motor`. Clicks made under `mc-` in the first day stay counted to MTG; they are a few.
+
+## 2026-11-09: specs and dimensions are read per category, from the title's own words
+
+Bill: "spec and dimensions for car parts gets super specific so lets get that right". The 11-08 data showed what a
+category-blind size reader does: spark plugs sized "2.7L" (the engine they suit), a clutch kit "4L", Haltech tube mounts
+"635mm" (the "25" of a 1.625" decimal read as 25 inches), a 4WD brake kit "4.5L".
+
+- A size now means what the category means by one (`SIZE_RULES` in `title.ts`): litres and ml for oil, fluids, care and
+  brake fluid; a blade's length for wipers; ml only for filters and accessories; nothing for plugs, batteries, globes and
+  `other`. Litres followed by V8/turbo/Eng are displacement everywhere. Lengths never take the tail of a decimal.
+- Pack counts ("Set of 8", "4 Pack", "Twin Pack", "(Pair)") are now read (`packCount`). `sameSize` already clustered on
+  a `count` dimension that nothing produced, so a single and a 4-pack under one part number merged. Two named counts that
+  differ now conflict exactly like two sizes (a tie leaves the part out). A count is never inferred; "1 pcs" is not one.
+- `src/lib/specs.ts` reads the specs a shopper verifies against the old part, in the maker's unit, and the product page
+  lists them: oil viscosity/base/API/ACEA/volume, battery size code/voltage/Ah/CCA/type, both blade lengths of a pair
+  (600/450mm; inches converted), globe type/voltage/wattage, plug gap/thread/electrode (only when stated), brake part,
+  position, DOT grade and rotor diameter, thread and length where the title says them. A spec the title does not state is
+  left out. Spark plug thread and reach are NOT decoded from the NGK code: that table is not ours to guess.
+- Still not claimed: make-and-model fitment. Specs are display only; the merge keys are unchanged.
