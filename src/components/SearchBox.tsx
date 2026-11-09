@@ -127,7 +127,7 @@ export function SearchBox({ big = false }: { big?: boolean }) {
             }
             if (e.key === "Escape") setOpen(false);
           }}
-          placeholder={big ? "Search a part, a code like N70ZZ or H7, or a brand…" : "Search parts…"}
+          placeholder={big ? "Search a part, a code like N70ZZ or H7, or a brand…" : "Search part, code, brand…"}
           aria-label="Search car parts"
           aria-expanded={open}
           aria-controls={listId}

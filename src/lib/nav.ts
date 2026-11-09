@@ -23,12 +23,18 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
       links: STEP_MENU_ORDER.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).map((c) => ({ href: `/${c.key}`, label: c.name, count: counts[c.key], cat: c.key })),
     },
     {
+      // The way a buyer really searches: the code printed on the old part (Bill, 2026-11-09).
+      title: "Find your part",
+      links: [
+        { href: "/fit", label: "Shop by part code" },
+        { href: "/popular", label: "Popular" },
+      ],
+    },
+    {
       title: "Save",
       links: [
         // Black Friday, then Cyber Monday, while the strip shows (lib/black-friday.ts saleStrip).
         ...saleLinks(),
-        { href: "/fit", label: "Shop by part code" },
-        { href: "/popular", label: "Popular" },
         { href: "/deals", label: "Deals today" },
         { href: "/basket", label: "Basket compare" },
         { href: "/new", label: "New arrivals" },
@@ -50,6 +56,14 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
       ],
     },
   ];
+}
+
+/**
+ * The quick row under the header below lg (components/CategoryStrip.tsx): the sections as the first group lists them, this niche's
+ * second way in, then Brands. A subset of the groups above, so the strip never names a place the menus do not.
+ */
+export function quickLinks(groups: NavGroup[]): NavItem[] {
+  return [...(groups[0]?.links ?? []).map(({ href, label }) => ({ href, label })), { href: "/fit", label: "Part code" }, { href: "/brands", label: "Brands" }];
 }
 
 /** The current page is this link, or inside it ("/men/page/2" is in Men's cologne). */
