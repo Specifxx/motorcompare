@@ -1,8 +1,8 @@
-// Every place the site goes, grouped the way a shopper looks: the routine
-// section, where the value is, brands and guides, and the rest. The desktop
-// sidebar (components/SideNav.tsx, lg and up; owner, 2026-10-30: "a side panel
-// like DexCompare") and the phone menu (components/MobileMenu.tsx) draw this
-// one list, so the two never disagree. Static links to pages that exist.
+// Every place the site goes, grouped the way a parts buyer looks: the part category,
+// the code on the old part, brands and guides, and the rest. The header mega menus
+// (components/HeaderMenus.tsx, lg up; they replaced the side panel, Bill
+// 2026-11-09) and the phone menu (components/MobileMenu.tsx) draw this list,
+// so they never disagree. Static links to pages that exist.
 // No data import here: the client menus import isActive from this file.
 import { saleStrip } from "@/lib/black-friday";
 import { POSTS } from "@/content/blog";
@@ -10,6 +10,16 @@ import { CAT_BY_KEY, STEP_MENU_ORDER, type CatKey } from "@/site";
 
 export type NavItem = { href: string; label: string; count?: number; cat?: CatKey };
 export type NavGroup = { title: string; links: NavItem[] };
+
+/** A header menu link; `regions` = the markets it has products in (absent: every market), drawn with the engine's rp-XX classes. */
+export type MenuLink = { href: string; label: string; regions?: string[] };
+export type HeaderMenu = { label: string; all: { href: string; label: string }; columns: { title?: string; links: MenuLink[] }[] };
+
+/** What the header menus list beyond the groups: each already filtered to products and tagged with the markets that have them. */
+export interface MenuFacts {
+  catRegions: Partial<Record<CatKey, string[]>>;
+  brands: MenuLink[];
+}
 
 function saleLinks(): NavItem[] {
   const s = saleStrip(new Date().toISOString().slice(0, 10));
@@ -55,6 +65,22 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
         { href: "/disclosure", label: "How we make money" },
       ],
     },
+  ];
+}
+
+/**
+ * The header's mega menus (components/HeaderMenus.tsx, lg up). Parts and the other groups ARE the groups the phone menu draws;
+ * brands are the longer list "All brands" links to. Australia only, so no link carries a market class; a category or brand with
+ * no products is left out (regions: []).
+ */
+export function headerMenus(groups: NavGroup[], f: MenuFacts): HeaderMenu[] {
+  const live = (l: MenuLink) => !l.regions || l.regions.length > 0;
+  const parts: MenuLink[] = (groups[0]?.links ?? []).map((l) => ({ href: l.href, label: l.label, regions: l.cat ? f.catRegions[l.cat] : undefined })).filter(live);
+  const group = (title: string) => groups.find((g) => g.title === title)?.links ?? [];
+  return [
+    { label: "Parts", all: { href: "/popular", label: "Popular right now" }, columns: [{ title: "By part category", links: parts }, { title: "Find your part", links: group("Find your part").filter((l) => l.href !== "/popular") }] },
+    { label: "Brands", all: { href: "/brands", label: "All brands" }, columns: [{ links: f.brands.filter(live) }] },
+    { label: "Deals & more", all: { href: "/deals", label: "Deals today" }, columns: [{ title: "Save", links: group("Save") }, { title: "MotorCompare", links: group("MotorCompare") }] },
   ];
 }
 
