@@ -3,7 +3,8 @@
 // Pure, so tests/merge.test.ts can pin every rule.
 import { REGIONS, SITE, type CatKey, type RegionCode } from "@/site";
 import { STORE_BY_ID } from "@/content/stores";
-import { categoryOf, listingAmounts, pickName, readTitle, sizesConflict, tidyName, type Amount } from "./title";
+import { MATCH_SPECS, matchSpecs } from "./specs";
+import { categoryOf, listingAmounts, pickName, readTitle, sizesConflict, tidyName, type Amount, type TitleInfo } from "./title";
 import { brandName, brandSlug, canonicalKey, listingBrand } from "./brand";
 import { slugify } from "./slug";
 import { partNoOf } from "./partno";
@@ -107,6 +108,29 @@ export function sameSize<T extends { l: Listing }>(rows: T[]): T[] {
   return kept.map((x) => x.r);
 }
 
+/**
+ * Listings under one part key whose titles state a different dimension or rating (a 600 mm and a 650 mm blade, a
+ * 12 V and a 24 V globe, a front and a rear pad, 5W-30 and 5W-40) are not all the same part. The value most stores
+ * state wins and the others are dropped; a tie leaves the part out, because a wrong part on a comparison is worse
+ * than a missing one (owner, 2026-11-09). Listings that state no value for a spec stay.
+ */
+export function sameSpecs<T extends { l: Listing; info: { cat: CatKey } }>(rows: T[]): T[] {
+  let kept = rows.map((r) => ({ r, m: matchSpecs(r.l.title, r.info.cat) }));
+  for (const label of MATCH_SPECS) {
+    const by = new Map<string, Set<string>>();
+    for (const { r, m } of kept) {
+      const v = m[label];
+      if (v) by.set(v, (by.get(v) ?? new Set()).add(r.l.store));
+    }
+    if (by.size < 2) continue;
+    const ranked = [...by.entries()].sort((a, b) => b[1].size - a[1].size);
+    if (ranked[0][1].size === ranked[1][1].size) return [];
+    const win = ranked[0][0];
+    kept = kept.filter(({ m }) => !m[label] || m[label] === win);
+  }
+  return kept.map((x) => x.r);
+}
+
 export interface MergeState {
   /** ean → slug, kept forever so a URL never changes */
   slugs: Record<string, string>;
@@ -141,7 +165,7 @@ export function mergeListings(listings: Listing[], state: MergeState, today: str
   const out: Product[] = [];
   for (const [ean, all] of byEan) {
     const read = all.map((l) => ({ l, info: readTitle(l.title, l.kind) }));
-    const kept = sameSize(read.filter((r) => !("refused" in r.info)));
+    const kept = sameSpecs(sameSize(read.filter((r): r is typeof r & { info: TitleInfo } => !("refused" in r.info))));
     if (!kept.length) continue;
 
     const offers: Partial<Record<RegionCode, Offer[]>> = {};

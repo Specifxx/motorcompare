@@ -35,7 +35,7 @@ function idOf(id: string) {
     : { label: "Barcode (EAN)", value: id, same: `Same barcode (${id})`, ours: `this product's barcode (${id})` };
 }
 import { partCode } from "@/lib/title";
-import { specsOf } from "@/lib/specs";
+import { crossRefs, specsOf, statedFit } from "@/lib/specs";
 import { codeSlug, FIT_INDEX_MIN, fitPath } from "@/lib/fit-codes";
 
 // The build prerenders only the top products (prebuiltProducts, 500 of ~37,000):
@@ -102,6 +102,8 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   const rated = reviewsOf(f);
   const code = partCode(f.name, f.cat);
   const specs = specsOf(f.name, f.cat);
+  const fitText = statedFit(f.name);
+  const xrefs = crossRefs(f.name);
   const meta = getMeta();
   const showSchema = !!rated && rated.n >= SCHEMA_MIN_RATINGS;
   const jsonLd = {
@@ -349,6 +351,21 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               ))}
               <dt className="text-soft">{idOf(f.ean).label}</dt>
               <dd className="tabular-nums">{idOf(f.ean).value}</dd>
+              {xrefs.length > 0 && (
+                <>
+                  <dt className="text-soft">Cross-reference</dt>
+                  <dd className="tabular-nums">{xrefs.join(", ")}</dd>
+                </>
+              )}
+              {fitText && (
+                <>
+                  <dt className="text-soft">Store listing says</dt>
+                  <dd>
+                    Suits {fitText}
+                    <span className="mt-0.5 block text-xs text-soft">Quoted from the store&apos;s title, not checked by us. Match the part number above before you buy.</span>
+                  </dd>
+                </>
+              )}
               <dt className="text-soft">Stores</dt>
               <dd>{storeCount(f)}</dd>
               <dt className="text-soft">First seen</dt>

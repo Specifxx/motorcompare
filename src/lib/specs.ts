@@ -120,3 +120,32 @@ export function specsOf(title: string, cat: CatKey): Spec[] {
   add("Pack", n ? (n === 2 && /pair|twin/i.test(t) ? "Pair (2)" : `${n}`) : null);
   return out;
 }
+
+/** The labels whose value must agree for two listings to be the same part: a different one is a different product. */
+export const MATCH_SPECS = ["Blade length", "Voltage", "Wattage", "Capacity", "Cold cranking", "Viscosity", "DOT grade", "Position", "Diameter", "Thread", "Globe type", "Battery size", "Length"] as const;
+
+/** A title's stated match specs, label → value. Front-and-rear states no position. */
+export function matchSpecs(title: string, cat: CatKey): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const s of specsOf(title, cat)) if ((MATCH_SPECS as readonly string[]).includes(s.label)) out[s.label] = s.value;
+  if (/\bfront\b/i.test(title) && /\brear\b/i.test(title)) delete out.Position;
+  return out;
+}
+
+/** What a store's title says the part suits, verbatim ("Suit Ford Falcon BA-FG 2003-2014"). We quote it, we do not verify it. */
+export function statedFit(title: string): string | null {
+  const m = title.match(/\b(?:suit(?:s|able\s+for)?|to\s+fit|fits|compatible\s+with)\b[:\s]+(.{4,140}?)(?:\s+[-–|]\s+(?=[A-Z0-9]*\d)|$)/i);
+  if (!m) return null;
+  const t = m[1].replace(/[\s,;:.]+$/, "").trim();
+  return t.length >= 4 ? t : null;
+}
+
+/** OEM or cross-reference numbers a title names ("OEM 04152-YZZA1", "Replaces 90915-YZZJ1"), as printed; at most three. */
+export function crossRefs(title: string): string[] {
+  const out: string[] = [];
+  for (const m of title.matchAll(/\b(?:OEM|OE|replaces|replacement\s+for|cross[\s-]?ref(?:erence)?|equivalent\s+to)\b[:\s#]*([A-Z0-9][A-Z0-9-]{4,19})\b/gi)) {
+    const v = m[1].toUpperCase();
+    if (/\d/.test(v) && !out.includes(v)) out.push(v);
+  }
+  return out.slice(0, 3);
+}
