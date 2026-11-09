@@ -117,3 +117,20 @@ test("two part keys never share a slug, even when a kept slug collides", () => {
   const slugs = out.map((p) => p.slug);
   assert.equal(new Set(slugs).size, 3, slugs.join(" "));
 });
+
+test("a title names the category; one store's own category alone does not", () => {
+  const H = ean("930028905555");
+  const t = "Haltech Nexus PD16 Tube Mount Kit HT-039082";
+  const out = mergeListings(
+    [
+      L("a", "AU", 9900, { ean: H, vendor: "Haltech", title: t, kind: "Batteries & Electrical" }),
+      L("b", "AU", 9900, { ean: H, vendor: "Haltech", title: t, kind: "ECU Accessories" }),
+      L("c", "AU", 9900, { ean: H, vendor: "Haltech", title: t, kind: "Haltech" }),
+    ],
+    fresh(),
+    "2026-11-09",
+  );
+  assert.equal(out[0].cat, "other");
+  const oil = mergeListings([L("a", "AU", 2199, { title: "Penrite HPR 5 5L", kind: "Engine Oil" }), L("b", "AU", 2299, { title: "Penrite HPR 5 5L", kind: "Engine Oil" })], fresh(), "2026-11-09");
+  assert.equal(oil[0].cat, "oil", "every store's type agrees");
+});

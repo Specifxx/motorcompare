@@ -3,7 +3,7 @@
 // Pure, so tests/merge.test.ts can pin every rule.
 import { REGIONS, SITE, type CatKey, type RegionCode } from "@/site";
 import { STORE_BY_ID } from "@/content/stores";
-import { listingAmounts, pickName, readTitle, sizesConflict, tidyName, type Amount } from "./title";
+import { categoryOf, listingAmounts, pickName, readTitle, sizesConflict, tidyName, type Amount } from "./title";
 import { brandName, brandSlug, canonicalKey, listingBrand } from "./brand";
 import { slugify } from "./slug";
 import { partNoOf } from "./partno";
@@ -168,7 +168,14 @@ export function mergeListings(listings: Listing[], state: MergeState, today: str
       .filter((b): b is string => !!b);
     const key = mode(brands.map(canonicalKey).filter(Boolean));
     const brand = key ? spelling.get(key) ?? brandName(key, brands.filter((b) => canonicalKey(b) === key)) : "";
-    const cat = (mode(kept.map((r) => ("refused" in r.info ? "other" : r.info.cat)).filter((c) => c !== "other")) ?? "other") as CatKey;
+    // The titles decide the category. A store's own type or category is the fallback only when no title names one,
+    // and then it needs half the stores: one store filing a whole brand under "Batteries & Electrical" put Haltech
+    // ECU parts on /batteries.
+    const byTitle = kept.map((r) => categoryOf(r.l.title)).filter((c) => c !== "other");
+    const byKind = kept.map((r) => ("refused" in r.info ? "other" : r.info.cat));
+    const kindCat = mode(byKind.filter((c) => c !== "other"));
+    const cat = (mode(byTitle) ??
+      (kindCat && byKind.filter((c) => c === kindCat).length * 2 >= byKind.length ? kindCat : "other")) as CatKey;
     // "1 pcs" says nothing a shopper needs: not shown as a size.
     const size = mode(kept.flatMap((r) => ("refused" in r.info || !r.info.size || r.info.size === "1 pcs" ? [] : [r.info.size])));
     let name = pickName(kept.map((r) => tidyName(r.l.title, brand)));
