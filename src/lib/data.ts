@@ -9,6 +9,7 @@ import { ebayRowShown } from "./ebay";
 import { lowestOrderable } from "./history";
 import type { EbayData, History, Meta, Offer, Product } from "./types";
 import { unpackProducts } from "./products-file";
+import { partNoOf } from "./partno";
 import { deliveryFor, MAX_SMALL_ORDER_FEE, type ShippingData } from "./shipping";
 import type { PartnerPricesFile } from "./partner-feed";
 import type { PromoData } from "./promos";
@@ -97,11 +98,31 @@ export function familyKey(f: Product): string {
   return `${f.b}|${n
     .replace(/\([^()]*\)/g, " ")
     .replace(/\d+(?:[.,]\d+)?\s?(?:ml|g|fl\.?\s?oz|oz|sheets?|pcs|pads?|patches|ea)\b/g, " ")
+    // a part's own length or volume ("Length: 0.84m", "600mm", "5L") tells variants apart, it is not a different part
+    .replace(/\blength:?\s*\d+(?:[.,]\d+)?\s?(?:m|mm|cm|ft|in)?\b/g, " ")
+    .replace(/(?<![\w.])\d+(?:[.,]\d+)?\s?(?:mm|cm|m|l|lt|ltr|litres?|liters?)\b/g, " ")
     .replace(/#\s?[\w-]+/g, " ")
     .replace(/\bno\.?\s?\d+\w*/g, " ")
     .replace(/\s[-–]\s*\d+\w*(?:\s[\w']+){0,3}$/g, " ")
     .replace(/[^a-z0-9]+/g, " ")
     .trim()}`;
+}
+
+/** The products of a list that are one family, grouped: the first of each family leads, with how many options and the lowest
+ *  price in `region` (2026-11-10: eleven Haltech thermocouple lengths filled a screen). A product alone is its own group. */
+export function groupFamilies(list: Product[], region: RegionCode): { lead: Product; n: number; from: number | null }[] {
+  const groups = new Map<string, { lead: Product; n: number; from: number | null }>();
+  for (const f of list) {
+    const k = f.b ? familyKey(f) : `solo|${f.ean}`;
+    const low = bestIn(f, region)?.offer.p ?? null;
+    const g = groups.get(k);
+    if (!g) groups.set(k, { lead: f, n: 1, from: low });
+    else {
+      g.n += 1;
+      if (low != null && (g.from == null || low < g.from)) g.from = low;
+    }
+  }
+  return [...groups.values()];
 }
 
 export function variantsOf(f: Product): Product[] {
@@ -116,6 +137,22 @@ export function variantsOf(f: Product): Product[] {
     return m;
   });
   return (fam.get(familyKey(f)) ?? []).filter((x) => x.ean !== f.ean);
+}
+
+/** Part numbers that are close kin (2026-11-10): the same brand with a number that extends or shortens this one by up to three
+ *  characters (Ryco Z418 and Z418ST), or any product that lists one of the same OE numbers. Never a fitment claim. */
+export function relatedParts(f: Product, max = 8): Product[] {
+  const pn = partNoOf(f.ean);
+  const oe = new Set(f.oe ?? []);
+  const out: Product[] = [];
+  for (const x of getProducts()) {
+    if (x.ean === f.ean) continue;
+    const xp = partNoOf(x.ean);
+    const stem = !!pn && !!xp && x.b === f.b && pn.length >= 4 && xp.length >= 4 && (xp.startsWith(pn) || pn.startsWith(xp)) && Math.abs(xp.length - pn.length) <= 3;
+    const sharedOe = oe.size > 0 && (x.oe ?? []).some((n) => oe.has(n));
+    if (stem || sharedOe) out.push(x);
+  }
+  return out.sort((a, b) => storeCount(b) - storeCount(a)).slice(0, max);
 }
 
 /** What tells a variant apart on its chip: the shade or pack in brackets, else its size. */

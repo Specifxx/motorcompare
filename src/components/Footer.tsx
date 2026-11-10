@@ -45,6 +45,7 @@ export function Footer({ updated }: { updated?: string | null }) {
             <li><Link prefetch={false} href="/cyber-monday" className="text-soft hover:text-ink">Cyber Monday car parts deals</Link></li>
             <li><Link prefetch={false} href="/boxing-day" className="text-soft hover:text-ink">Boxing Day car parts deals</Link></li>
             <li><Link prefetch={false} href="/january-sales" className="text-soft hover:text-ink">January sales</Link></li>
+            <li><Link prefetch={false} href="/car" className="text-soft hover:text-ink">Parts by car and engine</Link></li>
             <li><Link prefetch={false} href="/brands" className="text-soft hover:text-ink">car parts brands</Link></li>
             <li><Link prefetch={false} href="/guides" className="text-soft hover:text-ink">Price guides</Link></li>
             {POSTS.length > 0 && <li><Link prefetch={false} href="/blog" className="text-soft hover:text-ink">Blog</Link></li>}

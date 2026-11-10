@@ -37,6 +37,8 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
       title: "Find your part",
       links: [
         { href: "/fit", label: "Shop by part code" },
+        { href: "/car", label: "Shop by car & engine" },
+        { href: "/garage", label: "My garage" },
         { href: "/popular", label: "Popular" },
       ],
     },

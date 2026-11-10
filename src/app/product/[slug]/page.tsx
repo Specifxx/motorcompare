@@ -4,7 +4,7 @@ import Link from "next/link";
 import { notFound, permanentRedirect } from "next/navigation";
 import { culledTarget } from "@/lib/culled";
 import { CAT_BY_KEY, REGIONS, SITE, type RegionCode } from "@/site";
-import { fitHub, bestIn, cheapestDelivered, getMeta, brandPages, getEbay, getHistory, getProduct, getProducts, productsOfBrand, productsOfCat, regionsOf, spreadIn, storeCount, storeName, variantLabel, variantLabels, variantsOf } from "@/lib/data";
+import { fitHub, relatedParts, bestIn, cheapestDelivered, getMeta, brandPages, getEbay, getHistory, getProduct, getProducts, productsOfBrand, productsOfCat, regionsOf, spreadIn, storeCount, storeName, variantLabel, variantLabels, variantsOf } from "@/lib/data";
 import { dayNumber, lowestOrderable } from "@/lib/history";
 import { decimal, money, niceDate, pct } from "@/lib/format";
 import { isIndexable, prebuiltProducts } from "@/lib/index-tiers";
@@ -22,6 +22,7 @@ import { reviewsOf, reviewsOpen } from "@/lib/ratings";
 import { SCHEMA_MIN_RATINGS, starsText, type ProductReviews } from "@/lib/reviews";
 import { Stars } from "@/components/reviews/Stars";
 import { ReviewsSection } from "@/components/reviews/ReviewsSection";
+import { WatchButton } from "@/components/WatchButton";
 import { ShareButton } from "@/components/ShareButton";
 import { shareTexts } from "@/lib/share-texts";
 import { JsonLd, breadcrumbLd, fitDescription, fitTitle } from "@/lib/seo";
@@ -96,6 +97,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
   const sameBrand = f.b ? productsOfBrand(f.b).filter((x) => x.ean !== f.ean) : [];
   const variants = variantsOf(f).sort((a, b) => variantLabel(a).localeCompare(variantLabel(b), undefined, { numeric: true }));
   const labels = variantLabels([f, ...variants]);
+  const related = relatedParts(f);
   const siblings = (sameBrand.length >= 4 ? sameBrand : productsOfCat(f.cat).filter((x) => x.ean !== f.ean))
     .sort((a, b) => storeCount(b) - storeCount(a))
     .slice(0, 8);
@@ -186,7 +188,10 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               </p>
             ))}
           <h1 className="h-display mt-1.5 text-3xl leading-tight sm:text-[2.4rem]">{f.name}</h1>
-          <ShareButton title={f.name} path={`/product/${f.slug}`} texts={shareTexts(f)} className="mt-3" />
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <ShareButton title={f.name} path={`/product/${f.slug}`} texts={shareTexts(f)} />
+            <WatchButton slug={f.slug} name={f.name} price={lowestOrderable(f.offers.AU)?.p ?? null} />
+          </div>
           <div className="mt-3 flex flex-wrap gap-1.5 text-xs">
             <span className="chip bg-subtle text-ink">{cat.name}</span>
             {f.size && <span className="chip bg-subtle text-ink">{f.size}</span>}
@@ -400,6 +405,14 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           </div>
         </aside>
       </section>
+
+      {related.length > 0 && (
+        <section className="mt-12">
+          <h2 className="h-display mb-1 text-2xl">Related part numbers</h2>
+          <p className="mb-4 text-sm text-soft">Close part numbers from the same maker, and parts a store lists with the same OE number. Check the number against your old part: we do not say what fits your car.</p>
+          <TileGrid products={related} />
+        </section>
+      )}
 
       {siblings.length > 0 && (
         <section className="mt-12">
