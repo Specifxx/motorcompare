@@ -5,12 +5,13 @@
 // every store's price from /q/<slug>, a static JSON on the CDN. The tile stays
 // a real link: crawlers, new tabs and modified clicks go to the product page,
 // whose server HTML keeps every price. eBay first, Amazon second, as on the page.
-import { useCallback, useEffect, useRef, useState } from "react";
+import { Fragment, useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { REGIONS, type RegionCode } from "@/site";
 import { PriceRows, type RowsData } from "./PriceRows";
 import { ProductImage } from "./ProductImage";
 import { ShareButton } from "./ShareButton";
+import type { DetailRow } from "@/lib/product-details";
 import { closeQuickViewUrl, onQuickViewHistory, openQuickViewUrl } from "@/lib/quick-view-url";
 
 interface Head {
@@ -24,6 +25,7 @@ interface Data {
   rows: Record<RegionCode, RowsData | null>;
   /** the share message per region (lib/share-texts.ts) */
   share?: Partial<Record<string, string>>;
+  details?: DetailRow[];
 }
 
 const cache = new Map<string, Promise<Data | null>>();
@@ -42,6 +44,7 @@ function load(slug: string): Promise<Data | null> {
 export function QuickView() {
   const [head, setHead] = useState<Head | null>(null);
   const [data, setData] = useState<Data | null | "loading">(null);
+  const [tab, setTab] = useState<"prices" | "specs">("prices");
   const closeRef = useRef<HTMLButtonElement>(null);
   // Closing steps back to the list's own URL (lib/quick-view-url.ts); the details link only hides it, and lands on the URL already shown.
   const close = useCallback(() => {
@@ -65,6 +68,7 @@ export function QuickView() {
     }
     function show(h: Head | null) {
       setHead(h);
+      setTab("prices");
       if (!h) return;
       setData("loading");
       load(h.slug).then((d) => setData((cur) => (cur === "loading" ? d : cur)));
@@ -104,7 +108,7 @@ export function QuickView() {
   return (
     <div className="fixed inset-0 z-50 flex items-end justify-center sm:items-center sm:p-6" role="dialog" aria-modal="true" aria-label={head.name}>
       <button type="button" aria-label="Close" tabIndex={-1} className="qv-backdrop absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={close} />
-      <div className="qv-panel relative flex max-h-[92vh] w-full max-w-xl flex-col overflow-hidden rounded-t-3xl border border-line bg-card shadow-2xl sm:rounded-3xl">
+      <div className="qv-panel relative flex max-h-[92vh] w-full max-w-xl flex-col sm:max-w-3xl sm:h-[85vh] h-[88vh] overflow-hidden rounded-t-3xl border border-line bg-card shadow-2xl sm:rounded-3xl">
         <div className="flex items-start gap-4 border-b border-line p-4 sm:p-5">
           <div className="grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-2xl bg-gradient-to-b from-white to-subtle">
             <ProductImage src={head.img} alt={head.name} label={head.brand || "car part"} eager className="h-full w-full object-contain p-2" />
@@ -122,8 +126,32 @@ export function QuickView() {
           </button>
         </div>
         <div className="flex-1 overflow-y-auto p-4 sm:p-5">
-          <h3 className="mb-3 text-sm font-semibold">Every store&apos;s price</h3>
-          {data === "loading" ? (
+          <div role="tablist" className="mb-4 inline-flex rounded-full border border-line bg-subtle p-0.5 text-sm font-semibold">
+            {([["prices", "Prices"], ["specs", "Specifications"]] as const).map(([k, l]) => (
+              <button key={k} type="button" role="tab" aria-selected={tab === k} onClick={() => setTab(k)} className={`rounded-full px-4 py-1.5 ${tab === k ? "bg-card text-ink shadow-sm" : "text-soft hover:text-ink"}`}>
+                {l}
+              </button>
+            ))}
+          </div>
+          {tab === "specs" ? (
+            data === "loading" ? (
+              <Skeleton />
+            ) : data && data.details?.length ? (
+              <dl className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-2 text-sm">
+                {data.details.map((x) => (
+                  <Fragment key={x.label}>
+                    <dt className="text-soft">{x.label}</dt>
+                    <dd className="break-words">
+                      {x.value}
+                      {x.note && <span className="mt-0.5 block text-xs text-soft">{x.note}</span>}
+                    </dd>
+                  </Fragment>
+                ))}
+              </dl>
+            ) : (
+              <p className="rounded-xl border border-line p-4 text-sm text-soft">Specifications did not load. The full page has every detail.</p>
+            )
+          ) : data === "loading" ? (
             <Skeleton />
           ) : data ? (
             REGIONS.map((r) => {
