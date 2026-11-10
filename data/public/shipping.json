@@ -1,0 +1,530 @@
+{
+ "altiq": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 560,
+  "freeFrom": 6980,
+  "paidAt": 7191,
+  "maxTested": 11168
+ },
+ "ausgo4wd": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 5669,
+  "paidAt": 0,
+  "maxTested": 5669
+ },
+ "australiaspeed": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 2706,
+  "freeFrom": null,
+  "paidAt": 27992,
+  "maxTested": 27992
+ },
+ "autocave": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1000,
+  "freeFrom": null,
+  "paidAt": 26650,
+  "maxTested": 26650
+ },
+ "autolines": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 3172,
+  "paidAt": 0,
+  "maxTested": 3172
+ },
+ "automegastore": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1393,
+  "freeFrom": null,
+  "paidAt": 25333,
+  "maxTested": 25333
+ },
+ "autopartsguys": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1200,
+  "freeFrom": null,
+  "paidAt": 25182,
+  "maxTested": 25182
+ },
+ "batteryspecialists": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1300,
+  "freeFrom": null,
+  "paidAt": 26692,
+  "maxTested": 26692
+ },
+ "bavarianspeed": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 700,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "bcracing": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1272,
+  "freeFrom": null,
+  "paidAt": 54900,
+  "maxTested": 54900
+ },
+ "brettstruck": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1276,
+  "freeFrom": null,
+  "paidAt": 26388,
+  "maxTested": 26388
+ },
+ "camdenvalley4x4": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 2525,
+  "freeFrom": null,
+  "paidAt": 25130,
+  "maxTested": 25130
+ },
+ "campervanbuilders": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1000,
+  "freeFrom": 10134,
+  "paidAt": 10666,
+  "maxTested": 10666
+ },
+ "campingaustralia": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1450,
+  "freeFrom": null,
+  "paidAt": 25090,
+  "maxTested": 25090
+ },
+ "cleanaworx": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 857,
+  "freeFrom": null,
+  "paidAt": 25488,
+  "maxTested": 25488
+ },
+ "clickableautomotive": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 800,
+  "freeFrom": null,
+  "paidAt": 25500,
+  "maxTested": 25500
+ },
+ "clutchdirect": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 2819,
+  "freeFrom": null,
+  "paidAt": 34683,
+  "maxTested": 34683
+ },
+ "dcjapautomotive": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1500,
+  "freeFrom": 20965,
+  "paidAt": 17970,
+  "maxTested": 23960
+ },
+ "deaperformance": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1300,
+  "freeFrom": null,
+  "paidAt": 26600,
+  "maxTested": 26600
+ },
+ "demonproparts": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1400,
+  "freeFrom": null,
+  "paidAt": 25600,
+  "maxTested": 25600
+ },
+ "dencodiesel": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1020,
+  "freeFrom": 21700,
+  "paidAt": 9036,
+  "maxTested": 21700
+ },
+ "detailingshed": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1004,
+  "freeFrom": 15010,
+  "paidAt": 14615,
+  "maxTested": 19750
+ },
+ "detailstore": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1150,
+  "freeFrom": 15190,
+  "paidAt": 14700,
+  "maxTested": 15680
+ },
+ "eagleautoparts": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1200,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "elevateauto": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 2600,
+  "freeFrom": null,
+  "paidAt": 25300,
+  "maxTested": 25300
+ },
+ "empireperformance": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 800,
+  "freeFrom": null,
+  "paidAt": 25100,
+  "maxTested": 25100
+ },
+ "enerdrive": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 600,
+  "paidAt": 0,
+  "maxTested": 600
+ },
+ "energyeco": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1999,
+  "freeFrom": null,
+  "paidAt": 25407,
+  "maxTested": 25407
+ },
+ "enginemaster": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 831,
+  "freeFrom": null,
+  "paidAt": 25245,
+  "maxTested": 25245
+ },
+ "frankiesautoelectrics": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1595,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "gktech": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 974,
+  "freeFrom": 25200,
+  "paidAt": 24900,
+  "maxTested": 25200
+ },
+ "golebysparts": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1795,
+  "freeFrom": null,
+  "paidAt": 25195,
+  "maxTested": 25195
+ },
+ "homeof12voltonline": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1200,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "iilumo": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 882,
+  "freeFrom": 15600,
+  "paidAt": 12800,
+  "maxTested": 15600
+ },
+ "jaydeeautocables": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 725,
+  "freeFrom": null,
+  "paidAt": 25160,
+  "maxTested": 25160
+ },
+ "jtmauto": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1500,
+  "freeFrom": null,
+  "paidAt": 27993,
+  "maxTested": 27993
+ },
+ "justjap": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 700,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "lamspeedracing": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1100,
+  "freeFrom": null,
+  "paidAt": 25100,
+  "maxTested": 25100
+ },
+ "marsperformance": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 5999,
+  "paidAt": 0,
+  "maxTested": 5999
+ },
+ "mcc4x4": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 800,
+  "freeFrom": null,
+  "paidAt": 25600,
+  "maxTested": 25600
+ },
+ "mkmotorsports": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 900,
+  "freeFrom": null,
+  "paidAt": 25600,
+  "maxTested": 25600
+ },
+ "moorabbinbatteries": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 1900,
+  "paidAt": 0,
+  "maxTested": 1900
+ },
+ "motoquipe": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1400,
+  "freeFrom": null,
+  "paidAt": 26000,
+  "maxTested": 26000
+ },
+ "myautoparts": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1228,
+  "freeFrom": 35074,
+  "paidAt": 17537,
+  "maxTested": 35074
+ },
+ "mytuff4x4": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 3500,
+  "freeFrom": null,
+  "paidAt": 26500,
+  "maxTested": 26500
+ },
+ "narva": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1299,
+  "freeFrom": 20900,
+  "paidAt": 20299,
+  "maxTested": 24700
+ },
+ "neveraauto": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 8999,
+  "paidAt": 0,
+  "maxTested": 8999
+ },
+ "outbax": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 1700,
+  "paidAt": 0,
+  "maxTested": 1700
+ },
+ "partscity": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1000,
+  "freeFrom": null,
+  "paidAt": 25000,
+  "maxTested": 25000
+ },
+ "performancewarehouse": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 990,
+  "paidAt": 0,
+  "maxTested": 990
+ },
+ "perthdiesel": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 2500,
+  "freeFrom": null,
+  "paidAt": 25450,
+  "maxTested": 25450
+ },
+ "platinumracingproducts": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1300,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "ppdperformance": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 3200,
+  "freeFrom": null,
+  "paidAt": 26600,
+  "maxTested": 26600
+ },
+ "premiumdiagnostics": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 3800,
+  "paidAt": 0,
+  "maxTested": 3800
+ },
+ "prospeedracing": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1100,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "rampedup4x4": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 2500,
+  "freeFrom": null,
+  "paidAt": 34008,
+  "maxTested": 34008
+ },
+ "s1320motorsports": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1500,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "savagetech": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 2200,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "shiftymods": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1995,
+  "freeFrom": null,
+  "paidAt": 25625,
+  "maxTested": 25625
+ },
+ "sonax": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 1499,
+  "freeFrom": 21147,
+  "paidAt": 15267,
+  "maxTested": 21147
+ },
+ "spectr": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 698,
+  "freeFrom": 8037,
+  "paidAt": 7466,
+  "maxTested": 8037
+ },
+ "subieshop": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 1410,
+  "paidAt": 0,
+  "maxTested": 1410
+ },
+ "tranzmile": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 331,
+  "paidAt": 0,
+  "maxTested": 331
+ },
+ "vagparts": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 999,
+  "freeFrom": null,
+  "paidAt": 25431,
+  "maxTested": 25431
+ },
+ "vicoffroad": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 995,
+  "paidAt": 0,
+  "maxTested": 995
+ },
+ "zerooffset": {
+  "at": "2026-11-10",
+  "to": "Sydney",
+  "fee": 0,
+  "freeFrom": 1900,
+  "paidAt": 0,
+  "maxTested": 1900
+ }
+}
