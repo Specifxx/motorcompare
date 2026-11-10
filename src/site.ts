@@ -9,7 +9,7 @@ export const SITE = {
   slogan: "The right part. The best price.",
   tagline: "Compare car part prices across Australian parts stores",
   description:
-    "Compare prices on engine oil, car batteries, wiper blades, globes, filters and more across Australian car parts stores, matched part for part.",
+    "Compare prices on filters, spark plugs, car batteries, globes, brakes, engine oil and more across Australian car parts stores, matched part for part.",
   /** Every contact address on the site (owner, 2026-10-30: the family inbox). */
   email: "compareempire@gmail.com",
   /** A product gets a page only when this many stores sell it (comparing one shop is pointless). */

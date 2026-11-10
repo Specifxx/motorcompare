@@ -69,7 +69,7 @@ export default function Home() {
               The right part. <span className="mo-shine text-accent">The best price.</span>
             </h1>
             <p className="mo-enter mt-5 max-w-xl text-lg leading-relaxed text-soft [--mo-d:2]">
-              Oil, batteries, wipers, globes, filters and more: every parts store&apos;s price for the same product, side by side. {stores ? `${stores} Australian stores` : "Australian stores"}, matched part for part and checked every day.
+              Filters, spark plugs, batteries, globes, brakes and more: every parts store&apos;s price for the same product, side by side. {stores ? `${stores} Australian stores` : "Australian stores"}, matched part for part and checked every day.
             </p>
                         <div className="mo-enter mt-4 max-w-xl [--mo-d:3]">
               <SearchBox big />

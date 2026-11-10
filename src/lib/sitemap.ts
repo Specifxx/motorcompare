@@ -1,7 +1,7 @@
 import { CATEGORIES, SITE } from "@/site";
-import { fitHubs, getBrands, getMeta, getProducts } from "@/lib/data";
+import { catCounts, fitHubs, getBrands, getMeta, getProducts } from "@/lib/data";
 import { fitIndexable, fitPath } from "@/lib/fit-codes";
-import { sitemapProducts } from "@/lib/index-tiers";
+import { CAT_MIN_INDEXED, sitemapProducts } from "@/lib/index-tiers";
 import { GUIDES } from "@/lib/guides";
 import { LIVE_POSTS } from "@/content/blog";
 
@@ -58,7 +58,7 @@ export function sitemapIndexXml(): string {
 function pageUrls(): SitemapUrl[] {
   return [
     u("/", 1),
-    ...CATEGORIES.map((c) => u(`/${c.key}`, 0.9)),
+    ...CATEGORIES.filter((c) => catCounts()[c.key] >= CAT_MIN_INDEXED).map((c) => u(`/${c.key}`, 0.9)),
     u("/popular", 0.8),
     u("/deals", 0.8),
     u("/is-this-a-good-price", 0.6),
