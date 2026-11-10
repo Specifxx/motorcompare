@@ -1423,3 +1423,12 @@ found the site answers "what is the cheapest Ryco filter" but not "where is the 
 - **Less competing for attention**: shorter home and product copy, more space between boxes and sections. The side rails are untouched.
 - **Wrong-product buy links**: `scripts/verify-links.ts` (`link-audit.yml`, four times a day, no deploy marker) asks each Shopify store's own `/products/<handle>.js` about a rotating 900 of our links: variant gone or SKU no longer carrying the matched part number leaves the offer out; a sold-out variant falls back to the product page. Results are `data/public/link-audit.json`, applied in `getProducts`; the ops monitor watches it. Product URLs now always carry `?variant=` for a multi-variant product, so the fallback page opens the right size.
 - **Supercheap Auto and Repco stay unpaid search rows**: their sites cannot be read (403) and they have no Awin or Impact programme (Commission Factory was rejected). Rego lookup plan, by market and cost: `/mnt/project-files/motorcompare/rego-fitment-plan-2026-11-10.md`; any paid lookup or catalogue licence needs the owner's go.
+
+## 2026-11-10: the part number leads; the car pages never read as a fitment check (owner)
+
+Feedback via Bill: a make/model search makes people assume compatibility was checked, even with a disclaimer under it.
+So the home page drops the "Shop for my car" picker and puts the part-number route under the search box (search by part
+number or the code on the old part, then match it; link to /fit). `/car` and `/car/<slug>` are relabelled "Parts that name
+a car or engine" ("Mentioned in listings", "this is what the stores wrote, not a fitment check"), the menu says "Parts that
+name a car" and "Saved parts", and "My garage" became "Saved parts" / "Save this part". URLs are unchanged. No page says a
+part "fits" a car; keep it that way unless a part is actually verified. `MyCar.tsx` stays but is no longer on the home page.

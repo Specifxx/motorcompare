@@ -34,11 +34,11 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
     },
     {
       // The way a buyer really searches: the code printed on the old part (Bill, 2026-11-09).
-      title: "Find your part",
+      title: "Find your part by its number",
       links: [
         { href: "/fit", label: "Shop by part code" },
-        { href: "/car", label: "Shop by car & engine" },
-        { href: "/garage", label: "My garage" },
+        { href: "/car", label: "Parts that name a car" },
+        { href: "/garage", label: "Saved parts" },
         { href: "/popular", label: "Popular" },
       ],
     },
@@ -90,7 +90,7 @@ export function headerMenus(groups: NavGroup[], f: MenuFacts): HeaderMenu[] {
   const buckets = bucketGroups(groups[0]).map((g) => ({ title: g.title, links: g.links.map((l): MenuLink => ({ href: l.href, label: l.label, regions: l.cat ? f.catRegions[l.cat] : undefined })).filter(live) })).filter((c) => c.links.length);
   const group = (title: string) => groups.find((g) => g.title === title)?.links ?? [];
   return [
-    { label: "Parts", all: { href: "/popular", label: "Popular right now" }, columns: [...buckets, { title: "Find your part", links: group("Find your part").filter((l) => l.href !== "/popular") }] },
+    { label: "Parts", all: { href: "/popular", label: "Popular right now" }, columns: [...buckets, { title: "Find your part by its number", links: group("Find your part").filter((l) => l.href !== "/popular") }] },
     { label: "Brands", all: { href: "/brands", label: "All brands" }, columns: [{ links: f.brands.filter(live) }] },
     { label: "Deals & more", all: { href: "/deals", label: "Deals today" }, columns: [{ title: "Save", links: group("Save") }, { title: "MotorCompare", links: group("MotorCompare") }] },
   ];

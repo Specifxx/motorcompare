@@ -19,8 +19,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!v) return {};
   const n = vehicleProducts(v).length;
   return {
-    title: `${v.name} parts prices across Australian stores`,
-    description: `${n} parts whose store listings name the ${v.name}, compared across Australian stores. The stores name the ${v.kind}; check fitment with the store before you buy.`,
+    title: `Parts whose listings name the ${v.name}, prices across Australian stores`,
+    description: `${n} parts whose store listings mention the ${v.name}, compared across Australian stores. Fitment is not checked by us: match the part number to your old part.`,
     alternates: { canonical: `/car/${v.slug}` },
     ...(n >= VEHICLE_INDEX_MIN ? {} : { robots: { index: false, follow: true } }),
   };
@@ -34,15 +34,15 @@ export default function CarHub({ params }: { params: { slug: string } }) {
   const others = liveVehicles().filter((x) => x.v.slug !== v.slug).slice(0, 14);
   return (
     <div className="mx-auto max-w-6xl px-4">
-      <Crumbs items={[{ name: "By car and engine", path: "/car" }, { name: v.name, path: `/car/${v.slug}` }]} />
+      <Crumbs items={[{ name: "Parts that name a car", path: "/car" }, { name: v.name, path: `/car/${v.slug}` }]} />
       <PageHead
-        eyebrow={v.kind === "engine" ? "Shop by engine" : "Shop by car"}
-        title={`${v.name} parts prices`}
-        sub={<p>{list.length.toLocaleString("en-US")} parts whose store listing names the {v.name}, most widely stocked first, with every store&apos;s price. The stores name the {v.kind}: we do not say a part fits. Check fitment with the store and the part number against your old part before you buy.</p>}
+        eyebrow="Mentioned in listings"
+        title={`Parts that name the ${v.name}`}
+        sub={<p>{list.length.toLocaleString("en-US")} parts whose store listing names the {v.name}, most widely stocked first, with every store&apos;s price. This is what the stores wrote, not a fitment check: we do not say any part fits your {v.kind}. Match the part number to your old part, or ask the store, before you buy.</p>}
       />
       <TileGrid products={list.slice(0, PER_PAGE)} />
       <section className="mb-12 mt-10">
-        <h2 className="eyebrow mb-2">Other cars and engines</h2>
+        <h2 className="eyebrow mb-2">Other listings naming a car or engine</h2>
         <ul className="flex flex-wrap gap-2">
           {others.map(({ v: o, n }) => (
             <li key={o.slug}>

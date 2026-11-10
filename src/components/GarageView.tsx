@@ -34,7 +34,7 @@ export function GarageView({ cars }: { cars: { slug: string; name: string }[] })
         Kept in this browser only: no account, nothing is sent anywhere.{" "}
         {mine ? (
           <>
-            Your car: <Link prefetch={false} href={`/car/${mine.slug}`} className="font-semibold text-ink underline">{mine.name}</Link>.
+            Car you chose: <Link prefetch={false} href={`/car/${mine.slug}`} className="font-semibold text-ink underline">{mine.name}</Link>.
           </>
         ) : (
           <>
@@ -42,7 +42,7 @@ export function GarageView({ cars }: { cars: { slug: string; name: string }[] })
           </>
         )}
       </p>
-      {saved && saved.length === 0 && <p className="card p-6 text-soft">Nothing saved yet. Open a part and press “Save to my garage”.</p>}
+      {saved && saved.length === 0 && <p className="card p-6 text-soft">Nothing saved yet. Open a part and press “Save this part”.</p>}
       <ul className="grid gap-3">
         {(saved ?? []).map((s) => {
           const cur = now[s.slug];
