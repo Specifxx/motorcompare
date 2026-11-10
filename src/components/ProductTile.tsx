@@ -1,6 +1,6 @@
 import Link from "next/link";
-import { REGIONS, type RegionCode } from "@/site";
-import { bestIn, spreadIn } from "@/lib/data";
+import { DEFAULT_REGION, REGIONS, type RegionCode } from "@/site";
+import { bestIn, groupFamilies, spreadIn } from "@/lib/data";
 import { money, pct } from "@/lib/format";
 import type { Product } from "@/lib/types";
 import { ProductImage } from "./ProductImage";
@@ -9,7 +9,7 @@ import { reviewsOf } from "@/lib/ratings";
 
 /** A product card. With `region` it shows that region's price only (lists
  *  already split by region); without, every region's, switched by CSS. */
-export function ProductTile({ f, region }: { f: Product; region?: RegionCode }) {
+export function ProductTile({ f, region, options, from }: { f: Product; region?: RegionCode; options?: number; from?: number | null }) {
   const regions = region ? REGIONS.filter((r) => r.code === region) : REGIONS;
   const cls = (code: RegionCode) => (region ? "" : `rp rp-${code}`);
   const short = f.brand && f.name.startsWith(f.brand) ? f.name.slice(f.brand.length).trim() : f.name;
@@ -51,10 +51,20 @@ export function ProductTile({ f, region }: { f: Product; region?: RegionCode }) 
               <p key={r.code} className={cls(r.code)}>
                 {b ? (
                   <>
-                    <span className="text-[15px] font-semibold tabular-nums text-accent-deep">{money(b.offer.p, r.code)}</span>
-                    <span className="ml-1.5 text-xs text-soft">
-                      {b.stores} store{b.stores === 1 ? "" : "s"}
-                    </span>
+                    {options && options > 1 && from != null ? (
+                      <>
+                        <span className="text-xs text-soft">from </span>
+                        <span className="text-[15px] font-semibold tabular-nums text-accent-deep">{money(from, r.code)}</span>
+                        <span className="ml-1.5 text-xs font-semibold text-ink">{options} options</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="text-[15px] font-semibold tabular-nums text-accent-deep">{money(b.offer.p, r.code)}</span>
+                        <span className="ml-1.5 text-xs text-soft">
+                          {b.stores} store{b.stores === 1 ? "" : "s"}
+                        </span>
+                      </>
+                    )}
                   </>
                 ) : f.offers[r.code]?.length ? (
                   <span className="text-xs text-soft">Sold out {r.phrase}</span>
@@ -73,8 +83,8 @@ export function ProductTile({ f, region }: { f: Product; region?: RegionCode }) 
 export function TileGrid({ products, region }: { products: Product[]; region?: RegionCode }) {
   return (
     <div data-reveal="stagger" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
-      {products.map((f) => (
-        <ProductTile key={f.ean} f={f} region={region} />
+      {groupFamilies(products, region ?? DEFAULT_REGION).map((g) => (
+        <ProductTile key={g.lead.ean} f={g.lead} region={region} options={g.n} from={g.from} />
       ))}
     </div>
   );

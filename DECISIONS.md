@@ -1402,6 +1402,20 @@ found the site answers "what is the cheapest Ryco filter" but not "where is the 
   the rest collapse to "Alfa Romeo (3)". `FIT_MAX_PER_STORE` is 12 (was 3, first three alphabetical). Still quoted, never vouched.
 - Skincare leftovers ("Shop by step", "In stock near me", "Everything else parts stores sell under one barcode") reworded.
 
+## 2026-11-10: shop by car and engine, my garage, grouped variants, related part numbers
+
+- **Shop by car and engine** (`/car`, `/car/<slug>`; `content/vehicles.ts`, `lib/vehicles.ts`): a hub lists the products whose own
+  title, or the fitment a store quotes, names a car (WRX, Evo, Landcruiser, Ranger, Patrol, Silvia, Skyline…) or an engine (2JZ,
+  RB26, Barra, LS). The page says "the stores name the car, check fitment with the store": never a fitment claim. A hub under
+  `VEHICLE_INDEX_MIN` (8) products is noindex and out of the sitemap.
+- **My garage** (`/garage`, noindex; `lib/garage.ts`): the car and the saved parts live in this browser's localStorage, no
+  account, nothing sent. A saved part remembers its lowest price then; the garage reads today's from the static `/q/<slug>`
+  file (`low`) and shows the change since.
+- **Variants group in lists** (`groupFamilies`): one tile, "from A$x · 11 options", for products of one family (the family key now
+  ignores a part's own length or volume, so eleven thermocouple lengths are one family). Server lists only; the client filter
+  redraw still shows every row.
+- **Related part numbers** on the product page (`relatedParts`): same maker and a part number that extends or shortens this one
+  by up to three characters (Z418 / Z418ST), or any shared OE number. No fitment claim.
 ## 2026-11-10: a cousin's review (owner)
 
 - **Menus group the sections** as Servicing, Brakes & suspension, Performance, 4WD & touring, Care & workshop (`PART_BUCKETS` in `site.ts`; `bucketGroups` / `menuGroups` in `nav.ts`). Categories, URLs and the flat first group (the phone strip) are unchanged.
