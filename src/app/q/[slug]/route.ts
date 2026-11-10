@@ -6,6 +6,7 @@ import { REGIONS } from "@/site";
 import { getEbay, getProduct, getProducts, regionsOf } from "@/lib/data";
 import { priceRows } from "@/components/PriceTable";
 import { prebuiltProducts } from "@/lib/index-tiers";
+import { detailRows } from "@/lib/product-details";
 import { shareTexts } from "@/lib/share-texts";
 
 export const dynamic = "force-static";
@@ -23,5 +24,5 @@ export function GET(_req: Request, { params }: { params: { slug: string } }) {
   const sold = new Set(regionsOf(f));
   const rows = Object.fromEntries(REGIONS.map((r) => [r.code, sold.has(r.code) ? priceRows(f, r.code, ebay[r.code], "quickview") : null]));
   // The share messages per region (lib/share-texts.ts), written here at build like the rest.
-  return Response.json({ slug: f.slug, size: f.size, ean: f.ean, rows, share: shareTexts(f) });
+  return Response.json({ slug: f.slug, size: f.size, ean: f.ean, rows, share: shareTexts(f), details: detailRows(f) });
 }
