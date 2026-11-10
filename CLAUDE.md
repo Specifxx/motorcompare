@@ -64,9 +64,9 @@ owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deplo
 - **Side rails and phone dock are on** (owner, 2026-11-10 full launch): `SITE.sideRails` is true (eBay left, Amazon right).
   No AdSense, no pop-ups, no interstitials, no accounts.
 - eBay listings come only from `scripts/ebay-import.ts` in GitHub Actions (Browse API by GTIN, new, Buy It Now,
-  Australian sellers, Australia only). It shares Compare Empire's keyset (owner, 2026-11-08: Compare Empire 2,900,
-  SportsCardCompare 1,400, MotorCompare 600 a day): `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are Compare Empire's values, a no-op
-  until they exist; `EBAY_MAX_DAILY_CALLS` (600) is a ceiling `EBAY_DAILY_CAP` can only lower. Never raise it without the owner.
+  Australian sellers, Australia only). It shares Cyberpunk Compare's keyset (owner, 2026-11-10: MotorCompare 3,300,
+  BandaiCompare 1,000, Cyberpunk Compare 600 a day): `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are Cyberpunk's values, a no-op
+  until they exist; `EBAY_MAX_DAILY_CALLS` (3,300) is a ceiling `EBAY_DAILY_CAP` can only lower. Never raise it without the owner.
 - Amazon's own price on the Amazon row: as ScentCompare (`scripts/amazon-asins.ts`, `scripts/fetch-amazon-prices.ts`,
   `lib/amazon-live.ts`), credentials `AMAZON_CREATORS_AU_*`; never committed, never a sort, badge or deal.
 - Keys and variables are set by the owner's PowerShell secrets script (GitHub secrets + Vercel), never by hand.
