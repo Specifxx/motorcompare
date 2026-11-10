@@ -1376,3 +1376,7 @@ The 10 Nov import has no wiper blades and no fluids matched at 2+ stores (oil ha
 filters 74). A hub with fewer than `CAT_MIN_INDEXED` (3) products is now `noindex, follow` and out of the sitemap
 (it stays reachable); it goes back in on its own once it has products. The homepage, meta description and link preview
 no longer lead with "oil, wipers": they name filters, spark plugs, batteries, globes and brakes.
+
+## 2026-11-10: launch build
+
+motorcompare.app is attached to the Vercel project (apex is canonical, no www redirect). The launch ships as one `[deploy] [urgent]` build on the owner's say so ("deploy urgently/now"); every later change rides the daily release again.
