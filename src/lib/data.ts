@@ -98,8 +98,9 @@ export function productsOfBrand(b: string): Product[] {
 export function familyKey(f: Product): string {
   let n = f.name.toLowerCase();
   if (f.brand) n = n.replace(f.brand.toLowerCase(), " ");
+  // Brackets inside brackets ("(I want EGT's / V-BAND(GARRETT G25 (2.25" Inlet))/50 …)"): peel from the inside out.
+  for (let i = 0; i < 5 && /\([^()]*\)/.test(n); i++) n = n.replace(/\([^()]*\)/g, " ");
   return `${f.b}|${n
-    .replace(/\([^()]*\)/g, " ")
     .replace(/\d+(?:[.,]\d+)?\s?(?:ml|g|fl\.?\s?oz|oz|sheets?|pcs|pads?|patches|ea)\b/g, " ")
     // a part's own length or volume ("Length: 0.84m", "600mm", "5L") tells variants apart, it is not a different part
     .replace(/\blength:?\s*\d+(?:[.,]\d+)?\s?(?:m|mm|cm|ft|in)?\b/g, " ")
@@ -199,13 +200,17 @@ export function spreadIn(f: Product, region: RegionCode): number | null {
 
 export const storeName = (id: string) => STORE_BY_ID[id]?.name ?? id;
 
+export const DEAL_MAX_SPREAD = 0.5;
+
 /** Products sold in a region by enough stores, best savings first: the deals list. */
 export function dealsIn(region: RegionCode, limit = 48, list: Product[] = getProducts()): { f: Product; spread: number; best: Best }[] {
   const out: { f: Product; spread: number; best: Best }[] = [];
   for (const f of list) {
     const s = spreadIn(f, region);
     const best = bestIn(f, region);
-    if (s != null && s >= 0.1 && best && best.offer.st === "in") out.push({ f, spread: s, best });
+    // Over half off the dearest store is far more often two different variants than a bargain (the persona pass, 2026-11-10: a
+    // A$51 vs A$199 harness led "Biggest savings"); such a part keeps its page and its "save up to", but is not advertised as a deal.
+    if (s != null && s >= 0.1 && s <= DEAL_MAX_SPREAD && best && best.offer.st === "in") out.push({ f, spread: s, best });
   }
   return out.sort((a, b) => b.spread - a.spread || a.f.name.localeCompare(b.f.name)).slice(0, limit);
 }

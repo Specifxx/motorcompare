@@ -1444,3 +1444,11 @@ Empire's keyset. The 600 it leaves on Compare Empire's keyset stays spare until 
 2026-11-08 entry "eBay rides Compare Empire's keyset".
 
 Release note (2026-11-10): the part-number-first wording above was shipped in an urgent build at the owner's request ("deploy urgently"), not left for the daily release, because it answers launch feedback.
+
+## 2026-11-10: persona pass on the live AU site (Fable role)
+
+Two small fixes. (1) "Biggest savings" (`dealsIn`) skips a part whose cheapest store is over 50% under the dearest
+(`DEAL_MAX_SPREAD`): a live check found A$51 vs A$199 for one harness leading the list, far more likely two variants than a
+bargain. The page still shows "save up to"; only the deal advertising is capped. (2) `familyKey` peels brackets inside
+brackets, so eight 6BOOST manifold options no longer fill "New arrivals" as eight tiles. Larger gaps (store coverage in
+oil, wipers and everyday parts) went to the owner, not into code.
