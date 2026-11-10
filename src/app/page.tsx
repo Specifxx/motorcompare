@@ -5,8 +5,6 @@ import { activeStores, catCounts, dealsIn, getBrands, getMeta, getProducts, newe
 import { popularNow } from "@/lib/ratings";
 import { featuredIn } from "@/lib/featured";
 import { ago } from "@/lib/format";
-import { MyCar } from "@/components/MyCar";
-import { liveVehicles } from "@/lib/vehicles";
 import { SearchBox } from "@/components/SearchBox";
 import { RegionChips } from "@/components/RegionPicker";
 import { TileGrid } from "@/components/ProductTile";
@@ -75,7 +73,10 @@ export default function Home() {
             </p>
                         <div className="mo-enter mt-4 max-w-xl [--mo-d:3]">
               <SearchBox big />
-              <MyCar cars={liveVehicles().map(({ v, n }) => ({ slug: v.slug, name: v.name, n }))} />
+              <p className="mt-3 text-sm text-soft">
+                Search by part number or the code printed on your old part (5W-30, BKR6E, H7), then match it to the part in your hand.{" "}
+                <Link prefetch={false} href="/fit" className="font-semibold text-accent-deep">Shop by part code →</Link>
+              </p>
             </div>
             <div className="mo-enter mt-8 flex flex-wrap items-center gap-2 text-sm text-soft [--mo-d:4]">
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{total.toLocaleString("en-US")}</b> products</span>
