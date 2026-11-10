@@ -1,4 +1,4 @@
-// Every store MotorCompare reads. Real Australian parts shops only, never
+// Every store MotorCompare reads. Real parts shops in the US, UK, Canada, Australia and NZ only, never
 // marketplaces. Each one is read through its public Shopify products.json or
 // the WooCommerce Store API, two at a time at most, about a request a second,
 // and a store that keeps answering 403/429 is skipped for the run (never
@@ -148,6 +148,30 @@ export const STORES: Store[] = [
   { id: "meguiars", name: "Meguiar's Australia", region: "AU", base: "https://meguiars.com.au", platform: "woocommerce", official: true },
   { id: "enerdrive", name: "Enerdrive", region: "AU", base: "https://enerdrive.com.au", platform: "shopify", official: true },
   { id: "sonax", name: "Sonax Australia", region: "AU", base: "https://sonax.com.au", platform: "shopify", official: true },
+  // 2026-11-10 expansion (probe rounds 1 and 2, probe/summary.md): the readable US and UK shops with car parts. Thin overlap so far; big chains are search rows (lib/affiliate.ts PARTNERS).
+  { id: "adamspolishes", name: "Adam's Polishes", region: "US", base: "https://adamspolishes.com", platform: "shopify", official: true },
+  { id: "autofiber", name: "Autofiber", region: "US", base: "https://autofiber.com", platform: "shopify", official: true },
+  { id: "autoglanz", name: "AutoGlanz AG Car Care", region: "UK", base: "https://autoglanz.co.uk", platform: "shopify" },
+  { id: "batteryclerk", name: "BatteryClerk", region: "US", base: "https://batteryclerk.com", platform: "shopify" },
+  { id: "chemicalguys", name: "Chemical Guys", region: "US", base: "https://chemicalguys.com", platform: "shopify", official: true },
+  { id: "dubsandtires", name: "DUBSandTIRES-Pines", region: "US", base: "https://dubsandtires.com", platform: "shopify" },
+  { id: "modernperformance", name: "Modern Performance", region: "US", base: "https://modernperformance.com", platform: "shopify" },
+  { id: "polishedbliss", name: "Polished Bliss", region: "UK", base: "https://polishedbliss.co.uk", platform: "shopify" },
+  { id: "rallysportdirect", name: "Rallysport Direct", region: "US", base: "https://rallysportdirect.com", platform: "shopify" },
+  { id: "tegiwa", name: "Tegiwa", region: "UK", base: "https://tegiwa.com", platform: "shopify" },
+  { id: "theragcompany", name: "The Rag Company", region: "US", base: "https://theragcompany.com", platform: "shopify", official: true },
+  { id: "turbosmart", name: "Turbosmart USA", region: "US", base: "https://turbosmart.com", platform: "shopify", official: true },
+  { id: "turtlewax", name: "Turtle Wax US Store", region: "US", base: "https://turtlewax.com", platform: "shopify", official: true },
+  { id: "amsperformance", name: "AMS Performance", region: "US", base: "https://www.amsperformance.com", platform: "woocommerce" },
+  { id: "autopartstoys", name: "AutoPartsToys", region: "US", base: "https://autopartstoys.com", platform: "shopify" },
+  { id: "batterywholesale", name: "Battery Wholesale", region: "US", base: "https://batterywholesale.com", platform: "shopify" },
+  { id: "batteryworld", name: "Battery World USA", region: "US", base: "https://www.batteryworld.com", platform: "woocommerce" },
+  { id: "bulbamerica", name: "BulbAmerica", region: "US", base: "https://bulbamerica.com", platform: "shopify" },
+  { id: "carfunland", name: "CarFunLand", region: "US", base: "https://carfunland.com", platform: "woocommerce" },
+  { id: "diyautotune", name: "DIYAutoTune", region: "US", base: "https://diyautotune.com", platform: "shopify" },
+  { id: "greddy", name: "GReddy Performance Products", region: "US", base: "https://greddy.com", platform: "shopify", official: true },
+  { id: "kooksheaders", name: "Kooks Headers", region: "US", base: "https://kooksheaders.com", platform: "shopify", official: true },
+  { id: "odysseybattery", name: "Odyssey Battery", region: "US", base: "https://www.odysseybattery.com", platform: "woocommerce", official: true },
 ];
 
 /** The stores on Shopify: the cart-based checks (shipping quotes, multi-buys) and the checkout link read only these. */

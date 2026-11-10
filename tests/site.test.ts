@@ -2,7 +2,7 @@ import { readFileSync } from "node:fs";
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { SITE, regionForZone } from "@/site";
+import { REGIONS, SITE, regionForZone } from "@/site";
 import { STORES } from "@/content/stores";
 import { amazonSearchUrl, ebayAffiliateUrl, ebaySearchUrl, partnerUrl, PARTNERS, storeUrl, subId } from "@/lib/affiliate";
 import { judgeFreshness, judgeStores } from "../scripts/ops-monitor";
@@ -52,8 +52,9 @@ test("money stays in its own currency", () => {
 test("stores: unique ids and hosts, every region covered", () => {
   assert.equal(new Set(STORES.map((s) => s.id)).size, STORES.length);
   assert.equal(new Set(STORES.map((s) => new URL(s.base).host)).size, STORES.length);
-  assert.ok(STORES.length >= 20, "20 or more Australian stores");
-  assert.ok(STORES.every((s) => s.region === "AU"), "Australia only");
+  assert.ok(STORES.filter((s) => s.region === "AU").length >= 20, "20 or more Australian stores");
+  const codes = new Set(REGIONS.map((r) => r.code as string));
+  assert.ok(STORES.every((s) => codes.has(s.region)), "every store is in a region the site serves");
 });
 
 test("MotorCompare stands alone: no sister-site links (owner, 2026-10-30, kept for MotorCompare)", () => {
