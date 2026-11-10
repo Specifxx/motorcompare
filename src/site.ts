@@ -7,9 +7,9 @@ export const SITE = {
   domain: "motorcompare.app",
   url: (process.env.NEXT_PUBLIC_SITE_URL || "https://motorcompare.app").replace(/\/$/, ""),
   slogan: "The right part. The best price.",
-  tagline: "Compare car part prices across Australian parts stores",
+  tagline: "Compare car part prices across parts stores",
   description:
-    "Compare prices on filters, spark plugs, car batteries, globes, brakes, engine oil and more across Australian car parts stores, matched part for part.",
+    "Compare prices on filters, spark plugs, batteries, brakes, engine oil and more across car parts stores in the US, UK, Canada and Australia.",
   /** Every contact address on the site (owner, 2026-10-30: the family inbox). */
   email: "compareempire@gmail.com",
   /** A product gets a page only when this many stores sell it (comparing one shop is pointless). */
@@ -36,30 +36,36 @@ export interface Region {
   zones: string[];
 }
 
-/** Australia only for now (owner, 2026-11-08). The type keeps every code so the
- *  engine's shared code compiles unchanged; only AU is listed and served. */
+/** Every market the engine knows. */
 export const ALL_REGIONS: Region[] = [
   { code: "US", name: "United States", phrase: "in the US", currency: "USD", shopifyCountry: "US", flag: "🇺🇸", ebayHost: "www.ebay.com", amazonHost: "www.amazon.com", zones: ["America/"] },
-  { code: "UK", name: "United Kingdom", phrase: "in the UK", currency: "GBP", shopifyCountry: "GB", flag: "🇬🇧", ebayHost: "www.ebay.co.uk", amazonHost: "www.amazon.co.uk", zones: ["Europe/London"] },
-  { code: "CA", name: "Canada", phrase: "in Canada", currency: "CAD", shopifyCountry: "CA", flag: "🇨🇦", ebayHost: "www.ebay.ca", amazonHost: "www.amazon.ca", zones: ["America/Toronto"] },
+  { code: "UK", name: "United Kingdom", phrase: "in the UK", currency: "GBP", shopifyCountry: "GB", flag: "🇬🇧", ebayHost: "www.ebay.co.uk", amazonHost: "www.amazon.co.uk", zones: ["Europe/London", "Europe/Belfast", "Europe/Dublin"] },
+  { code: "CA", name: "Canada", phrase: "in Canada", currency: "CAD", shopifyCountry: "CA", flag: "🇨🇦", ebayHost: "www.ebay.ca", amazonHost: "www.amazon.ca", zones: ["America/Toronto", "America/Vancouver", "America/Edmonton", "America/Winnipeg", "America/Halifax", "America/St_Johns", "America/Regina", "America/Montreal"] },
   { code: "AU", name: "Australia", phrase: "in Australia", currency: "AUD", shopifyCountry: "AU", flag: "🇦🇺", ebayHost: "www.ebay.com.au", amazonHost: "www.amazon.com.au", zones: ["Australia/"] },
-  { code: "NZ", name: "New Zealand", phrase: "in New Zealand", currency: "NZD", shopifyCountry: "NZ", flag: "🇳🇿", ebayHost: null, amazonHost: null, zones: ["Pacific/Auckland"] },
+  { code: "NZ", name: "New Zealand", phrase: "in New Zealand", currency: "NZD", shopifyCountry: "NZ", flag: "🇳🇿", ebayHost: null, amazonHost: null, zones: ["Pacific/Auckland", "Pacific/Chatham"] },
   { code: "EU", name: "Europe", phrase: "in Europe", currency: "EUR", shopifyCountry: "DE", flag: "🇪🇺", ebayHost: "www.ebay.de", amazonHost: "www.amazon.de", zones: ["Europe/"] },
 ];
 
-/** The regions the site serves: Australia only (owner, 2026-11-08). The engine's shared code can still look up any
- *  region (REGION_BY_CODE), but nothing iterates more than these. */
-export const REGIONS: Region[] = ALL_REGIONS.filter((r) => r.code === "AU");
+/** The regions the site can serve (owner, 2026-11-10: expanded from Australia only). A region shows to visitors only once
+ *  it has a store (lib/regions.ts ACTIVE_REGIONS). Order is the picker's order: the US first. */
+export const REGIONS: Region[] = ["US", "UK", "CA", "AU", "NZ", "EU"].map((c) => ALL_REGIONS.find((r) => r.code === c)!);
 
 export const REGION_BY_CODE = Object.fromEntries(ALL_REGIONS.map((r) => [r.code, r])) as Record<RegionCode, Region>;
 
-/** The one region every visitor gets. */
-export const DEFAULT_REGION: RegionCode = "AU";
+/** The region a visitor gets until their time zone or their own pick says otherwise (owner, 2026-11-10: the US). */
+export const DEFAULT_REGION: RegionCode = "US";
 
 /** Pick a region from the browser's time zone; the more specific match wins
  *  (America/Toronto is Canada, not the US). */
-export function regionForZone(_zone: string | undefined | null): RegionCode {
-  return DEFAULT_REGION;
+export function regionForZone(zone: string | undefined | null): RegionCode {
+  if (!zone) return DEFAULT_REGION;
+  let best: { code: RegionCode; len: number } = { code: DEFAULT_REGION, len: 0 };
+  for (const r of REGIONS) {
+    for (const z of r.zones) {
+      if (zone.startsWith(z) && z.length > best.len) best = { code: r.code, len: z.length };
+    }
+  }
+  return best.code;
 }
 
 /**

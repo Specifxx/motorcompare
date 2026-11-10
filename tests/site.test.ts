@@ -11,11 +11,13 @@ import { searchRows, type IndexRow } from "@/components/SearchBox";
 
 const walk = (d: string): string[] => fs.readdirSync(d, { withFileTypes: true }).flatMap((e) => (e.isDirectory() ? walk(`${d}/${e.name}`) : [`${d}/${e.name}`]));
 
-test("Australia only: every visitor gets the Australian prices", () => {
+test("the US is the default; a visitor's time zone picks their own market", () => {
   assert.equal(regionForZone("Australia/Sydney"), "AU");
-  assert.equal(regionForZone("Australia/Perth"), "AU");
-  assert.equal(regionForZone("America/New_York"), "AU");
-  assert.equal(regionForZone(undefined), "AU");
+  assert.equal(regionForZone("America/New_York"), "US");
+  assert.equal(regionForZone("America/Toronto"), "CA");
+  assert.equal(regionForZone("Europe/London"), "UK");
+  assert.equal(regionForZone("Pacific/Auckland"), "NZ");
+  assert.equal(regionForZone(undefined), "US");
 });
 
 test("affiliate tags name the site, region, placement and product", () => {
