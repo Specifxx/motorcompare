@@ -69,12 +69,12 @@ export default function Home() {
               The right part. <span className="mo-shine text-accent">The best price.</span>
             </h1>
             <p className="mo-enter mt-5 max-w-xl text-lg leading-relaxed text-soft [--mo-d:2]">
-              Filters, spark plugs, batteries, globes, brakes and more: every parts store&apos;s price for the same product, side by side. {stores ? `${stores} Australian stores` : "Australian stores"}, matched part for part and checked every day.
+              The same part, every store&apos;s price, side by side. {stores ? `${stores} stores` : "Stores"} compared daily.
             </p>
                         <div className="mo-enter mt-4 max-w-xl [--mo-d:3]">
               <SearchBox big />
             </div>
-            <div className="mo-enter mt-6 flex flex-wrap items-center gap-2 text-sm text-soft [--mo-d:4]">
+            <div className="mo-enter mt-8 flex flex-wrap items-center gap-2 text-sm text-soft [--mo-d:4]">
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{total.toLocaleString("en-US")}</b> products</span>
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{stores}</b> stores</span>
               {meta && <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line">Checked {ago(meta.updatedAt)}</span>}
@@ -89,9 +89,9 @@ export default function Home() {
       </section>
 
       <div className="mx-auto max-w-6xl px-4">
-        <section className="mt-10">
-          <h2 data-reveal className="h-display mb-4 text-2xl">Shop by part</h2>
-          <div data-reveal="stagger" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        <section className="mt-16">
+          <h2 data-reveal className="h-display mb-6 text-2xl">Shop by part</h2>
+          <div data-reveal="stagger" className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {HOME_STEPS.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).sort((a, b) => counts[b.key] - counts[a.key]).map((c) => (
               <Link prefetch={false} key={c.key} href={`/${c.key}`} className={`tile-hover flex items-center gap-3 rounded-2xl px-3.5 py-3.5 ${CAT_TINT[c.key]}`}>
                 <span className="mo-wiggle grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-card/80">
@@ -150,13 +150,13 @@ export default function Home() {
           </Section>
         )}
 
-        <section className="mt-16">
+        <section className="mt-20">
           <h2 data-reveal className="h-display mb-6 text-2xl sm:text-3xl">How MotorCompare works</h2>
-          <ol data-reveal="stagger" className="grid gap-4 sm:grid-cols-3">
+          <ol data-reveal="stagger" className="grid gap-6 sm:grid-cols-3">
             {[
-              ["Matched part for part", "Every listing is matched on the brand and the maker's own part number (or the barcode on the box). No exact number, no match: we never guess from a title, because a wrong part is worse than no price."],
-              ["Fit you can check", "Each part shows the code that decides fit: oil grade, battery size, wiper length, globe code or filter number. Check it against your old part."],
-              ["Checked every day", "Prices and stock are re-read daily, and each product keeps its price history, so you can tell a real deal from the usual promo price."],
+              ["Matched part for part", "Brand plus the maker's part number, or the barcode. No exact match, no listing."],
+              ["Fit you can check", "Each part shows the code that decides fit: oil grade, battery size, wiper length. Check it against your old part."],
+              ["Checked every day", "Prices and stock are re-read daily, and each product keeps its history."],
             ].map(([t, d], i) => (
               <li key={t} className={`rounded-2xl p-5 ${["tint-rose", "tint-lavender", "tint-mint"][i]}`}>
                 <span className="text-sm font-semibold tabular-nums text-accent-deep">0{i + 1}</span>
@@ -181,7 +181,7 @@ export default function Home() {
         </section>
 
         {/* The site's own star score and approved reviews (owner, 2026-11-03), loaded in the browser; nothing until there is a rating. */}
-        <SiteReviews className="mt-16" />
+        <SiteReviews className="mt-20" />
 
         <section className="mt-16 max-w-3xl">
           <h2 data-reveal className="h-display mb-4 text-2xl sm:text-3xl">Questions</h2>

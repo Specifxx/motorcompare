@@ -3,7 +3,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
 import { CATEGORIES, type CatKey } from "../src/site";
-import { navGroups, quickLinks } from "../src/lib/nav";
+import { menuGroups, navGroups, quickLinks } from "../src/lib/nav";
 import { FACETS } from "../src/content/facets";
 import { applyFilters, NO_FILTERS, type IndexRow } from "../src/lib/browse";
 
@@ -61,4 +61,12 @@ test("header mega menus: built from the nav groups, every link a place the group
   assert.match(comp, /aria-expanded/);
   assert.match(comp, /rp-\$\{r\}/);
   assert.ok(!read("src/app/layout.tsx").includes("SideNav"), "the side panel is gone");
+});
+
+test("the menus group the sections as Servicing, Brakes & suspension, Performance, 4WD & touring, Care & workshop", () => {
+  const groups = navGroups(counts, []);
+  const bucketed = menuGroups(groups).slice(0, 5);
+  assert.deepEqual(bucketed.map((g) => g.title), ["Servicing", "Brakes & suspension", "Performance", "4WD & touring", "Care & workshop"]);
+  const inBuckets = bucketed.flatMap((g) => g.links.map((l) => l.href)).sort();
+  assert.deepEqual(inBuckets, groups[0].links.map((l) => l.href).sort(), "every section sits in exactly one bucket");
 });

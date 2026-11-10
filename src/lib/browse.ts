@@ -58,6 +58,8 @@ export function norm(s: string) {
     .replace(/[̀-ͯ]/g, "")
     .normalize("NFC")
     .toLowerCase()
+    // Oil grades are typed every way: "5w-30", "5w 30", "5W30" are one grade, so each is one word.
+    .replace(/(?<![a-z0-9])(\d{1,2})w[\s-]*(\d{2})(?![a-z0-9])/g, "$1w$2")
     .replace(/[^a-z0-9가-힣]+/g, " ")
     .trim();
 }
