@@ -27,3 +27,14 @@ test("shop by car: a hub names the car in the title or in the fit a store quotes
   assert.ok(ls.re.test("Haltech Nexus Rebel LS - T56 Transmission Harness"));
   assert.ok(!ls.re.test("Isuzu Elf Light Bar"), "a plain word 'ls' inside another word is no engine");
 });
+
+test("options written inside nested brackets do not split a family; a very large spread is not advertised as a deal", async () => {
+  const a = P("pn:6boost:A", `6Boost Nissan RB25 V-Band Exhaust Manifold (I don't need EGT's / Reverse Rotation V-BAND(GARRETT G25/30/35 (2.25" Inlet))/50 Single / No - Flange/s)`, 150000);
+  const b = P("pn:6boost:B", `6Boost Nissan RB25 V-Band Exhaust Manifold (I would like EGT's / Reverse Rotation V-BAND(RR TURBOSMART 6870-7880 (3.00" Inlet))/50 Single / Yes - Flange/s)`, 155000);
+  assert.equal(familyKey(a), familyKey(b));
+  const { dealsIn, DEAL_MAX_SPREAD } = await import("@/lib/data");
+  assert.equal(DEAL_MAX_SPREAD, 0.5);
+  const two = (lo: number, hi: number) => ({ ...P("pn:x:1", "X thing", lo), offers: { AU: [{ s: "a", p: lo, st: "in", u: "https://x" }, { s: "b", p: hi, st: "in", u: "https://y" }] } }) as unknown as Product;
+  assert.equal(dealsIn("AU", 8, [two(5100, 19900)]).length, 0, "74% off is a likely mismatch, not a deal");
+  assert.equal(dealsIn("AU", 8, [two(8000, 10000)]).length, 1, "20% off still is");
+});
