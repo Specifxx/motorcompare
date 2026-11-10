@@ -5,6 +5,7 @@ import { CAT_BY_KEY } from "@/site";
 import { storeName, storeCount } from "@/lib/data";
 import type { Product } from "@/lib/types";
 import { partNoOf } from "@/lib/partno";
+import { fitSummary } from "@/lib/fitment";
 import { crossRefs, specsOf, statedFit } from "@/lib/specs";
 import { niceDate } from "@/lib/format";
 
@@ -30,7 +31,7 @@ export function detailRows(f: Product): DetailRow[] {
   if (xr.length) add("Cross-reference", xr.join(", "));
   if (f.oe && f.oe.length) add("OE numbers", f.oe.join(", "), "As listed by stores; check against your old part.");
   if (f.fit && Object.keys(f.fit).length) {
-    add("Fitment, per store", Object.entries(f.fit).map(([sid, lines]) => `${storeName(sid)}: ${lines.join("; ")}`).join(" | "), "Quoted from each store's own listing, not checked by us. Match the part number before you buy.");
+    add("Fitment, per store", Object.entries(f.fit).map(([sid, lines]) => { const fs = fitSummary(lines, f.name); return `${storeName(sid)}: ${fs.lead.length ? fs.lead.join("; ") : fs.others.slice(0, 4).map((o) => (o.n > 1 ? `${o.make} (${o.n})` : o.make)).join(", ")}`; }).join(" | "), "Quoted from each store's own listing, not checked by us. Match the part number before you buy.");
   } else {
     const fit = statedFit(f.name);
     if (fit) add("Store listing says", `Suits ${fit}`, "Quoted from the store's title, not checked by us. Match the part number before you buy.");

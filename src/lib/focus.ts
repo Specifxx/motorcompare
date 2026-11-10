@@ -24,10 +24,21 @@ export function demandSlugs(pages: Record<string, number[]>): Set<string> {
   return out;
 }
 
-/** Widely stocked today: 3+ stores that can sell it in one region, or 2+ in two regions. */
+/** Stocked widely today: 3+ stores that can sell it in one region, or 2+ in two regions (the sitemap and indexing tier). */
 export function widelyStocked(p: Pick<Product, "offers">): boolean {
-  const counts = Object.values(p.offers).map((o) => new Set((o ?? []).filter((x) => x.st !== "out").map((x) => x.s)).size);
+  const counts = storesSelling(p);
   return counts.some((n) => n >= 3) || counts.filter((n) => n >= 2).length >= 2;
+}
+
+/** Listed in search and browsing: 2+ stores can sell it today in one region (owner, 2026-11-10: the enthusiast review found
+ *  the 3-store cull hid 14,739 parts a shopper searches for by name, such as a Turbosmart wastegate sold at two stores).
+ *  Two-store pages are noindex and stay out of the sitemap (lib/index-tiers.ts): visitors reach them, Google is not asked to. */
+export function comparable(p: Pick<Product, "offers">): boolean {
+  return storesSelling(p).some((n) => n >= 2);
+}
+
+function storesSelling(p: Pick<Product, "offers">): number[] {
+  return Object.values(p.offers).map((o) => new Set((o ?? []).filter((x) => x.st !== "out").map((x) => x.s)).size);
 }
 
 /** The listed products, and every culled slug → its category key (its URL 301s there). */
@@ -35,7 +46,7 @@ export function focusCatalog(products: readonly Product[], demand: ReadonlySet<s
   const listed: Product[] = [];
   const culled: Record<string, string> = {};
   for (const p of products) {
-    if (demand.has(p.slug) || widelyStocked(p)) listed.push(p);
+    if (demand.has(p.slug) || comparable(p)) listed.push(p);
     else culled[p.slug] = p.cat;
   }
   return { listed, culled };

@@ -9,6 +9,7 @@
 //     and linked from their category and brand pages; only the sitemap leaves them
 //     out. Widen it (inSitemap -> isIndexable) once Search Console shows it indexed.
 import { SITE } from "@/site";
+import { widelyStocked } from "./focus";
 import type { Product } from "./types";
 
 /** A category hub with fewer products than this is noindex and out of the sitemap (wiper blades and fluids had none at launch). */
@@ -17,7 +18,8 @@ export const CAT_MIN_INDEXED = 3;
 export function isIndexable(f: Product): boolean {
   const orderable = Object.values(f.offers).some((o) => o?.some((x) => x.st !== "out"));
   const compared = Object.values(f.offers).some((o) => (o?.length ?? 0) >= SITE.minStoresPerRegion);
-  return orderable && compared;
+  // Two-store pages are listed for visitors (lib/focus.ts comparable) but Google is only asked for the widely stocked ones.
+  return orderable && compared && widelyStocked(f);
 }
 
 /** The first sitemap tier: indexable and stocked widely (DECISIONS.md 2026-11-03). */

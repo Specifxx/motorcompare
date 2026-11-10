@@ -8,7 +8,7 @@ import { useEffect, useId, useMemo, useRef, useState } from "react";
 import { CATEGORIES } from "@/site";
 import { useRegion } from "./RegionPicker";
 import { money } from "@/lib/format";
-import { imageUrl, loadImages, loadIndex, norm, searchRows, type IndexRow } from "@/lib/browse";
+import { imageUrl, loadImages, loadIndex, norm, searchRows, shopSearchLinks, type IndexRow } from "@/lib/browse";
 import { Stars } from "./reviews/Stars";
 
 export { norm, searchRows, type IndexRow };
@@ -25,6 +25,14 @@ const STEP_WORDS: Record<string, string[]> = {
   fluids: ["coolant", "fluid", "atf", "transmission fluid"],
   care: ["car wash", "detailing", "wax", "polish", "snow foam"],
   accessories: ["jump starter", "charger", "dash cam", "12v"],
+  turbo: ["turbo", "turbocharger", "wastegate", "blow off valve", "bov", "boost"],
+  engine: ["ecu", "haltech", "injector", "injectors", "engine management", "harness"],
+  exhaust: ["exhaust", "muffler", "cat back", "extractor"],
+  cooling: ["radiator", "intercooler", "oil cooler"],
+  driveline: ["clutch", "flywheel", "gearbox"],
+  suspension: ["suspension", "shock", "shocks", "coilover", "coilovers", "spring", "springs", "strut"],
+  electrics: ["fuse", "relay", "solar", "uhf", "dual battery", "fusible link", "wiring"],
+  tools: ["tool", "tools", "spanner", "socket"],
 };
 
 type Brand = { name: string; slug: string; count: number; key: string };
@@ -70,9 +78,16 @@ export function SearchBox({ big = false }: { big?: boolean }) {
   const nq = norm(q);
   const products = useMemo(() => (rows ? searchRows(rows, q, 6) : []), [rows, q]);
   const brandHits = useMemo(() => (nq.length < 2 ? [] : brands.filter((b) => b.key.split(" ").some((w) => w.startsWith(nq)) || b.key.startsWith(nq)).slice(0, 3)), [brands, nq]);
+  // The sections that have stock, most products first (empty ones, like wipers, are left out).
+  const liveCats = useMemo(() => {
+    if (!rows) return [];
+    const n = new Map<string, number>();
+    for (const r of rows) n.set(r[2], (n.get(r[2]) ?? 0) + 1);
+    return CATEGORIES.filter((c) => c.key !== "other" && (n.get(c.key) ?? 0) > 0).sort((a, b) => (n.get(b.key) ?? 0) - (n.get(a.key) ?? 0));
+  }, [rows]);
   const stepHits = useMemo(
-    () => (nq.length < 2 ? [] : CATEGORIES.filter((c) => c.key !== "other" && (norm(c.name).startsWith(nq) || STEP_WORDS[c.key]?.some((w) => w.startsWith(nq) || nq.split(" ").includes(w)))).slice(0, 2)),
-    [nq],
+    () => (nq.length < 2 ? [] : liveCats.filter((c) => norm(c.name).startsWith(nq) || STEP_WORDS[c.key]?.some((w) => w.startsWith(nq) || nq.split(" ").includes(w))).slice(0, 2)),
+    [nq, liveCats],
   );
   const total = useMemo(() => (rows && nq.length > 1 ? searchRows(rows, q, 10_000).length : 0), [rows, q, nq]);
 
@@ -127,7 +142,7 @@ export function SearchBox({ big = false }: { big?: boolean }) {
             }
             if (e.key === "Escape") setOpen(false);
           }}
-          placeholder={big ? "Search a part, a code like N70ZZ or H7, or a brand…" : "Search part, code, brand…"}
+          placeholder={big ? "Search a part, a code like 5W-30 or H7, or a brand…" : "Search part, code, brand…"}
           aria-label="Search car parts"
           aria-expanded={open}
           aria-controls={listId}
@@ -151,9 +166,9 @@ export function SearchBox({ big = false }: { big?: boolean }) {
                   <a key={b.slug} href={`/brands/${b.slug}`} className="rounded-full border border-line px-3 py-1 text-sm hover:border-soft">{b.name}</a>
                 ))}
               </div>
-              <p className="eyebrow mb-2 mt-3 px-1">Shop by step</p>
+              <p className="eyebrow mb-2 mt-3 px-1">Shop by part</p>
               <div className="flex flex-wrap gap-1.5">
-                {CATEGORIES.filter((c) => c.key !== "other").map((c) => (
+                {liveCats.map((c) => (
                   <a key={c.key} href={`/${c.key}`} className="rounded-full bg-subtle px-3 py-1 text-sm hover:bg-accent-pale">{c.name}</a>
                 ))}
               </div>
@@ -161,7 +176,16 @@ export function SearchBox({ big = false }: { big?: boolean }) {
             </div>
           )}
           {rows && !empty && nq.length < 2 && <p className="px-3 py-2 text-sm text-soft">Keep typing…</p>}
-          {rows && nq.length > 1 && !items.length && <p className="px-3 py-2 text-sm text-soft">Nothing matches yet. Try a brand or a code like 5W-30.</p>}
+          {rows && nq.length > 1 && !items.length && (
+            <div className="px-3 py-2 text-sm text-soft">
+              <p>We don&apos;t compare that yet. Try a brand or a code like 5W-30, or look at the shops:</p>
+              <p className="mt-2 flex flex-wrap gap-1.5">
+                {shopSearchLinks(q).map((l) => (
+                  <a key={l.name} href={l.href} target="_blank" rel="noopener nofollow" className="rounded-full border border-line px-3 py-1 font-semibold text-ink hover:border-soft">{l.name} ↗</a>
+                ))}
+              </p>
+            </div>
+          )}
           {(brandHits.length > 0 || stepHits.length > 0) && (
             <ul className="border-b border-line pb-1">
               {brandHits.map((b) => (

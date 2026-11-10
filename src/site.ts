@@ -67,7 +67,7 @@ export function regionForZone(_zone: string | undefined | null): RegionCode {
  * part or in the owner's manual (oil grade, battery size, wiper length, globe
  * code, filter number), so a buyer can check fit without a vehicle database.
  */
-export type CatKey = "oil" | "batteries" | "wipers" | "globes" | "filters" | "plugs" | "brakes" | "fluids" | "care" | "accessories" | "other";
+export type CatKey = "oil" | "batteries" | "wipers" | "globes" | "filters" | "plugs" | "brakes" | "fluids" | "care" | "accessories" | "turbo" | "engine" | "exhaust" | "cooling" | "driveline" | "suspension" | "electrics" | "tools" | "other";
 
 export interface Category {
   key: CatKey;
@@ -92,10 +92,18 @@ export const CATEGORIES: Category[] = [
   { key: "fluids", name: "Coolant & fluids", plural: "coolant, transmission and other fluids", about: "Coolant, transmission and diff oil, power steering fluid and additives.", fit: "The spec on your manual or reservoir decides (OAT coolant, Dexron VI, 75W-90)." },
   { key: "care", name: "Car care", plural: "car care and detailing products", about: "Car wash, wax, polish, ceramic coatings, microfibre and interior cleaners.", fit: "Fits any car: compare by size." },
   { key: "accessories", name: "Accessories & 12V", plural: "car accessories and 12V gear", about: "Jump starters, battery chargers, dash cams, tyre inflators and 12V accessories.", fit: "Check the voltage and the plug for your car." },
-  { key: "other", name: "More parts", plural: "more car parts", about: "Everything else parts stores sell under one barcode.", fit: "Check the part number against your old part." },
+  { key: "turbo", name: "Turbo & boost", plural: "turbochargers, wastegates and boost control", about: "Turbochargers, wastegates, blow off valves and boost controllers, from Turbosmart and more.", fit: "Check the flange, the actuator pressure and the car it is listed for with the store before you buy." },
+  { key: "engine", name: "Engine management", plural: "engine management, ECUs and injectors", about: "Aftermarket ECUs, harnesses, sensors, injectors and fuel parts, from Haltech, Injector Dynamics and more.", fit: "Check the car or engine the store lists it for, and the connector, before you buy." },
+  { key: "exhaust", name: "Exhaust", plural: "exhaust systems", about: "Cat-back and performance exhaust systems, mufflers and pipes.", fit: "Check the car, the engine and the pipe size the store lists before you buy." },
+  { key: "cooling", name: "Cooling", plural: "radiators, intercoolers and cooling parts", about: "Radiators, intercoolers, oil coolers and fans, from Koyorad, Process West and more.", fit: "Check the car and the core size the store lists before you buy." },
+  { key: "driveline", name: "Clutch & driveline", plural: "clutches, flywheels and driveline parts", about: "Clutch kits, flywheels, gearbox and diff parts, from Exedy and more.", fit: "Check the car, the engine and the spline count the store lists before you buy." },
+  { key: "suspension", name: "Suspension", plural: "shocks, springs and suspension", about: "Shock absorbers, struts, springs, coilovers and sway bars, from Whiteline, KYB, Ohlins and more.", fit: "Suspension fits by make, model and year: check the store's fitment list before you buy." },
+  { key: "electrics", name: "4WD & touring electrics", plural: "4WD and touring electrics", about: "Dual battery and solar gear, fuses and fusible links, switches, UHF radios and wiring, from Narva, Redarc, Victron, GME and more.", fit: "Check the voltage, the amp rating and the plug type before you buy." },
+  { key: "tools", name: "Tools", plural: "workshop tools", about: "Spanners, sockets, tool kits and workshop tools, from Kincrome and more.", fit: "Fits any car: compare by size and kit contents." },
+  { key: "other", name: "More parts", plural: "more car parts", about: "Other car parts and fittings stores sell, matched by part number.", fit: "Check the part number against your old part." },
 ];
 
 /** Menu order: the easy-fit consumables first. */
-export const STEP_MENU_ORDER: CatKey[] = ["oil", "batteries", "wipers", "globes", "filters", "plugs", "brakes", "fluids", "care", "accessories", "other"];
+export const STEP_MENU_ORDER: CatKey[] = ["oil", "batteries", "wipers", "globes", "filters", "plugs", "brakes", "fluids", "care", "accessories", "turbo", "engine", "exhaust", "cooling", "driveline", "suspension", "electrics", "tools", "other"];
 
 export const CAT_BY_KEY = Object.fromEntries(CATEGORIES.map((c) => [c.key, c])) as Record<CatKey, Category>;

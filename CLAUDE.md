@@ -44,6 +44,8 @@ owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deplo
   damaged, store-made bundles, mystery boxes and apparel are refused. It also gives the category, the size (L, ml,
   mm) and the fit code a buyer can read off the old part (`partCode`: oil grade, battery code, globe code, wiper
   length, filter number). Every rule changed gets a store title in `tests/title.test.ts`.
+- A product is listed when 2+ stores can sell it today in one region (`lib/focus.ts` `comparable`, 2026-11-10); only 3+ stores
+  (or 2+ in two regions) is indexable and in the sitemap (`lib/index-tiers.ts`). Categories are title rules in `lib/title.ts`.
 - A product gets a page only when 2+ stores sell it. With 3+ stores, prices under 40% or over 250% of the median are
   dropped. Mirrors count once. The brand is the vendor, folded by `src/lib/brand.ts`.
 - Real stores only, never marketplaces. Stores live in `src/content/stores.ts` (found with `probe-stores.yml`);

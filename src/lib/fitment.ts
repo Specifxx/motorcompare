@@ -6,7 +6,7 @@
 // never used to match, rank or filter a part the store has not listed it for.
 import { plainText } from "./notes";
 
-export const FIT_MAX_PER_STORE = 3;
+export const FIT_MAX_PER_STORE = 12;
 export const FIT_MAX_LEN = 120;
 export const FIT_MAX_STORES = 3;
 
@@ -55,4 +55,39 @@ export function oeNumbersOf(bodyHtml: string | null | undefined): string[] {
     }
   }
   return out.slice(0, 6);
+}
+
+const TWO_WORD_MAKES = ["alfa romeo", "land rover", "range rover", "mercedes benz", "great wall", "rolls royce", "aston martin", "mini cooper", "ssang yong"];
+
+/** The make a fitment line opens with ("Alfa Romeo 156 2.0" is Alfa Romeo, "Toyota Hilux" is Toyota). */
+export function makeOf(line: string): string {
+  const l = line.trim().replace(/^[^a-z0-9]+/i, "");
+  const two = TWO_WORD_MAKES.find((m) => l.toLowerCase().startsWith(m));
+  if (two) return l.slice(0, two.length);
+  return l.split(/[\s/,:;-]+/)[0] ?? "";
+}
+
+export interface FitSummary {
+  /** the lines worth reading first: they name something the product's own title names (a make, "1JZ"), at most four */
+  lead: string[];
+  /** every other make the store quotes, with its line count, biggest first */
+  others: { make: string; n: number }[];
+  total: number;
+}
+
+/** One store's quoted fitment, summarised (DECISIONS.md 2026-11-10). Lines that share a word with the title lead; the rest
+ *  collapse to "Alfa Romeo (3)", so a Toyota 1JZ/2JZ filter is not drowned by the first three makes alphabetically. */
+export function fitSummary(lines: string[], title: string): FitSummary {
+  const words = new Set(
+    title
+      .toLowerCase()
+      .split(/[^a-z0-9]+/)
+      .filter((w) => w.length >= 3 && /[a-z]/.test(w) && !/^(the|and|for|fits?|suit|suits|with|kit|set|oil|air|filter|pack)$/.test(w)),
+  );
+  const named = (l: string) => l.toLowerCase().split(/[^a-z0-9]+/).some((w) => words.has(w));
+  const lead = lines.filter(named).slice(0, 4);
+  const rest = new Map<string, number>();
+  for (const l of lines) if (!lead.includes(l)) rest.set(makeOf(l), (rest.get(makeOf(l)) ?? 0) + 1);
+  const others = [...rest.entries()].filter(([m]) => m).map(([make, n]) => ({ make, n })).sort((a, b) => b.n - a.n || a.make.localeCompare(b.make));
+  return { lead, others, total: lines.length };
 }

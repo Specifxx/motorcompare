@@ -130,7 +130,7 @@ test("a title names the category; one store's own category alone does not", () =
     fresh(),
     "2026-11-09",
   );
-  assert.equal(out[0].cat, "other");
+  assert.equal(out[0].cat, "engine", "the title names Haltech; the stores' own types disagree and are ignored");
   const oil = mergeListings([L("a", "AU", 2199, { title: "Penrite HPR 5 5L", kind: "Engine Oil" }), L("b", "AU", 2299, { title: "Penrite HPR 5 5L", kind: "Engine Oil" })], fresh(), "2026-11-09");
   assert.equal(oil[0].cat, "oil", "every store's type agrees");
 });

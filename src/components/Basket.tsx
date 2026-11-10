@@ -105,7 +105,7 @@ export function Basket() {
           <input
             value={q}
             onChange={(e) => setQ(e.target.value)}
-            placeholder="Add a part: 5w-30 5l, ns40zl, h7…"
+            placeholder="Add a part: 5w-30, bkr6e, h7…"
             className="w-full rounded-xl border border-line bg-card px-4 py-2.5 text-[15px] outline-none focus:border-soft"
           />
         </label>

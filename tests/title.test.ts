@@ -52,11 +52,23 @@ test("categories: what it is decides, chargers are accessories", () => {
   assert.equal(c("Mystery Widget", "Engine Oil"), "oil", "the store's type decides when the title says nothing");
   assert.equal(c("Bonnet Strut"), "other");
   assert.equal(c("Century 12V NS70ZZ Car Battery"), "batteries", "12V is a battery's voltage, not an accessory");
-  assert.equal(c("Turbosmart BOV GenV ProPort Spring (4 inHg) Pink TS-0208-9006"), "other", "a part number ending 9006 is no globe");
+  assert.equal(c("Turbosmart BOV GenV ProPort Spring (4 inHg) Pink TS-0208-9006"), "turbo", "a part number ending 9006 is no globe");
   assert.equal(c("Narva 9006 Plus 110 Globe"), "globes");
   assert.equal(c("Turbosmart Engine Oil Filter -6AN 44 Micron"), "filters", "an oil filter is a filter");
-  assert.equal(c("Haltech Coolant Temp Sensor - Large Thread HT010302"), "other", "a coolant sensor is not coolant");
-  assert.equal(c("Haltech 1/4\" Open Tip Thermocouple Length: 0.72m"), "other");
+  assert.equal(c("Haltech Coolant Temp Sensor - Large Thread HT010302"), "engine", "a coolant sensor is not coolant");
+  assert.equal(c("Generic Coolant Temp Sensor"), "other", "a sensor of any brand is not coolant");
+  assert.equal(c("Haltech 1/4\" Open Tip Thermocouple Length: 0.72m"), "engine");
+  assert.equal(c("Haltech Elite 750 Ignition Coil Pack"), "engine", "a Haltech coil is engine management, not a spark plug");
+  assert.equal(c("Turbosmart IWG75 Ford Barra XR6 Wastegate Actuator (7 Psi)"), "turbo");
+  assert.equal(c("Turbosmart Billet Fuel Filter (10um) - Black (-10AN)"), "filters");
+  assert.equal(c("Koyorad Performance Radiator: Honda Civic Type R FL5 2023+"), "cooling");
+  assert.equal(c("Korsh Subaru BRZ & Toyota 86/GR86 Cat-Back Exhaust with Ti Tip"), "exhaust");
+  assert.equal(c("Narva 30 Amp Pink Female Plug In Fusible Link - 53030BL"), "electrics");
+  assert.equal(c("Redarc 200W Monocrystalline Black Frame Solar Panel"), "electrics");
+  assert.equal(c("Öhlins Road & Track Coilovers - Toyota Corolla GR 2023+"), "suspension");
+  assert.equal(c("KYB Rear Upper Strut Top Mount Inc Bolts & Washers (LHR)"), "suspension");
+  assert.equal(c("Kincrome 100 Piece Tool Kit"), "tools");
+  assert.equal(c("Exedy Heavy Duty Clutch Kit Nissan Skyline"), "driveline");
 });
 
 test("sizes and the fit code", () => {
