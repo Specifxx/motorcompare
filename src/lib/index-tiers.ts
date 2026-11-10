@@ -11,6 +11,9 @@
 import { SITE } from "@/site";
 import type { Product } from "./types";
 
+/** A category hub with fewer products than this is noindex and out of the sitemap (wiper blades and fluids had none at launch). */
+export const CAT_MIN_INDEXED = 3;
+
 export function isIndexable(f: Product): boolean {
   const orderable = Object.values(f.offers).some((o) => o?.some((x) => x.st !== "out"));
   const compared = Object.values(f.offers).some((o) => (o?.length ?? 0) >= SITE.minStoresPerRegion);

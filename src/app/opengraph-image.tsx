@@ -21,7 +21,7 @@ export default async function Image() {
     brand: SITE.name,
     line1: "The right part.",
     line2: "The best price.",
-    blurb: "Oil, batteries, wipers, globes and more, priced across Australian parts stores. Matched part for part.",
+    blurb: "Filters, spark plugs, batteries, globes and more, priced across Australian parts stores. Matched part for part.",
     domain: SITE.domain,
   });
 }

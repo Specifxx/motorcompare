@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { CATEGORIES, CAT_BY_KEY, type CatKey } from "@/site";
 import { CatHub } from "@/components/CatHub";
 import { CAT_SEO, fitDescription, fitTitle } from "@/lib/seo";
+import { catCounts } from "@/lib/data";
+import { CAT_MIN_INDEXED } from "@/lib/index-tiers";
 
 export const dynamicParams = false;
 export const generateStaticParams = () => CATEGORIES.map((c) => ({ cat: c.key }));
@@ -18,6 +20,8 @@ export function generateMetadata({ params }: { params: { cat: string } }): Metad
       `${c.name} prices compared across Australian parts stores. Matched by part number, updated daily.`,
     ),
     alternates: { canonical: `/${c.key}` },
+    // A hub with almost nothing on it is thin: it stays reachable, but asks not to be indexed (DECISIONS.md 2026-11-10).
+    ...(catCounts()[c.key] < CAT_MIN_INDEXED ? { robots: { index: false, follow: true } } : {}),
   };
 }
 

@@ -1369,3 +1369,10 @@ Bill: "completely launch that now ... set the entire site up". Reverses the 2026
   card, with Australian copy. Product pages keep the product's own photo as their preview.
 - `/creators` is gone (a fragrance-site leftover with no motoring creators on it): out of the nav, footer, homepage and
   sitemap, and redirected to `/` (temporary) until there are real creators to list.
+
+## 2026-11-10: thin category hubs are noindex, and the launch copy names what is actually stocked
+
+The 10 Nov import has no wiper blades and no fluids matched at 2+ stores (oil has 5 products, brakes 20, plugs 630,
+filters 74). A hub with fewer than `CAT_MIN_INDEXED` (3) products is now `noindex, follow` and out of the sitemap
+(it stays reachable); it goes back in on its own once it has products. The homepage, meta description and link preview
+no longer lead with "oil, wipers": they name filters, spark plugs, batteries, globes and brakes.
