@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { CATEGORIES } from "@/site";
 import { FACETS } from "@/content/facets";
-import { applyFilters, facetValues, imageUrl, loadImages, loadIndex, NO_FILTERS, SORTS, type Filters, type IndexRow, type SortKey } from "@/lib/browse";
+import { applyFilters, facetValues, imageUrl, shopSearchLinks, loadImages, loadIndex, NO_FILTERS, SORTS, type Filters, type IndexRow, type SortKey } from "@/lib/browse";
 import { money } from "@/lib/format";
 import { useRegion } from "./RegionPicker";
 import { Stars } from "./reviews/Stars";
@@ -90,7 +90,7 @@ export function Browse({ cat = "", brand = "", search = false, children }: { cat
         {!cat && (
           <select value={f.cat} onChange={(e) => set({ cat: e.target.value })} onFocus={need} aria-label="Product type" className={sel}>
             <option value="">Every type</option>
-            {CATEGORIES.map((c) => (
+            {CATEGORIES.filter((c) => !rows || rows.some((r) => r[2] === c.key)).map((c) => (
               <option key={c.key} value={c.key}>{c.name}</option>
             ))}
           </select>
@@ -118,7 +118,7 @@ export function Browse({ cat = "", brand = "", search = false, children }: { cat
         </select>
         <label className={`${sel} flex cursor-pointer items-center gap-2`}>
           <input type="checkbox" checked={f.inStock} onChange={(e) => set({ inStock: e.target.checked })} className="accent-[rgb(var(--accent))]" />
-          In stock near me
+          In stock
         </label>
         {touched && (
           <button
@@ -151,7 +151,24 @@ export function Browse({ cat = "", brand = "", search = false, children }: { cat
               ))}
             </div>
           ) : (
-            <p className="card p-6 text-center text-soft">Nothing matches. Try fewer filters.</p>
+            <div className="card p-6 text-center text-soft">
+              <p>{f.q.trim() ? `We don't compare “${f.q.trim()}” yet.` : "Nothing matches. Try fewer filters."}</p>
+              {f.q.trim() && (
+                <>
+                  <p className="mt-3 text-sm">Check the same words at the big shops, or tell us which part and store to add:</p>
+                  <p className="mt-2 flex flex-wrap justify-center gap-2">
+                    {shopSearchLinks(f.q).map((l) => (
+                      <a key={l.name} href={l.href} target="_blank" rel="noopener nofollow" className="rounded-full border border-line bg-card px-3 py-1 text-sm font-semibold text-ink hover:border-soft">
+                        {l.name} ↗
+                      </a>
+                    ))}
+                    <a href="/stores" className="rounded-full border border-line bg-card px-3 py-1 text-sm font-semibold text-accent-deep hover:border-soft">
+                      Suggest a store or part
+                    </a>
+                  </p>
+                </>
+              )}
+            </div>
           )}
           {result.length > shown && (
             <div className="mt-8 text-center">

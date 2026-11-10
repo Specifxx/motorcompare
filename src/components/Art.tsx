@@ -15,6 +15,14 @@ export const CAT_TINT: Record<CatKey, string> = {
   fluids: "tint-sky",
   care: "tint-mint",
   accessories: "tint-lavender",
+  turbo: "tint-rose",
+  engine: "tint-lavender",
+  exhaust: "tint-sky",
+  cooling: "tint-mint",
+  driveline: "tint-butter",
+  suspension: "tint-peach",
+  electrics: "tint-butter",
+  tools: "tint-sky",
   other: "tint-peach",
 };
 
@@ -137,6 +145,72 @@ const ICONS: Record<CatKey, React.ReactNode> = {
     </g>
   ),
   // a spanner
+  // a turbo snail housing with a compressor wheel
+  turbo: (
+    <g {...S}>
+      <path d="M8 26a16 16 0 1 1 16 16h-6" fill={STEEL} />
+      <circle cx="22" cy="26" r="7" fill={INK} />
+      <path d="M22 19v14M15 26h14" stroke={WHITE} />
+      <path d="M32 40h10v-4" fill="none" stroke={ORANGE} strokeWidth="2" />
+    </g>
+  ),
+  // an ECU box with connector pins
+  engine: (
+    <g {...S}>
+      <rect x="8" y="14" width="32" height="22" rx="3" fill={INK} />
+      <path d="M13 20h12M13 25h8" stroke={AMBER} strokeWidth="2" />
+      <path d="M14 36v5M20 36v5M26 36v5M32 36v5" stroke={STEEL} strokeWidth="2" />
+      <circle cx="33" cy="22" r="2.5" fill={ORANGE} />
+    </g>
+  ),
+  // a muffler with a tail pipe
+  exhaust: (
+    <g {...S}>
+      <rect x="10" y="16" width="24" height="16" rx="8" fill={STEEL} />
+      <path d="M34 24h10M3 24h7" strokeWidth="3" fill="none" />
+      <path d="M17 20v8M23 20v8M29 20v8" stroke={INK} />
+    </g>
+  ),
+  // a radiator core with a cap
+  cooling: (
+    <g {...S}>
+      <rect x="8" y="14" width="32" height="26" rx="2" fill={BLUE} />
+      <path d="M14 18v18M20 18v18M26 18v18M32 18v18" stroke={WHITE} />
+      <rect x="20" y="8" width="8" height="6" rx="1" fill={INK} />
+    </g>
+  ),
+  // a clutch disc
+  driveline: (
+    <g {...S}>
+      <circle cx="24" cy="24" r="17" fill={STEEL} />
+      <circle cx="24" cy="24" r="9" fill={AMBER} />
+      <circle cx="24" cy="24" r="3" fill={INK} />
+      <path d="M24 7v6M24 35v6M7 24h6M35 24h6" />
+    </g>
+  ),
+  // a coil spring on a shock
+  suspension: (
+    <g {...S}>
+      <path d="M24 5v38" strokeWidth="3" />
+      <path d="M16 12l16 4-16 4 16 4-16 4 16 4-16 4" fill="none" stroke={ORANGE} strokeWidth="2.5" />
+      <rect x="19" y="3" width="10" height="4" rx="1" fill={INK} />
+    </g>
+  ),
+  // a blade fuse
+  electrics: (
+    <g {...S}>
+      <path d="M12 8h24l2 10v22H10V18z" fill={AMBER} />
+      <path d="M17 18v14l7-4 7 4V18" fill="none" stroke={INK} strokeWidth="2" />
+      <path d="M17 8V4M31 8V4" />
+    </g>
+  ),
+  // a spanner
+  tools: (
+    <g {...S}>
+      <path d="M32 6a8 8 0 0 0-8 10L8 32a4 4 0 0 0 8 8l16-16a8 8 0 0 0 10-8l-5 5-5-1-1-5 5-5a8 8 0 0 0-6-1z" fill={STEEL} />
+      <circle cx="12" cy="36" r="1.5" fill={INK} />
+    </g>
+  ),
   other: (
     <g {...S}>
       <path d="M33 6a9 9 0 0 0-8 12L8 35a4 4 0 1 0 5 5l17-17a9 9 0 0 0 12-8l-5 3-5-2-1-5z" fill={STEEL} />

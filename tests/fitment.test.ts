@@ -12,10 +12,10 @@ test("Autocave: Make/Model tags and the 'to suit:' block, plus OE equivalents", 
   assert.deepEqual(oeNumbersOf(body), ["7701208130", "7701210178", "8200266743"]);
 });
 
-test("Universal Auto Spares: 'Fit For' lines, capped at three", () => {
+test("Universal Auto Spares: 'Fit For' lines, all kept (the page summarises them)", () => {
   const body = "<p>Fitment:</p><p>Fit For Volkswagen Touareg 7L / 7LA / 7L6 / 7L7 2003-2010</p><p>Fit For Porsche Cayenne 955 / 957 / 9PA 2003-2010</p><p>Fit For Audi Q7 4L 2006-2015</p><p>Fit For Seat Leon 2005-2012</p><p>Package:</p>";
   const f = fitmentOf([], body);
-  assert.equal(f.length, 3);
+  assert.equal(f.length, 4);
   assert.equal(f[0], "Volkswagen Touareg 7L / 7LA / 7L6 / 7L7 2003-2010");
 });
 
@@ -32,4 +32,14 @@ test("fitment is kept per store and capped at three stores, never merged", () =>
   assert.deepEqual(out[0].fit, { a: ["Ford Falcon BA"], c: ["Holden VT"], d: ["Mazda 3"] });
   void store;
   void listingsFromProduct;
+});
+
+test("fit summary: lines that share a word with the title lead; the rest collapse by make (2026-11-10)", async () => {
+  const { fitSummary, makeOf } = await import("@/lib/fitment");
+  const lines = ["Alfa Romeo 156 2.0", "Alfa Romeo 147", "Alfa Romeo GTV", "Nissan Skyline R33", "Toyota Supra JZA80 2JZ-GTE", "Toyota Chaser 1JZ-GTE"];
+  const s = fitSummary(lines, "Ryco Z418 Oil Filter - Fits Toyota 1JZ/2JZ");
+  assert.deepEqual(s.lead, ["Toyota Supra JZA80 2JZ-GTE", "Toyota Chaser 1JZ-GTE"]);
+  assert.deepEqual(s.others, [{ make: "Alfa Romeo", n: 3 }, { make: "Nissan", n: 1 }]);
+  assert.equal(makeOf("Land Rover Defender"), "Land Rover");
+  assert.equal(makeOf("Toyota Hilux"), "Toyota");
 });

@@ -37,6 +37,14 @@ export const CAT_SEO: Record<CatKey, string> = {
   fluids: "Coolant & transmission fluid prices",
   care: "Car care & detailing prices",
   accessories: "Jump starter & 12V accessory prices",
+  turbo: "Turbo & wastegate prices",
+  engine: "ECU & engine management prices",
+  exhaust: "Exhaust system prices",
+  cooling: "Radiator & intercooler prices",
+  driveline: "Clutch & driveline prices",
+  suspension: "Shock & suspension prices",
+  electrics: "4WD & touring electrics prices",
+  tools: "Workshop tool prices",
   other: "Car parts prices",
 };
 

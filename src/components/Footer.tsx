@@ -1,10 +1,12 @@
 import Link from "next/link";
 import { CATEGORIES, SITE } from "@/site";
+import { catCounts } from "@/lib/data";
 import { POSTS, isLive } from "@/content/blog";
 import { LogoMark } from "./Logo";
 import { RateUsLink } from "./site-reviews/SiteReviews";
 
 export function Footer({ updated }: { updated?: string | null }) {
+  const counts = catCounts();
   return (
     <footer className="wash mt-16 border-t border-line pt-12 text-sm">
       <div className="mx-auto grid max-w-6xl gap-10 px-4 pb-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -25,7 +27,7 @@ export function Footer({ updated }: { updated?: string | null }) {
         <div>
           <h2 className="eyebrow mb-3">Shop</h2>
           <ul className="space-y-1.5">
-            {CATEGORIES.filter((c) => c.key !== "other").map((c) => (
+            {CATEGORIES.filter((c) => c.key !== "other" && counts[c.key] > 0).map((c) => (
               <li key={c.key}>
                 <Link prefetch={false} href={`/${c.key}`} className="text-soft hover:text-ink">
                   {c.plural.replace(/^./, (x) => x.toUpperCase())} prices

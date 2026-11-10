@@ -20,7 +20,7 @@ export default function About() {
         </p>
         <h2>How a part is matched</h2>
         <p>
-          Every part has its maker&apos;s own part number (Ryco Z386, NGK BKR6E, Century NS70ZZ), and most parts shops list it. We match store listings <strong>only</strong> by the brand plus that exact number, or by the barcode on the box when a shop lists one. A listing without one is left out rather than guessed from its title, because a 1 L and a 5 L, a 600 mm and a 650 mm blade, or two batteries one letter apart all look alike in a title. A wrong part is worse than a missing price.
+          Every part has its maker&apos;s own part number (Ryco Z418, NGK BKR6E, Century NS70ZZ), and most parts shops list it. We match store listings <strong>only</strong> by the brand plus that exact number, or by the barcode on the box when a shop lists one. A listing without one is left out rather than guessed from its title, because a 1 L and a 5 L, a 600 mm and a 650 mm blade, or two batteries one letter apart all look alike in a title. A wrong part is worse than a missing price.
         </p>
         <p>Used, reconditioned and damaged stock, exchange and core charges, and store-made bundles are left out too. A part gets a page once at least two stores sell it: comparing one shop is not a comparison.</p>
         <h2>Will it fit my car?</h2>

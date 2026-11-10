@@ -17,7 +17,7 @@ test("the quick row names only places the side panel and phone menu list, sectio
   const all = new Set(groups.flatMap((g) => g.links.map((l) => l.href)));
   for (const l of quick) assert.ok(all.has(l.href), l.href);
   assert.equal(quick[quick.length - 1].href, "/brands");
-  assert.deepEqual(quick.slice(0, groups[0].links.length).map((l) => l.href), groups[0].links.map((l) => l.href));
+  assert.deepEqual(quick.slice(0, 10).map((l) => l.href), groups[0].links.slice(0, 10).map((l) => l.href));
   assert.ok(quick.length <= 14, "a row, not a second menu");
   assert.match(read("src/app/layout.tsx"), /<CategoryStrip links=\{quickLinks\(groups\)\} \/>/);
   assert.match(read("src/components/CategoryStrip.tsx"), /lg:hidden/);

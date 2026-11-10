@@ -30,7 +30,7 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
   return [
     {
       title: "Shop by section",
-      links: STEP_MENU_ORDER.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).map((c) => ({ href: `/${c.key}`, label: c.name, count: counts[c.key], cat: c.key })),
+      links: STEP_MENU_ORDER.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).sort((x, y) => counts[y.key] - counts[x.key]).map((c) => ({ href: `/${c.key}`, label: c.name, count: counts[c.key], cat: c.key })),
     },
     {
       // The way a buyer really searches: the code printed on the old part (Bill, 2026-11-09).
@@ -87,8 +87,11 @@ export function headerMenus(groups: NavGroup[], f: MenuFacts): HeaderMenu[] {
  * The quick row under the header below lg (components/CategoryStrip.tsx): the sections as the first group lists them, this niche's
  * second way in, then Brands. A subset of the groups above, so the strip never names a place the menus do not.
  */
+/** The phone strip shows the sections with the most products; the menu lists them all. */
+const QUICK_SECTIONS = 10;
+
 export function quickLinks(groups: NavGroup[]): NavItem[] {
-  return [...(groups[0]?.links ?? []).map(({ href, label }) => ({ href, label })), { href: "/fit", label: "Part code" }, { href: "/brands", label: "Brands" }];
+  return [...(groups[0]?.links ?? []).slice(0, QUICK_SECTIONS).map(({ href, label }) => ({ href, label })), { href: "/fit", label: "Part code" }, { href: "/brands", label: "Brands" }];
 }
 
 /** The current page is this link, or inside it ("/men/page/2" is in Men's cologne). */

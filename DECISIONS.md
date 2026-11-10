@@ -1380,3 +1380,24 @@ no longer lead with "oil, wipers": they name filters, spark plugs, batteries, gl
 ## 2026-11-10: launch build
 
 motorcompare.app is attached to the Vercel project (apex is canonical, no www redirect). The launch ships as one `[deploy] [urgent]` build on the owner's say so ("deploy urgently/now"); every later change rides the daily release again.
+
+## 2026-11-10: the enthusiast review: list 2-store parts, real categories, word search, fitment summary
+
+The enthusiast review (a Fable pass as a car-meet buyer; `/mnt/project-files/motorcompare/enthusiast-review-2026-11-10.html`)
+found the site answers "what is the cheapest Ryco filter" but not "where is the cheapest Turbosmart wastegate".
+
+- **Listing widened (relaxes the 2026-11-07 cull for search and browsing only).** `lib/focus.ts` `comparable`: a product is
+  listed when 2+ stores can sell it today in one region (was `widelyStocked`: 3+, or 2+ in two regions; 14,739 slugs sat in
+  `culled.json` against 2,489 listed). Two-store pages are `noindex, follow` and out of the sitemap: `isIndexable` now also
+  needs `widelyStocked`. Visitors find them; Google is not asked to. Search Console demand still keeps a page.
+- **Real categories.** "More parts" held 1,593 of 2,489 products. New sections by title rules (`lib/title.ts`): turbo & boost,
+  engine management, exhaust, cooling, clutch & driveline, suspension, 4WD & touring electrics, tools. Specialist words are
+  read before the consumable rules (a Haltech ignition coil is not a spark plug) and the rest after them (a Narva globe is a
+  globe). Menus, tiles, footer, the phone strip (top 10) and the search dropdown list only sections with stock, biggest first.
+  Every existing URL keeps working.
+- **Search** matches whole words (or word starts from four letters), so "H4" no longer returns TH400 kits or "DBA" Redback; it
+  also searches part numbers, OE numbers and the cars stores quote (`lib/search-index.ts` `extraOf`). A search with no result
+  offers the same words at Supercheap, Repco, Sparesbox and eBay. Placeholder examples are codes that return results.
+- **Fitment box** is summarised per store (`lib/fitment.ts` `fitSummary`): lines sharing a word with the product's title lead,
+  the rest collapse to "Alfa Romeo (3)". `FIT_MAX_PER_STORE` is 12 (was 3, first three alphabetical). Still quoted, never vouched.
+- Skincare leftovers ("Shop by step", "In stock near me", "Everything else parts stores sell under one barcode") reworded.

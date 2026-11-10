@@ -42,7 +42,7 @@ export function CatHub({ cat, page }: { cat: CatKey; page: number }) {
     <div className="mx-auto max-w-6xl px-4">
       <Crumbs items={[{ name: c.plural.replace(/^./, (x) => x.toUpperCase()), path: href(1) }]} />
       <PageHead
-        eyebrow="Shop by step"
+        eyebrow="Shop by part"
         art={<CatIcon cat={cat} size={150} />}
         title={`${c.plural.replace(/^./, (x) => x.toUpperCase())} prices${page > 1 ? `, page ${page}` : ""}`}
         sub={

@@ -36,6 +36,7 @@ function idOf(id: string) {
 }
 import { partCode } from "@/lib/title";
 import { crossRefs, specsOf, statedFit } from "@/lib/specs";
+import { fitSummary } from "@/lib/fitment";
 import { codeSlug, FIT_INDEX_MIN, fitPath } from "@/lib/fit-codes";
 
 // The build prerenders only the top products (prebuiltProducts, 500 of ~37,000):
@@ -370,11 +371,15 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 <>
                   <dt className="text-soft">Fitment, per store</dt>
                   <dd>
-                    {Object.entries(f.fit).map(([sid, lines]) => (
-                      <span key={sid} className="mb-1 block">
-                        <strong>{storeName(sid)}</strong> says it suits {lines.join("; ")}
-                      </span>
-                    ))}
+                    {Object.entries(f.fit).map(([sid, lines]) => {
+                      const fs = fitSummary(lines, f.name);
+                      return (
+                        <span key={sid} className="mb-1 block">
+                          <strong>{storeName(sid)}</strong> says it suits {fs.lead.length ? fs.lead.join("; ") : fs.others.slice(0, 4).map((o) => (o.n > 1 ? `${o.make} (${o.n} listings)` : o.make)).join(", ")}
+                          {fs.lead.length > 0 && fs.others.length > 0 && <span className="text-soft">; also {fs.others.slice(0, 4).map((o) => (o.n > 1 ? `${o.make} (${o.n})` : o.make)).join(", ")}{fs.others.length > 4 ? ` and ${fs.others.length - 4} more makes` : ""}</span>}
+                        </span>
+                      );
+                    })}
                     <span className="mt-0.5 block text-xs text-soft">Quoted from each store&apos;s own listing, not checked by us. Match the part number above before you buy.</span>
                   </dd>
                 </>

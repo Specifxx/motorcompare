@@ -41,7 +41,7 @@ export default function Popular() {
           <TileGrid products={best} />
         </Section>
       )}
-      <Section title="Popular by step">
+      <Section title="Popular by part">
         <ul className="flex flex-wrap gap-2">
           {CATEGORIES.filter((c) => counts[c.key] > 0).map((c) => (
             <li key={c.key}>

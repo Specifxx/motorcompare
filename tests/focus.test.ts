@@ -2,7 +2,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
-import { demandSlugs, focusCatalog, widelyStocked } from "../src/lib/focus";
+import { comparable, demandSlugs, focusCatalog, widelyStocked } from "../src/lib/focus";
 import type { Offer, Product } from "../src/lib/types";
 
 const o = (s: string, st: Offer["st"] = "in"): Offer => ({ s, p: 1000, st, u: "https://x" });
@@ -15,10 +15,16 @@ test("widely stocked: three stores selling today in one region, or two in two re
   assert.equal(widelyStocked({ offers: { US: [o("a"), o("b"), o("c", "out")] } }), false, "a sold-out store does not count");
 });
 
+test("comparable: two stores selling today in one region is enough to list it (2026-11-10)", () => {
+  assert.equal(comparable({ offers: { US: [o("a"), o("b")] } }), true);
+  assert.equal(comparable({ offers: { US: [o("a"), o("b", "out")] } }), false, "a sold-out store does not count");
+  assert.equal(comparable({ offers: { US: [o("a")], UK: [o("b")] } }), false, "one store per region is no comparison");
+});
+
 test("search demand keeps a page; the rest is culled to its category", () => {
-  const { listed, culled } = focusCatalog([P("wide", { US: [o("a"), o("b"), o("c")] }), P("thin", { US: [o("a"), o("b")] }), P("searched", { US: [o("a")] })], new Set(["searched"]));
-  assert.deepEqual(listed.map((p) => p.slug), ["wide", "searched"]);
-  assert.deepEqual(culled, { thin: "oil" });
+  const { listed, culled } = focusCatalog([P("wide", { US: [o("a"), o("b"), o("c")] }), P("thin", { US: [o("a"), o("b")] }), P("single", { US: [o("a")] }), P("searched", { US: [o("a")] })], new Set(["searched"]));
+  assert.deepEqual(listed.map((p) => p.slug), ["wide", "thin", "searched"]);
+  assert.deepEqual(culled, { single: "oil" });
   assert.deepEqual([...demandSlugs({ "/product/a": [1, 1, 3], "/product/b": [0, 10, 5], "/product/c": [0, 9, 5], "/oil": [9, 99, 1] })].sort(), ["a", "b"]);
 });
 

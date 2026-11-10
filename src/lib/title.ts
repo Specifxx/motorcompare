@@ -55,12 +55,35 @@ const CAT_RULES: [CatKey, RegExp][] = [
 // Electrical bits named after what they measure or plug into.
 const NOT_A_CONSUMABLE = /\b(sensors?|sender|connectors?|pigtail|wiring\s*(?:harness|loom)|adapt(?:er|or)\s*(?:harness|loom)|harness|plug\s*(?:and|&)\s*pins)\b/i;
 
+// Specialist parts, read BEFORE the consumable rules: a Haltech ignition coil is engine management, not a spark plug, and a
+// Turbosmart "plug" is still a turbo part (2026-11-10: "More parts" held 1,593 of 2,489 products, most of them these brands).
+const FIRST_RULES: [CatKey, RegExp][] = [
+  ["turbo", /\b(turbosmart|turbo(?:charger|chargers)?|wastegates?|blow[-\s]?off|bov|boost\s*(?:controller|gauge|solenoid|reference)|diverter\s*valve|plumb[-\s]?back|boostgate|ultra[-\s]?gate|wg\d{2}|iwg\d{2})\b/i],
+  ["engine", /\b(haltech|ecus?|engine\s*management|injector\s*dynamics|fuel\s*injectors?|injectors?\s*set|fuel\s*pressure\s*regulators?|fpr\d*|wideband|ignition\s*coils?\s*(?:pack|kit)?\s*(?:for|suit)?\s*haltech|kelford\s*cams?|camshafts?|cams?\s*(?:and|&)\s*springs?)\b/i],
+];
+
+// Everything else a performance or touring shop sells, read AFTER the consumable rules (a Narva globe is a globe, a Narva fuse is not).
+const LATE_RULES: [CatKey, RegExp][] = [
+  ["accessories", /\b(roll(?:er)?[-\s]?r?\s*cover|tail\s*lock|tailgate\s*lock|central\s*locking|bull\s*bar|tub\s*liner|canopy)\b/i],
+  ["exhaust", /\b(exhausts?|cat[-\s]?back|muffler|mufflers|dump\s*pipe|extractors?|headers?\b|down[-\s]?pipe|resonator|tailpipe)\b/i],
+  ["cooling", /\b(radiators?|koyorad|intercoolers?|oil\s*coolers?|thermo\s*fans?|radiator\s*fans?|thermostats?|water\s*pumps?|expansion\s*tank|catch\s*can)\b/i],
+  ["driveline", /\b(clutch(?:es)?|flywheels?|exedy|pressure\s*plate|gearbox|transmission\s*mount|diff(?:erential)?\s*(?:mount|centre|center|cover)|driveshafts?|cv\s*joints?|lsd)\b/i],
+  ["suspension", /\b(shock\s*absorbers?|shocks?\b|(?<!bonnet\s)(?<!gas\s)(?<!boot\s)struts?\b|coil[-\s]?overs?|coil\s*springs?|lowering\s*springs?|sway\s*bars?|whiteline|kyb|ohlins|öhlins|bilstein|ast\s*suspension|control\s*arms?|bushes|bushings?|lift\s*kit)\b/i],
+  ["electrics", /\b(elecbrakes|elecconnect|narva|redarc|victron|enerdrive|projecta|gme\b|uniden|aerpro|ktsolar|kt\s*solar|solar\s*panels?|dc[-\s]?dc|fusible\s*links?|blade\s*fuses?|fuses?\b|relays?\b|uhf|cb\s*radio|antennas?|switch(?:es)?\b|accessory\s*socket|load\s*resistor|anderson|wiring\s*kit|dual\s*battery|battery\s*management|lightforce|stedi|safari)\b/i],
+  ["tools", /\b(kincrome|spanners?|wrench(?:es)?|socket\s*sets?|tool\s*(?:kit|set|box|chest)|screwdrivers?|pliers|ratchets?)\b/i],
+];
+
 /** The category a title (or, failing that, the store's product type and tags) says. */
 export function categoryOf(title: string, kind = ""): CatKey {
+  if (!/\bfilters?\b/i.test(title)) for (const [cat, re] of FIRST_RULES) if (re.test(title)) return cat;
   // A sensor, connector or loom for a system is not that system's part ("Coolant Temp Sensor" is no coolant).
+  if (!NOT_A_CONSUMABLE.test(title)) {
+    for (const [cat, re] of CAT_RULES) if (re.test(title)) return cat;
+  }
+  for (const [cat, re] of LATE_RULES) if (re.test(title)) return cat;
   if (NOT_A_CONSUMABLE.test(title)) return "other";
-  for (const [cat, re] of CAT_RULES) if (re.test(title)) return cat;
   for (const [cat, re] of CAT_RULES) if (re.test(kind)) return cat;
+  for (const [cat, re] of LATE_RULES) if (re.test(kind)) return cat;
   return "other";
 }
 

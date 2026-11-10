@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CAT_BY_KEY, REGIONS, SITE, type CatKey } from "@/site";
+import { CAT_BY_KEY, REGIONS, SITE, STEP_MENU_ORDER, type CatKey } from "@/site";
 import { activeStores, catCounts, dealsIn, getBrands, getMeta, getProducts, newestIn } from "@/lib/data";
 import { popularNow } from "@/lib/ratings";
 import { featuredIn } from "@/lib/featured";
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
 };
 
 /** The homepage's category tiles: the easy-fit consumables first. */
-const HOME_STEPS: CatKey[] = ["oil", "batteries", "wipers", "globes", "filters", "plugs", "brakes", "fluids", "care", "accessories"];
+const HOME_STEPS: CatKey[] = STEP_MENU_ORDER.filter((k) => k !== "other");
 
 const FAQ: [string, string][] = [
   [
@@ -92,7 +92,7 @@ export default function Home() {
         <section className="mt-10">
           <h2 data-reveal className="h-display mb-4 text-2xl">Shop by part</h2>
           <div data-reveal="stagger" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
-            {HOME_STEPS.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).map((c) => (
+            {HOME_STEPS.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).sort((a, b) => counts[b.key] - counts[a.key]).map((c) => (
               <Link prefetch={false} key={c.key} href={`/${c.key}`} className={`tile-hover flex items-center gap-3 rounded-2xl px-3.5 py-3.5 ${CAT_TINT[c.key]}`}>
                 <span className="mo-wiggle grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-card/80">
                   <CatIcon cat={c.key} size={36} />

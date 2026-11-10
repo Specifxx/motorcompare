@@ -70,8 +70,14 @@ export const SYNONYMS: Record<string, string[]> = {
   "car battery": ["battery"],
 };
 
-/** Every query word must appear in the name, brand or extra words; names
- *  starting with the query rank first, then the popular ones. */
+/** A query word matches a word of the haystack when it is that whole word, or (from four characters) the start of one:
+ *  "h4" is the H4 globe, never the TH400 kit; "dba" is DBA, never Redback; "wastegat" finds wastegates. */
+function wordHit(tokens: string[], w: string): boolean {
+  return w.length >= 4 ? tokens.some((t) => t.startsWith(w)) : tokens.includes(w);
+}
+
+/** Every query word must match a whole word (or a word start, from four characters) in the name, brand, part number,
+ *  OE numbers or the fit the stores quote; names starting with the query rank first, then the popular ones. */
 export function searchRows(rows: IndexRow[], q: string, limit = 8): IndexRow[] {
   const nq = norm(q);
   if (!nq) return [];
@@ -81,11 +87,23 @@ export function searchRows(rows: IndexRow[], q: string, limit = 8): IndexRow[] {
   for (const r of rows) {
     const n = norm(r[1]);
     const hay = r[5] || r[11] ? `${n} ${norm(r[5] ?? "")} ${norm(r[11] ?? "")}` : n;
-    if (!words.every((w) => hay.includes(w) || SYNONYMS[w]?.some((s) => hay.includes(s)))) continue;
+    const tokens = hay.split(" ");
+    if (!words.every((w) => wordHit(tokens, w) || SYNONYMS[w]?.some((sy) => sy.split(" ").every((x) => wordHit(tokens, x))))) continue;
     const score = (n.startsWith(nq) ? 0 : 10) + (n.split(" ").some((t) => t === words[words.length - 1]) ? 0 : 3) + n.length / 100 - Math.min(r[9] ?? 0, 20) * 0.15;
     hits.push({ r, score });
   }
   return hits.sort((a, b) => a.score - b.score).slice(0, limit).map((h) => h.r);
+}
+
+/** The same words as a link to each big shop's own search, for a search that found nothing here. */
+export function shopSearchLinks(q: string): { name: string; href: string }[] {
+  const e = encodeURIComponent(q.trim());
+  return [
+    { name: "Supercheap Auto", href: `https://www.supercheapauto.com.au/search?q=${e}` },
+    { name: "Repco", href: `https://www.repco.com.au/en/search?q=${e}` },
+    { name: "Sparesbox", href: `https://www.sparesbox.com.au/search?q=${e}` },
+    { name: "eBay", href: `https://www.ebay.com.au/sch/i.html?_nkw=${e}` },
+  ];
 }
 
 // ---------------------------------------------------------------- filters and sorts
