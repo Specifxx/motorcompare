@@ -1,0 +1,48 @@
+name: Link audit
+
+# Four times a day: asks each Shopify store's own product data whether the buy links we show still
+# point at the product we matched (variant exists, SKU carries the part number, still in stock) and writes
+# data/public/link-audit.json (src/lib/link-audit.ts). Committed WITHOUT [deploy]: it rides the next
+# release, and from then a wrong link is the product page, or the offer is left out.
+
+on:
+  schedule:
+    - cron: "47 1,7,13,19 * * *"
+  workflow_dispatch:
+
+concurrency:
+  group: link-audit
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx tsx scripts/verify-links.ts
+        env:
+          LINK_BUDGET: 900
+      - name: Commit audit
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/public/link-audit.json
+          git diff --cached --quiet && exit 0
+          git commit -m "data: link audit $(date -u +%F)" -m "Written by link-audit.yml. No deploy marker: it rides the next daily release."
+          for i in 1 2 3 4; do
+            git push origin HEAD:main && exit 0
+            sleep $((2 ** i)); git pull --rebase origin main
+          done
+          exit 1

@@ -6,6 +6,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { STORES, SHOPIFY_STORES } from "@/content/stores";
 import type { Meta } from "@/lib/types";
+import { judgeAudit } from "@/lib/link-audit";
 import type { ReviewsFile } from "@/lib/reviews";
 import { loadStore, reviewsConfigured } from "@/lib/reviews-store";
 import type { PartnerPricesFile } from "@/lib/partner-feed";
@@ -194,6 +195,13 @@ async function main() {
         }
       }
       return judgeReviews(fs.existsSync(f) ? (JSON.parse(fs.readFileSync(f, "utf8")) as ReviewsFile) : null, reviewsConfigured(), Date.now(), probe);
+    }),
+    check("Link audit", () => {
+      let a = null;
+      try {
+        a = JSON.parse(fs.readFileSync(path.join(DATA, "link-audit.json"), "utf8"));
+      } catch {}
+      return judgeAudit(a);
     }),
     check("Delivery quotes", () => {
       const f = path.join(DATA, "shipping.json");

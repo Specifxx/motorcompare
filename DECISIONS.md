@@ -1401,3 +1401,11 @@ found the site answers "what is the cheapest Ryco filter" but not "where is the 
 - **Fitment box** is summarised per store (`lib/fitment.ts` `fitSummary`): lines sharing a word with the product's title lead,
   the rest collapse to "Alfa Romeo (3)". `FIT_MAX_PER_STORE` is 12 (was 3, first three alphabetical). Still quoted, never vouched.
 - Skincare leftovers ("Shop by step", "In stock near me", "Everything else parts stores sell under one barcode") reworded.
+
+## 2026-11-10: a cousin's review (owner)
+
+- **Menus group the sections** as Servicing, Brakes & suspension, Performance, 4WD & touring, Care & workshop (`PART_BUCKETS` in `site.ts`; `bucketGroups` / `menuGroups` in `nav.ts`). Categories, URLs and the flat first group (the phone strip) are unchanged.
+- **Oil grades are one word in search**: "5w30", "5w 30" and "5W-30" match each other (`norm` in `browse.ts`). A few trade words added to the synonyms (lube, discs, shocks, 4x4). The thin range in oil is store coverage, not matching: only 5 oils are in the data because stores that sell Penrite, Castrol and Motul are not yet readable.
+- **Less competing for attention**: shorter home and product copy, more space between boxes and sections. The side rails are untouched.
+- **Wrong-product buy links**: `scripts/verify-links.ts` (`link-audit.yml`, four times a day, no deploy marker) asks each Shopify store's own `/products/<handle>.js` about a rotating 900 of our links: variant gone or SKU no longer carrying the matched part number leaves the offer out; a sold-out variant falls back to the product page. Results are `data/public/link-audit.json`, applied in `getProducts`; the ops monitor watches it. Product URLs now always carry `?variant=` for a multi-variant product, so the fallback page opens the right size.
+- **Supercheap Auto and Repco stay unpaid search rows**: their sites cannot be read (403) and they have no Awin or Impact programme (Commission Factory was rejected). Rego lookup plan, by market and cost: `/mnt/project-files/motorcompare/rego-fitment-plan-2026-11-10.md`; any paid lookup or catalogue licence needs the owner's go.

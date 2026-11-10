@@ -166,7 +166,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         )}
       </nav>
 
-      <section className="grid grid-cols-1 gap-8 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+      <section className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
         <div>
           <div className="card relative mx-auto max-w-[240px] overflow-hidden bg-white sm:max-w-sm md:max-w-none">
             <ProductImage src={f.img} alt={f.name} label={f.brand || "car part"} eager className="relative aspect-square w-full object-contain p-8" />
@@ -240,9 +240,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
             const b = bestIn(f, r.code);
             const s = spreadIn(f, r.code);
             return (
-              <div key={r.code} className={`rp rp-${r.code} mt-5`}>
+              <div key={r.code} className={`rp rp-${r.code} mt-6`}>
                 {b ? (
-                  <div className="card p-5">
+                  <div className="card p-6">
                     <p className="text-sm text-soft">Lowest store price {r.phrase}</p>
                     <p className="mt-0.5 text-4xl font-semibold tabular-nums tracking-tight text-ink">{money(b.offer.p, r.code)}</p>
                     <p className="mt-1 text-sm text-soft">
@@ -274,7 +274,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                     </div>
                   </div>
                 ) : (
-                  <div className="card p-5 text-sm">
+                  <div className="card p-6 text-sm">
                     <p className="font-semibold">{f.offers[r.code]?.length ? `Sold out at every store ${r.phrase} right now.` : `No store ${r.phrase} lists this product yet.`}</p>
                     {regions.filter((x) => x !== r.code).length > 0 && (
                       <p className="mt-1 text-soft">
@@ -286,19 +286,19 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               </div>
             );
           })}
-          <section className="card mt-6 p-5">
+          <section className="card mt-8 p-6">
             <h2 className="h-display text-xl">Will it fit?</h2>
             {code && (
               <p className="mt-2 text-sm">
                 Fit code: <span className="rounded border border-dashed border-ink px-2 py-0.5 font-mono font-semibold">{code}</span>
               </p>
             )}
-            <p className="mt-2 text-sm leading-relaxed text-soft">{CAT_BY_KEY[f.cat].fit} Check the code against your old part or your owner&apos;s manual before you buy.</p>
+            <p className="mt-2 text-sm leading-relaxed text-soft">{CAT_BY_KEY[f.cat].fit}</p>
           </section>
         </div>
       </section>
 
-      <section className="mt-10 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
+      <section className="mt-16 grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]">
         <div>
           <h2 className="h-display mb-4 text-2xl">Every store&apos;s price</h2>
           {REGIONS.map((r) => (
@@ -306,11 +306,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               <PriceTable f={f} region={r.code} ebay={ebay[r.code]} />
             </div>
           ))}
-          <p className="mt-3 text-xs leading-relaxed text-soft">
-            Prices are what each store&apos;s own site showed at our last daily check{meta ? ` (${niceDate(meta.updatedAt)})` : ""}, before delivery, and they can change at any time: the store&apos;s checkout is always the final price. Delivery
-            costs are each store&apos;s own quote for a small order to one city in your region, checked weekly; they can differ for your address. Every store listing here carries {idOf(f.ean).ours}, so it is the same part and
-            size, not a look-alike. Multi-buys and free gifts are what the store&apos;s own cart charged for 1, 2 and 3 of this product in the last two days; stores stay in single-item price order.{" "}
-            <Link prefetch={false} href="/basket" className="font-medium text-accent-deep hover:underline">Buying several products? Compare a whole basket →</Link>
+          <p className="mt-4 text-xs leading-relaxed text-soft">
+            Prices are each store&apos;s own at our last daily check{meta ? ` (${niceDate(meta.updatedAt)})` : ""}, before delivery; the store&apos;s checkout is the final price. Delivery is each store&apos;s own quote for a small order to one city, checked weekly. Every listing here carries {idOf(f.ean).ours}: the same part and size, not a look-alike.{" "}
+            <Link prefetch={false} href="/basket" className="font-medium text-accent-deep hover:underline">Buying several products? Compare a basket →</Link>
           </p>
           <ReportPrice
             product={`${f.name} (${idOf(f.ean).value})`}
@@ -318,8 +316,8 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           />
         </div>
 
-        <aside className="space-y-6">
-          <div className="card p-5">
+        <aside className="space-y-8">
+          <div className="card p-6">
             <h2 className="h-display mb-3 text-lg">Price history</h2>
             {REGIONS.map((r) => (
               <div key={r.code} className={`rp rp-${r.code}`}>
@@ -327,7 +325,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               </div>
             ))}
           </div>
-          <div className="card p-5 text-sm">
+          <div className="card p-6 text-sm">
             <h2 className="h-display mb-3 text-lg">Product details</h2>
             <dl className="grid grid-cols-[auto_1fr] gap-x-5 gap-y-1.5">
               {f.brand && (

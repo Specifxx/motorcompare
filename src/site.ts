@@ -107,3 +107,15 @@ export const CATEGORIES: Category[] = [
 export const STEP_MENU_ORDER: CatKey[] = ["oil", "batteries", "wipers", "globes", "filters", "plugs", "brakes", "fluids", "care", "accessories", "turbo", "engine", "exhaust", "cooling", "driveline", "suspension", "electrics", "tools", "other"];
 
 export const CAT_BY_KEY = Object.fromEntries(CATEGORIES.map((c) => [c.key, c])) as Record<CatKey, Category>;
+
+/**
+ * How the menus group the categories (cousin's review, 2026-11-10: "the common way to categorise is servicing, performance
+ * parts, 4WD"). The categories and their URLs are unchanged; this only decides the headings a menu puts them under.
+ */
+export const PART_BUCKETS: { title: string; cats: CatKey[] }[] = [
+  { title: "Servicing", cats: ["oil", "filters", "plugs", "batteries", "wipers", "globes", "fluids"] },
+  { title: "Brakes & suspension", cats: ["brakes", "suspension"] },
+  { title: "Performance", cats: ["turbo", "engine", "exhaust", "cooling", "driveline"] },
+  { title: "4WD & touring", cats: ["electrics", "accessories"] },
+  { title: "Care & workshop", cats: ["care", "tools", "other"] },
+];

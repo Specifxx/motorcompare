@@ -6,7 +6,7 @@
 // No data import here: the client menus import isActive from this file.
 import { saleStrip } from "@/lib/black-friday";
 import { POSTS } from "@/content/blog";
-import { CAT_BY_KEY, STEP_MENU_ORDER, type CatKey } from "@/site";
+import { CAT_BY_KEY, PART_BUCKETS, STEP_MENU_ORDER, type CatKey } from "@/site";
 
 export type NavItem = { href: string; label: string; count?: number; cat?: CatKey };
 export type NavGroup = { title: string; links: NavItem[] };
@@ -72,12 +72,23 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
  * brands are the longer list "All brands" links to. Australia only, so no link carries a market class; a category or brand with
  * no products is left out (regions: []).
  */
+/** The first group (every section by stock) as the buckets a buyer thinks in: Servicing, Brakes & suspension, Performance, 4WD & touring, Care & workshop. Empty buckets are left out. */
+export function bucketGroups(first: NavGroup | undefined): NavGroup[] {
+  if (!first) return [];
+  return PART_BUCKETS.map((b) => ({ title: b.title, links: b.cats.flatMap((c) => first.links.filter((l) => l.cat === c)) })).filter((g) => g.links.length);
+}
+
+/** The groups the menus draw: the sections split into buckets, the rest as they are. */
+export function menuGroups(groups: NavGroup[]): NavGroup[] {
+  return [...bucketGroups(groups[0]), ...groups.slice(1)];
+}
+
 export function headerMenus(groups: NavGroup[], f: MenuFacts): HeaderMenu[] {
   const live = (l: MenuLink) => !l.regions || l.regions.length > 0;
-  const parts: MenuLink[] = (groups[0]?.links ?? []).map((l) => ({ href: l.href, label: l.label, regions: l.cat ? f.catRegions[l.cat] : undefined })).filter(live);
+  const buckets = bucketGroups(groups[0]).map((g) => ({ title: g.title, links: g.links.map((l): MenuLink => ({ href: l.href, label: l.label, regions: l.cat ? f.catRegions[l.cat] : undefined })).filter(live) })).filter((c) => c.links.length);
   const group = (title: string) => groups.find((g) => g.title === title)?.links ?? [];
   return [
-    { label: "Parts", all: { href: "/popular", label: "Popular right now" }, columns: [{ title: "By part category", links: parts }, { title: "Find your part", links: group("Find your part").filter((l) => l.href !== "/popular") }] },
+    { label: "Parts", all: { href: "/popular", label: "Popular right now" }, columns: [...buckets, { title: "Find your part", links: group("Find your part").filter((l) => l.href !== "/popular") }] },
     { label: "Brands", all: { href: "/brands", label: "All brands" }, columns: [{ links: f.brands.filter(live) }] },
     { label: "Deals & more", all: { href: "/deals", label: "Deals today" }, columns: [{ title: "Save", links: group("Save") }, { title: "MotorCompare", links: group("MotorCompare") }] },
   ];
