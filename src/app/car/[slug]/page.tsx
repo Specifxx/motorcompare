@@ -19,8 +19,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   if (!v) return {};
   const n = vehicleProducts(v).length;
   return {
-    title: `Parts whose listings name the ${v.name}, prices across Australian stores`,
-    description: `${n} parts whose store listings mention the ${v.name}, compared across Australian stores. Fitment is not checked by us: match the part number to your old part.`,
+    title: `Parts whose listings name the ${v.name}, prices across stores`,
+    description: `${n} parts whose store listings mention the ${v.name}, compared across stores. Fitment is not checked by us: match the part number to your old part.`,
     alternates: { canonical: `/car/${v.slug}` },
     ...(n >= VEHICLE_INDEX_MIN ? {} : { robots: { index: false, follow: true } }),
   };
