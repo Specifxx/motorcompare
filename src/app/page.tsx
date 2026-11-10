@@ -19,7 +19,7 @@ import { SiteReviews } from "@/components/site-reviews/SiteReviews";
 
 export const metadata: Metadata = {
   // 60 characters, keyword first, brand last (SEO audit, 2026-11-03).
-  title: { absolute: `Car Parts Price Comparison Australia | ${SITE.name}` },
+  title: { absolute: `Car Parts Price Comparison | ${SITE.name}` },
   description: SITE.description,
   alternates: { canonical: "/" },
 };
@@ -29,7 +29,7 @@ const HOME_STEPS: CatKey[] = STEP_MENU_ORDER.filter((k) => k !== "other");
 
 const FAQ: [string, string][] = [
   [
-    "Where is the cheapest place to buy car parts in Australia?",
+    "Where is the cheapest place to buy car parts online?",
     "It depends on the part: a different store is cheapest for different parts, and the chains run new promotions every week. We compare each store's own price for the same part, matched by the maker's part number, and show the cheapest in-stock store first.",
   ],
   [
@@ -38,11 +38,11 @@ const FAQ: [string, string][] = [
   ],
   [
     "Do the prices include delivery?",
-    "No. They are each store's listed price in Australian dollars. Delivery costs and click and collect differ by store, so check the checkout before you buy.",
+    "No. They are each store's listed price in its own currency (US dollars, pounds, Canadian or Australian dollars): we never convert. Delivery costs and click and collect differ by store, so check the checkout before you buy.",
   ],
   [
     "Which stores do you compare?",
-    "Australian car parts, battery, oil, lighting and car care stores that sell online, listed on our stores page. eBay and Amazon rows are labelled as ads and never count as the cheapest store.",
+    "Car parts, battery, oil, lighting and car care stores that sell online, listed on our stores page. eBay and Amazon rows are labelled as ads and never count as the cheapest store.",
   ],
   [
     "Is MotorCompare free?",
@@ -64,7 +64,7 @@ export default function Home() {
         <span className="mo-bg mo-aurora" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-6 px-4 pb-10 pt-10 md:grid-cols-[1.15fr_1fr] md:pb-12 md:pt-14">
           <div className="min-w-0">
-            <p className="mo-enter eyebrow mb-4 text-accent-deep">Car parts price comparison · Australia</p>
+            <p className="mo-enter eyebrow mb-4 text-accent-deep">Car parts price comparison</p>
             <h1 className="mo-enter h-display max-w-3xl [--mo-d:1] text-[2.4rem] leading-[1.05] sm:text-6xl">
               The right part. <span className="mo-shine text-accent">The best price.</span>
             </h1>

@@ -8,9 +8,10 @@ import fs from "node:fs";
 import path from "node:path";
 import { REGIONS, type RegionCode } from "@/site";
 import { dealsIn, getProducts, newestIn } from "@/lib/data";
-import { ebayPick, ebayQuotaDay, planEbay, type EbayItem, type EbayPrio } from "@/lib/ebay";
+import { EBAY_REGION_SHARE, ebayPick, ebayQuotaDay, planEbay, type EbayItem, type EbayPrio } from "@/lib/ebay";
 import { popularity, popularNow } from "@/lib/ratings";
 import { featuredIn, isFeatured } from "@/lib/featured";
+import { ACTIVE_REGIONS } from "@/lib/regions";
 import { partNoOf } from "@/lib/partno";
 import type { EbayData, Meta } from "@/lib/types";
 
@@ -72,8 +73,8 @@ async function main() {
   for (const [ean, by] of Object.entries(data)) for (const [region, pick] of Object.entries(by)) if (pick && pick.sh == null) delete checked[`${ean}:${region}`];
   const products = getProducts();
   const today = new Date().toISOString().slice(0, 10);
-  // Australia only (owner, 2026-11-08): never spend a call on a market the site does not show.
-  const regions = (Object.keys(MARKET) as RegionCode[]).filter((r) => REGIONS.some((x) => x.code === r));
+  // Never spend a call on a market the site does not show (a region with no store).
+  const regions = (Object.keys(MARKET) as RegionCode[]).filter((r) => ACTIVE_REGIONS.some((x) => x.code === r));
   // Tier 0: what the home page shows in each region; tier 1: the top of /popular
   // and anything first seen in the last 30 days (after the launch-day catalogue,
   // which was all "first seen" on one day); tier 2: the rest.
@@ -93,7 +94,7 @@ async function main() {
   });
   // A pair whose last search found nothing waits longer (EBAY_EMPTY_RECHECK_DAYS), so the calls reach every product.
   // Calls go only to products of about US$20 or more in the region (owner, 2026-11-06, lib/featured.ts).
-  const plan = planEbay(products, checked, regions, budget, prio, today, (ean, r) => !!data[ean]?.[r], isFeatured);
+  const plan = planEbay(products, checked, regions, budget, prio, today, (ean, r) => !!data[ean]?.[r], isFeatured, EBAY_REGION_SHARE);
   if (!plan.length) {
     console.log(`eBay: nothing to search (${spent} of ${cap} calls already spent on quota day ${qday}).`);
     return;

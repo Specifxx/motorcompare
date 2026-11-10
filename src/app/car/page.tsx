@@ -5,7 +5,7 @@ import { PageHead } from "@/components/Section";
 import { Crumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
-  title: "Parts whose listings name a car or engine, prices across Australian stores",
+  title: "Parts whose listings name a car or engine, prices across stores",
   description: "Parts whose store listings mention a car or engine (WRX, Evo, Landcruiser, Ranger, Patrol, RB26, 2JZ and more). We have not checked that any part fits: match the part number to your old part.",
   alternates: { canonical: "/car" },
 };

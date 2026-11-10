@@ -81,7 +81,7 @@ export function guideImage(opts: { region: RegionCode; title: string; kicker: st
             ))}
           </div>
         ) : (
-          <div style={{ display: "flex", marginTop: 26, fontSize: 30, color: SOFT }}>Car part prices from Australian parts stores, matched part for part.</div>
+          <div style={{ display: "flex", marginTop: 26, fontSize: 30, color: SOFT }}>Car part prices from parts stores, matched part for part.</div>
         )}
         <div style={{ display: "flex", marginTop: "auto", fontSize: 17, color: SOFT, justifyContent: "space-between" }}>
           <div style={{ display: "flex" }}>{`Item prices before shipping${asOf ? `, ${niceDate(asOf)}` : ""}. Matched by barcode.`}</div>

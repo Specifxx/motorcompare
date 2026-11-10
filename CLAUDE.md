@@ -1,8 +1,8 @@
 # Working in this repo
 
 MotorCompare (motorcompare.app, bought 2026-11-10; motorcompare.vercel.app 308-redirects to it, "The right part. The best
-price.") compares car parts prices across real Australian parts stores: engine oil, batteries, wiper blades, globes,
-filters, spark plugs, brakes, fluids, car care and accessories. **Australia only** (owner, 2026-11-08). A copy of
+price.") compares car parts prices across real parts stores: engine oil, batteries, wiper blades, globes,
+filters, spark plugs, brakes, fluids, car care and accessories. **Australia first, expanded to the US, UK, Canada, NZ and EU on 2026-11-10** (owner); the default region is the US. A copy of
 ScentCompare's static engine (`Specifxx/scentcompare`, itself KaeYoung's and FigureCompare's), started 2026-11-08. It
 is a copy, not a synced sister: port fixes by hand. Read `README.md`, then `DECISIONS.md` (entries before 2026-11-08
 are the engine's history, from KaeYoung and ScentCompare).
@@ -20,7 +20,7 @@ The canonical URL is ONE value: `SITE.url` reads `NEXT_PUBLIC_SITE_URL`, then Ve
   `prefetch={false}`, image optimisation is off. `tests/cost-rules.test.ts` pins it.
 - The only functions: eBay's account-deletion hook, the review form (`/api/reviews`, saved to the public `reviews`
   branch) and the price report form. Never write anything private to `data/`; never edit `data/` by hand.
-- `REGIONS` is Australia only; `ALL_REGIONS` keeps the engine's other regions so shared code can look them up.
+- `REGIONS` is US, UK, CA, AU, NZ, EU; a region shows only once it has a store (`lib/regions.ts` `ACTIVE_REGIONS`). Default US.
 
 ## Deploys are gated: never add `[deploy]` to a commit subject
 
@@ -49,7 +49,7 @@ owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deplo
 - A product gets a page only when 2+ stores sell it. With 3+ stores, prices under 40% or over 250% of the median are
   dropped. Mirrors count once. The brand is the vendor, folded by `src/lib/brand.ts`.
 - Real stores only, never marketplaces. Stores live in `src/content/stores.ts` (found with `probe-stores.yml`);
-  read two at a time; a 403, 429 or captcha stops that store (never worked around). AUD only.
+  read two at a time; a 403, 429 or captcha stops that store (never worked around). Each store's own currency; never converted.
 - Fit: make-and-model fitment is NOT claimed anywhere. A page shows the printed code and tells the buyer to check it
   against the old part (and the store's fitment list for brakes).
 
@@ -64,7 +64,7 @@ owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deplo
 - **Side rails and phone dock are on** (owner, 2026-11-10 full launch): `SITE.sideRails` is true (eBay left, Amazon right).
   No AdSense, no pop-ups, no interstitials, no accounts.
 - eBay listings come only from `scripts/ebay-import.ts` in GitHub Actions (Browse API by GTIN, new, Buy It Now,
-  Australian sellers, Australia only). It shares Cyberpunk Compare's keyset (owner, 2026-11-10: MotorCompare 3,300,
+  sellers local to each region). The daily calls are split by `EBAY_REGION_SHARE` (owner, 2026-11-10: US 40%, AU 30%, UK 15%, CA 10%, NZ and EU 2.5% each; unused share goes back to the rest). It shares Cyberpunk Compare's keyset (owner, 2026-11-10: MotorCompare 3,300,
   BandaiCompare 1,000, Cyberpunk Compare 600 a day): `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are Cyberpunk's values, a no-op
   until they exist; `EBAY_MAX_DAILY_CALLS` (3,300) is a ceiling `EBAY_DAILY_CAP` can only lower. Never raise it without the owner.
 - Amazon's own price on the Amazon row: as ScentCompare (`scripts/amazon-asins.ts`, `scripts/fetch-amazon-prices.ts`,

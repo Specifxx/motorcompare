@@ -8,7 +8,7 @@ import { PageHead, Section } from "@/components/Section";
 
 export const metadata: Metadata = {
   title: "Popular car parts, compared",
-  description: "The car parts the most stores stock and shoppers rate highest, with every store's price side by side in Australia.",
+  description: "The car parts the most stores stock and shoppers rate highest, with every store's price side by side.",
   alternates: { canonical: "/popular" },
 };
 

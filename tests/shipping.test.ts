@@ -65,7 +65,10 @@ test("Supercheap Auto, Repco and Sparesbox always show, unpaid until a program a
   const paid = partnersFor("AU", "Penrite", "s", { AFF_SUPERCHEAP: "https://t.cfjump.com/1/t/2?Url={url}" });
   assert.deepEqual(paid.map((x) => [x.p.key, x.paid]), [["supercheap", true], ["repco", false], ["sparesbox", false]]);
   assert.equal(decodeURIComponent(new URL(paid[0].href).searchParams.get("Url")!), "https://www.supercheapauto.com.au/search?q=Penrite");
-  assert.deepEqual(partnersFor("US", "Penrite", "s", {}), [], "Australia only");
+  assert.deepEqual(partnersFor("US", "Penrite", "s", {}).map((x) => x.p.key), ["autozone", "oreilly", "advance", "rockauto"]);
+  assert.deepEqual(partnersFor("UK", "Penrite", "s", {}).map((x) => x.p.key), ["halfords", "eurocarparts", "gsf"]);
+  assert.deepEqual(partnersFor("CA", "Penrite", "s", {}).map((x) => x.p.key), ["canadiantire", "partsource", "napaca"]);
+  assert.deepEqual(partnersFor("NZ", "Penrite", "s", {}), []);
 });
 
 test("ops monitor watches the weekly delivery quotes", () => {

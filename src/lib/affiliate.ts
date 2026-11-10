@@ -152,7 +152,7 @@ export function amazonSearchUrl(query: string, region: RegionCode, sub: string):
 }
 
 /**
- * The big Australian parts chains, whose own websites we cannot read (custom
+ * The big parts chains (Australia, the US, UK and Canada), whose own websites we cannot read (custom
  * platforms, no product feed yet). Each is a labelled search link for the
  * product's name, pinned with eBay and Amazon above the store rows, never a
  * store, a price or "the cheapest". Supercheap Auto pays on Commission
@@ -187,6 +187,17 @@ export const PARTNERS: Partner[] = [
   { key: "supercheap", name: "Supercheap Auto", envVar: "AFF_SUPERCHEAP", regions: ["AU"], search: (q) => `https://www.supercheapauto.com.au/search?q=${q}`, note: "Australian chain", always: true },
   { key: "repco", name: "Repco", envVar: "AFF_REPCO", regions: ["AU"], search: (q) => `https://www.repco.com.au/search?text=${q}`, note: "Australian chain", always: true },
   { key: "sparesbox", name: "Sparesbox", envVar: "AFF_SPARESBOX", regions: ["AU"], search: (q) => `https://www.sparesbox.com.au/search?q=${q}`, note: "Australian online store", always: true },
+  // US, UK and Canada (owner, 2026-11-10): the big chains whose sites we cannot read, plain unpaid search rows until a programme (Impact or Awin only) accepts us.
+  { key: "autozone", name: "AutoZone", envVar: "AFF_AUTOZONE", regions: ["US"], search: (q) => `https://www.autozone.com/searchresult?searchText=${q}`, note: "US chain", always: true },
+  { key: "oreilly", name: "O'Reilly Auto Parts", envVar: "AFF_OREILLY", regions: ["US"], search: (q) => `https://www.oreillyauto.com/shop/b?q=${q}`, note: "US chain", always: true },
+  { key: "advance", name: "Advance Auto Parts", envVar: "AFF_ADVANCE", regions: ["US"], search: (q) => `https://shop.advanceautoparts.com/web/SearchResults?searchTerm=${q}`, note: "US chain", always: true },
+  { key: "rockauto", name: "RockAuto", envVar: "AFF_ROCKAUTO", regions: ["US"], search: (q) => `https://www.rockauto.com/en/partsearch/?partnum=${q}`, note: "US online store", always: true },
+  { key: "halfords", name: "Halfords", envVar: "AFF_HALFORDS", regions: ["UK"], search: (q) => `https://www.halfords.com/search/?q=${q}`, note: "UK chain", always: true },
+  { key: "eurocarparts", name: "Euro Car Parts", envVar: "AFF_EUROCARPARTS", regions: ["UK"], search: (q) => `https://www.eurocarparts.com/search?q=${q}`, note: "UK chain", always: true },
+  { key: "gsf", name: "GSF Car Parts", envVar: "AFF_GSF", regions: ["UK"], search: (q) => `https://www.gsfcarparts.com/search?q=${q}`, note: "UK chain", always: true },
+  { key: "canadiantire", name: "Canadian Tire", envVar: "AFF_CANADIANTIRE", regions: ["CA"], search: (q) => `https://www.canadiantire.ca/en/search-results.html?q=${q}`, note: "Canadian chain", always: true },
+  { key: "partsource", name: "PartSource", envVar: "AFF_PARTSOURCE", regions: ["CA"], search: (q) => `https://www.partsource.ca/en/search?q=${q}`, note: "Canadian chain", always: true },
+  { key: "napaca", name: "NAPA Canada", envVar: "AFF_NAPACA", regions: ["CA"], search: (q) => `https://www.napacanada.com/en/search?q=${q}`, note: "Canadian chain", always: true },
 ];
 
 /** A partner's tracked search link for a query, or null while its template is unset. */

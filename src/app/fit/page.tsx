@@ -8,7 +8,7 @@ import { Crumbs } from "@/lib/seo";
 
 export const metadata: Metadata = {
   title: "Shop car parts by the code on your old part",
-  description: "Oil grade, battery size, globe code, wiper length or filter number: pick the code printed on your old part and compare every Australian store's price.",
+  description: "Oil grade, battery size, globe code, wiper length or filter number: pick the code printed on your old part and compare every store's price.",
   alternates: { canonical: "/fit" },
 };
 

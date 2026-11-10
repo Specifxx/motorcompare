@@ -109,6 +109,10 @@ export const EBAY_EMPTY_RECHECK_DAYS = [2, 7, 21] as const;
 /** The region searched first when everything else ties (owner, 2026-11-01: "prioritise the US"). */
 export const EBAY_FIRST_REGION: RegionCode = "US";
 
+/** The share of a day's calls each market is guaranteed (owner, 2026-11-10: the US 40% and Australia 30% (the market with the most
+ *  stores and products), the rest spread for coverage). A market with nothing due hands its share back to the others, so no call is wasted. */
+export const EBAY_REGION_SHARE: Partial<Record<RegionCode, number>> = { US: 0.4, AU: 0.3, UK: 0.15, CA: 0.1, NZ: 0.025, EU: 0.025 };
+
 const dayDiff = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86_400_000);
 
 /**
@@ -130,6 +134,8 @@ export function planEbay(
   hasRow?: (ean: string, region: RegionCode) => boolean,
   /** Only these pairs are searched (owner, 2026-11-06: products of about US$20 or more, lib/featured.ts). */
   eligible?: (f: Product, region: RegionCode) => boolean,
+  /** Guaranteed fraction of the budget per region (EBAY_REGION_SHARE); unused share goes back to the rest in priority order. */
+  shares?: Partial<Record<RegionCode, number>>,
 ): { f: Product; region: RegionCode }[] {
   const pairs: { f: Product; region: RegionCode; at: string; due: boolean; tier: number; score: number; first: number }[] = [];
   for (const f of products) {
@@ -144,20 +150,37 @@ export function planEbay(
       pairs.push({ f, region, at, due, tier, score, first: region === EBAY_FIRST_REGION ? 0 : 1 });
     }
   }
-  return pairs
-    .sort(
-      (a, b) =>
-        Number(b.due) - Number(a.due) ||
-        (a.due ? a.tier - b.tier || Number(!!a.at) - Number(!!b.at) || a.first - b.first : 0) ||
-        a.at.localeCompare(b.at) ||
-        a.tier - b.tier ||
-        a.first - b.first ||
-        b.score - a.score ||
-        a.f.ean.localeCompare(b.f.ean) ||
-        a.region.localeCompare(b.region),
-    )
-    .slice(0, Math.max(0, budget))
-    .map(({ f, region }) => ({ f, region }));
+  const ordered = pairs.sort(
+    (a, b) =>
+      Number(b.due) - Number(a.due) ||
+      (a.due ? a.tier - b.tier || Number(!!a.at) - Number(!!b.at) || a.first - b.first : 0) ||
+      a.at.localeCompare(b.at) ||
+      a.tier - b.tier ||
+      a.first - b.first ||
+      b.score - a.score ||
+      a.f.ean.localeCompare(b.f.ean) ||
+      a.region.localeCompare(b.region),
+  );
+  const n = Math.max(0, budget);
+  if (!shares) return ordered.slice(0, n).map(({ f, region }) => ({ f, region }));
+  // Each region first takes its guaranteed share of the best-ordered DUE pairs; what is left goes to anyone, in order.
+  const picked = new Set<(typeof ordered)[number]>();
+  for (const region of regions) {
+    const quota = Math.floor(n * (shares[region] ?? 0));
+    let got = 0;
+    for (const p of ordered) {
+      if (got >= quota) break;
+      if (p.region === region && p.due) {
+        picked.add(p);
+        got++;
+      }
+    }
+  }
+  for (const p of ordered) {
+    if (picked.size >= n) break;
+    picked.add(p);
+  }
+  return ordered.filter((p) => picked.has(p)).slice(0, n).map(({ f, region }) => ({ f, region }));
 }
 
 /** eBay's call quota resets at midnight Pacific time: the day calls count against. */
