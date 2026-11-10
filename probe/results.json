@@ -8833,8 +8833,8 @@
  },
  {
   "host": "cleanyourcar.co.uk",
-  "shopifyError": "Unexpected token '<', \"<html><hea\"... is not valid JSON",
-  "wooError": "Unexpected token '<', \"<html><hea\"... is not valid JSON"
+  "shopifyError": "HTTP 404",
+  "wooError": "HTTP 404"
  },
  {
   "host": "clubplug.ca",
@@ -9459,7 +9459,7 @@
  },
  {
   "host": "gunk.com",
-  "shopifyError": "The operation was aborted due to timeout",
+  "shopifyError": "HTTP 504",
   "wooError": "HTTP 504"
  },
  {
