@@ -32,7 +32,7 @@ test("affiliate tags name the site, region, placement and product", () => {
   assert.match(amazonSearchUrl("x", "EU", "t")!, /amazon\.de\/.*tag=compareempire-21/);
   assert.equal(amazonSearchUrl("x", "NZ", "t"), null, "no Amazon NZ");
   assert.doesNotMatch(readFileSync(new URL("../src/lib/affiliate.ts", import.meta.url), "utf8"), /AMAZON_TAG_|AMAZON_ASSOCIATE_TAG/, "tags are hard-coded");
-  assert.match(storeUrl("nope", "https://shop.example/p?a=1"), /utm_source=motorcompare\.vercel\.app&utm_medium=referral/);
+  assert.match(storeUrl("nope", "https://shop.example/p?a=1"), /utm_source=motorcompare\.app&utm_medium=referral/);
 });
 
 test("retailer rows appear only once their tracking template is set", () => {
@@ -104,9 +104,9 @@ test("no banner ads (owner, 2026-10-30): paid links live in the price table only
   assert.match(fs.readFileSync("src/components/QuickView.tsx", "utf8"), /<PriceRows /);
 });
 
-test("the site is MotorCompare on motorcompare.vercel.app", () => {
+test("the site is MotorCompare on motorcompare.app", () => {
   assert.equal(SITE.name, "MotorCompare");
-  assert.equal(SITE.domain, "motorcompare.vercel.app");
+  assert.equal(SITE.domain, "motorcompare.app");
   assert.equal(SITE.key, "motor");
 });
 

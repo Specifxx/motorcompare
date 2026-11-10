@@ -3,7 +3,7 @@
 **The right part. The best price.** Compare car parts prices across real Australian parts stores: engine oil,
 batteries, wiper blades, globes, filters, spark plugs, brakes, fluids and car care. Matched by the barcode on the
 box, size by size, checked every day. Built on ScentCompare's static engine (`Specifxx/scentcompare`), 2026-11-08.
-Live at **motorcompare.vercel.app** (motorcompare.app later).
+Live at **motorcompare.app** (motorcompare.vercel.app redirects to it).
 
 ## How it works
 

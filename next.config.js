@@ -18,6 +18,14 @@ module.exports = {
       "/q/[slug]": ["./data/public/**", "./data/amazon-live/**"],
     },
   },
+  // The full launch (owner, 2026-11-10): the old vercel.app host sends everyone to the real domain, and the creators
+  // page (a fragrance-site leftover with no MotorCompare creators yet) is gone from the nav, the sitemap and the web.
+  async redirects() {
+    return [
+      { source: "/:path*", has: [{ type: "host", value: "motorcompare.vercel.app" }], destination: "https://motorcompare.app/:path*", permanent: true },
+      { source: "/creators", destination: "/", permanent: false },
+    ];
+  },
   async headers() {
     return [
       {

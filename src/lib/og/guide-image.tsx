@@ -15,10 +15,10 @@ import type { ShareRow } from "./share-rows";
 // a post goes out.
 export const GUIDE_IMAGE_SIZE = { width: 1200, height: 630 };
 
-const INK = "#172033";
-const SOFT = "#606e86";
-const LINE = "#e2e9f3";
-const ACCENT = "#2563eb";
+const INK = "#181f29";
+const SOFT = "#5c6876";
+const LINE = "#dee3e9";
+const ACCENT = "#d6520e";
 const SAVE = "#167d50";
 const SAVE_PALE = "#e4f5ec";
 
@@ -45,19 +45,19 @@ export function guideImage(opts: { region: RegionCode; title: string; kicker: st
           padding: "36px 60px 30px",
           color: INK,
           fontFamily: "Inter",
-          backgroundColor: "#f7fafd",
-          backgroundImage: "radial-gradient(circle at 0% 0%, #dbe7fb 0%, rgba(247,250,253,0) 45%), radial-gradient(circle at 100% 0%, #e4e6fb 0%, rgba(247,250,253,0) 40%)",
+          backgroundColor: "#f5f7f9",
+          backgroundImage: "radial-gradient(circle at 0% 0%, #fde6d6 0%, rgba(245,247,249,0) 45%), radial-gradient(circle at 100% 0%, #e3e8ee 0%, rgba(245,247,249,0) 40%)",
         }}
       >
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
             <img src={ICON} width={44} height={44} />
-            <div style={{ display: "flex", fontFamily: "Fraunces", fontSize: 32 }}>MotorCompare</div>
+            <div style={{ display: "flex", fontFamily: "Barlow", fontWeight: 800, fontSize: 40, letterSpacing: 1, textTransform: "uppercase" }}>MotorCompare</div>
           </div>
           <div style={{ display: "flex", fontSize: 18, letterSpacing: 2, color: SOFT, textTransform: "uppercase" }}>{kicker}</div>
         </div>
-        <div style={{ display: "flex", marginTop: 18, fontFamily: "Fraunces", fontSize: 44, lineHeight: 1.08, letterSpacing: -1 }}>{title}</div>
+        <div style={{ display: "flex", marginTop: 18, fontFamily: "Barlow", fontWeight: 800, fontSize: 64, lineHeight: 1.02 }}>{title}</div>
         {rows.length > 0 ? (
           <div style={{ display: "flex", flexDirection: "column", marginTop: 18, backgroundColor: "#ffffff", border: `2px solid ${LINE}`, borderRadius: 22, padding: "8px 26px" }}>
             <div style={{ display: "flex", fontSize: 15, letterSpacing: 2, color: SOFT, padding: "8px 0 6px", borderBottom: `2px solid ${LINE}` }}>
@@ -85,14 +85,14 @@ export function guideImage(opts: { region: RegionCode; title: string; kicker: st
         )}
         <div style={{ display: "flex", marginTop: "auto", fontSize: 17, color: SOFT, justifyContent: "space-between" }}>
           <div style={{ display: "flex" }}>{`Item prices before shipping${asOf ? `, ${niceDate(asOf)}` : ""}. Matched by barcode.`}</div>
-          <div style={{ display: "flex", color: INK, fontWeight: 700 }}>motorcompare.vercel.app</div>
+          <div style={{ display: "flex", color: INK, fontWeight: 700 }}>motorcompare.app</div>
         </div>
       </div>
     ),
     {
       ...GUIDE_IMAGE_SIZE,
       fonts: [
-        { name: "Fraunces", data: font("fraunces-latin-500-normal.woff"), weight: 500, style: "normal" },
+        { name: "Barlow", data: font("barlow-condensed-latin-800-normal.woff"), weight: 800, style: "normal" },
         { name: "Inter", data: font("inter-latin-500-normal.woff"), weight: 500, style: "normal" },
         { name: "Inter", data: font("inter-latin-700-normal.woff"), weight: 700, style: "normal" },
       ],

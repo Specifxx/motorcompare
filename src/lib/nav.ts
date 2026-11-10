@@ -59,7 +59,6 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
     {
       title: "MotorCompare",
       links: [
-        { href: "/creators", label: "Creators" },
         { href: "/stores", label: "Stores we compare" },
         { href: "/about", label: "How it works" },
         { href: "/disclosure", label: "How we make money" },

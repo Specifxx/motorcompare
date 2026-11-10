@@ -13,7 +13,7 @@ test("an in-stock Shopify offer with its variant opens the store's checkout with
   const u = new URL(l.href);
   assert.equal(u.origin, new URL(store.base).origin);
   assert.equal(u.pathname, "/cart/44876543210987:1");
-  assert.equal(u.searchParams.get("utm_source"), "motorcompare.vercel.app");
+  assert.equal(u.searchParams.get("utm_source"), "motorcompare.app");
   assert.equal(u.searchParams.get("utm_campaign"), "checkout");
 });
 

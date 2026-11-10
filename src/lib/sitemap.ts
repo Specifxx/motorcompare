@@ -78,7 +78,6 @@ function pageUrls(): SitemapUrl[] {
     ...LIVE_POSTS.map((p) => u(`/blog/${p.slug}`, 0.7)),
     u("/stores", 0.6),
     u("/about", 0.3),
-    u("/creators", 0.4),
     u("/contact", 0.2),
     u("/how-we-pick-stores", 0.3),
     u("/list-your-store", 0.3),
