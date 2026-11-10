@@ -15,9 +15,9 @@ export function generateMetadata({ params }: { params: { cat: string } }): Metad
   return {
     title: fitTitle(`${CAT_SEO[c.key]}: compare every store`, `${CAT_SEO[c.key]} compared`, CAT_SEO[c.key]),
     description: fitDescription(
-      `Compare ${c.plural} prices across Australian parts stores. Matched by part number, size by size, updated daily.`,
-      `Compare ${c.plural} prices across Australian parts stores. Matched by part number, updated daily.`,
-      `${c.name} prices compared across Australian parts stores. Matched by part number, updated daily.`,
+      `Compare ${c.plural} prices across parts stores. Matched by part number, size by size, updated daily.`,
+      `Compare ${c.plural} prices across parts stores. Matched by part number, updated daily.`,
+      `${c.name} prices compared across parts stores. Matched by part number, updated daily.`,
     ),
     alternates: { canonical: `/${c.key}` },
     // A hub with almost nothing on it is thin: it stays reachable, but asks not to be indexed (DECISIONS.md 2026-11-10).

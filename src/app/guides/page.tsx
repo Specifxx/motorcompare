@@ -5,7 +5,7 @@ import { PageHead } from "@/components/Section";
 
 export const metadata: Metadata = {
   title: "Car parts price guides",
-  description: "Price guides for car parts, rebuilt every day from real store prices: the cheapest places to buy each kind of part in Australia.",
+  description: "Price guides for car parts, rebuilt every day from real store prices: the cheapest places to buy each kind of part.",
   alternates: { canonical: "/guides" },
 };
 

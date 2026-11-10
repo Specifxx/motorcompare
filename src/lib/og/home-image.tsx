@@ -79,7 +79,7 @@ export function homeImage(o: HomeImageOpts) {
           <div style={{ display: "flex", marginTop: 26, fontSize: picks.length ? 22 : 30, lineHeight: 1.35, color: SOFT, maxWidth: picks.length ? 480 : 900 }}>{o.blurb}</div>
           <div style={{ display: "flex", flexDirection: "column", marginTop: "auto", gap: 6 }}>
             <div style={{ display: "flex", fontSize: 16, color: SOFT, letterSpacing: 2.5, textTransform: "uppercase" }}>
-              {picks.length ? `Popular ${r.phrase}${o.asOf ? ` · ${niceDate(o.asOf)}` : ""}` : "Australian parts stores · prices updated daily"}
+              {picks.length ? `Popular ${r.phrase}${o.asOf ? ` · ${niceDate(o.asOf)}` : ""}` : "parts stores · prices updated daily"}
             </div>
             <div style={{ display: "flex", fontSize: 18, fontWeight: 700 }}>{o.domain}</div>
           </div>

@@ -10,13 +10,15 @@ export const metadata: Metadata = {
   alternates: { canonical: "/about" },
 };
 
+import { ACTIVE_REGIONS } from "@/lib/regions";
+
 export default function About() {
   return (
     <div className="mx-auto max-w-3xl px-4">
-      <PageHead title="About MotorCompare" sub="An independent price guide for car parts in Australia. The right part, the best price." />
+      <PageHead title="About MotorCompare" sub="An independent price guide for car parts in the US, UK, Canada, Australia and more. The right part, the best price." />
       <Prose>
         <p>
-          MotorCompare checks {STORES.length} Australian parts, battery, oil, lighting and car care stores every day and shows every store&apos;s price for the same part, side by side, in Australian dollars.
+          MotorCompare checks {STORES.length} parts, battery, oil, lighting and car care stores in {ACTIVE_REGIONS.length} markets every day and shows every store&apos;s price for the same part, side by side, in the store&apos;s own currency.
         </p>
         <h2>How a part is matched</h2>
         <p>
@@ -29,12 +31,12 @@ export default function About() {
         </p>
         <h2>Which stores</h2>
         <p>
-          Australian stores that sell new parts online. No open marketplaces in the store list. eBay and Amazon appear above the store prices as rows labelled as ads, and Supercheap Auto, Repco and Sparesbox, whose prices we can&apos;t read yet, appear as labelled search links. None of them is ever counted as a store or as &quot;the cheapest&quot;.
+          Stores in each market that sell new parts online. No open marketplaces in the store list. eBay and Amazon appear above the store prices as rows labelled as ads, and chains such as Supercheap Auto and Repco in Australia, whose prices we can&apos;t read yet, appear as labelled search links. None of them is ever counted as a store or as &quot;the cheapest&quot;.
         </p>
         <h2>Prices and currencies</h2>
         <p>
-          Prices are in Australian dollars, exactly as the store lists them. Stores are sorted by the item price. Beside each store we show what delivery cost in that store&apos;s own quote for a small
-          order to one Australian city, and from what order total it became free, checked once a week; your address can change it. To compare several products with delivery, use the <a href="/basket">basket</a>.
+          Prices are in each market's own currency (US$, £, C$, A$), exactly as the store lists them, and never converted. Stores are sorted by the item price. Beside each store we show what delivery cost in that store&apos;s own quote for a small
+          order to one city in the market, and from what order total it became free, checked once a week; your address can change it. To compare several products with delivery, use the <a href="/basket">basket</a>.
         </p>
         <h2>How fresh and how accurate</h2>
         <p>

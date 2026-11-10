@@ -15,7 +15,7 @@ export function generateMetadata({ params }: { params: { cat: string; n: string 
   return {
     title: fitTitle(`${CAT_SEO[c.key]}, page ${params.n}`),
     // Its own line, not the home page's (a paged hub had none and inherited the site's).
-    description: `Page ${params.n} of ${c.plural} compared across Australian parts stores: every store's price for the same part, updated daily.`,
+    description: `Page ${params.n} of ${c.plural} compared across parts stores: every store's price for the same part, updated daily.`,
     alternates: { canonical: `/${c.key}/page/${params.n}` },
   };
 }

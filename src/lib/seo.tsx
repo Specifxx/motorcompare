@@ -27,12 +27,12 @@ export function fitDescription(...candidates: string[]): string {
 /** Each section's search phrase, singular as people type it ("women's prices"), each under 45 characters so
  *  the hub's title keeps " | MotorCompare" (2026-11-06; the plurals read "Women's perfumes prices"). */
 export const CAT_SEO: Record<CatKey, string> = {
-  oil: "Engine oil prices in Australia",
-  batteries: "Car battery prices in Australia",
-  wipers: "Wiper blade prices in Australia",
+  oil: "Engine oil prices",
+  batteries: "Car battery prices",
+  wipers: "Wiper blade prices",
   globes: "Headlight globe prices",
   filters: "Oil, air & cabin filter prices",
-  plugs: "Spark plug prices in Australia",
+  plugs: "Spark plug prices",
   brakes: "Brake pad & rotor prices",
   fluids: "Coolant & transmission fluid prices",
   care: "Car care & detailing prices",

@@ -26,9 +26,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       `${b.name} prices`,
     ),
     description: fitDescription(
-      `Compare ${b.name} prices across ${stores} Australian parts stores. ${b.products.length} products, matched by part number.`,
-      `Compare ${b.name} prices across ${stores} Australian parts stores. ${b.products.length} products, matched by part number.`,
-      `Compare ${b.name} prices across ${stores} Australian parts stores: ${b.products.length} products, matched by part number, updated daily.`,
+      `Compare ${b.name} prices across ${stores} parts stores. ${b.products.length} products, matched by part number.`,
+      `Compare ${b.name} prices across ${stores} parts stores. ${b.products.length} products, matched by part number.`,
+      `Compare ${b.name} prices across ${stores} parts stores: ${b.products.length} products, matched by part number, updated daily.`,
     ),
     alternates: { canonical: `/brands/${b.slug}` },
   };

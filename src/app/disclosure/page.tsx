@@ -21,7 +21,7 @@ export default function Disclosure() {
         <h2>Which links can earn us money</h2>
         <ul>
           <li><strong>eBay</strong> (eBay Partner Network): the eBay row above the stores on a product page.</li>
-          <li><strong>Amazon</strong> (Amazon Associates Australia): the Amazon row above the stores. As an Amazon Associate we earn from qualifying purchases.</li>
+          <li><strong>Amazon</strong> (Amazon Associates, in each market we cover): the Amazon row above the stores. As an Amazon Associate we earn from qualifying purchases.</li>
           <li><strong>Big parts chains</strong>: Supercheap Auto through Commission Factory, only once it accepts us. Until then its link, and the Repco and Sparesbox links, are plain searches that earn nothing.</li>
           <li>
             <strong>Stores in the comparison:</strong> {paying ? `${paying} of the ${STORES.length} stores pay us a commission, and their rows say "Paid link".` : `none of the ${STORES.length} stores pays us today. If one ever does, its row will say "Paid link".`}

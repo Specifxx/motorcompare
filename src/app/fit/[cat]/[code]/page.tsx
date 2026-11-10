@@ -23,8 +23,8 @@ export function generateMetadata({ params }: { params: { cat: string; code: stri
   if (!h || !fc) return {};
   const n = h.products.length;
   return {
-    title: `${fc.noun(h.code)} prices: ${n} compared across Australian stores`,
-    description: `Compare ${n} ${fc.noun(h.code)} across Australian parts stores, cheapest first by store. Check the code on your old part before you buy; matched by barcode, updated daily.`,
+    title: `${fc.noun(h.code)} prices: ${n} compared across stores`,
+    description: `Compare ${n} ${fc.noun(h.code)} across parts stores, cheapest first by store. Check the code on your old part before you buy; matched by barcode, updated daily.`,
     alternates: { canonical: fitPath(params.cat as CatKey, h.code) },
     ...(fitIndexable(n) ? {} : { robots: { index: false, follow: true } }),
   };
