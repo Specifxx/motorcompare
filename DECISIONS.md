@@ -1432,3 +1432,13 @@ number or the code on the old part, then match it; link to /fit). `/car` and `/c
 a car or engine" ("Mentioned in listings", "this is what the stores wrote, not a fitment check"), the menu says "Parts that
 name a car" and "Saved parts", and "My garage" became "Saved parts" / "Save this part". URLs are unchanged. No page says a
 part "fits" a car; keep it that way unless a part is actually verified. `MyCar.tsx` stays but is no longer on the home page.
+## 2026-11-10: eBay moves to Cyberpunk Compare's keyset, 600 to 3,300 calls a day (owner)
+
+The eBay review (`/mnt/project-files/strategy/ebay-api-distribution-2026-11-10.html`) found this site starved: 600 calls a
+day on Compare Empire's full keyset (4,862 of 5,000 used), 80% of searches finding a listing, and 10,957 of 12,141 eligible
+products never searched, a 20-day first pass before any second market. Cyberpunk Compare's keyset used 1,124 of its 5,000
+(eBay's own counter: 4,240 left 38 minutes before the reset). The owner approved the move: MotorCompare 3,300, BandaiCompare
+1,000, Cyberpunk Compare 600. The secrets are now Cyberpunk's `EBAY_CLIENT_ID` / `EBAY_CLIENT_SECRET` (set by the owner
+with `set-ebay-motor-to-cyberpunk-keys.ps1`); this change must not land before they are, or 3,300 calls would hit Compare
+Empire's keyset. The 600 it leaves on Compare Empire's keyset stays spare until the 22 November rebalance. This replaces the
+2026-11-08 entry "eBay rides Compare Empire's keyset".

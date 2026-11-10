@@ -3,7 +3,7 @@
 // key). Off until EBAY_CLIENT_ID / EBAY_CLIENT_SECRET exist (a green no-op).
 // One call per (product, region), home-page, popular and new products first,
 // the US first among equals, the rest weekly and empty searches every three weeks
-// (planEbay), capped at 600 per eBay quota day (this site's share of Compare Empire's keyset) however many runs there are.
+// (planEbay), capped at 3,300 per eBay quota day (this site's share of Cyberpunk Compare's keyset) however many runs there are.
 import fs from "node:fs";
 import path from "node:path";
 import { REGIONS, type RegionCode } from "@/site";
@@ -14,9 +14,9 @@ import { featuredIn, isFeatured } from "@/lib/featured";
 import { partNoOf } from "@/lib/partno";
 import type { EbayData, Meta } from "@/lib/types";
 
-/** This site's share of Compare Empire's eBay keyset (owner, 2026-11-08). Never raised without the owner: the three sites' shares
+/** This site's share of Cyberpunk Compare's eBay keyset (owner, 2026-11-10). Never raised without the owner: the three sites' shares
  * must stay under the keyset's 5,000 a day, or a 429 blanks the day for all three. */
-const EBAY_MAX_DAILY_CALLS = 600;
+const EBAY_MAX_DAILY_CALLS = 3300;
 
 const DATA = path.join(process.cwd(), "data");
 const read = <T>(p: string, f: T): T => {
@@ -58,8 +58,9 @@ async function main() {
     console.log("eBay keys not set: skipping (no-op).");
     return;
   }
-  // MotorCompare shares Compare Empire's keyset (owner, 2026-11-08: its 5,000 a day is split Compare Empire 2,900,
-  // SportsCardCompare 1,400, MotorCompare 600, 100 spare): 600 calls a day, and EBAY_DAILY_CAP can only lower it.
+  // MotorCompare shares Cyberpunk Compare's keyset (owner, 2026-11-10: its 5,000 a day is split MotorCompare 3,300,
+  // BandaiCompare 1,000, Cyberpunk Compare 600, 100 spare): 3,300 calls a day, and EBAY_DAILY_CAP can only lower it.
+  // (Until 2026-11-10 it rode Compare Empire's keyset at 600.)
   // A second run on the same quota day (a manual dispatch) gets only what is left.
   const cap = Math.min(EBAY_MAX_DAILY_CALLS, Number(process.env.EBAY_DAILY_CAP || EBAY_MAX_DAILY_CALLS));
   const qday = ebayQuotaDay();

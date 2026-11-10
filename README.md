@@ -14,7 +14,7 @@ GitHub Actions, daily 06:11 UTC (import.yml)
   → one listing per variant with a valid EAN-13 or UPC (src/lib/ean.ts, src/lib/import/shopify.ts)
   → refuse used, reconditioned, exchange, damaged, bundles (src/lib/title.ts); category, size, fit code, brand
   → one product per barcode, kept when 2+ stores sell it (src/lib/merge.ts)
-  → eBay Browse by GTIN, budgeted (scripts/ebay-import.ts; 600 calls a day of Compare Empire's shared keyset, off until its keys are set)
+  → eBay Browse by GTIN, budgeted (scripts/ebay-import.ts; 3,300 calls a day of Cyberpunk Compare's shared keyset, off until its keys are set)
   → data/public/{products,history,ebay,meta}.json, data/state/*
   → commit to main with "[deploy]" in the subject → one Vercel build a day
 ```
