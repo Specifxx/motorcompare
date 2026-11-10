@@ -35,7 +35,7 @@ export default function About() {
         </p>
         <h2>Prices and currencies</h2>
         <p>
-          Prices are in each market's own currency (US$, £, C$, A$), exactly as the store lists them, and never converted. Stores are sorted by the item price. Beside each store we show what delivery cost in that store&apos;s own quote for a small
+          Prices are in each market&apos;s own currency (US$, £, C$, A$), exactly as the store lists them, and never converted. Stores are sorted by the item price. Beside each store we show what delivery cost in that store&apos;s own quote for a small
           order to one city in the market, and from what order total it became free, checked once a week; your address can change it. To compare several products with delivery, use the <a href="/basket">basket</a>.
         </p>
         <h2>How fresh and how accurate</h2>
