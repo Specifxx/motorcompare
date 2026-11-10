@@ -15,10 +15,10 @@ import type { HeroPick } from "@/lib/hero-picks";
 // the text-only brand card, never a broken image.
 export const HOME_IMAGE_SIZE = { width: 1200, height: 630 };
 
-const INK = "#172033";
-const SOFT = "#606e86";
-const LINE = "#e2e9f3";
-const ACCENT = "#2563eb";
+const INK = "#181f29";
+const SOFT = "#5c6876";
+const LINE = "#dee3e9";
+const ACCENT = "#d6520e";
 
 const font = (f: string) => fs.readFileSync(path.join(process.cwd(), "src/lib/og/fonts", f));
 const ICON =
@@ -60,25 +60,26 @@ export function homeImage(o: HomeImageOpts) {
           padding: "44px 60px 34px",
           color: INK,
           fontFamily: "Inter",
-          backgroundColor: "#f7fafd",
+          backgroundColor: "#f5f7f9",
           backgroundImage:
-            "radial-gradient(circle at 0% 0%, #dbe7fb 0%, rgba(247,250,253,0) 45%), radial-gradient(circle at 100% 0%, #e4e6fb 0%, rgba(247,250,253,0) 40%), radial-gradient(circle at 60% 100%, #e5eeff 0%, rgba(247,250,253,0) 50%)",
+            "radial-gradient(circle at 0% 0%, #fde6d6 0%, rgba(245,247,249,0) 45%), radial-gradient(circle at 100% 0%, #e3e8ee 0%, rgba(245,247,249,0) 40%), radial-gradient(circle at 60% 100%, #e8edf2 0%, rgba(245,247,249,0) 50%)",
         }}
       >
+        <div style={{ display: "flex", position: "absolute", top: 0, left: 0, width: 1200, height: 12, backgroundColor: ACCENT }} />
         <div style={{ display: "flex", flexDirection: "column", flex: 1, minWidth: 0, paddingRight: picks.length ? 36 : 0 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
             {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
             <img src={ICON} width={48} height={48} />
-            <div style={{ display: "flex", fontFamily: "Fraunces", fontSize: 34 }}>{o.brand}</div>
+            <div style={{ display: "flex", fontFamily: "Barlow", fontWeight: 800, fontSize: 46, letterSpacing: 1, textTransform: "uppercase" }}>{o.brand}</div>
           </div>
-          <div style={{ display: "flex", flexDirection: "column", marginTop: picks.length ? 54 : 70, fontFamily: "Fraunces", fontSize: picks.length ? 66 : 96, lineHeight: 1.02, letterSpacing: -1.5 }}>
+          <div style={{ display: "flex", flexDirection: "column", marginTop: picks.length ? 54 : 70, fontFamily: "Barlow", fontWeight: 800, fontSize: picks.length ? 72 : 140, lineHeight: 0.95, textTransform: "uppercase" }}>
             <div style={{ display: "flex" }}>{o.line1}</div>
-            <div style={{ display: "flex", color: ACCENT, fontStyle: "italic" }}>{o.line2}</div>
+            <div style={{ display: "flex", color: ACCENT }}>{o.line2}</div>
           </div>
           <div style={{ display: "flex", marginTop: 26, fontSize: picks.length ? 22 : 30, lineHeight: 1.35, color: SOFT, maxWidth: picks.length ? 480 : 900 }}>{o.blurb}</div>
           <div style={{ display: "flex", flexDirection: "column", marginTop: "auto", gap: 6 }}>
             <div style={{ display: "flex", fontSize: 16, color: SOFT, letterSpacing: 2.5, textTransform: "uppercase" }}>
-              {picks.length ? `Popular ${r.phrase} · item prices${o.asOf ? `, ${niceDate(o.asOf)}` : ""}` : "US · UK · Canada · Australia · New Zealand · Europe"}
+              {picks.length ? `Popular ${r.phrase}${o.asOf ? ` · ${niceDate(o.asOf)}` : ""}` : "Australian parts stores · prices updated daily"}
             </div>
             <div style={{ display: "flex", fontSize: 18, fontWeight: 700 }}>{o.domain}</div>
           </div>
@@ -87,7 +88,7 @@ export function homeImage(o: HomeImageOpts) {
           <div style={{ display: "flex", gap: 22, alignItems: "stretch" }}>
             {picks.map(({ pick, photo }) => (
               <div key={pick.f.ean} style={{ display: "flex", flexDirection: "column", width: 268, backgroundColor: "#ffffff", border: `2px solid ${LINE}`, borderRadius: 24, overflow: "hidden" }}>
-                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 300, padding: 22, backgroundImage: "linear-gradient(180deg, #ffffff, #f0f5fc)" }}>
+                <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: 300, padding: 22, backgroundImage: "linear-gradient(180deg, #ffffff, #eef1f5)" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element, jsx-a11y/alt-text */}
                   <img src={photo!} width={224} height={256} style={{ objectFit: "contain" }} />
                 </div>
@@ -109,7 +110,7 @@ export function homeImage(o: HomeImageOpts) {
     {
       ...HOME_IMAGE_SIZE,
       fonts: [
-        { name: "Fraunces", data: font("fraunces-latin-500-normal.woff"), weight: 500, style: "normal" },
+        { name: "Barlow", data: font("barlow-condensed-latin-800-normal.woff"), weight: 800, style: "normal" },
         { name: "Inter", data: font("inter-latin-500-normal.woff"), weight: 500, style: "normal" },
         { name: "Inter", data: font("inter-latin-700-normal.woff"), weight: 700, style: "normal" },
       ],

@@ -1,6 +1,6 @@
 # Working in this repo
 
-MotorCompare (motorcompare.vercel.app for now; motorcompare.app once the owner buys it, "The right part. The best
+MotorCompare (motorcompare.app, bought 2026-11-10; motorcompare.vercel.app 308-redirects to it, "The right part. The best
 price.") compares car parts prices across real Australian parts stores: engine oil, batteries, wiper blades, globes,
 filters, spark plugs, brakes, fluids, car care and accessories. **Australia only** (owner, 2026-11-08). A copy of
 ScentCompare's static engine (`Specifxx/scentcompare`, itself KaeYoung's and FigureCompare's), started 2026-11-08. It
@@ -8,7 +8,7 @@ is a copy, not a synced sister: port fixes by hand. Read `README.md`, then `DECI
 are the engine's history, from KaeYoung and ScentCompare).
 
 The canonical URL is ONE value: `SITE.url` reads `NEXT_PUBLIC_SITE_URL`, then Vercel's production host, then
-`https://motorcompare.vercel.app`. When the domain is bought, set `NEXT_PUBLIC_SITE_URL` and change `SITE.domain`.
+`https://motorcompare.app`.
 
 ## A fully static site: data in GitHub, pages on Vercel's CDN
 
@@ -59,8 +59,8 @@ owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deplo
   store, never "the cheapest"; commission never decides order. eBay (EPN campaign 5339155912, hard-coded), Amazon AU
   (tag `compareempire-22`, hard-coded), and the chains in `PARTNERS`: Supercheap Auto (Commission Factory, once
   `AFF_SUPERCHEAP` holds the tracking template), Repco and Sparesbox, all shown now as plain unpaid search links.
-- **No ad banners at launch** (owner, 2026-11-08): `SITE.sideRails` is false, so the side rails and phone dock are
-  off. No AdSense, no pop-ups, no interstitials, no accounts.
+- **Side rails and phone dock are on** (owner, 2026-11-10 full launch): `SITE.sideRails` is true (eBay left, Amazon right).
+  No AdSense, no pop-ups, no interstitials, no accounts.
 - eBay listings come only from `scripts/ebay-import.ts` in GitHub Actions (Browse API by GTIN, new, Buy It Now,
   Australian sellers, Australia only). It shares Compare Empire's keyset (owner, 2026-11-08: Compare Empire 2,900,
   SportsCardCompare 1,400, MotorCompare 600 a day): `EBAY_CLIENT_ID`/`EBAY_CLIENT_SECRET` are Compare Empire's values, a no-op

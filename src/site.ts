@@ -4,8 +4,8 @@
 export const SITE = {
   key: "motor",
   name: "MotorCompare",
-  domain: "motorcompare.vercel.app",
-  url: (process.env.NEXT_PUBLIC_SITE_URL || (process.env.VERCEL_PROJECT_PRODUCTION_URL ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}` : "https://motorcompare.vercel.app")).replace(/\/$/, ""),
+  domain: "motorcompare.app",
+  url: (process.env.NEXT_PUBLIC_SITE_URL || "https://motorcompare.app").replace(/\/$/, ""),
   slogan: "The right part. The best price.",
   tagline: "Compare car part prices across Australian parts stores",
   description:
@@ -14,8 +14,8 @@ export const SITE = {
   email: "compareempire@gmail.com",
   /** A product gets a page only when this many stores sell it (comparing one shop is pointless). */
   minStoresPerRegion: 2,
-  /** The eBay and Amazon side rails and the phone dock (components/SideRails.tsx). Off at launch (owner, 2026-11-08: no ad banners in the first build). */
-  sideRails: false as boolean,
+  /** The eBay and Amazon side rails and the phone dock (components/SideRails.tsx). On since the 2026-11-10 full launch (owner). */
+  sideRails: true as boolean,
 } as const;
 
 export type RegionCode = "US" | "UK" | "CA" | "AU" | "NZ" | "EU";

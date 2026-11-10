@@ -71,7 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <HolidayStrip />
         <div className="flex">
           {/* The side rails (components/SideRails.tsx): eBay left, Amazon right, from 1440px; empty in the server HTML.
-              Off at launch (owner, 2026-11-08: no ad banners in the first build): SITE.sideRails. */}
+              On since the 2026-11-10 full launch (owner): SITE.sideRails. */}
           {SITE.sideRails && <RailSlot side="left" />}
           <main id="main" className="min-w-0 flex-1 pb-6">
             {children}

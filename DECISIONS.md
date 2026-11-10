@@ -1354,3 +1354,18 @@ numbers". Bill: exact fitment is MotorCompare's selling point.
   store has not listed fitment for shows none. A "My car" make/model filter is NOT built: it would rest on one or two
   stores' free text; it waits until a make/model table (stores' own, or TecDoc-class) can back it.
 - The file grows by the stored strings only; the probe's sample says about a third of products carry any.
+
+## 2026-11-10: full launch on motorcompare.app
+
+Bill: "completely launch that now ... set the entire site up". Reverses the 2026-11-08 "leave it alone / no ad banners at launch" calls.
+
+- Domain `motorcompare.app` bought on Vercel (US$9.99 first year, auto-renew OFF). `SITE.domain` and the default `SITE.url`
+  are now that host; `motorcompare.vercel.app` 308-redirects to it from `next.config.js` (host condition), so the old
+  URL and any link already shared keep working. `NEXT_PUBLIC_SITE_URL` still overrides the canonical if ever needed.
+- `SITE.sideRails` is true: the eBay and Amazon side rails (browser-only, from 1440px) and the phone dock are live, as on
+  the sister sites. Tags stay `motor-au-<placement>-<ean>`; Amazon rail tiles carry no price.
+- The link preview (`opengraph-image.tsx`, `lib/og/home-image.tsx`, `guide-image.tsx`) is redrawn in MotorCompare's own
+  look (Barlow Condensed, steel and signal orange, "The right part. The best price.") instead of ScentCompare's blue/serif
+  card, with Australian copy. Product pages keep the product's own photo as their preview.
+- `/creators` is gone (a fragrance-site leftover with no motoring creators on it): out of the nav, footer, homepage and
+  sitemap, and redirected to `/` (temporary) until there are real creators to list.

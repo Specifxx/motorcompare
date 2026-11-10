@@ -42,7 +42,7 @@ async function* lines(body: ReadableStream<Uint8Array>): AsyncGenerator<string> 
 }
 
 async function readFeed(url: string, storePrices: (r: RegionCode, ean: string) => number[], byName: ReturnType<typeof nameIndex>) {
-  const res = await fetch(url, { headers: { "User-Agent": "MotorCompare/1.0 (+https://motorcompare.vercel.app)" }, signal: AbortSignal.timeout(600_000) });
+  const res = await fetch(url, { headers: { "User-Agent": "MotorCompare/1.0 (+https://motorcompare.app)" }, signal: AbortSignal.timeout(600_000) });
   if (!res.ok || !res.body) throw new Error(`feed answered HTTP ${res.status}`);
   const out: Partial<Record<RegionCode, PartnerRegionPrices>> = {};
   let header: ReturnType<typeof feedHeader> | null = null;

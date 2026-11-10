@@ -6,7 +6,6 @@ import { popularNow } from "@/lib/ratings";
 import { featuredIn } from "@/lib/featured";
 import { ago } from "@/lib/format";
 import { SearchBox } from "@/components/SearchBox";
-import { CreatorsCornerBadge } from "@/components/creators/CreatorsCornerBadge";
 import { RegionChips } from "@/components/RegionPicker";
 import { TileGrid } from "@/components/ProductTile";
 import { Section } from "@/components/Section";
@@ -65,8 +64,6 @@ export default function Home() {
         <span className="mo-bg mo-aurora" aria-hidden="true" />
         <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-6 px-4 pb-10 pt-10 md:grid-cols-[1.15fr_1fr] md:pb-12 md:pt-14">
           <div className="min-w-0">
-            {/* The creators hub, above the fold (owner, 2026-11-03): top-right corner of the hero from sm, a pill above the holiday line on a phone. */}
-            <CreatorsCornerBadge />
             <p className="mo-enter eyebrow mb-4 text-accent-deep">Car parts price comparison · Australia</p>
             <h1 className="mo-enter h-display max-w-3xl [--mo-d:1] text-[2.4rem] leading-[1.05] sm:text-6xl">
               The right part. <span className="mo-shine text-accent">The best price.</span>
