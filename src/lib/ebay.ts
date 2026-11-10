@@ -109,9 +109,9 @@ export const EBAY_EMPTY_RECHECK_DAYS = [2, 7, 21] as const;
 /** The region searched first when everything else ties (owner, 2026-11-01: "prioritise the US"). */
 export const EBAY_FIRST_REGION: RegionCode = "US";
 
-/** The share of a day's calls each market is guaranteed (owner, 2026-11-10: most of the quota to the US, the rest spread for
- *  coverage). A market with nothing due hands its share back to the others, so no call is wasted. */
-export const EBAY_REGION_SHARE: Partial<Record<RegionCode, number>> = { US: 0.6, UK: 0.15, CA: 0.1, AU: 0.1, NZ: 0.025, EU: 0.025 };
+/** The share of a day's calls each market is guaranteed (owner, 2026-11-10: the US 40% and Australia 30% (the market with the most
+ *  stores and products), the rest spread for coverage). A market with nothing due hands its share back to the others, so no call is wasted. */
+export const EBAY_REGION_SHARE: Partial<Record<RegionCode, number>> = { US: 0.4, AU: 0.3, UK: 0.15, CA: 0.1, NZ: 0.025, EU: 0.025 };
 
 const dayDiff = (a: string, b: string) => Math.round((Date.parse(b) - Date.parse(a)) / 86_400_000);
 

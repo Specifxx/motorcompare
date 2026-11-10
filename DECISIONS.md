@@ -1452,3 +1452,13 @@ Two small fixes. (1) "Biggest savings" (`dealsIn`) skips a part whose cheapest s
 bargain. The page still shows "save up to"; only the deal advertising is capped. (2) `familyKey` peels brackets inside
 brackets, so eight 6BOOST manifold options no longer fill "New arrivals" as eight tiles. Larger gaps (store coverage in
 oil, wipers and everyday parts) went to the owner, not into code.
+
+## 2026-11-10: expanded from Australia only to the US, UK, Canada, NZ and EU
+
+Owner: "expand to all the other regions and the default region will be the US." `REGIONS` lists six markets; a region
+shows once it has a store. A first visit is placed by time zone, US otherwise. The 600-call (now 3,300-call) eBay budget is
+split by `EBAY_REGION_SHARE`: US 40%, AU 30%, UK 15%, CA 10%, NZ and EU 2.5% each, unused share handed back (owner,
+same day, after the first 60/15/10/10 split under-served Australia, where the stores are). Chain search rows (unpaid) for
+the US, UK and Canada. Two store probes found 24 readable US and UK shops with thin overlap; the big chains block reading,
+so coverage grows through more probes and Awin/Impact feeds. Amazon credentials exist for US and AU only; UK, CA and EU
+wait for approval and the rows stay search links.
