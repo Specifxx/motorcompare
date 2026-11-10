@@ -10,6 +10,7 @@ import { lowestOrderable } from "./history";
 import type { EbayData, History, Meta, Offer, Product } from "./types";
 import { unpackProducts } from "./products-file";
 import { partNoOf } from "./partno";
+import { applyAudit, type AuditFile } from "./link-audit";
 import { deliveryFor, MAX_SMALL_ORDER_FEE, type ShippingData } from "./shipping";
 import type { PartnerPricesFile } from "./partner-feed";
 import type { PromoData } from "./promos";
@@ -39,8 +40,10 @@ function once<T>(key: string, build: () => T): T {
   return memo.get(key) as T;
 }
 
+/** The link audit (scripts/verify-links.ts): offers whose buy link no longer points at what we matched are left out, a dead checkout link falls back to the product page. */
+export const getLinkAudit = (): AuditFile | null => load<AuditFile | null>("link-audit.json", null);
 export const getProducts = (): Product[] =>
-  once("products", () => unpackProducts(load<Parameters<typeof unpackProducts>[0]>("products.json", null)).filter((f) => f.offers && Object.values(f.offers).some((o) => o?.length))
+  once("products", () => applyAudit(unpackProducts(load<Parameters<typeof unpackProducts>[0]>("products.json", null)), getLinkAudit()).filter((f) => f.offers && Object.values(f.offers).some((o) => o?.length))
     // One page per slug: a file that holds a slug twice (the import's merge no longer writes one) keeps the first.
     .filter(function (this: Set<string>, f) { return !this.has(f.slug) && !!this.add(f.slug); }, new Set<string>()));
 export const getMeta = (): Meta | null => load<Meta | null>("meta.json", null);

@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
-import { isActive, type NavGroup } from "@/lib/nav";
+import { isActive, menuGroups, type NavGroup } from "@/lib/nav";
 import { ACTIVE_REGIONS } from "@/lib/regions";
 import { setRegion, useRegion } from "./RegionPicker";
 import { Flag } from "./Flag";
@@ -74,7 +74,7 @@ export function MobileMenu({ groups }: { groups: NavGroup[] }) {
               >
                 Home
               </Link>
-              {groups.map((g) => (
+              {menuGroups(groups).map((g) => (
                 <div key={g.title} className="mb-4">
                   <h2 className="mb-1 px-2 eyebrow">
                     {g.title}

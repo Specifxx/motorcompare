@@ -197,6 +197,7 @@ test("search folds accents, matches the brand and synonyms, popular first among 
   assert.deepEqual(searchRows(rows, "engine oil").map((r) => r[0]), ["a", "b"], "the popular one first");
   assert.deepEqual(searchRows(rows, "penrite 5w-40").map((r) => r[0]), ["a"], "the grade narrows it");
   assert.deepEqual(searchRows(rows, "h4 bulb").map((r) => r[0]), ["c"], "bulb finds globe");
+  for (const q of ["5w40", "5w 40", "5W-40", "5w-40 oil"]) assert.deepEqual(searchRows(rows, q).map((r) => r[0]), ["a"], `grade typed as ${q}`);
 });
 
 test("filters and sorts", () => {
