@@ -1442,3 +1442,5 @@ products never searched, a 20-day first pass before any second market. Cyberpunk
 with `set-ebay-motor-to-cyberpunk-keys.ps1`); this change must not land before they are, or 3,300 calls would hit Compare
 Empire's keyset. The 600 it leaves on Compare Empire's keyset stays spare until the 22 November rebalance. This replaces the
 2026-11-08 entry "eBay rides Compare Empire's keyset".
+
+Release note (2026-11-10): the part-number-first wording above was shipped in an urgent build at the owner's request ("deploy urgently"), not left for the daily release, because it answers launch feedback.
