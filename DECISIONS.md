@@ -1462,3 +1462,13 @@ same day, after the first 60/15/10/10 split under-served Australia, where the st
 the US, UK and Canada. Two store probes found 24 readable US and UK shops with thin overlap; the big chains block reading,
 so coverage grows through more probes and Awin/Impact feeds. Amazon credentials exist for US and AU only; UK, CA and EU
 wait for approval and the rows stay search links.
+
+## 2026-11-11: A reader's five fixes (Adam, from Reddit)
+
+- Quick view falls back to a full page load of the product's own URL when its data fails or nothing fills in six seconds (the
+  URL had changed while the page did not).
+- Homepage and menu lead with everyday parts (oil, batteries, wipers, globes, filters, plugs, brakes, fluids, care), then the
+  rest by count (`byEverydayThenCount`); zero search results suggest the old part's code.
+- The product headline reads "Lowest among N checked stores in <region>", so it never contradicts a paid eBay row above it.
+- "Will it fit?" uses the product's own code (`Match Z418 on your old part`), never another part's example.
+- Header "Saved (n)" link to /garage, a toast after saving, and the garage's no-car text points at "Shop for my car".

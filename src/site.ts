@@ -92,7 +92,7 @@ export const CATEGORIES: Category[] = [
   { key: "batteries", name: "Car batteries", plural: "car batteries", about: "Car, 4WD and deep-cycle batteries by size code, from Century, Exide, Varta, Bosch and more.", fit: "The size code (N70ZZ, NS40ZL, DIN55) and CCA are printed on top of your old battery." },
   { key: "wipers", name: "Wiper blades", plural: "wiper blades", about: "Wiper blades and refills by length, from Bosch, Valeo, Rain-X, Trico, PIAA and more.", fit: "Measure your old blades in millimetres; driver and passenger are often different lengths." },
   { key: "globes", name: "Globes & lighting", plural: "headlight globes and car lights", about: "Headlight, fog, indicator and interior globes by code, from Philips, Narva, Osram and more.", fit: "The globe code (H4, H7, 9005, T10) is printed on the base of the old globe." },
-  { key: "filters", name: "Filters", plural: "oil, air, cabin and fuel filters", about: "Oil, air, cabin and fuel filters by part number, from Ryco, Wesfil, Sakura, Mann and more.", fit: "Match the number on your old filter (Ryco Z386) or your service book." },
+  { key: "filters", name: "Filters", plural: "oil, air, cabin and fuel filters", about: "Oil, air, cabin and fuel filters by part number, from Ryco, Wesfil, Sakura, Mann and more.", fit: "Match the number printed on your old filter, or your service book." },
   { key: "plugs", name: "Spark plugs", plural: "spark plugs and glow plugs", about: "Spark and glow plugs by part number, from NGK, Denso, Bosch and Champion.", fit: "Match the code printed on your old plug, or your owner's manual." },
   { key: "brakes", name: "Brakes", plural: "brake pads, rotors and brake fluid", about: "Brake pads, rotors and brake fluid, from Bendix, Brembo, DBA, Protex and more.", fit: "Brake parts fit by make, model and year: check the store's fitment list before you buy." },
   { key: "fluids", name: "Coolant & fluids", plural: "coolant, transmission and other fluids", about: "Coolant, transmission and diff oil, power steering fluid and additives.", fit: "The spec on your manual or reservoir decides (OAT coolant, Dexron VI, 75W-90)." },
@@ -125,3 +125,11 @@ export const PART_BUCKETS: { title: string; cats: CatKey[] }[] = [
   { title: "4WD & touring", cats: ["electrics", "accessories"] },
   { title: "Care & workshop", cats: ["care", "tools", "other"] },
 ];
+
+/** Everyday parts first (oil, batteries, wipers, globes, filters, plugs, brakes, fluids, care), then the rest by how many we compare:
+ *  a homepage that leads with turbo kits tells a Corolla owner the site is not for them (Adam, 2026-11-11). */
+const EVERYDAY: CatKey[] = ["oil", "batteries", "wipers", "globes", "filters", "plugs", "brakes", "fluids", "care"];
+export function byEverydayThenCount(counts: Record<string, number>) {
+  const rank = (k: CatKey) => (EVERYDAY.includes(k) ? EVERYDAY.indexOf(k) - 100 : 0);
+  return (a: { key: CatKey }, b: { key: CatKey }) => rank(a.key) - rank(b.key) || (counts[b.key] ?? 0) - (counts[a.key] ?? 0);
+}

@@ -38,7 +38,7 @@ export function GarageView({ cars }: { cars: { slug: string; name: string }[] })
           </>
         ) : (
           <>
-            Pick your car on the <Link prefetch={false} href="/" className="font-semibold text-ink underline">home page</Link>.
+            Want parts for your car? Use “Shop for my car” on the <Link prefetch={false} href="/" className="font-semibold text-ink underline">home page</Link>.
           </>
         )}
       </p>

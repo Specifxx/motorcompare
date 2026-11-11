@@ -45,6 +45,12 @@ import { codeSlug, FIT_INDEX_MIN, fitPath } from "@/lib/fit-codes";
 // on its first visit, from the same data in the same deployment, and is kept as a
 // static file until the next release (no revalidate timer). A slug the release
 // does not know is a real 404, answered by ./layout.tsx. DECISIONS.md 2026-11-06.
+/** The "Will it fit?" line: the product's own code, never another part's example (Adam, 2026-11-11). */
+function fitLine(cat: string, code: string | null | undefined): string {
+  const base = CAT_BY_KEY[cat as keyof typeof CAT_BY_KEY].fit.replace(/\s*\((?:[^)]*\d[^)]*)\)/g, "");
+  return code && ["filters", "plugs", "batteries", "globes"].includes(cat) ? `Match ${code} on your old part, or your service book.` : base;
+}
+
 export const dynamicParams = true;
 export function generateStaticParams() {
   return prebuiltProducts(getProducts()).map((f) => ({ slug: f.slug }));
@@ -248,7 +254,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               <div key={r.code} className={`rp rp-${r.code} mt-6`}>
                 {b ? (
                   <div className="card p-6">
-                    <p className="text-sm text-soft">Lowest store price {r.phrase}</p>
+                    <p className="text-sm text-soft">Lowest among {b.stores} checked store{b.stores === 1 ? "" : "s"} {r.phrase}</p>
                     <p className="mt-0.5 text-4xl font-semibold tabular-nums tracking-tight text-ink">{money(b.offer.p, r.code)}</p>
                     <p className="mt-1 text-sm text-soft">
                       at <span className="font-medium text-ink">{storeName(b.offer.s)}</span> · {b.stores} store{b.stores === 1 ? "" : "s"} compared
@@ -298,7 +304,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 Fit code: <span className="rounded border border-dashed border-ink px-2 py-0.5 font-mono font-semibold">{code}</span>
               </p>
             )}
-            <p className="mt-2 text-sm leading-relaxed text-soft">{CAT_BY_KEY[f.cat].fit}</p>
+            <p className="mt-2 text-sm leading-relaxed text-soft">{fitLine(f.cat, code)}</p>
           </section>
         </div>
       </section>
