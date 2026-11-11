@@ -62,7 +62,12 @@ export function QuickView() {
       if (!a) return;
       e.preventDefault();
       const h: Head = { slug: a.dataset.qv!, name: a.dataset.qvName || "", brand: a.dataset.qvBrand || "", img: a.dataset.qvImg || null };
-      show(h);
+      try {
+        show(h);
+      } catch {
+        window.location.assign(`/product/${h.slug}`);
+        return;
+      }
       // The product's own link in the address bar while it is open (owner, 2026-11-03), so it can be copied, shared or bookmarked.
       openQuickViewUrl(`/product/${h.slug}`, h);
     }
@@ -71,7 +76,15 @@ export function QuickView() {
       setTab("prices");
       if (!h) return;
       setData("loading");
-      load(h.slug).then((d) => setData((cur) => (cur === "loading" ? d : cur)));
+      // Fall back to the product page itself when the pop-up cannot fill (Adam, 2026-11-11: the URL changed and the page did not):
+      // a failed load, or nothing drawn after six seconds, is a full page load of the product's own URL.
+      const go = () => window.location.assign(`/product/${h.slug}`);
+      const timer = window.setTimeout(go, 6000);
+      load(h.slug).then((d) => {
+        window.clearTimeout(timer);
+        if (!d) return go();
+        setData((cur) => (cur === "loading" ? d : cur));
+      });
     }
     // Back closes the pop-up, Forward reopens it.
     const offHistory = onQuickViewHistory<Head>(show);

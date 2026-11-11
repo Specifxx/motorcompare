@@ -6,7 +6,7 @@
 // No data import here: the client menus import isActive from this file.
 import { saleStrip } from "@/lib/black-friday";
 import { POSTS } from "@/content/blog";
-import { CAT_BY_KEY, PART_BUCKETS, STEP_MENU_ORDER, type CatKey } from "@/site";
+import { CAT_BY_KEY, PART_BUCKETS, STEP_MENU_ORDER, byEverydayThenCount, type CatKey } from "@/site";
 
 export type NavItem = { href: string; label: string; count?: number; cat?: CatKey };
 export type NavGroup = { title: string; links: NavItem[] };
@@ -30,7 +30,7 @@ export function navGroups(counts: Record<CatKey, number>, topBrands: { slug: str
   return [
     {
       title: "Shop by section",
-      links: STEP_MENU_ORDER.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).sort((x, y) => counts[y.key] - counts[x.key]).map((c) => ({ href: `/${c.key}`, label: c.name, count: counts[c.key], cat: c.key })),
+      links: STEP_MENU_ORDER.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).sort(byEverydayThenCount(counts)).map((c) => ({ href: `/${c.key}`, label: c.name, count: counts[c.key], cat: c.key })),
     },
     {
       // The way a buyer really searches: the code printed on the old part (Bill, 2026-11-09).

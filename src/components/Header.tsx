@@ -6,6 +6,7 @@ import { ThemeToggle } from "./ThemeToggle";
 import { MobileMenu } from "./MobileMenu";
 import { HeaderMenus } from "./HeaderMenus";
 import type { HeaderMenu, NavGroup } from "@/lib/nav";
+import { SavedHeaderLink } from "./SavedHeaderLink";
 import { CartHeaderLink } from "@/components/cart/CartHeaderLink";
 
 export function Header({ groups, menus }: { groups: NavGroup[]; menus: HeaderMenu[] }) {
@@ -20,6 +21,7 @@ export function Header({ groups, menus }: { groups: NavGroup[]; menus: HeaderMen
           <SearchBox />
         </div>
         <div className="ml-auto flex items-center gap-2">
+          <SavedHeaderLink className="hidden sm:inline-flex" />
           <RegionPicker compact />
           <ThemeToggle />
           {/* The cart list (components/cart, owner 2026-11-06), with its count: here from md, beside the search on phones. */}
@@ -31,6 +33,7 @@ export function Header({ groups, menus }: { groups: NavGroup[]; menus: HeaderMen
         <div className="min-w-0 flex-1">
           <SearchBox />
         </div>
+        <SavedHeaderLink className="sm:hidden" />
         <CartHeaderLink />
       </div>
     </header>

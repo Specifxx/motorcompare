@@ -178,7 +178,7 @@ export function SearchBox({ big = false }: { big?: boolean }) {
           {rows && !empty && nq.length < 2 && <p className="px-3 py-2 text-sm text-soft">Keep typing…</p>}
           {rows && nq.length > 1 && !items.length && (
             <div className="px-3 py-2 text-sm text-soft">
-              <p>We don&apos;t compare that yet. Try a brand or a code like 5W-30, or look at the shops:</p>
+              <p>We don&apos;t compare that yet. Try the code printed on your old part (an oil filter like Z418, a plug like BKR6E, a globe like H7) or a brand, or look at the shops:</p>
               <p className="mt-2 flex flex-wrap gap-1.5">
                 {shopSearchLinks(q).map((l) => (
                   <a key={l.name} href={l.href} target="_blank" rel="noopener nofollow" className="rounded-full border border-line px-3 py-1 font-semibold text-ink hover:border-soft">{l.name} ↗</a>

@@ -116,7 +116,7 @@ test("the site is MotorCompare on motorcompare.app", () => {
 test("the homepage's part tiles lead with the parts you can fit yourself", () => {
   const src = fs.readFileSync("src/app/page.tsx", "utf8");
   assert.match(src, /const HOME_STEPS: CatKey\[\] = STEP_MENU_ORDER\.filter\(\(k\) => k !== "other"\)/);
-  assert.match(src, /counts\[c\.key\] > 0\)\.sort\(\(a, b\) => counts\[b\.key\] - counts\[a\.key\]\)/, "only sections with stock, the biggest first");
+  assert.match(src, /counts\[c\.key\] > 0\)\.sort\(byEverydayThenCount\(counts\)\)/, "only sections with stock, everyday parts first, then the biggest");
   assert.ok(!/CATEGORIES\.(filter|map)/.test(src), "the homepage lists its own tiles, not every category");
 });
 
