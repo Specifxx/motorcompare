@@ -10,7 +10,8 @@ import { decimal, money, niceDate, pct } from "@/lib/format";
 import { isIndexable, prebuiltProducts } from "@/lib/index-tiers";
 import { buyLink } from "@/lib/affiliate";
 import { ProductImage } from "@/components/ProductImage";
-import { PriceTable } from "@/components/PriceTable";
+import { PriceTable, priceRows } from "@/components/PriceTable";
+import { PriceRows } from "@/components/PriceRows";
 import { PriceHistory } from "@/components/Sparkline";
 import { RegionTabs } from "@/components/RegionPicker";
 import { TileGrid } from "@/components/ProductTile";
@@ -282,6 +283,12 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                     })()}
                     <div>
                       <AddToBasket slug={f.slug} />
+                    </div>
+                    {/* Paid rows up where the buyer looks (owner, 2026-11-11): the same pinned eBay / Amazon rows as the table, labelled
+                        "Paid link", rel sponsored, never the best price and never reordering the stores. */}
+                    <div className="mt-4 border-t border-line pt-4">
+                      <p className="eyebrow mb-2">Also compare on</p>
+                      <PriceRows {...{ ...priceRows(f, r.code, ebay[r.code], "hero"), overseas: [], stores: [] }} />
                     </div>
                   </div>
                 ) : (
