@@ -1498,3 +1498,8 @@ and the Black Friday strip takes the same token for its border only. No new requ
 pinned in `tests/season.test.ts`: snow, lights, hats, candy stripes, palette swaps, sparkles, keyframes and canvas. ONE off
 switch: `CHRISTMAS_FESTIVE_LAYER` in `lib/season.ts` gates the card's markup and the `data-festive` attribute every rule keys
 on; set it false after New Year, or let the window end on 26 December. No URL, title, meta, h1 or h2 changes.
+
+
+## 2026-11-12: the festive layer is released urgently (owner)
+
+The owner said to deploy the festive layer urgently once every site had it, so this merge carries `[deploy] [urgent]` in its subject: one production build now, instead of waiting for the next release. No other change.
