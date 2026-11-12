@@ -15,6 +15,8 @@ import { HeroPicks } from "@/components/HeroPicks";
 import { POST_BY_SLUG } from "@/content/blog";
 import { GUIDES } from "@/lib/guides";
 import { JsonLd, faqLd, siteLd } from "@/lib/seo";
+import { ChristmasBanner } from "@/components/ChristmasBanner";
+import { saleStrip } from "@/lib/black-friday";
 import { SiteReviews } from "@/components/site-reviews/SiteReviews";
 
 export const metadata: Metadata = {
@@ -93,6 +95,8 @@ export default function Home() {
       </section>
 
       <div className="mx-auto max-w-6xl px-4">
+        {/* Christmas only (1 November to Boxing Day; hidden by CSS otherwise). Points at the live sale page. */}
+        <ChristmasBanner href={saleStrip(new Date().toISOString().slice(0, 10))?.href ?? "/boxing-day"} />
         <section className="mt-16">
           <h2 data-reveal className="h-display mb-6 text-2xl">Shop by part</h2>
           <div data-reveal="stagger" className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
