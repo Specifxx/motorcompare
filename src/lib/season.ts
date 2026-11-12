@@ -10,6 +10,12 @@
 export const CHRISTMAS_FROM = 1101; // mmdd, inclusive
 export const CHRISTMAS_TO = 1226;
 
+// Festive layer (owner, 2026-11-12): the Christmas card on the home page, the 3px cranberry-and-pine hairline at the top and
+// the colour accents on the sale strip, all inside the window above. ONE off switch: set this to false (after New Year) and
+// the card's markup is not rendered and the layout stops stamping data-festive, so every festive rule in globals.css stops
+// matching. The window ending on 26 December removes it too, with no deploy.
+export const CHRISTMAS_FESTIVE_LAYER = true;
+
 /** Whether a local calendar date falls in the holiday window (any year). */
 export function isChristmas(d: Date): boolean {
   const k = (d.getMonth() + 1) * 100 + d.getDate();

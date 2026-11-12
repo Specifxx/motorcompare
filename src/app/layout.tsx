@@ -1,4 +1,4 @@
-import { SEASON_BOOT_SCRIPT } from "@/lib/season";
+import { SEASON_BOOT_SCRIPT, CHRISTMAS_FESTIVE_LAYER } from "@/lib/season";
 import { MOTION_BOOT, MOTION_SCRIPT } from "@/lib/motion";
 import type { Metadata, Viewport } from "next";
 import { Analytics } from "@vercel/analytics/react";
@@ -53,7 +53,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       .map((b) => ({ slug: b.slug, name: b.name })),
   );
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" data-festive={CHRISTMAS_FESTIVE_LAYER ? "" : undefined} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: BOOT }} />
         {/* The holiday look (1 November to Boxing Day): data-season on <html> from the visitor's own date. lib/season.ts. */}

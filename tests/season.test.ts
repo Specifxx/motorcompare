@@ -46,3 +46,23 @@ test("the layout stamps the season before paint, and the holiday is one quiet li
   assert.doesNotMatch(css + home, /sc-snow|sc-flake|sc-deco|sc-tree|sc-stocking|HeroSnow|mo-snow|\/xmas\/|santa-hat|xmas-lights/);
   assert.ok(!existsSync("src/components/HeroSnow.tsx"));
 });
+
+test("the festive layer (owner, 2026-11-12) is CSS-only accents behind one switch, and the 8 November effects stay gone", () => {
+  const css = readFileSync("src/app/globals.css", "utf8");
+  const season = readFileSync("src/lib/season.ts", "utf8");
+  const layout = readFileSync("src/app/layout.tsx", "utf8");
+  const banner = readFileSync("src/components/ChristmasBanner.tsx", "utf8");
+  assert.match(season, /export const CHRISTMAS_FESTIVE_LAYER = true;/, "one off switch");
+  assert.match(layout, /data-festive=\{CHRISTMAS_FESTIVE_LAYER/, "the layout stamps data-festive from the switch");
+  assert.match(banner, /if \(!CHRISTMAS_FESTIVE_LAYER\) return null;/, "the switch gates the banner markup");
+  assert.doesNotMatch(banner, /<h[1-6]/, "the banner is not a heading");
+  assert.match(banner, /currentColor/, "the gift icon is inline SVG in currentColor");
+  assert.match(css, /\[data-festive\]::before \{[^}]*height: 3px;[^}]*rgb\(var\(--xmas-red\)\) 50%, rgb\(var\(--xmas-green\)\) 50%/, "a 3px two-tone hairline, hard stop");
+  assert.match(css, /\[data-festive\]\[data-theme="night"\] \{[^}]*--xmas-red/, "the night theme has its own tokens");
+  const start = css.indexOf("/* Festive layer");
+  const block = css.slice(start, css.indexOf(".sc-hero > :not(.mo-bg)", start)).replace(/\/\*[\s\S]*?\*\//g, "");
+  assert.ok(block.length > 500);
+  assert.doesNotMatch(block, /@keyframes|animation:|repeating-linear-gradient|canvas|url\(|snow|flake/i, "no animation, stripes, canvas, images, snow or flakes");
+  assert.doesNotMatch(block, /--(bg|card|ink|accent|accent-deep|accent-pale)\s*:/, "no palette swap");
+  assert.ok(!existsSync("src/components/HeroSnow.tsx"));
+});

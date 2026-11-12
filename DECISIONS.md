@@ -1483,3 +1483,18 @@ price in the region, per currency, about US$75 (fixed minor-unit table, never co
 eBay pass's own US$20 floor (`isFeatured`) is unchanged. `/deals`, `/popular`, `/new`, sections, brands, search, blog
 blocks and every product page still list everything. Store rows stay in price order, commission never ranks; URLs,
 titles, meta and JSON-LD are unchanged.
+
+## 2026-11-12: A tasteful Christmas layer, more festive than the 8 November line (owner)
+
+On 2026-11-08 the owner had the first holiday look stripped ("a bit too much: the theme must match the domain"); on 2026-11-12
+he asked for it to be more festive again. The answer is accents, not a costume, the same shape on every Compare site in each
+site's own colours. Inside the existing window (`lib/season.ts`, 1 November to 26 December by the visitor's date,
+`?season=christmas|off`), the home page gets a one-line Christmas card (`ChristmasBanner`: inline SVG gift in `currentColor`,
+"Christmas car-part deals", a short subline from 640px, a pine badge, a cranberry 3px left border; not a heading). MotorCompare
+has no gift-guide page and none was created, so it links the live sale page (`saleStrip`: Black Friday, then Cyber Monday,
+then `/boxing-day`). `globals.css` adds a 3px two-tone cranberry-then-pine hairline at the very top of the page (a hard-stop
+gradient on `html::before`, absolutely positioned, no layout shift) with day and night tokens (`--xmas-red`, `--xmas-green`),
+and the Black Friday strip takes the same token for its border only. No new request, script, image or font. Still gone, and
+pinned in `tests/season.test.ts`: snow, lights, hats, candy stripes, palette swaps, sparkles, keyframes and canvas. ONE off
+switch: `CHRISTMAS_FESTIVE_LAYER` in `lib/season.ts` gates the card's markup and the `data-festive` attribute every rule keys
+on; set it false after New Year, or let the window end on 26 December. No URL, title, meta, h1 or h2 changes.
