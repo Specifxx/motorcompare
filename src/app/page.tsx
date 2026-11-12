@@ -3,7 +3,7 @@ import Link from "next/link";
 import { CAT_BY_KEY, REGIONS, SITE, STEP_MENU_ORDER, byEverydayThenCount, type CatKey } from "@/site";
 import { activeStores, catCounts, dealsIn, getBrands, getMeta, getProducts, newestIn } from "@/lib/data";
 import { popularNow } from "@/lib/ratings";
-import { featuredIn } from "@/lib/featured";
+import { homeFeaturedIn } from "@/lib/featured";
 import { ago } from "@/lib/format";
 import { SearchBox } from "@/components/SearchBox";
 import { RegionChips } from "@/components/RegionPicker";
@@ -112,7 +112,7 @@ export default function Home() {
 
         {REGIONS.map((r) => {
           // Featured products (lib/featured.ts).
-          const feat = featuredIn(r.code, all);
+          const feat = homeFeaturedIn(r.code, all);
           const deals = dealsIn(r.code, 8, feat).map((d) => d.f);
           const pop = popularNow(r.code, 8, feat);
           const fresh = newestIn(r.code, 8, feat);

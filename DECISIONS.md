@@ -1472,3 +1472,14 @@ wait for approval and the rows stay search links.
 - The product headline reads "Lowest among N checked stores in <region>", so it never contradicts a paid eBay row above it.
 - "Will it fit?" uses the product's own code (`Match Z418 on your old part`), never another part's example.
 - Header "Saved (n)" link to /garage, a toast after saving, and the garage's no-car text points at "Shop for my car".
+
+## 2026-11-12: The homepage and hero feature higher-priced products
+
+Owner: promote the pricier items so a click earns more commission; cheap ones stay findable but are not featured.
+The 2026-11-06 US$20 floor already kept the cheapest items off the front page, but on the real data it was too low: the median product is US$174 but 9% are under US$25 (filters, globes, wipers); US$75 keeps 15,083 of 23,373 in the US (AU 10,699, CA 4,105, UK 1,208).
+`HOME_MIN_MINOR` / `isHomeFeatured` / `homeFeaturedIn` (`lib/featured.ts`) set a higher floor on the cheapest in-stock
+price in the region, per currency, about US$75 (fixed minor-unit table, never converted at runtime): the homepage rows
+(Popular, Biggest savings, New arrivals), the hero pair, the share card and the eBay pass's homepage set read it. The
+eBay pass's own US$20 floor (`isFeatured`) is unchanged. `/deals`, `/popular`, `/new`, sections, brands, search, blog
+blocks and every product page still list everything. Store rows stay in price order, commission never ranks; URLs,
+titles, meta and JSON-LD are unchanged.

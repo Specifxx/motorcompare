@@ -10,7 +10,7 @@ import { REGIONS, type RegionCode } from "@/site";
 import { dealsIn, getProducts, newestIn } from "@/lib/data";
 import { EBAY_REGION_SHARE, ebayPick, ebayQuotaDay, planEbay, type EbayItem, type EbayPrio } from "@/lib/ebay";
 import { popularity, popularNow } from "@/lib/ratings";
-import { featuredIn, isFeatured } from "@/lib/featured";
+import { featuredIn, homeFeaturedIn, isFeatured } from "@/lib/featured";
 import { ACTIVE_REGIONS } from "@/lib/regions";
 import { partNoOf } from "@/lib/partno";
 import type { EbayData, Meta } from "@/lib/types";
@@ -82,7 +82,8 @@ async function main() {
   const hot = new Set<string>();
   for (const r of regions) {
     const feat = featuredIn(r, products);
-    for (const f of [...popularNow(r, 8, feat), ...dealsIn(r, 8, feat).map((d) => d.f), ...newestIn(r, 8, feat)]) home.add(`${f.ean}:${r}`);
+    const homeFeat = homeFeaturedIn(r, products);
+    for (const f of [...popularNow(r, 8, homeFeat), ...dealsIn(r, 8, homeFeat).map((d) => d.f), ...newestIn(r, 8, homeFeat)]) home.add(`${f.ean}:${r}`);
     for (const f of popularNow(r, 300, feat)) hot.add(`${f.ean}:${r}`);
   }
   const launch = products.reduce((m, f) => (f.first < m ? f.first : m), "9999");
