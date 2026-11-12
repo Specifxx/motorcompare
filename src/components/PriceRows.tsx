@@ -123,10 +123,10 @@ function Row({ name, sub, price, status, href, paid, highlight = false, brand, c
   const s = status ? STOCK[status] : null;
   return (
     <div
-      className={`mo-row flex items-center gap-3 rounded-xl border px-3.5 py-3 ${check ? "border-accent/50 bg-accent/5" : "bg-card"} ${
-        // eBay with a price: a green outline (owner, 2026-11-06); the cheapest store a sky-blue one, so it never reads as eBay's
-        // green or Amazon's amber (owner, 2026-11-07: "the cheapest listing should also have an outline too").
-        check ? "" : brand === "ebay" && price ? "border-save" : brand === "amazon" && price ? "border-[#f59e0b]" : highlight ? "border-[#0ea5e9]" : "border-line"
+      className={`mo-row flex items-center gap-3 rounded-xl border px-3.5 py-3 ${
+        // Calm palette (2026-11-12, DECISIONS.md): no coloured outlines or tints per marketplace. The best price is the one marked row
+        // (a faint green ground and edge); eBay's and Amazon's rows are plain rows with their "Ad · Paid link" tag, still on top.
+        highlight && !check ? "border-save/50 bg-save/5" : "border-line bg-card"
       } ${status === "out" ? "opacity-60" : ""}`}
     >
       <div className="min-w-0 flex-1">
@@ -167,7 +167,7 @@ function Row({ name, sub, price, status, href, paid, highlight = false, brand, c
           event={event}
           title={checkout ? `Opens ${name}'s checkout with this item` : undefined}
           className={`btn-pop shrink-0 px-4 py-1.5 ${
-            brand || (price && status !== "out") ? "btn-buy" : "border border-line bg-card text-ink hover:border-soft"
+            brand || highlight ? "btn-buy" : "border border-line bg-card text-ink hover:border-soft"
           }`}
         >
           {check && brand ? `Check ${brand === "ebay" ? "eBay" : "Amazon"}` : brand ? "Shop" : status === "out" ? "View" : checkout ? "Buy" : price ? "Shop" : "Search"} <span aria-hidden>→</span>
