@@ -22,7 +22,7 @@ GitHub Actions, daily 06:11 UTC (import.yml)
 * **No accounts, no database.** Every page is prerendered at the daily build from the committed JSON; search is a
   static `/search-index.json`.
 * **Paid links**: eBay, Amazon AU and the Supercheap Auto / Repco / Sparesbox search rows sit above the store prices,
-  labelled. They never count as a store or "the cheapest". No ad banners at launch (`SITE.sideRails`).
+  labelled. They never count as a store or "the cheapest". One native in-content ad block and a phone dock (`SITE.sideRails` switches them off).
 * **Deploys are gated** (`scripts/vercel-ignore-build.sh`): production builds only for `[deploy]` in the subject.
 * **More stores**: add hosts to `probe/candidates.txt` on a `claude/*` branch; `probe-stores.yml` reads them and
   commits `probe/results.json` and `probe/summary.md`.

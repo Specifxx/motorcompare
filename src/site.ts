@@ -14,7 +14,7 @@ export const SITE = {
   email: "compareempire@gmail.com",
   /** A product gets a page only when this many stores sell it (comparing one shop is pointless). */
   minStoresPerRegion: 2,
-  /** The eBay and Amazon side rails and the phone dock (components/SideRails.tsx). On since the 2026-11-10 full launch (owner). */
+  /** The ONE off switch for the in-content ad block and the phone dock (components/InlineAds.tsx; the side rails it replaced on 2026-11-13 are gone). Name kept from the rails. */
   sideRails: true as boolean,
 } as const;
 

@@ -61,7 +61,14 @@ owner says it is urgent, and say so. `claude/*` and `ccr-*` branches never deplo
   store, never "the cheapest"; commission never decides order. eBay (EPN campaign 5339155912, hard-coded), Amazon AU
   (tag `compareempire-22`, hard-coded), and the chains in `PARTNERS`: Supercheap Auto (Commission Factory, once
   `AFF_SUPERCHEAP` holds the tracking template), Repco and Sparesbox, all shown now as plain unpaid search links.
-- **Side rails and phone dock are on** (owner, 2026-11-10 full launch): `SITE.sideRails` is true (eBay left, Amazon right).
+- **One native in-content ad block per page, and the phone dock** (owner, 2026-11-13, in place of the side rails, which are
+  gone: never re-add rails or a second block). `InlineAds.tsx` (`lib/side-rails.ts`, static `/rails/<region>`; `SITE.sideRails`
+  is its one off switch): a full-column-width section in the site's own card, hairline and text tokens with a small "Ad" label,
+  an eBay row first and an Amazon row second, up to ten larger tiles each, scrolling sideways. BELOW the main content (home:
+  between sections, never the hero; product page: under the price table; lists: after the grid), never beside a buy button or
+  above a price, never fixed or floating, no side space. Browser only, height reserved in CSS (CLS 0); Amazon tiles are tagged
+  links with NO price; every link rel sponsored under the tags `inline-ebay` / `inline-amazon` (`motor-<region>-…`). On phones
+  (below 768px) the eBay tiles also go to the phone dock (`AdDock.tsx`: after a scroll, never on a product page; never Amazon).
   No AdSense, no pop-ups, no interstitials, no accounts.
 - eBay listings come only from `scripts/ebay-import.ts` in GitHub Actions (Browse API by GTIN, new, Buy It Now,
   sellers local to each region). The daily calls are split by `EBAY_REGION_SHARE` (owner, 2026-11-10: US 40%, AU 30%, UK 15%, CA 10%, NZ and EU 2.5% each; unused share goes back to the rest). It shares Cyberpunk Compare's keyset (owner, 2026-11-10: MotorCompare 3,300,

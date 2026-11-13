@@ -1,3 +1,4 @@
+import { InlineAds } from "@/components/InlineAds";
 import type { Metadata } from "next";
 import { Fragment } from "react";
 import Link from "next/link";
@@ -416,6 +417,9 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
           </div>
         </aside>
       </section>
+
+      {/* The one ad block, under the price table and the details, never beside a buy button or above a price. */}
+      <InlineAds page="product" />
 
       {related.length > 0 && (
         <section className="mt-12">
