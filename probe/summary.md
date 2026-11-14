@@ -1,111 +1,60 @@
-# Car parts store probe 2026-11-14
+# Car parts store probe 2026-11-10
 
-112 candidates, 101 readable (100 Shopify, 1 WooCommerce), across currencies.
+121 candidates, 48 readable (44 Shopify, 4 WooCommerce), across currencies.
 
-Barcodes sold by 2+ AUD shops: USD 27, CAD 0, GBP 0, ? 0. Part numbers (SKU) in 2+ AUD shops: USD 12777, CAD 1, GBP 31, ? 0.
+Barcodes sold by 2+ AUD shops: USD 0, CAD 0, GBP 0. Part numbers (SKU) in 2+ AUD shops: USD 208, CAD 0, GBP 0.
 
 | Shop | Platform | Cur | Products | Car parts | oil | battery | wiper | globe | filter | plug | brake | coolant | care | EAN | Sample barcode | Codes | PNs |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| https://wiperblades.co.uk | shopify | GBP | 3000 | 3000 | 0 | 0 | 3000 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/30 | 0 | 14 |
-| https://morepowertuning.com | shopify | USD | 3000 | 2977 | 1 | 3 | 10 | 4 | 33 | 0 | 19 | 47 | 7 | 0 | 30/30 | 30 | 3040 |
-| https://r44performance.com | shopify | GBP | 3000 | 2916 | 7 | 0 | 0 | 0 | 30 | 0 | 907 | 5 | 0 | 0 | 15/30 | 15 | 2042 |
-| https://importimageracing.com | shopify | USD | 3000 | 2843 | 128 | 16 | 3 | 1 | 29 | 7 | 277 | 275 | 0 | 0 | 0/30 | 0 | 2771 |
-| https://carandtruckremotes.com | shopify | USD | 3000 | 2565 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 700 |
-| https://hpsperformanceproducts.com | shopify | USD | 3000 | 2527 | 151 | 0 | 0 | 53 | 265 | 0 | 0 | 1719 | 9 | 0 | 30/30 | 24 | 6901 |
-| https://bmptuning.com | shopify | USD | 3000 | 2466 | 1 | 1 | 0 | 0 | 4 | 0 | 1817 | 0 | 0 | 0 | 0/30 | 0 | 3214 |
-| https://slrspeed.com | shopify | USD | 3000 | 2247 | 9 | 8 | 34 | 18 | 14 | 2 | 6 | 63 | 0 | 0 | 0/30 | 0 | 1402 |
-| https://vuduperformance.com | shopify | GBP | 3000 | 1976 | 114 | 4 | 0 | 0 | 20 | 4 | 13 | 32 | 4 | 0 | 0/30 | 0 | 21989 |
-| https://paintnship.com | shopify | USD | 3000 | 1956 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0/1 | 0 | 2131 |
-| https://midwestbimmersupply.com | shopify | USD | 3000 | 1906 | 14 | 0 | 0 | 2 | 23 | 0 | 0 | 164 | 0 | 0 | 14/30 | 14 | 3566 |
-| https://tcpglobal.com | shopify | USD | 3000 | 1837 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 6 | 0 | 0 | 6/6 | 6 | 2262 |
-| https://amtuning.ca | shopify | CAD | 3000 | 1810 | 1 | 0 | 0 | 3 | 64 | 4 | 30 | 14 | 0 | 0 | 10/30 | 10 | 3973 |
-| https://partify.ca | shopify | CAD | 3000 | 1758 | 0 | 0 | 2 | 0 | 0 | 0 | 0 | 38 | 0 | 0 | 0/30 | 0 | 28890 |
-| https://bayoptiks.com | shopify | USD | 2733 | 1697 | 0 | 0 | 0 | 2 | 0 | 0 | 37 | 3 | 0 | 0 | 0/30 | 0 | 4152 |
-| https://speedzone-web.com | shopify | USD | 3000 | 1573 | 21 | 3 | 3 | 1 | 32 | 10 | 4 | 53 | 2 | 0 | 5/30 | 5 | 4173 |
-| https://coverking.com | shopify | USD | 3000 | 1560 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 3568 |
-| https://bimmerplug.com | shopify | USD | 1835 | 1531 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0/2 | 0 | 59 |
-| https://partsology.com | shopify | USD | 3000 | 1459 | 0 | 0 | 0 | 40 | 0 | 1 | 0 | 0 | 0 | 0 | 9/9 | 11 | 2902 |
-| https://autorimshop.com | shopify | USD | 3000 | 1404 | 0 | 0 | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0/2 | 0 | 733 |
-| https://caliraisedled.com | shopify | USD | 1642 | 1324 | 0 | 3 | 1 | 3 | 1 | 0 | 0 | 0 | 0 | 0 | 4/8 | 7 | 15028 |
-| https://autopainthq.com | shopify | USD | 3000 | 1276 | 0 | 0 | 0 | 4 | 0 | 0 | 0 | 0 | 1 | 0 | 0/5 | 0 | 540 |
-| https://retromanufacturing.com | shopify | USD | 3000 | 1222 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/1 | 0 | 4228 |
-| https://tacomalifestyle.com | shopify | USD | 3000 | 1214 | 0 | 13 | 1 | 8 | 12 | 0 | 0 | 0 | 35 | 6 | 22/30 | 34 | 11793 |
-| https://pitstopusa.com | shopify | USD | 3000 | 1090 | 35 | 12 | 3 | 8 | 74 | 90 | 26 | 12 | 1 | 0 | 16/30 | 16 | 4329 |
-| https://sdhqoffroad.com | shopify | ? | 3000 | 1089 | 4 | 15 | 0 | 1 | 8 | 3 | 3 | 21 | 0 | 1 | 0/30 | 1 | 3820 |
-| https://eliteautogear.com | shopify | USD | 1882 | 1058 | 0 | 70 | 0 | 0 | 0 | 0 | 0 | 16 | 0 | 0 | 25/30 | 25 | 1847 |
-| https://k-tecracing.com | shopify | GBP | 2219 | 1037 | 32 | 10 | 14 | 0 | 62 | 23 | 82 | 68 | 1 | 154 | 0/30 | 154 | 2277 |
-| https://mizumoauto.com | shopify | USD | 3000 | 1021 | 111 | 33 | 44 | 12 | 296 | 34 | 114 | 157 | 0 | 0 | 0/30 | 0 | 2913 |
-| https://extremeonlinestore.com | shopify | USD | 2000 | 935 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 0/4 | 0 | 2743 |
-| https://4runnerlifestyle.com | shopify | USD | 3000 | 933 | 0 | 41 | 1 | 38 | 6 | 0 | 1 | 0 | 35 | 3 | 22/30 | 30 | 12374 |
-| https://torque-gt.co.uk | shopify | GBP | 3000 | 862 | 4 | 0 | 0 | 0 | 46 | 11 | 27 | 27 | 0 | 0 | 0/30 | 0 | 2950 |
-| https://darwinproaero.com | shopify | USD | 2036 | 845 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 4 | 0 | 0 | 0/5 | 0 | 5510 |
-| https://kiesmotorsports.com | shopify | USD | 999 | 779 | 1 | 0 | 1 | 0 | 10 | 22 | 29 | 7 | 0 | 0 | 25/30 | 25 | 1441 |
-| https://vmcchineseparts.com | shopify | USD | 3000 | 727 | 2 | 23 | 0 | 2 | 61 | 17 | 109 | 8 | 0 | 0 | 0/30 | 0 | 2904 |
-| https://prlmotorsports.com | shopify | USD | 784 | 591 | 1 | 3 | 2 | 0 | 21 | 5 | 26 | 11 | 0 | 0 | 0/30 | 0 | 837 |
-| https://carsupplieswarehouse.com | shopify | USD | 1370 | 571 | 0 | 23 | 0 | 1 | 0 | 0 | 1 | 0 | 393 | 0 | 12/30 | 16 | 2241 |
-| https://bebuyby.com | shopify | GBP | 3000 | 530 | 1 | 28 | 1 | 5 | 3 | 2 | 0 | 2 | 60 | 0 | 0/30 | 0 | 15509 |
-| https://burgertuning.com | shopify | USD | 667 | 520 | 0 | 1 | 0 | 0 | 17 | 21 | 3 | 10 | 0 | 0 | 0/30 | 0 | 565 |
-| https://motionraceworks.com | shopify | USD | 2121 | 511 | 3 | 1 | 0 | 0 | 38 | 0 | 77 | 28 | 2 | 0 | 0/30 | 0 | 1451 |
-| https://aeroflowdynamics.com | shopify | USD | 535 | 439 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/1 | 0 | 819 |
-| https://subiesupplyco.ca | shopify | CAD | 3000 | 435 | 23 | 4 | 0 | 2 | 31 | 0 | 62 | 74 | 0 | 0 | 4/29 | 6 | 3189 |
-| https://alpharexusa.com | shopify | USD | 718 | 432 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 959 |
-| https://f150leds.com | shopify | USD | 545 | 426 | 0 | 0 | 0 | 21 | 0 | 0 | 0 | 0 | 0 | 0 | 0/18 | 0 | 462 |
-| https://ind-distribution.com | shopify | USD | 729 | 396 | 1 | 1 | 0 | 0 | 3 | 0 | 2 | 1 | 0 | 0 | 0/8 | 0 | 1223 |
-| https://carsilks.com | shopify | USD | 399 | 392 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 0 |
-| https://jdcustomsusa.com | shopify | USD | 3000 | 386 | 0 | 4 | 0 | 3 | 81 | 2 | 24 | 14 | 4 | 0 | 24/30 | 24 | 3313 |
-| https://rgbhalokits.com | shopify | USD | 826 | 376 | 0 | 0 | 0 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 2/5 | 14 | 1024 |
-| https://hirevsports.com | shopify | USD | 446 | 362 | 0 | 0 | 3 | 0 | 0 | 0 | 14 | 0 | 0 | 0 | 0/17 | 0 | 998 |
-| https://issautomotive.com | shopify | USD | 1203 | 331 | 0 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 10 | 0/1 | 10 | 900 |
-| https://ppepower.com | shopify | USD | 1013 | 330 | 55 | 3 | 0 | 26 | 31 | 0 | 0 | 106 | 0 | 1 | 28/30 | 34 | 5 |
-| https://tcbros.com | shopify | USD | 2013 | 330 | 4 | 27 | 0 | 2 | 24 | 18 | 74 | 0 | 2 | 0 | 0/30 | 0 | 5 |
-| https://nvx.com | shopify | USD | 681 | 321 | 0 | 15 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 11/16 | 11 | 619 |
-| https://powerfuluk.com | shopify | GBP | 3000 | 321 | 0 | 32 | 32 | 62 | 25 | 2 | 7 | 9 | 0 | 0 | 0/30 | 0 | 2952 |
-| https://kimblade.com | shopify | USD | 287 | 284 | 0 | 0 | 284 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/30 | 0 | 303 |
-| https://kspmotor.com | shopify | USD | 495 | 284 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 356 |
-| https://carlightbulb.com | shopify | GBP | 241 | 207 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0/1 | 0 | 241 |
-| https://caautoparts.com | shopify | USD | 3000 | 202 | 28 | 0 | 0 | 0 | 31 | 2 | 0 | 6 | 0 | 0 | 30/30 | 30 | 3000 |
-| https://dv8offroad.com | shopify | USD | 478 | 192 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 537 |
-| https://boostautoparts.com | shopify | USD | 571 | 189 | 0 | 0 | 0 | 15 | 0 | 0 | 0 | 0 | 0 | 0 | 0/15 | 0 | 3314 |
-| https://mountunestore.com | shopify | GBP | 369 | 178 | 5 | 2 | 0 | 0 | 16 | 7 | 26 | 1 | 0 | 0 | 0/30 | 0 | 543 |
-| https://stingerdrive.com | shopify | USD | 294 | 150 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1/1 | 1 | 267 |
-| https://unitedrvparts.com | shopify | USD | 3000 | 140 | 2 | 32 | 20 | 22 | 12 | 2 | 0 | 0 | 1 | 0 | 6/29 | 6 | 1552 |
-| https://autoyunn.com | shopify | USD | 372 | 135 | 0 | 7 | 3 | 1 | 0 | 2 | 1 | 0 | 4 | 222 | 0/16 | 222 | 84 |
-| https://vbeltguys.com | shopify | USD | 3000 | 134 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 2928 |
-| https://monstertransmission.com | shopify | USD | 2168 | 108 | 5 | 0 | 0 | 6 | 1 | 0 | 0 | 0 | 0 | 0 | 1/6 | 1 | 3426 |
-| https://diamondbackcovers.com | shopify | USD | 248 | 100 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 739 |
-| https://mustangseats.com | shopify | USD | 738 | 99 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 647 |
-| https://autofinesse.com | shopify | GBP | 181 | 91 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 80 | 0 | 26/30 | 40 | 201 |
-| https://typesauto.com | shopify | USD | 230 | 80 | 0 | 6 | 0 | 22 | 0 | 0 | 0 | 0 | 0 | 0 | 27/28 | 23 | 245 |
-| https://ultrabrightlightz.com | shopify | USD | 770 | 79 | 0 | 0 | 0 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0/3 | 0 | 1526 |
-| https://icarsoft-us.com | shopify | USD | 144 | 75 | 0 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1/1 | 1 | 66 |
-| https://hornblasters.com | shopify | USD | 671 | 73 | 0 | 1 | 0 | 0 | 13 | 0 | 0 | 0 | 0 | 0 | 5/13 | 5 | 891 |
-| https://tkmauto.com | shopify | USD | 111 | 67 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 55 |
-| https://ethoscarcare.com | shopify | USD | 141 | 63 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 45 | 0 | 15/30 | 22 | 126 |
-| https://fifteen52.com | shopify | USD | 225 | 62 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 484 |
-| https://autostopeliminator.com | shopify | USD | 114 | 55 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 69 |
-| https://electroandcompany.com | shopify | USD | 709 | 47 | 0 | 28 | 2 | 0 | 0 | 0 | 17 | 0 | 0 | 0 | 0/30 | 0 | 157 |
-| https://detailking.com | shopify | USD | 239 | 45 | 0 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 22 | 0 | 0/23 | 0 | 216 |
-| https://kryptoniteproducts.com | shopify | USD | 191 | 45 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 172 |
-| https://topdon.us | shopify | USD | 191 | 41 | 0 | 21 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 16/21 | 16 | 128 |
-| https://vinylfrog.com | shopify | USD | 327 | 41 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 1723 |
-| https://soflocustomparts.com | shopify | USD | 151 | 40 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 87 |
-| https://magnusonsuperchargers.com | shopify | USD | 201 | 28 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 | 0 | 0/2 | 0 | 435 |
-| https://3dmatsusa.com | shopify | USD | 80 | 27 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 680 |
-| https://ezcarcare.co.uk | shopify | GBP | 85 | 27 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 26 | 0 | 19/26 | 28 | 73 |
-| https://por15.com | shopify | USD | 52 | 25 | 0 | 0 | 0 | 0 | 0 | 0 | 3 | 0 | 4 | 0 | 6/7 | 17 | 3 |
-| https://gasmonkeygarage.com | shopify | USD | 172 | 11 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 5 | 0 | 0/5 | 0 | 564 |
-| https://westengw.com | shopify | USD | 202 | 9 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 1181 |
-| https://innovv.com | shopify | USD | 116 | 8 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 133 |
-| https://tirestreets.co.uk | shopify | GBP | 430 | 8 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 0 |
-| https://theautolinkr.com | shopify | USD | 11 | 7 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 3 |
-| https://uscargocontrol.com | shopify | USD | 3000 | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 2991 |
-| https://methodracewheels.com | shopify | USD | 355 | 5 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 1445 |
-| https://konigwheels.com | shopify | USD | 106 | 4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0/0 | 0 | 1209 |
-| https://seatcoversolutions.com | shopify | USD | 22 | 4 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 28 |
-| https://store.autel.com | shopify | USD | 127 | 3 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 267 |
-| https://olsatools.com | shopify | USD | 112 | 2 | 0 | 1 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 2/2 | 3 | 479 |
-| https://tirestreets.com | shopify | USD | 43 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 0 |
-| https://oilsdirect.co.uk | shopify | GBP | 300 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 2 |
-| https://wowo.co.uk | woocommerce | GBP | 10 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -/- | 0 | 0 |
+| https://bestparts.ca | shopify | CAD | 3000 | 2745 | 30 | 34 | 6 | 19 | 97 | 0 | 1643 | 7 | 0 | 0 | 14/30 | 14 | 2699 |
+| https://maperformance.com | shopify | USD | 3000 | 2664 | 1 | 2 | 0 | 1 | 1 | 0 | 8 | 11 | 0 | 0 | 0/17 | 0 | 4246 |
+| https://brakesg.com | woocommerce | USD | 3000 | 2425 | 0 | 0 | 0 | 0 | 0 | 0 | 535 | 0 | 0 | 0 | -/- | 0 | 3000 |
+| https://partsource.ca | shopify | CAD | 3000 | 2403 | 30 | 3 | 327 | 14 | 109 | 28 | 51 | 138 | 8 | 0 | 0/30 | 0 | 0 |
+| https://carmats.co.uk | shopify | GBP | 3000 | 2360 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 12 | 0 | 4/12 | 6 | 1261 |
+| https://jhpusa.com | shopify | USD | 3000 | 2185 | 13 | 13 | 4 | 3 | 23 | 11 | 92 | 113 | 7 | 0 | 0/30 | 0 | 6280 |
+| https://autopartsxs.com | woocommerce | USD | 3000 | 1934 | 24 | 6 | 1 | 4 | 42 | 6 | 91 | 255 | 1 | 0 | -/- | 0 | 2917 |
+| https://partifyusa.com | shopify | USD | 3000 | 1775 | 0 | 0 | 2 | 3 | 0 | 0 | 0 | 66 | 0 | 0 | 0/30 | 0 | 35469 |
+| https://urotuning.com | shopify | USD | 3000 | 1678 | 1 | 0 | 0 | 0 | 0 | 0 | 1251 | 2 | 17 | 0 | 0/30 | 0 | 3041 |
+| https://stmtuned.com | shopify | USD | 3000 | 1574 | 112 | 19 | 5 | 1 | 145 | 11 | 55 | 120 | 0 | 0 | 5/30 | 5 | 4792 |
+| https://auxito.com | shopify | USD | 1529 | 1449 | 1 | 9 | 7 | 663 | 1 | 3 | 0 | 3 | 0 | 0 | 0/30 | 0 | 1296 |
+| https://amotopart.com | shopify | USD | 3000 | 1401 | 1 | 3 | 0 | 2 | 88 | 0 | 33 | 13 | 0 | 0 | 0/30 | 0 | 2960 |
+| https://hybrid-racing.com | shopify | USD | 3000 | 1333 | 18 | 17 | 4 | 10 | 54 | 19 | 26 | 108 | 0 | 0 | 0/30 | 0 | 4932 |
+| https://auxbeam.com | shopify | USD | 1833 | 1093 | 0 | 1 | 0 | 679 | 0 | 0 | 0 | 0 | 0 | 1 | 30/30 | 77 | 2589 |
+| https://lasfit.com | shopify | USD | 1135 | 854 | 0 | 0 | 0 | 194 | 0 | 0 | 0 | 0 | 0 | 0 | 18/30 | 28 | 1319 |
+| https://deatschwerks.com | shopify | USD | 1855 | 776 | 0 | 3 | 0 | 0 | 111 | 0 | 0 | 0 | 0 | 0 | 2/30 | 1 | 1088 |
+| https://sbfilters.com | shopify | USD | 974 | 713 | 0 | 2 | 0 | 0 | 252 | 0 | 0 | 12 | 0 | 0 | 16/30 | 19 | 735 |
+| https://lowbrowcustoms.com | shopify | USD | 3000 | 700 | 14 | 30 | 0 | 1 | 29 | 21 | 98 | 0 | 0 | 0 | 0/30 | 0 | 207 |
+| https://subimods.com | shopify | USD | 3000 | 672 | 5 | 2 | 7 | 32 | 41 | 2 | 154 | 63 | 8 | 0 | 3/30 | 3 | 3767 |
+| https://jdmenginepro.com | shopify | USD | 694 | 658 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 2 |
+| https://fuelinjectorclinic.com | shopify | USD | 920 | 555 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 1408 |
+| https://carzilla.ca | shopify | CAD | 3000 | 512 | 0 | 25 | 2 | 1 | 1 | 0 | 2 | 0 | 341 | 0 | 18/30 | 22 | 3664 |
+| https://princetires.ca | shopify | CAD | 3000 | 434 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 7 | 0/0 | 7 | 1842 |
+| https://zzperformance.com | shopify | USD | 1665 | 390 | 12 | 5 | 2 | 0 | 35 | 26 | 37 | 43 | 0 | 0 | 0/30 | 0 | 2064 |
+| https://elitetruck.com | shopify | USD | 3000 | 385 | 0 | 2 | 0 | 20 | 0 | 0 | 0 | 1 | 0 | 0 | 0/4 | 0 | 2564 |
+| https://performancebyie.com | shopify | USD | 324 | 238 | 0 | 0 | 1 | 0 | 6 | 0 | 0 | 0 | 0 | 0 | 7/7 | 7 | 397 |
+| https://dubsandtires.com | shopify | USD | 669 | 230 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 4 | 0 | 0/4 | 0 | 262 |
+| https://3wliners.com | shopify | USD | 326 | 209 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 1/1 | 2 | 583 |
+| https://valvetronic.com | shopify | USD | 218 | 173 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 631 |
+| https://wolfbox.com | shopify | USD | 157 | 149 | 0 | 12 | 0 | 5 | 0 | 0 | 0 | 0 | 0 | 0 | 0/12 | 0 | 99 |
+| https://www.mactools.com | shopify | USD | 3000 | 136 | 0 | 13 | 0 | 7 | 1 | 12 | 7 | 0 | 72 | 0 | 1/30 | 1 | 3607 |
+| https://venommotorsportsusa.com | shopify | USD | 1719 | 132 | 2 | 43 | 0 | 1 | 12 | 6 | 36 | 7 | 0 | 0 | 0/30 | 0 | 473 |
+| https://batterytender.com | shopify | USD | 125 | 107 | 0 | 95 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 27/29 | 27 | 75 |
+| https://717supply.com | shopify | USD | 431 | 89 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 | 0/2 | 0 | 6196 |
+| https://muc-off.com | shopify | GBP | 432 | 81 | 0 | 4 | 0 | 1 | 3 | 0 | 4 | 0 | 71 | 0 | 26/30 | 31 | 123 |
+| https://ancel.com | shopify | USD | 91 | 63 | 0 | 27 | 0 | 0 | 0 | 0 | 1 | 2 | 0 | 0 | 9/15 | 10 | 183 |
+| https://ultracarmats.com | shopify | GBP | 58 | 56 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 1 |
+| https://bankspower.com | shopify | USD | 324 | 28 | 7 | 0 | 0 | 0 | 14 | 0 | 0 | 0 | 0 | 0 | 14/21 | 25 | 142 |
+| https://redtigercam.com | shopify | USD | 166 | 26 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 115 |
+| https://enrforce.com | shopify | USD | 256 | 24 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2 | 0 | 0/2 | 0 | 100 |
+| https://innova.com | shopify | USD | 83 | 18 | 0 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 2/2 | 2 | 35 |
+| https://decked.com | shopify | USD | 105 | 16 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 390 |
+| https://restoridesgarage.com | shopify | USD | 55 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 3 |
+| https://distausa.com | shopify | USD | 3000 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 3842 |
+| https://topdon.com | shopify | USD | 160 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 17 |
+| https://champion.com | shopify | USD | 901 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0/0 | 0 | 4015 |
+| https://injectorrx.com | woocommerce | USD | 12 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -/- | 0 | 0 |
+| https://obdlink.com | woocommerce | USD | 6 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | -/- | 0 | 0 |
 
-Not readable: autobrite-direct.co.uk (Unexpected token '<', "<!DOCTYPE "... is not valid JSON), brakesplus.ca (fetch failed), canadianperformance.ca (HTTP 404), carbibles.co.uk (fetch failed), carcareproducts.co.uk (HTTP 404), cleanyourcar.co.uk (HTTP 404), detailingworld.co.uk (HTTP 406), kanter.com (HTTP 403), oemautoparts.ca (fetch failed), oilfilters.ca (fetch failed), planetsxs.com (HTTP 403)
+Not readable: accel.com (HTTP 404), autel.com (HTTP 404), batteriesinaflash.com (HTTP 406), batterysharks.com (HTTP 404), bavarianautosport.com (Unexpected token '<', "<!DOCTYPE "... is not valid JSON), bimmerworld.com (Unexpected token '<', "
+<!DOCTYPE "... is not valid JSON), blauparts.com (HTTP 403), bluedriver.com (fetch failed), bossperformance.com (fetch failed), brakedynamic.com (fetch failed), canadawheels.com (HTTP 404), carbonfiberparts.com (Unexpected token '<', "<!DOCTYPE "... is not valid JSON), carbonoil.com (HTTP 403), carolinaperformance.com (HTTP 404), carparts.ca (fetch failed), chevyparts.com (HTTP 404), clore.com (HTTP 404), cobbtuning.com (HTTP 403), deka.com (Unexpected token '<', "<!DOCTYPE "... is not valid JSON), denso.com (fetch failed), dtauto.ca (HTTP 404), ecstuning.com (HTTP 403), extremeterrain.com (HTTP 404), fastcarparts.ca (fetch failed), fastenerworld.com (fetch failed), foxwell.com (HTTP 404), fuelsystemsolutions.com (HTTP 400), fullraceperformance.com (fetch failed), importautoparts.ca (fetch failed), interstatebatteries.com (HTTP 404), kendall.com (fetch failed), launchtech.com (HTTP 404), lifeline-batteries.com (fetch failed), liquimoly.us (fetch failed), lmr.com (HTTP 403), lubegard.com (fetch failed), lucasoil.com (HTTP 404), msdignition.com (HTTP 404), ngkspark.com (HTTP 403), noco.com (HTTP 404), nology.com (HTTP 404), nwperformance.com (HTTP 404), oilfiltersales.com (HTTP 404), ontariospeed.ca (fetch failed), paragon-performance.com (Unexpected token '<', "<!doctype "... is not valid JSON), partsrunner.com (HTTP 404), pennzoil.com (HTTP 403), perfspeed.ca (fetch failed), quakerstate.com (HTTP 403), redline360.com (fetch failed), rislone.com (Unexpected token '<', "<!DOCTYPE "... is not valid JSON), rotella.com (HTTP 403), royalpurple.com (Unexpected token '<', "<!doctype "... is not valid JSON), rpmwholesale.com (fetch failed), sealoilsolutions.com (fetch failed), shell-lubricants.com (HTTP 404), shopcarid.com (fetch failed), speedfactory.ca (HTTP 404), speedofficial.com (fetch failed), streetwiseperformance.com (HTTP 404), supertechperformance.com (HTTP 404), t1race.com (Unexpected token '<', "<!DOCTYPE "... is not valid JSON), taylorvertex.com (Unexpected token '<', "
+<!doctype "... is not valid JSON), techron.com (fetch failed), ttrperformance.com (fetch failed), tunerworks.com (HTTP 404), tuningcanada.com (fetch failed), turn14.com (HTTP 404), valvoline.com (HTTP 404), vividracing.com (HTTP 403), vwparts.com (fetch failed), walbro.com (HTTP 404), xsbattery.com (Unexpected token '<', "<!DOCTYPE "... is not valid JSON)
