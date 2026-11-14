@@ -1,3 +1,4 @@
+import { productPath } from "@/lib/index-tiers";
 import Link from "next/link";
 import { DEFAULT_REGION, REGIONS, type RegionCode } from "@/site";
 import { bestIn, groupFamilies, spreadIn } from "@/lib/data";
@@ -17,7 +18,7 @@ export function ProductTile({ f, region, options, from }: { f: Product; region?:
   return (
     <Link
       prefetch={false}
-      href={`/product/${f.slug}`}
+      href={productPath(f)}
       // A plain click opens the quick view (QuickView.tsx); the link itself stays for crawlers and new tabs.
       data-qv={f.slug}
       data-qv-name={f.name}
