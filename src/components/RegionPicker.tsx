@@ -100,7 +100,7 @@ export function RegionTabs({ available }: { available: RegionCode[] }) {
           role="tab"
           aria-selected={region === r.code}
           onClick={() => setRegion(r.code)}
-          className={`inline-flex min-h-10 items-center rounded-full border px-3 text-sm transition ${region === r.code ? "border-ink bg-ink text-bg" : "border-line bg-card text-ink hover:border-soft"}`}
+          className={`inline-flex min-h-10 items-center gap-1.5 rounded-full border px-3 text-sm transition ${region === r.code ? "border-ink bg-ink text-bg" : "border-line bg-card text-ink hover:border-soft"}`}
         >
           <Flag code={r.code} /> {r.code}
         </button>
