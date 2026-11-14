@@ -1,0 +1,78 @@
+{
+ "v": 1,
+ "site": "motorcompare.app",
+ "at": "2026-11-14T18:31:04.062Z",
+ "overall": "warn",
+ "checks": [
+  {
+   "name": "Live site",
+   "status": "warn",
+   "detail": "SITE_URL repository variable not set: live checks skipped"
+  },
+  {
+   "name": "Search index",
+   "status": "warn",
+   "detail": "SITE_URL not set"
+  },
+  {
+   "name": "Daily price import",
+   "status": "ok",
+   "detail": "3.6h old"
+  },
+  {
+   "name": "Store imports",
+   "status": "warn",
+   "detail": "s4wdpartshop: https://4wdpartshop.com.au/wp-json/wc/store/v1/products?per_page=100&page=1: HTTP 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"te; akracing: https://akracing.com.au/wp-json/wc/store/v1/products?per_page=100&page=1: HTTP 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/; brakesg: https://brakesg.com/robots.txt: fetch failed; partifyusa: https://partifyusa.com/products.json?limit=250&page=37&country=US: HTTP 500; partify: Maximum call stack size exceeded; coverking: Maximum call stack size exceeded"
+  },
+  {
+   "name": "Catalogue",
+   "status": "ok",
+   "detail": "39256 products"
+  },
+  {
+   "name": "Data size",
+   "status": "warn",
+   "detail": "products.json is 25.3 MB: builds slow down; trim fields in src/lib/products-file.ts before raising minStoresPerRegion"
+  },
+  {
+   "name": "Ratings and reviews",
+   "status": "ok",
+   "detail": "0 products rated"
+  },
+  {
+   "name": "Link audit",
+   "status": "ok",
+   "detail": "6294 links checked, 1 found wrong (0.0%), last run 10h ago"
+  },
+  {
+   "name": "Delivery quotes",
+   "status": "ok",
+   "detail": "66 of 201 stores quoted"
+  },
+  {
+   "name": "Store deals",
+   "status": "ok",
+   "detail": "145 of 201 stores checked; 0 run multi-buys or gifts on 0 products"
+  },
+  {
+   "name": "Page readers",
+   "status": "ok",
+   "detail": "no page stores"
+  },
+  {
+   "name": "Partner feeds",
+   "status": "ok",
+   "detail": "no partner feed set up yet "
+  },
+  {
+   "name": "Amazon ASINs",
+   "status": "ok",
+   "detail": "US 0 ASINs (23117 waiting); UK 0 ASINs (1343 waiting); CA waiting for Amazon API access; EU 0 ASINs (0 waiting); AU waiting for Amazon API access"
+  },
+  {
+   "name": "eBay listings",
+   "status": "ok",
+   "detail": "3300/3300 calls on 2026-11-14"
+  }
+ ]
+}
