@@ -1,3 +1,4 @@
+import { productPath } from "@/lib/index-tiers";
 import Link from "next/link";
 import { REGION_BY_CODE, type RegionCode } from "@/site";
 import { bestIn, spreadIn, storeName } from "@/lib/data";
@@ -28,7 +29,7 @@ export function PriceList({ region, products }: { region: RegionCode; products: 
           {rows.map(({ f, b, s }) => (
             <tr key={f.ean}>
               <td className="px-4 py-2.5">
-                <Link prefetch={false} href={`/product/${f.slug}`} className="font-medium hover:underline">
+                <Link prefetch={false} href={productPath(f)} className="font-medium hover:underline">
                   {f.name}
                 </Link>
               </td>

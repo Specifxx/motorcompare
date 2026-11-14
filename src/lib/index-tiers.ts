@@ -31,7 +31,10 @@ export function inSitemap(f: Product): boolean {
 
 /** How many product pages (and quick-view files) the daily build writes (DECISIONS.md 2026-11-06, "Build only the
  *  top product pages"). The rest render on their first visit and are kept until the next release. */
-export const PREBUILT_PRODUCTS = 500;
+// 100 (2026-11-14, Vercel cost): a prebuilt page of this dynamicParams route is an ISR write at every release (2 to 37
+// 8 KB units each, ~16,000 units in 12 hours), whether or not anyone opens it before the next one. The rest render on
+// first visit, as before.
+export const PREBUILT_PRODUCTS = 100;
 
 /** The products prerendered at build: the most widely stocked in the sitemap tier. */
 export function prebuiltProducts(all: Product[]): Product[] {
@@ -50,4 +53,11 @@ export const SITEMAP_PRODUCTS = 300;
 
 export function sitemapProducts(all: Product[]): Product[] {
   return prebuiltProducts(all).slice(0, SITEMAP_PRODUCTS);
+}
+
+/** Where a product's links point. A page Google is not asked to index is linked as /p/<slug>, which next.config.js
+ *  rewrites to the same page and robots.txt keeps crawlers out of: every crawler visit to one of ~33,000 noindex
+ *  pages was an ISR render and write after each release (Vercel cost, 2026-11-14). Visitors see the same page. */
+export function productPath(f: Product): string {
+  return isIndexable(f) ? `/product/${f.slug}` : `/p/${f.slug}`;
 }

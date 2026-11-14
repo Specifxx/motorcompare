@@ -8,7 +8,7 @@ import { CAT_BY_KEY, REGIONS, SITE, type RegionCode } from "@/site";
 import { fitHub, relatedParts, bestIn, cheapestDelivered, getMeta, brandPages, getEbay, getHistory, getProduct, getProducts, productsOfBrand, productsOfCat, regionsOf, spreadIn, storeCount, storeName, variantLabel, variantLabels, variantsOf } from "@/lib/data";
 import { dayNumber, lowestOrderable } from "@/lib/history";
 import { decimal, money, niceDate, pct } from "@/lib/format";
-import { isIndexable, prebuiltProducts } from "@/lib/index-tiers";
+import { isIndexable, prebuiltProducts, productPath } from "@/lib/index-tiers";
 import { buyLink } from "@/lib/affiliate";
 import { ProductImage } from "@/components/ProductImage";
 import { PriceTable, priceRows } from "@/components/PriceTable";
@@ -42,7 +42,7 @@ import { crossRefs, specsOf, statedFit } from "@/lib/specs";
 import { fitSummary } from "@/lib/fitment";
 import { codeSlug, FIT_INDEX_MIN, fitPath } from "@/lib/fit-codes";
 
-// The build prerenders only the top products (prebuiltProducts, 500 of ~37,000):
+// The build prerenders only the top products (prebuiltProducts, 100 of ~39,000):
 // writing every page made the daily build 15+ minutes. Any other product renders
 // on its first visit, from the same data in the same deployment, and is kept as a
 // static file until the next release (no revalidate timer). A slug the release
@@ -233,7 +233,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 </li>
                 {variants.slice(0, 60).map((v) => (
                   <li key={v.ean}>
-                    <Link prefetch={false} href={`/product/${v.slug}`} className="chip border border-line bg-card text-ink hover:border-soft">
+                    <Link prefetch={false} href={productPath(v)} className="chip border border-line bg-card text-ink hover:border-soft">
                       {labels.get(v.ean)}
                     </Link>
                   </li>

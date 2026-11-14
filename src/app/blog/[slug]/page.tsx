@@ -1,3 +1,4 @@
+import { productPath } from "@/lib/index-tiers";
 import type { Metadata } from "next";
 import { fitDescription, fitTitle } from "@/lib/seo";
 import Link from "next/link";
@@ -170,7 +171,7 @@ function BrandStores() {
                     {d.slice(0, 15).map(({ f, official, shop }) => (
                       <tr key={f.ean}>
                         <td className="px-4 py-2.5">
-                          <Link prefetch={false} href={`/product/${f.slug}`} className="font-medium hover:underline">
+                          <Link prefetch={false} href={productPath(f)} className="font-medium hover:underline">
                             {f.name}
                           </Link>
                         </td>

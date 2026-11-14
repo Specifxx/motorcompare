@@ -11,3 +11,20 @@ Owner (ported from KaeYoung): the side rails are off, so replace them with ONE b
 - The phone dock stays (eBay only), now phones only (below 768px; it showed under 1440px while the rails existed), and it yields while the block is on screen. Its tag is `dock-ebay`, derived from `inline-ebay`.
 - Measure clicks per placement (`inline_*` against `dock_ebay` and the price table's pinned rows) a week after the next release, before changing the block. Never re-add rails or a second block without the owner.
 - `SITE.sideRails` stays as the one off switch for the block and the dock (false renders and fetches nothing).
+
+## 2026-11-14: fewer ISR writes: noindex products under /p/, 100 prebuilt pages
+
+Vercel billing put MotorCompare second on the team (US$2.16 over 11 to 12 Nov, US$1.51 of it ISR writes, the team's
+largest line); only `/product/[slug]` wrote, about 16,000 8 KB units in 12 hours, 2 to 37 units a page. Two causes:
+
+- **Prebuilt pages are written at every release.** 500 pages at ~30 units each is ~15,000 units per deploy, and the
+  site released several times a day (daily data plus `[urgent]` code releases). `PREBUILT_PRODUCTS` is now 100; the
+  rest render on their first visit, as before.
+- **Crawlers walked ~33,000 noindex product pages** (39,042 products, 5,662 indexable), each a render and write after
+  every release. A product Google is not asked to index is now linked as `/p/<slug>` (`productPath`,
+  `lib/index-tiers.ts`), which `next.config.js` rewrites to the same page and `robots.txt` disallows. Visitors see the
+  same page; the canonical stays `/product/<slug>`. Client-only links (basket, garage, quick view, search) keep
+  `/product/`: crawlers never see them.
+
+Every `[deploy]`/`[urgent]` release empties the cache, so each extra release costs the prebuilt pages again: keep to
+the one daily data release unless the owner says a change is urgent.

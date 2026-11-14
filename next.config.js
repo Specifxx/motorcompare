@@ -20,6 +20,12 @@ module.exports = {
   },
   // The full launch (owner, 2026-11-10): the old vercel.app host sends everyone to the real domain, and the creators
   // page (a fragrance-site leftover with no MotorCompare creators yet) is gone from the nav, the sitemap and the web.
+  // A product Google is not asked to index is linked as /p/<slug> (lib/index-tiers.ts productPath): the same page,
+  // and robots.txt keeps crawlers out, so ~33,000 noindex pages stop being rendered and written after each release
+  // (Vercel cost, 2026-11-14: ISR writes were the team's largest line).
+  async rewrites() {
+    return [{ source: "/p/:slug", destination: "/product/:slug" }];
+  },
   async redirects() {
     return [
       { source: "/:path*", has: [{ type: "host", value: "motorcompare.vercel.app" }], destination: "https://motorcompare.app/:path*", permanent: true },
