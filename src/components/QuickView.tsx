@@ -123,7 +123,7 @@ export function QuickView() {
       <button type="button" aria-label="Close" tabIndex={-1} className="qv-backdrop absolute inset-0 bg-ink/40 backdrop-blur-[2px]" onClick={close} />
       <div className="qv-panel relative flex max-h-[92vh] w-full max-w-xl flex-col sm:max-w-3xl sm:h-[85vh] h-[88vh] overflow-hidden rounded-t-3xl border border-line bg-card shadow-2xl sm:rounded-3xl">
         <div className="flex items-start gap-4 border-b border-line p-4 sm:p-5">
-          <div className="grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-2xl bg-gradient-to-b from-white to-subtle">
+          <div className="grid h-24 w-24 shrink-0 place-items-center overflow-hidden rounded-2xl plate">
             <ProductImage src={head.img} alt={head.name} label={head.brand || "car part"} eager className="h-full w-full object-contain p-2" />
           </div>
           <div className="min-w-0 flex-1">
@@ -132,7 +132,7 @@ export function QuickView() {
             {data && data !== "loading" && data.size && <p className="mt-1 text-xs text-soft">{data.size}</p>}
             {data && data !== "loading" && <ShareButton title={short} path={`/product/${head.slug}`} texts={data.share} className="mt-2" />}
           </div>
-          <button ref={closeRef} type="button" onClick={close} aria-label="Close" className="-mr-1 -mt-1 grid h-9 w-9 shrink-0 place-items-center rounded-full text-soft hover:bg-subtle hover:text-ink">
+          <button ref={closeRef} type="button" onClick={close} aria-label="Close" className="-mr-1 -mt-1 grid h-10 w-10 shrink-0 place-items-center rounded-full text-soft hover:bg-subtle hover:text-ink">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden>
               <path d="M6 6l12 12M18 6 6 18" />
             </svg>

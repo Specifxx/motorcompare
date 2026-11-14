@@ -16,7 +16,7 @@ export function Footer({ updated }: { updated?: string | null }) {
             <span className="font-display text-xl font-semibold">MotorCompare</span>
           </div>
           <p className="mt-3 text-soft">
-            prices from real parts stores, matched by the maker&apos;s part number and checked every day. {SITE.slogan}
+            Prices from real parts stores, matched by the maker&apos;s part number and checked every day. {SITE.slogan}
           </p>
           {updated && <p className="mt-3 text-xs text-soft">Prices updated {updated}.</p>}
           <p className="mt-3 text-xs text-soft">
@@ -39,14 +39,14 @@ export function Footer({ updated }: { updated?: string | null }) {
         <div>
           <h2 className="eyebrow mb-3">MotorCompare</h2>
           <ul className="space-y-1.5">
-            <li><Link prefetch={false} href="/deals" className="text-soft hover:text-ink">car parts deals today</Link></li>
+            <li><Link prefetch={false} href="/deals" className="text-soft hover:text-ink">Car parts deals today</Link></li>
             <li><Link prefetch={false} href="/is-this-a-good-price" className="text-soft hover:text-ink">Is this a good price?</Link></li>
             <li><Link prefetch={false} href="/black-friday" className="text-soft hover:text-ink">Black Friday car parts deals</Link></li>
             <li><Link prefetch={false} href="/cyber-monday" className="text-soft hover:text-ink">Cyber Monday car parts deals</Link></li>
             <li><Link prefetch={false} href="/boxing-day" className="text-soft hover:text-ink">Boxing Day car parts deals</Link></li>
             <li><Link prefetch={false} href="/january-sales" className="text-soft hover:text-ink">January sales</Link></li>
             <li><Link prefetch={false} href="/car" className="text-soft hover:text-ink">Parts by car and engine</Link></li>
-            <li><Link prefetch={false} href="/brands" className="text-soft hover:text-ink">car parts brands</Link></li>
+            <li><Link prefetch={false} href="/brands" className="text-soft hover:text-ink">Car parts brands</Link></li>
             <li><Link prefetch={false} href="/guides" className="text-soft hover:text-ink">Price guides</Link></li>
             {POSTS.length > 0 && <li><Link prefetch={false} href="/blog" className="text-soft hover:text-ink">Blog</Link></li>}
             <li><Link prefetch={false} href="/stores" className="text-soft hover:text-ink">Where to buy car parts online</Link></li>

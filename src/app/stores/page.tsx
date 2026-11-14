@@ -31,16 +31,30 @@ export default function Stores() {
               <h2 className="h-display mb-3 text-xl">
                 <Flag code={r.code} /> {r.name}
               </h2>
-              <ul className="space-y-1.5 text-sm">
-                {list.map((s) => (
-                  <li key={s.id} className="flex justify-between gap-2">
-                    <a href={storeUrl(s.id, s.base)} rel="nofollow noopener" target="_blank" className="font-medium hover:underline">
-                      {s.name}
-                    </a>
-                    <span className="shrink-0 whitespace-nowrap tabular-nums text-soft">{counts[s.id] ? `${counts[s.id].toLocaleString("en-US")} products` : "checking"}</span>
-                  </li>
-                ))}
-              </ul>
+              {/* Stores with products today in view; the ones still being checked folded underneath (same order, still in the HTML). */}
+              {[list.filter((s) => counts[s.id]), list.filter((s) => !counts[s.id])].map((part, i) => {
+                if (!part.length) return null;
+                const ul = (
+                  <ul className={`space-y-1.5 text-sm ${i ? "mt-2" : ""}`}>
+                    {part.map((s) => (
+                      <li key={s.id} className="flex justify-between gap-2">
+                        <a href={storeUrl(s.id, s.base)} rel="nofollow noopener" target="_blank" className="min-w-0 font-medium hover:underline">
+                          {s.name}
+                        </a>
+                        <span className="shrink-0 whitespace-nowrap tabular-nums text-soft">{counts[s.id] ? `${counts[s.id].toLocaleString("en-US")} products` : "checking"}</span>
+                      </li>
+                    ))}
+                  </ul>
+                );
+                return i ? (
+                  <details key="checking" className={`fine text-sm ${list.length > part.length ? "mt-3 border-t border-line pt-1" : ""}`}>
+                    <summary>{part.length} more we are still checking</summary>
+                    {ul}
+                  </details>
+                ) : (
+                  <div key="live">{ul}</div>
+                );
+              })}
             </section>
           );
         })}

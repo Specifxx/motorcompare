@@ -35,7 +35,7 @@ export function RegionPicker({ compact = false }: { compact?: boolean }) {
   if (ACTIVE_REGIONS.length < 2) return null;
   const current = REGIONS.find((r) => r.code === region);
   return (
-    <label className="relative inline-flex items-center gap-1.5 rounded-full border border-line bg-card py-1.5 pl-3 pr-2.5 text-sm font-medium text-ink focus-within:ring-2 focus-within:ring-accent/40 hover:border-soft">
+    <label className="relative inline-flex h-10 items-center gap-1.5 rounded-full border border-line bg-card pl-3 pr-2.5 text-sm font-medium text-ink focus-within:ring-2 focus-within:ring-accent/40 hover:border-soft">
       <Flag code={region} />
       <span>{compact || !current ? region : current.name}</span>
       <span aria-hidden className="text-[9px] text-soft">▼</span>
@@ -76,7 +76,7 @@ export function RegionChips({ className = "" }: { className?: string }) {
             aria-pressed={on}
             onClick={() => setRegion(r.code)}
             title={r.name}
-            className={`inline-flex min-h-10 items-center gap-1.5 rounded-full border px-2.5 text-sm font-semibold transition ${on ? "border-accent bg-accent text-white" : "border-line bg-card text-ink hover:border-soft"}`}
+            className={`inline-flex min-h-10 items-center gap-1.5 rounded-full border px-2.5 text-sm font-semibold transition ${on ? "border-accent bg-accent text-white dark:text-bg" : "border-line bg-card text-ink hover:border-soft"}`}
           >
             <Flag code={r.code} />
             {r.code}
@@ -100,7 +100,7 @@ export function RegionTabs({ available }: { available: RegionCode[] }) {
           role="tab"
           aria-selected={region === r.code}
           onClick={() => setRegion(r.code)}
-          className={`rounded-full border px-3 py-1 text-sm transition ${region === r.code ? "border-ink bg-ink text-bg" : "border-line bg-card text-ink hover:border-soft"}`}
+          className={`inline-flex min-h-10 items-center rounded-full border px-3 text-sm transition ${region === r.code ? "border-ink bg-ink text-bg" : "border-line bg-card text-ink hover:border-soft"}`}
         >
           <Flag code={r.code} /> {r.code}
         </button>
