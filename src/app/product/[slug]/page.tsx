@@ -176,10 +176,11 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
         )}
       </nav>
 
-      <section className="grid grid-cols-1 gap-10 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]">
+      {/* On a phone the photo is smaller and the gap tighter, so the price card reaches the first screen. */}
+      <section className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-10">
         <div>
-          <div className="card relative mx-auto max-w-[240px] overflow-hidden bg-white sm:max-w-sm md:max-w-none">
-            <ProductImage src={f.img} alt={f.name} label={f.brand || "car part"} eager className="relative aspect-square w-full object-contain p-8" />
+          <div className="card relative mx-auto max-w-[176px] overflow-hidden bg-white sm:max-w-sm md:max-w-none">
+            <ProductImage src={f.img} alt={f.name} label={f.brand || "car part"} eager className="relative aspect-square w-full object-contain p-5 sm:p-8" />
           </div>
           <p className="mt-2 text-center text-xs text-soft">Photo from a store listing.</p>
         </div>
@@ -195,7 +196,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
                 {f.brand}
               </p>
             ))}
-          <h1 className="h-display mt-1.5 text-3xl leading-tight sm:text-[2.4rem]">{f.name}</h1>
+          <h1 className="h-display mt-1.5 text-[1.85rem] leading-[1.12] sm:text-[2.4rem]">{f.name}</h1>
           <div className="mt-3 flex flex-wrap items-center gap-2">
             <ShareButton title={f.name} path={`/product/${f.slug}`} texts={shareTexts(f)} />
             <WatchButton slug={f.slug} name={f.name} price={lowestOrderable(f.offers.AU)?.p ?? null} />
@@ -325,10 +326,14 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
               <PriceTable f={f} region={r.code} ebay={ebay[r.code]} />
             </div>
           ))}
-          <p className="mt-4 text-xs leading-relaxed text-soft">
+          {/* The fine print, folded (still in the page's HTML): the table is the point, the method is one tap away. */}
+          <details className="fine mt-3 text-xs leading-relaxed text-soft">
+            <summary>How these prices are checked</summary>
+          <p className="mt-2">
             Prices are each store&apos;s own at our last daily check{meta ? ` (${niceDate(meta.updatedAt)})` : ""}, before delivery; the store&apos;s checkout is the final price. Delivery is each store&apos;s own quote for a small order to one city, checked weekly. Every listing here carries {idOf(f.ean).ours}: the same part and size, not a look-alike.{" "}
             <Link prefetch={false} href="/basket" className="font-medium text-accent-deep hover:underline">Buying several products? Compare a basket →</Link>
           </p>
+          </details>
           <ReportPrice
             product={`${f.name} (${idOf(f.ean).value})`}
             stores={REGIONS.flatMap((r) => (f.offers[r.code] ?? []).map((o) => ({ name: `${storeName(o.s)} (${r.code})`, price: money(o.p, r.code) })))}

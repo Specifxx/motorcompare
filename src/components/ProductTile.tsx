@@ -26,7 +26,7 @@ export function ProductTile({ f, region, options, from }: { f: Product; region?:
       data-qv-img={f.img || undefined}
       className="card tile-hover group flex flex-col overflow-hidden"
     >
-      <div className="relative aspect-square bg-gradient-to-b from-white to-subtle">
+      <div className="relative aspect-square plate">
         <ProductImage src={f.img} alt={f.name} label={f.brand || "car part"} className="h-full w-full object-contain p-4 transition-transform duration-300 group-hover:scale-[1.03]" />
         {regions.map((r) => {
           const s = spreadIn(f, r.code);

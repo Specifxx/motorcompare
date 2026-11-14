@@ -39,3 +39,44 @@ text button (`inline`) is drawn as a bordered button (`cart.css`). Neutral, neve
 filled action and the calm three-colour rule holds. Nothing else moved: which rows can be added (open store rows, eBay and
 Amazon with a live price; never a marketplace or a search row), the line's buy link and its affiliate tag, the row order, the
 buy button and every placement are unchanged. A caller can still ask for the bare icon (`label={false}`).
+
+## 2026-11-14: Every page brought up to the home page's look (owner: "make all the other pages more aesthetic as well")
+
+The home page is the spec (its tokens, Barlow Condensed headings on one scale, white cards with hairlines, 40px round
+controls, the brand orange only for the one thing to press, green only for money). ScentCompare's change of the same day
+(its #74), ported by hand in MotorCompare's colours, plus the store lists that are this site's own. Per page type:
+
+- **Product pages.** On a phone the photo is smaller (176px plate, 20px padding) and the gap under it tighter, and the h1 is a
+  little tighter, so the price card starts about 90px higher. A store's whole name shows, wrapping to a second line instead of
+  being cut ("Import Image …"), in the price table and the quick view. The method note under the table ("Prices are each
+  store's own…", with its basket link) is folded into a native `<details>` ("How these prices are checked"), and "Report a
+  wrong price" uses the same quiet summary line (`.fine`): both still in the server HTML. The "Prices in" region tabs are 40px.
+- **List, brand, category and search pages.** The filter bar is one control height (40px) and one shape, in an even
+  two-column grid on a phone. Search keeps the filter bar's and the results' room from the first paint (layout shift on a
+  desktop 0.24 to 0.02). A search with no result says so in bold, suggests a part number or the code on the old part, and
+  offers "Clear filters" and "Popular now" above the existing big-shop search links (same links, same words, same order).
+- **Guides and static pages (about, terms, privacy, contact, disclosure…).** `Prose` is no longer a card: one article measure
+  (68 characters), one heading scale, styled lists and links (`.article-body`, touching only unclassed elements). The page
+  header is tighter on a phone, its line held to 62 characters. Breadcrumbs stay on one line, the last name cut with "…".
+  Guide index cards are a little tighter on a phone.
+- **Long store lists.** A country guide shows its first 12 stores and folds the rest ("Show all 96 stores", same order); the
+  stores page folds each region's stores that have no products yet ("61 more we are still checking"). Every name and link
+  is still in the server HTML.
+- **404.** The same h1 and line, plus the site search and four ways back (home, Popular, Deals today, All brands).
+- **Shared.** Every product photo sits on one light plate (`.plate`): on the night theme the old white-to-grey gradient ended
+  in the page's dark grey and read as a smudge. The header's theme, menu and region controls, the quick view's close, Share
+  and the pager are 40px tap targets; "All popular →"-style section links get a 40px hit area without moving. The day
+  theme's orange (`--accent`, `--buy`) is a shade deeper, `192 70 8` (was `214 82 14`): white button words on it read 5.1:1,
+  they read 4.1:1, under AA. Same hue; every button keeps its place, words and fill; the logo, icon and share images keep
+  `#d6520e`. Filled orange controls on the night theme take the page's dark colour for their words, as `btn-buy` already did.
+  The footer's lower-case starts are capitalised.
+
+Nothing paid moved: no paid link, pinned eBay / Amazon / chain row, ad block, affiliate tag or placement name was added,
+removed, reordered or reworded, and store rows stay in price order, so the 19 November clicks-per-placement recheck is
+unaffected. No URL, redirect, title, description, canonical, robots, Open Graph, JSON-LD or h1 changed: checked on 14 sampled
+pages, server HTML of `main` against this branch with scripts off (same metadata, structured data, h1, internal links and
+sponsored links in the same order with the same words and hrefs; the only text differences are the capitalised footer words,
+the two summary lines, the 404's links and the stores page's fold lines). No new font, library, client script, data read or
+revalidate. Left as they were: the home page's structure and its tinted "Shop by part" tiles, the price rows' "Add to cart"
+look (owner, today) and the best row's green ground, the store thumbs' size (owner's call), and a ~35px shift on a phone's
+product page while Barlow Condensed loads (on `main` too: a font-swap re-wrap of the h1, not from this change).

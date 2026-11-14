@@ -29,6 +29,8 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
   };
 }
 
+const STORES_SHOWN = 12;
+
 export default function GuidePage({ params }: { params: { slug: string } }) {
   const g = GUIDE_BY_SLUG[params.slug];
   if (!g) notFound();
@@ -82,16 +84,30 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       />
       <section className="mb-10">
         <h2 className="h-display mb-3 text-xl">The stores</h2>
-        <ul className="grid gap-2 sm:grid-cols-2">
-          {stores.map((s) => (
-            <li key={s.id} className="card flex items-center justify-between gap-3 px-4 py-3 text-sm">
-              <a href={storeUrl(s.id, s.base)} target="_blank" rel="nofollow noopener" className="font-medium hover:underline">
-                {s.name}
-              </a>
-              <span className="tabular-nums text-soft">{counts[s.id] ? `${counts[s.id].toLocaleString("en-US")} products compared` : "checking"}</span>
-            </li>
-          ))}
-        </ul>
+        {/* The first dozen in view, the rest folded (still in the page's HTML, same order): the list ran to a hundred rows. */}
+        {[stores.slice(0, STORES_SHOWN), stores.slice(STORES_SHOWN)].map((list, i) => {
+          if (!list.length) return null;
+          const ul = (
+            <ul className={`grid gap-2 sm:grid-cols-2 ${i ? "mt-2" : ""}`}>
+              {list.map((s) => (
+                <li key={s.id} className="card flex items-center justify-between gap-3 px-4 py-3 text-sm">
+                  <a href={storeUrl(s.id, s.base)} target="_blank" rel="nofollow noopener" className="min-w-0 font-medium hover:underline">
+                    {s.name}
+                  </a>
+                  <span className="shrink-0 tabular-nums text-soft">{counts[s.id] ? `${counts[s.id].toLocaleString("en-US")} products compared` : "checking"}</span>
+                </li>
+              ))}
+            </ul>
+          );
+          return i ? (
+            <details key="rest" className="fine mt-2 text-sm">
+              <summary>Show all {stores.length} stores</summary>
+              {ul}
+            </details>
+          ) : (
+            <div key="head">{ul}</div>
+          );
+        })}
       </section>
       {gaps.length > 0 && (
         <section className="mb-10">

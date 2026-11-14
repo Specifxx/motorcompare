@@ -92,8 +92,9 @@ export function ReportPrice({
   }
 
   return (
-    <details className={className} style={{ marginTop: 12, fontSize: 14 }} data-report-price>
-      <summary style={{ cursor: "pointer", opacity: 0.8, textDecoration: "underline", textUnderlineOffset: 3, width: "fit-content" }}>{summary}</summary>
+    // The same quiet fold as the price method note above it (globals.css `.fine`): one summary style per page.
+    <details className={`fine ${className ?? ""}`} style={{ fontSize: 14 }} data-report-price>
+      <summary className="text-xs">{summary}</summary>
       {state.status === "sent" ? (
         <div style={box}>
           <Result state={state} sentText="Thanks. We check every report and fix the price if it's wrong." />

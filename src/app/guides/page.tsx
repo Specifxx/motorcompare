@@ -16,20 +16,20 @@ export default function Guides() {
     <div className="mx-auto max-w-6xl px-4">
       <PageHead eyebrow="Save" title="Price guides" sub="Rebuilt every day from the prices we check, so every number is a real store price." />
       <h2 className="h-display mb-4 text-xl">By country</h2>
-      <div className="mb-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mb-10 grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
         {regions.map((g) => (
-          <Link key={g.slug} prefetch={false} href={`/guides/${g.slug}`} className="card tile-hover p-5">
+          <Link key={g.slug} prefetch={false} href={`/guides/${g.slug}`} className="card tile-hover px-4 py-4 sm:p-5">
             <p className="font-display text-lg font-medium leading-snug">{g.title}</p>
-            <p className="mt-1.5 text-sm text-soft">{g.description}</p>
+            <p className="mt-1 text-sm leading-relaxed text-soft">{g.description}</p>
           </Link>
         ))}
       </div>
       <h2 className="h-display mb-4 text-xl">By product</h2>
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="grid gap-2.5 sm:grid-cols-2 sm:gap-3 lg:grid-cols-3">
         {cats.map((g) => (
-          <Link key={g.slug} prefetch={false} href={`/guides/${g.slug}`} className="card tile-hover p-5">
+          <Link key={g.slug} prefetch={false} href={`/guides/${g.slug}`} className="card tile-hover px-4 py-4 sm:p-5">
             <p className="font-display text-lg font-medium leading-snug">{g.title}</p>
-            <p className="mt-1.5 text-sm text-soft">{g.description}</p>
+            <p className="mt-1 text-sm leading-relaxed text-soft">{g.description}</p>
           </Link>
         ))}
       </div>
