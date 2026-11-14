@@ -179,7 +179,7 @@ export default function ProductPage({ params }: { params: { slug: string } }) {
       {/* On a phone the photo is smaller and the gap tighter, so the price card reaches the first screen. */}
       <section className="grid grid-cols-1 gap-6 md:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] md:gap-10">
         <div>
-          <div className="card relative mx-auto max-w-[176px] overflow-hidden bg-white sm:max-w-sm md:max-w-none">
+          <div className="card photo-white relative mx-auto max-w-[176px] overflow-hidden bg-white sm:max-w-sm md:max-w-none">
             <ProductImage src={f.img} alt={f.name} label={f.brand || "car part"} eager className="relative aspect-square w-full object-contain p-5 sm:p-8" />
           </div>
           <p className="mt-2 text-center text-xs text-soft">Photo from a store listing.</p>

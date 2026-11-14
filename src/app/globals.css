@@ -118,6 +118,12 @@ html:not([data-region]) .rn-US { display: none; }
   .plate {
     background: linear-gradient(to bottom, #fff, rgb(var(--plate-end)));
   }
+  /* A photo's "no photo" label sits on that white plate in both themes, so it keeps the day grey (5.4:1 on white);
+     the night grey on white read 2.5:1. */
+  .plate,
+  .photo-white {
+    --soft: 92 104 118;
+  }
   /* Long-form text (about, terms, guides' and posts' prose): one measure, one heading scale, one list style.
      Only unclassed elements are touched, so a component inside an article keeps its own look. */
   .article-body {

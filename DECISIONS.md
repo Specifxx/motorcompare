@@ -80,3 +80,23 @@ the two summary lines, the 404's links and the stores page's fold lines). No new
 revalidate. Left as they were: the home page's structure and its tinted "Shop by part" tiles, the price rows' "Add to cart"
 look (owner, today) and the best row's green ground, the store thumbs' size (owner's call), and a ~35px shift on a phone's
 product page while Barlow Condensed loads (on `main` too: a font-swap re-wrap of the h1, not from this change).
+
+## 2026-11-14: Review of the day's redesign: two small faults fixed
+
+An independent check of the redesign above (#41): `main` before it against `main` after, fixture builds, 18 URLs at 390×844
+and 1440×900 in both themes, plus the server HTML of 17 pages with scripts off. It held: no horizontal scroll, no new console
+or hydration error, every focus ring visible, nothing animates under reduced motion, metadata, JSON-LD, h1s, internal links
+and the sponsored links (7 on each sampled product, same order, words and hrefs) identical, and the day theme's sub-4.5:1
+text went from 2 to 4 items a page to none. Robots, both sitemaps (every listed URL 200 and indexable) and 404s (404) are
+sound. Two faults it brought, fixed here:
+
+- **Product pages: "Prices in" tabs.** Making the tab `inline-flex` (for the 40px height) dropped the space between the flag
+  and the code ("🇺🇸US"). The tab gets `gap-1.5`, the same as the header's region chips.
+- **Night theme: "no photo" labels.** The photo plate is near-white in both themes now, but a tile without a photo still drew
+  its brand label in the night grey, 2.5:1 on white (12 tiles on a night search page). `.plate` (and the product page's white
+  photo card, `.photo-white`) keep the day grey for that label, 5.4:1.
+
+Noted, not changed: `/deals` (0.18 to 0.20) and `/popular` (0.10) shift on the fixture build because the one ad block reserves
+its room and then folds away when the fixture has no ad tiles; the same before and after #41, and the ad block is frozen
+until the 19 November recheck. Nothing paid, no URL and no metadata changed, so the 19 November clicks-per-placement recheck is
+unaffected.
