@@ -1,14 +1,86 @@
 {
+ "3wliners": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1000,
+  "freeFrom": 9200,
+  "paidAt": 9800,
+  "maxTested": 12800
+ },
+ "4runnerlifestyle": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1499,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "717supply": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 699,
+  "freeFrom": null,
+  "paidAt": 26699,
+  "maxTested": 26699
+ },
+ "adamspolishes": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 900,
+  "freeFrom": 12768,
+  "paidAt": 12369,
+  "maxTested": 12768
+ },
+ "aeroflowdynamics": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 1500,
+  "paidAt": 0,
+  "maxTested": 1500
+ },
+ "alpharexusa": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 1200,
+  "paidAt": 0,
+  "maxTested": 1200
+ },
  "altiq": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
-  "fee": 560,
-  "freeFrom": 6980,
-  "paidAt": 7191,
-  "maxTested": 11168
+  "fee": 549,
+  "freeFrom": 6840,
+  "paidAt": 7047,
+  "maxTested": 10944
+ },
+ "amotopart": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 44966,
+  "paidAt": 0,
+  "maxTested": 44966
+ },
+ "amtuning": {
+  "at": "2026-11-15",
+  "to": "Toronto",
+  "fee": 2800,
+  "freeFrom": null,
+  "paidAt": 26600,
+  "maxTested": 26600
+ },
+ "ancel": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 1999,
+  "paidAt": 0,
+  "maxTested": 1999
  },
  "ausgo4wd": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 5669,
@@ -16,7 +88,7 @@
   "maxTested": 5669
  },
  "australiaspeed": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 2706,
   "freeFrom": null,
@@ -24,28 +96,52 @@
   "maxTested": 27992
  },
  "autocave": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
-  "fee": 1000,
+  "fee": 1095,
   "freeFrom": null,
-  "paidAt": 26650,
-  "maxTested": 26650
+  "paidAt": 25215,
+  "maxTested": 25215
+ },
+ "autofiber": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1175,
+  "freeFrom": 10455,
+  "paidAt": 5760,
+  "maxTested": 10455
+ },
+ "autoglanz": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 495,
+  "freeFrom": 5120,
+  "paidAt": 4800,
+  "maxTested": 5120
  },
  "autolines": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
-  "freeFrom": 3172,
+  "freeFrom": 3108,
   "paidAt": 0,
-  "maxTested": 3172
+  "maxTested": 3108
  },
  "automegastore": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1393,
   "freeFrom": null,
   "paidAt": 25333,
   "maxTested": 25333
+ },
+ "autopainthq": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 10495,
+  "paidAt": 0,
+  "maxTested": 10495
  },
  "autopartsguys": {
   "at": "2026-11-10",
@@ -55,13 +151,69 @@
   "paidAt": 25182,
   "maxTested": 25182
  },
+ "autopartstoys": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 5995,
+  "paidAt": 0,
+  "maxTested": 5995
+ },
+ "autorimshop": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 22699,
+  "paidAt": 0,
+  "maxTested": 22699
+ },
+ "auxbeam": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 500,
+  "freeFrom": 2398,
+  "paidAt": 1199,
+  "maxTested": 2398
+ },
+ "auxito": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 640,
+  "paidAt": 0,
+  "maxTested": 640
+ },
+ "batteryclerk": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 841,
+  "freeFrom": 10792,
+  "paidAt": 9443,
+  "maxTested": 10792
+ },
  "batteryspecialists": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1300,
   "freeFrom": null,
   "paidAt": 26692,
   "maxTested": 26692
+ },
+ "batterytender": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 995,
+  "freeFrom": 10335,
+  "paidAt": 10535,
+  "maxTested": 12720
+ },
+ "batterywholesale": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 2297,
+  "freeFrom": null,
+  "paidAt": 25158,
+  "maxTested": 25158
  },
  "bavarianspeed": {
   "at": "2026-11-10",
@@ -71,24 +223,80 @@
   "paidAt": 25200,
   "maxTested": 25200
  },
+ "bayoptiks": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 3495,
+  "paidAt": 0,
+  "maxTested": 3495
+ },
  "bcracing": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1272,
   "freeFrom": null,
   "paidAt": 54900,
   "maxTested": 54900
  },
+ "bmptuning": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1499,
+  "freeFrom": 10500,
+  "paidAt": 9000,
+  "maxTested": 12000
+ },
+ "boostautoparts": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 895,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
  "brettstruck": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1276,
   "freeFrom": null,
   "paidAt": 26388,
   "maxTested": 26388
  },
+ "bulbamerica": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 833,
+  "freeFrom": 10183,
+  "paidAt": 9584,
+  "maxTested": 19168
+ },
+ "burgertuning": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 700,
+  "freeFrom": null,
+  "paidAt": 25000,
+  "maxTested": 25000
+ },
+ "caautoparts": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 3299,
+  "paidAt": 0,
+  "maxTested": 3299
+ },
+ "caliraisedled": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 299,
+  "freeFrom": null,
+  "paidAt": 25974,
+  "maxTested": 25974
+ },
  "camdenvalley4x4": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 2525,
   "freeFrom": null,
@@ -96,23 +304,63 @@
   "maxTested": 25130
  },
  "campervanbuilders": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1000,
-  "freeFrom": 10134,
-  "paidAt": 10666,
-  "maxTested": 10666
+  "freeFrom": 10210,
+  "paidAt": 9690,
+  "maxTested": 10210
  },
  "campingaustralia": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1450,
   "freeFrom": null,
   "paidAt": 25090,
   "maxTested": 25090
  },
+ "carandtruckremotes": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 595,
+  "freeFrom": 7079,
+  "paidAt": 4832,
+  "maxTested": 7079
+ },
+ "carcareproducts": {
+  "at": "2026-11-15",
+  "to": "Sydney",
+  "fee": 927,
+  "freeFrom": 15469,
+  "paidAt": 14970,
+  "maxTested": 15968
+ },
+ "carlightbulb": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 0,
+  "freeFrom": 537,
+  "paidAt": 0,
+  "maxTested": 537
+ },
+ "carmats": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 299,
+  "freeFrom": 5235,
+  "paidAt": 5185,
+  "maxTested": 5584
+ },
+ "chemicalguys": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 499,
+  "freeFrom": 7787,
+  "paidAt": 7188,
+  "maxTested": 9584
+ },
  "cleanaworx": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 857,
   "freeFrom": null,
@@ -120,23 +368,31 @@
   "maxTested": 25488
  },
  "clickableautomotive": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 800,
   "freeFrom": null,
-  "paidAt": 25500,
-  "maxTested": 25500
+  "paidAt": 26100,
+  "maxTested": 26100
  },
  "clutchdirect": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
-  "fee": 2819,
+  "fee": 2762,
   "freeFrom": null,
-  "paidAt": 34683,
-  "maxTested": 34683
+  "paidAt": 33982,
+  "maxTested": 33982
+ },
+ "darwinproaero": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 3000,
+  "paidAt": 0,
+  "maxTested": 3000
  },
  "dcjapautomotive": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1500,
   "freeFrom": 20965,
@@ -144,15 +400,23 @@
   "maxTested": 23960
  },
  "deaperformance": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
-  "fee": 1300,
+  "fee": 1000,
   "freeFrom": null,
-  "paidAt": 26600,
-  "maxTested": 26600
+  "paidAt": 26400,
+  "maxTested": 26400
+ },
+ "deatschwerks": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1500,
+  "freeFrom": 9900,
+  "paidAt": 11100,
+  "maxTested": 19200
  },
  "demonproparts": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1400,
   "freeFrom": null,
@@ -160,7 +424,7 @@
   "maxTested": 25600
  },
  "dencodiesel": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1020,
   "freeFrom": 21700,
@@ -168,7 +432,7 @@
   "maxTested": 21700
  },
  "detailingshed": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1004,
   "freeFrom": 15010,
@@ -176,15 +440,39 @@
   "maxTested": 19750
  },
  "detailstore": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1150,
   "freeFrom": 15190,
   "paidAt": 14700,
   "maxTested": 15680
  },
+ "diyautotune": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1593,
+  "freeFrom": null,
+  "paidAt": 25137,
+  "maxTested": 25137
+ },
+ "dubsandtires": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 699,
+  "paidAt": 0,
+  "maxTested": 699
+ },
+ "dv8offroad": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 1799,
+  "paidAt": 0,
+  "maxTested": 1799
+ },
  "eagleautoparts": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1200,
   "freeFrom": null,
@@ -192,23 +480,39 @@
   "maxTested": 25200
  },
  "elevateauto": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 2600,
   "freeFrom": null,
   "paidAt": 25300,
   "maxTested": 25300
  },
- "empireperformance": {
-  "at": "2026-11-10",
-  "to": "Sydney",
-  "fee": 800,
+ "eliteautogear": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 3490,
+  "paidAt": 0,
+  "maxTested": 3490
+ },
+ "elitetruck": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 2690,
   "freeFrom": null,
-  "paidAt": 25100,
-  "maxTested": 25100
+  "paidAt": 27080,
+  "maxTested": 27080
+ },
+ "empireperformance": {
+  "at": "2026-11-15",
+  "to": "Sydney",
+  "fee": 700,
+  "freeFrom": null,
+  "paidAt": 25000,
+  "maxTested": 25000
  },
  "enerdrive": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 600,
@@ -216,12 +520,12 @@
   "maxTested": 600
  },
  "energyeco": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1999,
   "freeFrom": null,
-  "paidAt": 25407,
-  "maxTested": 25407
+  "paidAt": 25714,
+  "maxTested": 25714
  },
  "enginemaster": {
   "at": "2026-11-10",
@@ -231,16 +535,40 @@
   "paidAt": 25245,
   "maxTested": 25245
  },
+ "extremeonlinestore": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 1998,
+  "paidAt": 0,
+  "maxTested": 1998
+ },
+ "f150leds": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1002,
+  "freeFrom": 15500,
+  "paidAt": 9600,
+  "maxTested": 15500
+ },
  "frankiesautoelectrics": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1595,
   "freeFrom": null,
-  "paidAt": 25200,
-  "maxTested": 25200
+  "paidAt": 25000,
+  "maxTested": 25000
+ },
+ "fuelinjectorclinic": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 800,
+  "paidAt": 0,
+  "maxTested": 800
  },
  "gktech": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 974,
   "freeFrom": 25200,
@@ -248,7 +576,7 @@
   "maxTested": 25200
  },
  "golebysparts": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1795,
   "freeFrom": null,
@@ -256,31 +584,79 @@
   "maxTested": 25195
  },
  "homeof12voltonline": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1200,
   "freeFrom": null,
   "paidAt": 25200,
   "maxTested": 25200
  },
+ "hybridracing": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1840,
+  "freeFrom": null,
+  "paidAt": 25030,
+  "maxTested": 25030
+ },
  "iilumo": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 882,
   "freeFrom": 15600,
   "paidAt": 12800,
   "maxTested": 15600
  },
+ "importimageracing": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 599,
+  "freeFrom": null,
+  "paidAt": 25315,
+  "maxTested": 25315
+ },
+ "inddistribution": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1785,
+  "freeFrom": null,
+  "paidAt": 25788,
+  "maxTested": 25788
+ },
+ "issautomotive": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1000,
+  "freeFrom": 8365,
+  "paidAt": 8170,
+  "maxTested": 9560
+ },
  "jaydeeautocables": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 725,
   "freeFrom": null,
   "paidAt": 25160,
   "maxTested": 25160
  },
+ "jdcustomsusa": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1162,
+  "freeFrom": 25900,
+  "paidAt": 24605,
+  "maxTested": 25900
+ },
+ "jhpusa": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 3132,
+  "freeFrom": null,
+  "paidAt": 25245,
+  "maxTested": 25245
+ },
  "jtmauto": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1500,
   "freeFrom": null,
@@ -288,23 +664,103 @@
   "maxTested": 27993
  },
  "justjap": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 700,
   "freeFrom": null,
   "paidAt": 25200,
   "maxTested": 25200
  },
+ "kickassproducts": {
+  "at": "2026-11-15",
+  "to": "Sydney",
+  "fee": 1037,
+  "freeFrom": null,
+  "paidAt": 25437,
+  "maxTested": 25437
+ },
+ "kiesmotorsports": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1200,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "kimblade": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 900,
+  "freeFrom": null,
+  "paidAt": 27500,
+  "maxTested": 27500
+ },
+ "kooksheaders": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1794,
+  "freeFrom": null,
+  "paidAt": 25162,
+  "maxTested": 25162
+ },
+ "kspmotor": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 999,
+  "paidAt": 0,
+  "maxTested": 999
+ },
  "lamspeedracing": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1100,
   "freeFrom": null,
   "paidAt": 25100,
   "maxTested": 25100
  },
+ "lasfit": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 999,
+  "paidAt": 0,
+  "maxTested": 999
+ },
+ "lightforce": {
+  "at": "2026-11-15",
+  "to": "Sydney",
+  "fee": 999,
+  "freeFrom": 10200,
+  "paidAt": 10599,
+  "maxTested": 13800
+ },
+ "lowbrowcustoms": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1100,
+  "freeFrom": 9913,
+  "paidAt": 9482,
+  "maxTested": 13792
+ },
+ "mactools": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 999,
+  "freeFrom": 9975,
+  "paidAt": 10575,
+  "maxTested": 12768
+ },
+ "maperformance": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 2244,
+  "freeFrom": 15120,
+  "paidAt": 14400,
+  "maxTested": 23040
+ },
  "marsperformance": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 5999,
@@ -312,36 +768,84 @@
   "maxTested": 5999
  },
  "mcc4x4": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
-  "fee": 800,
+  "fee": 700,
   "freeFrom": null,
   "paidAt": 25600,
   "maxTested": 25600
+ },
+ "mizumoauto": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 2359,
+  "paidAt": 0,
+  "maxTested": 2359
  },
  "mkmotorsports": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
-  "fee": 900,
+  "fee": 1248,
   "freeFrom": null,
-  "paidAt": 25600,
-  "maxTested": 25600
+  "paidAt": 27900,
+  "maxTested": 27900
+ },
+ "modernperformance": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 932,
+  "freeFrom": null,
+  "paidAt": 25137,
+  "maxTested": 25137
  },
  "moorabbinbatteries": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 1900,
   "paidAt": 0,
   "maxTested": 1900
  },
+ "morepowertuning": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 2642,
+  "freeFrom": null,
+  "paidAt": 25625,
+  "maxTested": 25625
+ },
+ "motionraceworks": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 699,
+  "freeFrom": 25000,
+  "paidAt": 24500,
+  "maxTested": 25000
+ },
  "motoquipe": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1400,
   "freeFrom": null,
   "paidAt": 26000,
   "maxTested": 26000
+ },
+ "mountunestore": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 739,
+  "freeFrom": null,
+  "paidAt": 25701,
+  "maxTested": 25701
+ },
+ "mucoff": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 350,
+  "freeFrom": 3000,
+  "paidAt": 2700,
+  "maxTested": 4800
  },
  "myautoparts": {
   "at": "2026-11-10",
@@ -352,7 +856,7 @@
   "maxTested": 35074
  },
  "mytuff4x4": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 3500,
   "freeFrom": null,
@@ -360,7 +864,7 @@
   "maxTested": 26500
  },
  "narva": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1299,
   "freeFrom": 20900,
@@ -368,20 +872,52 @@
   "maxTested": 24700
  },
  "neveraauto": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 8999,
   "paidAt": 0,
   "maxTested": 8999
  },
+ "nvx": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 700,
+  "freeFrom": 5489,
+  "paidAt": 5690,
+  "maxTested": 6986
+ },
  "outbax": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 1700,
   "paidAt": 0,
   "maxTested": 1700
+ },
+ "paintnship": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 37700,
+  "paidAt": 0,
+  "maxTested": 37700
+ },
+ "partify": {
+  "at": "2026-11-15",
+  "to": "Toronto",
+  "fee": 889,
+  "freeFrom": null,
+  "paidAt": 25497,
+  "maxTested": 25497
+ },
+ "partifyusa": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 863,
+  "freeFrom": null,
+  "paidAt": 28495,
+  "maxTested": 28495
  },
  "partscity": {
   "at": "2026-11-10",
@@ -391,8 +927,24 @@
   "paidAt": 25000,
   "maxTested": 25000
  },
+ "partsology": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1799,
+  "freeFrom": null,
+  "paidAt": 25775,
+  "maxTested": 25775
+ },
+ "performancebyie": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 599,
+  "freeFrom": null,
+  "paidAt": 25137,
+  "maxTested": 25137
+ },
  "performancewarehouse": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 990,
@@ -400,79 +952,175 @@
   "maxTested": 990
  },
  "perthdiesel": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 2500,
   "freeFrom": null,
   "paidAt": 25450,
   "maxTested": 25450
  },
+ "pitstopusa": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1495,
+  "freeFrom": 15390,
+  "paidAt": 14725,
+  "maxTested": 16720
+ },
  "platinumracingproducts": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1300,
   "freeFrom": null,
-  "paidAt": 25200,
-  "maxTested": 25200
+  "paidAt": 25600,
+  "maxTested": 25600
+ },
+ "polishedbliss": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 495,
+  "freeFrom": 7500,
+  "paidAt": 7200,
+  "maxTested": 8100
+ },
+ "powerfuluk": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 0,
+  "freeFrom": 583,
+  "paidAt": 0,
+  "maxTested": 583
  },
  "ppdperformance": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
-  "fee": 3200,
+  "fee": 2900,
   "freeFrom": null,
-  "paidAt": 26600,
-  "maxTested": 26600
+  "paidAt": 26300,
+  "maxTested": 26300
+ },
+ "ppepower": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 693,
+  "freeFrom": 19950,
+  "paidAt": 19551,
+  "maxTested": 19950
  },
  "premiumdiagnostics": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 3800,
   "paidAt": 0,
   "maxTested": 3800
  },
+ "prlmotorsports": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1877,
+  "freeFrom": 20100,
+  "paidAt": 19800,
+  "maxTested": 25200
+ },
  "prospeedracing": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1100,
   "freeFrom": null,
   "paidAt": 25200,
   "maxTested": 25200
  },
+ "r44performance": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 588,
+  "freeFrom": null,
+  "paidAt": 25224,
+  "maxTested": 25224
+ },
  "rampedup4x4": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 2500,
   "freeFrom": null,
   "paidAt": 34008,
   "maxTested": 34008
  },
- "s1320motorsports": {
-  "at": "2026-11-10",
+ "retromanufacturing": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 2461,
+  "freeFrom": null,
+  "paidAt": 25146,
+  "maxTested": 25146
+ },
+ "rgbhalokits": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1200,
+  "freeFrom": 16200,
+  "paidAt": 15700,
+  "maxTested": 17200
+ },
+ "rooracing": {
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1500,
   "freeFrom": null,
-  "paidAt": 25200,
-  "maxTested": 25200
+  "paidAt": 25500,
+  "maxTested": 25500
+ },
+ "s1320motorsports": {
+  "at": "2026-11-15",
+  "to": "Sydney",
+  "fee": 1400,
+  "freeFrom": null,
+  "paidAt": 25100,
+  "maxTested": 25100
  },
  "savagetech": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 2200,
   "freeFrom": null,
   "paidAt": 25200,
   "maxTested": 25200
  },
+ "sbfilters": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 1000,
+  "paidAt": 0,
+  "maxTested": 1000
+ },
+ "sdhqoffroad": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1450,
+  "freeFrom": null,
+  "paidAt": 25137,
+  "maxTested": 25137
+ },
  "shiftymods": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1995,
   "freeFrom": null,
   "paidAt": 25625,
   "maxTested": 25625
  },
+ "slrspeed": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 800,
+  "freeFrom": 7992,
+  "paidAt": 6993,
+  "maxTested": 7992
+ },
  "sonax": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 1499,
   "freeFrom": 21147,
@@ -480,51 +1128,171 @@
   "maxTested": 21147
  },
  "spectr": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
-  "fee": 698,
-  "freeFrom": 8037,
-  "paidAt": 7466,
-  "maxTested": 8037
+  "fee": 684,
+  "freeFrom": 7866,
+  "paidAt": 7308,
+  "maxTested": 7866
+ },
+ "speedzoneweb": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 795,
+  "freeFrom": null,
+  "paidAt": 25320,
+  "maxTested": 25320
+ },
+ "stingerdrive": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 899,
+  "freeFrom": null,
+  "paidAt": 26078,
+  "maxTested": 26078
+ },
+ "stmtuned": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 895,
+  "freeFrom": null,
+  "paidAt": 25280,
+  "maxTested": 25280
  },
  "subieshop": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
-  "freeFrom": 1410,
+  "freeFrom": 1381,
   "paidAt": 0,
-  "maxTested": 1410
+  "maxTested": 1381
+ },
+ "subiesupplyco": {
+  "at": "2026-11-15",
+  "to": "Toronto",
+  "fee": 1100,
+  "freeFrom": 25000,
+  "paidAt": 24500,
+  "maxTested": 25000
+ },
+ "tacomalifestyle": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 1499,
+  "freeFrom": null,
+  "paidAt": 25200,
+  "maxTested": 25200
+ },
+ "tcpglobal": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 1999,
+  "paidAt": 0,
+  "maxTested": 1999
+ },
+ "tegiwa": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 499,
+  "freeFrom": 15575,
+  "paidAt": 15451,
+  "maxTested": 19936
+ },
+ "torquegt": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 500,
+  "freeFrom": 11065,
+  "paidAt": 9052,
+  "maxTested": 17104
  },
  "tranzmile": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 331,
   "paidAt": 0,
   "maxTested": 331
  },
+ "turtlewax": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 500,
+  "freeFrom": 3270,
+  "paidAt": 3280,
+  "maxTested": 3760
+ },
+ "urotuning": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 997,
+  "freeFrom": 4980,
+  "paidAt": 4565,
+  "maxTested": 6640
+ },
  "vagparts": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 999,
   "freeFrom": null,
   "paidAt": 25431,
   "maxTested": 25431
  },
+ "valvetronic": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 500,
+  "paidAt": 0,
+  "maxTested": 500
+ },
+ "venommotorsportsusa": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 2999,
+  "paidAt": 0,
+  "maxTested": 2999
+ },
  "vicoffroad": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 995,
   "paidAt": 0,
   "maxTested": 995
  },
+ "wiperblades": {
+  "at": "2026-11-15",
+  "to": "London",
+  "fee": 325,
+  "freeFrom": 1268,
+  "paidAt": 634,
+  "maxTested": 1268
+ },
+ "wolfbox": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 800,
+  "freeFrom": 6487,
+  "paidAt": 6788,
+  "maxTested": 7984
+ },
  "zerooffset": {
-  "at": "2026-11-10",
+  "at": "2026-11-15",
   "to": "Sydney",
   "fee": 0,
   "freeFrom": 1900,
   "paidAt": 0,
   "maxTested": 1900
+ },
+ "zzperformance": {
+  "at": "2026-11-15",
+  "to": "New York",
+  "fee": 0,
+  "freeFrom": 399,
+  "paidAt": 0,
+  "maxTested": 399
  }
 }
