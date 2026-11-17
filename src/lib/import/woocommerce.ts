@@ -17,7 +17,7 @@ import { fetchJson, fetchText, sleep } from "./http";
 import { isBotWall, readPageProducts } from "./jsonld";
 import { readRobots } from "./pages";
 import { robotsAllows } from "./robots";
-import { cachedCodes, PART_WORDS, PACE_MS, type BarcodeCache, type ReadResult } from "./shopify";
+import { cachedCodes, noKeySample, NOKEY_SAMPLES, PART_WORDS, PACE_MS, type BarcodeCache, type ReadResult } from "./shopify";
 
 export interface WooProduct {
   id: number;
@@ -145,7 +145,10 @@ export async function readWoo(store: Store, cache: BarcodeCache, budget: { looku
     }
     const r = wooListing(store, p, ean, parent ? parent.name : undefined);
     if (r.listing) res.listings.push(r.listing);
-    else if (r.noEan) res.noEan++;
+    else if (r.noEan) {
+      res.noEan++;
+      if ((res.noKey ??= []).length < NOKEY_SAMPLES) res.noKey.push(noKeySample(wooBrand(p) || wooBrand(parent ?? p), p.sku, name));
+    }
     else if (r.refused) res.refused[r.refused] = (res.refused[r.refused] ?? 0) + 1;
   }
   return res;

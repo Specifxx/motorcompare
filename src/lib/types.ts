@@ -44,6 +44,8 @@ export interface StoreRun {
   matched: number;
   refused: Record<string, number>;
   noEan: number;
+  /** A few listings that got no key (brand, SKU, title), so a store that matches nothing says why. */
+  noKey?: string[];
   ms: number;
   /** Set when this store's stock is another store's (dropMirrors): not counted. */
   mirrorOf?: string;
