@@ -113,3 +113,10 @@ quick view, never ranked, best, a deal or an alert. Placement `also_amazon`. Rea
 Amazon clicks fell to zero on 13 Nov (the priced-only rule), and the guides were the one content page without the page's single native
 ad block (`InlineAds`: an eBay row and an Amazon row of tagged tiles, no price, browser only, height reserved). One block, after the guide's
 content, once a page; same rules as everywhere (rel sponsored, never in the dock, never counted as a store). `tests/guide-ad-block.test.ts`.
+
+## 2026-11-17: "Check on Amazon" is a row again, an ordinary last one
+
+Owner: "even if there are no Amazon prices available, we should have an option to check on Amazon in our price rows." With no live
+Amazon price `priceRows` adds an unpriced Amazon row (brand amazon, `check`: the item's own page where the daily ASIN pass matched this
+barcode, else the tagged search) at the END of the store rows, on the product page and in the quick view. Never pinned, ranked, the best
+price, a deal or an alert; a priced Amazon row still pins. It replaces the 2026-11-16 line under the table (`AmazonAlso`, removed).
