@@ -41,6 +41,24 @@ function load(slug: string): Promise<Data | null> {
   return p;
 }
 
+/**
+ * The product link a click is on (owner, 2026-11-17: quick view must open from EVERY product link): a tile with data-qv, or any other
+ * plain link to /product/<slug>. Never a new-tab or download link, a link inside the quick view, a button, or the page already open.
+ */
+function productLink(t: Element | null): HTMLAnchorElement | null {
+  if (!t?.closest || t.closest("button")) return null;
+  const a = t.closest("a[href]") as HTMLAnchorElement | null;
+  if (!a || (a.target && a.target !== "_self") || a.hasAttribute("download") || a.closest("[role=dialog]")) return null;
+  if (a.hasAttribute("data-qv")) return a;
+  const href = a.getAttribute("href") ?? "";
+  if (!/^\/product\/[^/?#]+\/?$/.test(href) || window.location.pathname.replace(/\/$/, "") === href.replace(/\/$/, "")) return null;
+  return a;
+}
+/** A link's product slug: its data-qv, or its /product/<slug> href. */
+function qvSlug(a: HTMLAnchorElement): string {
+  return a.dataset.qv || (a.getAttribute("href") ?? "").replace(/^\/product\//, "").replace(/\/$/, "");
+}
+
 export function QuickView() {
   const [head, setHead] = useState<Head | null>(null);
   const [data, setData] = useState<Data | null | "loading">(null);
@@ -58,10 +76,10 @@ export function QuickView() {
     // the click already handled and does not navigate.
     function onClick(e: MouseEvent) {
       if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
-      const a = (e.target as Element | null)?.closest?.("a[data-qv]") as HTMLAnchorElement | null;
+      const a = productLink(e.target as Element | null);
       if (!a) return;
       e.preventDefault();
-      const h: Head = { slug: a.dataset.qv!, name: a.dataset.qvName || "", brand: a.dataset.qvBrand || "", img: a.dataset.qvImg || null };
+      const h: Head = { slug: qvSlug(a), name: a.dataset.qvName || "", brand: a.dataset.qvBrand || "", img: a.dataset.qvImg || null };
       try {
         show(h);
       } catch {
@@ -90,8 +108,8 @@ export function QuickView() {
     const offHistory = onQuickViewHistory<Head>(show);
     // Warm the file when a pointer rests on a tile, so most opens are instant.
     function onOver(e: PointerEvent) {
-      const a = (e.target as Element | null)?.closest?.("a[data-qv]") as HTMLAnchorElement | null;
-      if (a && e.pointerType === "mouse") load(a.dataset.qv!);
+      const a = productLink(e.target as Element | null);
+      if (a && e.pointerType === "mouse") load(qvSlug(a));
     }
     document.addEventListener("click", onClick, true);
     document.addEventListener("pointerover", onOver, { passive: true });
