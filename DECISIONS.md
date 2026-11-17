@@ -135,3 +135,13 @@ of them (`meta.json` shows only a `noEan` count). The container cannot reach the
 internal SKU, no SKU) cannot be read from here. A store run that keys no listing now records up to six samples (`noKey`: brand | SKU | title)
 in `meta.json`. Nothing about matching, pages or URLs changes; the next import tells the next run which rule to fix, with a real title in
 `tests/partno.test.ts`. Backlog: fix those four stores' keys, then Penrite, Castrol, Motul, DBA and Century coverage.
+
+## 2026-11-17: Fiverr first-time-shopper review of DexCompare, applied here (owner)
+
+The owner bought a professional first-time-shopper QA review of DexCompare and asked for every finding that generalises to reach every site.
+Applied here (the full reasoning is in DexCompare's DECISIONS.md, same date):
+
+- **Cart hand-off:** the cart drawer opens with "You pay each store on its own site. We never take payment." (normal-size text, first thing in the
+  drawer); "Total before postage" became "Estimated total (before postage)"; the add button's tooltip says you pay at the store. The label stays
+  "Add to cart" (owner, 2026-11-14: a literal "Add to cart" on every row).
+- **The quick view sets the tab title and description while it is open** and restores them on close (the tab used to keep the list's title).
