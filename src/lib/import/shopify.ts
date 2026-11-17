@@ -44,6 +44,15 @@ export interface ReadResult {
   seen: number;
   refused: Record<string, number>;
   noEan: number;
+  /** Up to NOKEY_SAMPLES listings that got no key: "brand | sku | title". */
+  noKey?: string[];
+}
+
+export const NOKEY_SAMPLES = 6;
+
+/** What a keyless listing looked like, for the store's import record. */
+export function noKeySample(brand: string, sku: string | null | undefined, title: string): string {
+  return `${brand || "-"} | ${String(sku ?? "").slice(0, 30) || "-"} | ${title.slice(0, 70)}`;
 }
 
 /** store:productId → each variant's barcode from the product page (null: none),
@@ -111,8 +120,8 @@ export function listingsFromProduct(
   store: Store,
   p: ShopifyProduct,
   codes?: Record<string, string | null>,
-): { listings: Listing[]; refused: string[]; noEan: number } {
-  const res = { listings: [] as Listing[], refused: [] as string[], noEan: 0 };
+): { listings: Listing[]; refused: string[]; noEan: number; noKey: string[] } {
+  const res = { listings: [] as Listing[], refused: [] as string[], noEan: 0, noKey: [] as string[] };
   // The product type only: tags carry fitment and collection noise ("Batteries" on an ECU harness).
   const kind = p.product_type ?? "";
   const variants = p.variants.filter((v) => Number(v.price) > 0);
@@ -136,6 +145,7 @@ export function listingsFromProduct(
     const ean = partKey(listingBrand(p.vendor ?? "", title, store.name), v.sku) ?? eanOf({ barcode: v.barcode, sku: v.sku, text }) ?? eanOf({ barcode: codes?.[String(v.id)] ?? null });
     if (!ean) {
       res.noEan++;
+      if (res.noKey.length < NOKEY_SAMPLES) res.noKey.push(noKeySample(p.vendor ?? "", v.sku, title));
       continue;
     }
     res.listings.push({
@@ -197,6 +207,7 @@ export async function readShopify(store: Store, cache: BarcodeCache, budget: { l
       const r = listingsFromProduct(store, p, codes);
       for (const x of r.refused) res.refused[x] = (res.refused[x] ?? 0) + 1;
       res.noEan += r.noEan;
+      for (const x of r.noKey) if ((res.noKey ??= []).length < NOKEY_SAMPLES) res.noKey.push(x);
       res.listings.push(...r.listings);
     }
     if (data.products.length < 250) break;

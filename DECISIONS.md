@@ -127,3 +127,11 @@ Owner, from the Grok growth report (item 5): URLs are frozen and nothing navigat
 pop-under, no `window.open` on load, no cross-host redirect and no interstitial here. Rule added to CLAUDE.md: no mass path change
 without a redirect map that 301s every old URL, agents never flip hosts (the one change in force is DexCompare to dexcompare.io), and
 the only automatic navigation is a same-host market choice.
+
+## 2026-11-17: Stores that match nothing say why (site loop)
+
+The 16 Nov import read 20,000 listings from My Auto Parts, Partsology and Auto One, 6,000 from Wipers Direct, and matched none or one
+of them (`meta.json` shows only a `noEan` count). The container cannot reach the stores, so the cause (vendor is the store's own name, an
+internal SKU, no SKU) cannot be read from here. A store run that keys no listing now records up to six samples (`noKey`: brand | SKU | title)
+in `meta.json`. Nothing about matching, pages or URLs changes; the next import tells the next run which rule to fix, with a real title in
+`tests/partno.test.ts`. Backlog: fix those four stores' keys, then Penrite, Castrol, Motul, DBA and Century coverage.

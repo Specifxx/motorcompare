@@ -86,7 +86,7 @@ async function main() {
       try {
         const r = await readStore(s, cache);
         listings.push(...r.listings);
-        runs[s.id] = { ok: true, listings: r.seen, matched: r.listings.length, refused: r.refused, noEan: r.noEan, ms: Date.now() - t0 };
+        runs[s.id] = { ok: true, listings: r.seen, matched: r.listings.length, refused: r.refused, noEan: r.noEan, ...(r.noKey?.length && !r.listings.length ? { noKey: r.noKey } : {}), ms: Date.now() - t0 };
         console.log(`✓ ${s.id}: ${r.seen} products, ${r.listings.length} variants with a barcode, ${r.noEan} without`);
       } catch (e) {
         runs[s.id] = { ok: false, error: (e as Error).message.slice(0, 200), listings: 0, matched: 0, refused: {}, noEan: 0, ms: Date.now() - t0 };
