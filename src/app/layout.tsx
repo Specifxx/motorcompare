@@ -61,6 +61,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <script dangerouslySetInnerHTML={{ __html: SEASON_BOOT_SCRIPT }} />
         {/* The motion layer (lib/motion.ts): data-motion before paint, unless the visitor prefers reduced motion. */}
         <script dangerouslySetInnerHTML={{ __html: MOTION_BOOT }} />
+        {/* Impact (affiliate network) site check, in the exact form Impact gives: a `value` attribute. */}
+        <meta {...({ name: "impact-site-verification", value: "dbc0aeb6-f2fc-4984-84b0-f5ec9f8a633c" } as object)} />
       </head>
       <body className="min-h-screen font-sans antialiased">
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded-md focus:bg-card focus:px-3 focus:py-1">
