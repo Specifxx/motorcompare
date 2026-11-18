@@ -49,6 +49,15 @@ export default function About() {
           MotorCompare is free and has no ads beside the prices. It is paid for by affiliate links: if you buy after clicking eBay or Amazon (and, once its program accepts us, Supercheap Auto), we may earn a commission at no cost to you.
           Today none of the stores in the comparison pays us anything. Commission never changes the order: stores are always sorted by price. The details are in <a href="/disclosure">how we make money</a>. No sign-up, no accounts, no pop-ups.
         </p>
+        <h2>Who runs it, and what it costs</h2>
+        <p>
+          MotorCompare is run and owned by two people, Bill and George. No parts maker, chain or store has a stake in it. We use AI tools to
+          help write the code and draft guides; prices and part numbers are never written by them: a program reads each store&apos;s own listings.
+        </p>
+        <p>
+          Hosting, the daily price imports and the tools we build with come to about A$790 a month for MotorCompare and our other price sites
+          together (our own books, the 30 days to 15 November 2026). The affiliate commission above is what pays for it.
+        </p>
         <h2>Spotted a mistake? Want a store added?</h2>
         <p>
           Email <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.

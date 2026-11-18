@@ -352,3 +352,10 @@ sites made the same choice for the same reason. Only the latin subset ships: oth
 The home hero's entrance (`.mo-enter`, where the site has one) also no longer fades from opacity 0: a browser does not
 count an element as painted while it is invisible, so the fade held the largest paint back ~1.1 s
 (`tests/hero-lcp.test.ts`).
+
+## Who runs it and what it costs, on /about (2026-11-19)
+
+Core-update quality pass (owner, 2026-11-19: remove ads that can hurt indexing, place the rest lower). MotorCompare's one
+ad block already sits below each page's content and its footer is short (about 26 links), so neither moved. /about now
+says who runs it (Bill and George), how AI tools are used, and what the sites cost (about A$790 a month, our books, 30
+days to 15 Nov 2026).
