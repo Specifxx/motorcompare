@@ -6,6 +6,7 @@ import { activeStores, catCounts, dealsIn, getBrands, getMeta, getProducts, newe
 import { popularNow } from "@/lib/ratings";
 import { homeFeaturedIn } from "@/lib/featured";
 import { ago } from "@/lib/format";
+import { LiveAgo } from "@/components/LiveAgo";
 import { SearchBox } from "@/components/SearchBox";
 import { RegionChips } from "@/components/RegionPicker";
 import { TileGrid } from "@/components/ProductTile";
@@ -85,7 +86,7 @@ export default function Home() {
             <div className="mo-enter mt-8 flex flex-wrap items-center gap-2 text-sm text-soft [--mo-d:4]">
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{total.toLocaleString("en-US")}</b> products</span>
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{stores}</b> stores</span>
-              {meta && <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line">Checked {ago(meta.updatedAt)}</span>}
+              {meta && <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line">Checked <LiveAgo iso={meta.updatedAt} initial={ago(meta.updatedAt)} /></span>}
             </div>
           </div>
           {/* Two popular products with price and stores, right of the copy from md, under the search on a phone
