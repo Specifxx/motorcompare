@@ -1,1 +1,1 @@
-{"at":"2026-11-17T17:58:02.994Z","state":"refused","searched":0,"found":0,"known":0,"waiting":4590,"note":"searchItems 400 {\"message\":\"Your credential is not linked to the partner tag in the request for the given Marketplace.\",\"reason\":\"InvalidAssociate\",\"type\":\"Vali"}
+{"at":"2026-11-18T17:48:55.890Z","state":"ok","searched":6,"found":0,"known":0,"waiting":4514,"note":"searchItems 429 {\"message\":\"Request rate limit exceeded. Learn more: https://affiliate-program.amazon.com/creatorsapi/docs/en-us/concepts/api-rates\",\"type\":\"Thr"}
