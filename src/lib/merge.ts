@@ -2,7 +2,7 @@
 // grouped by region, a product kept only when one region has enough stores.
 // Pure, so tests/merge.test.ts can pin every rule.
 import { REGIONS, SITE, type CatKey, type RegionCode } from "@/site";
-import { STORE_BY_ID } from "@/content/stores";
+import { makerOf, STORE_BY_ID } from "@/content/stores";
 import { FIT_MAX_STORES } from "./fitment";
 import { MATCH_SPECS, matchSpecs } from "./specs";
 import { categoryOf, listingAmounts, pickName, readTitle, sizesConflict, tidyName, type Amount, type TitleInfo } from "./title";
@@ -156,7 +156,7 @@ export function mergeListings(listings: Listing[], state: MergeState, today: str
   // product, not "9wishes" on some): the brand list's, else most listings'.
   const spellings = new Map<string, string[]>();
   for (const l of listings) {
-    const b = listingBrand(l.vendor, l.title, STORE_BY_ID[l.store]?.name ?? l.store);
+    const b = listingBrand(l.vendor, l.title, STORE_BY_ID[l.store]?.name ?? l.store, makerOf(STORE_BY_ID[l.store]));
     const k = b ? canonicalKey(b) : "";
     if (k) spellings.set(k, [...(spellings.get(k) ?? []), b!]);
   }
@@ -189,7 +189,7 @@ export function mergeListings(listings: Listing[], state: MergeState, today: str
 
     // The brand most stores name, spelled the way the brand list (or most stores) spell it.
     const brands = kept
-      .map((r) => listingBrand(r.l.vendor, r.l.title, STORE_BY_ID[r.l.store]?.name ?? r.l.store))
+      .map((r) => listingBrand(r.l.vendor, r.l.title, STORE_BY_ID[r.l.store]?.name ?? r.l.store, makerOf(STORE_BY_ID[r.l.store])))
       .filter((b): b is string => !!b);
     const key = mode(brands.map(canonicalKey).filter(Boolean));
     const brand = key ? spelling.get(key) ?? brandName(key, brands.filter((b) => canonicalKey(b) === key)) : "";

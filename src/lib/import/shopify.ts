@@ -9,7 +9,7 @@
 // Shopify answers 429 to a runner going faster.
 import { fitmentOf, oeNumbersOf } from "../fitment";
 import { REGION_BY_CODE } from "@/site";
-import type { Store } from "@/content/stores";
+import { makerOf, type Store } from "@/content/stores";
 import { eanOf } from "../ean";
 import { listingBrand } from "../brand";
 import { partKey } from "../partno";
@@ -111,7 +111,7 @@ export function needsLookup(store: Store, p: ShopifyProduct): boolean {
   if ("refused" in readTitle(p.title)) return false;
   if (!p.variants.some((v) => Number(v.price) > 0)) return false;
   if (p.variants.some((v) => eanOf({ sku: v.sku, barcode: v.barcode }))) return false;
-  if (p.variants.some((v) => partKey(listingBrand(p.vendor ?? "", p.title, store.name), v.sku))) return false;
+  if (p.variants.some((v) => partKey(listingBrand(p.vendor ?? "", p.title, store.name, makerOf(store)), v.sku))) return false;
   return !store.mixed || PART_WORDS.test(`${p.title} ${p.product_type ?? ""}`);
 }
 
@@ -142,7 +142,7 @@ export function listingsFromProduct(
       continue;
     }
     // Brand + the maker's part number first (lib/partno.ts: what parts shops fill in), else a barcode.
-    const ean = partKey(listingBrand(p.vendor ?? "", title, store.name), v.sku) ?? eanOf({ barcode: v.barcode, sku: v.sku, text }) ?? eanOf({ barcode: codes?.[String(v.id)] ?? null });
+    const ean = partKey(listingBrand(p.vendor ?? "", title, store.name, makerOf(store)), v.sku) ?? eanOf({ barcode: v.barcode, sku: v.sku, text }) ?? eanOf({ barcode: codes?.[String(v.id)] ?? null });
     if (!ean) {
       res.noEan++;
       if (res.noKey.length < NOKEY_SAMPLES) res.noKey.push(noKeySample(p.vendor ?? "", v.sku, title));

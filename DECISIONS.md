@@ -252,3 +252,18 @@ The "off" arm sees no Add to cart button, and no header or bottom-nav cart unles
 carries `cart_arm`. Verdict 2 Dec: buy clickers and paid buy clicks per arm (the arms are equal halves of visitors). Keep the cart
 only if the "on" arm is not lower; otherwise `cartArm()` returns "off" for everyone. Not on Dex or MTG Compare (their quick-view
 A/B runs to 3 Dec).
+
+## 2026-11-18: a maker's own shop names its own brand (site loop)
+
+The `noKey` samples from the 17 Nov import (PR #53) showed why big shops key nothing. Two kinds:
+
+- **Makers' own shops** (Turbosmart USA 1,370 listings, DeatschWerks 1,855, AUXITO 1,542, Battery Tender, ANCEL): the
+  vendor field is the shop's own name, which `listingBrand` reads as "a shop that put itself there" and drops, so a
+  good part number (`TS-0301-3007`) got no brand and no key, while 1,373 products already carry `pn:turbosmart:`
+  from retailers. Now a store marked `official` is its own maker (`makerOf`, `Store.brand` where the name says more:
+  "Turbosmart USA" → "Turbosmart"). Order: a real vendor, then a known maker the title starts with (some official
+  shops also resell, UroTuning), then the shop's maker. A part number still decides; nothing is matched on a title.
+- **Own-label or unshared stock** (My Auto Parts: OEM wrecker parts with its own MAP SKUs; Partsology: its own
+  rebuild kits; Wipers Direct: random SKUs, no vendor; Auto Paint HQ: mixed-to-order paint). No other shop sells the
+  same thing under a shared number, so no key rule can or should match them. They stay read (they cost import time
+  only) until a cull of zero-yield stores is worth a separate change.
