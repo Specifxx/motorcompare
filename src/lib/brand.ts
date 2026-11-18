@@ -87,13 +87,15 @@ export function brandFromTitle(title: string): string | null {
 /**
  * The maker of one listing: the vendor, unless it is empty or the store's own
  * name (some shops put themselves there), then a known maker at the start of
- * the title.
+ * the title, else, in a maker's own shop (`makerOf`), that maker.
  */
-export function listingBrand(vendor: string, title: string, storeName: string): string | null {
+export function listingBrand(vendor: string, title: string, storeName: string, maker?: string | null): string | null {
   const v = vendor.trim();
   const store = brandKey(storeName);
   if (v && brandKey(v) && brandKey(v) !== store && !/^(default|vendor|unknown|various|misc|generic|other|n\/a|aftermarket)/i.test(v)) return v;
-  return brandFromTitle(title);
+  // A known maker the title starts with wins first: some "official" shops (UroTuning, Mac Tools) also resell others.
+  // Else, in a maker's own shop (Turbosmart, DeatschWerks), its own name in the vendor field IS the brand (2026-11-18).
+  return brandFromTitle(title) ?? maker ?? null;
 }
 
 export const brandSlug = (key: string, name: string) => slugify(name) || key;

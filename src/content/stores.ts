@@ -41,6 +41,9 @@ export interface Store {
   /** The brand's own store (official prices): compared like any store, and
    *  marked as the maker's own shop. */
   official?: boolean;
+  /** An official store's maker as other shops write it, when the store's name says more ("Turbosmart USA" →
+   *  "Turbosmart"); without it, the store's name. */
+  brand?: string;
   /** Pays us a commission (shown as "Paid link"): the query parameter and the
    *  env var holding our code, set once the store's program accepts us. */
   affiliate?: { param: string; envVar: string };
@@ -160,8 +163,8 @@ export const STORES: Store[] = [
   { id: "rallysportdirect", name: "Rallysport Direct", region: "US", base: "https://rallysportdirect.com", platform: "shopify" },
   { id: "tegiwa", name: "Tegiwa", region: "UK", base: "https://tegiwa.com", platform: "shopify" },
   { id: "theragcompany", name: "The Rag Company", region: "US", base: "https://theragcompany.com", platform: "shopify", official: true },
-  { id: "turbosmart", name: "Turbosmart USA", region: "US", base: "https://turbosmart.com", platform: "shopify", official: true },
-  { id: "turtlewax", name: "Turtle Wax US Store", region: "US", base: "https://turtlewax.com", platform: "shopify", official: true },
+  { id: "turbosmart", name: "Turbosmart USA", region: "US", base: "https://turbosmart.com", platform: "shopify", official: true, brand: "Turbosmart" },
+  { id: "turtlewax", name: "Turtle Wax US Store", region: "US", base: "https://turtlewax.com", platform: "shopify", official: true, brand: "Turtle Wax" },
   { id: "amsperformance", name: "AMS Performance", region: "US", base: "https://www.amsperformance.com", platform: "woocommerce" },
   { id: "autopartstoys", name: "AutoPartsToys", region: "US", base: "https://autopartstoys.com", platform: "shopify" },
   { id: "batterywholesale", name: "Battery Wholesale", region: "US", base: "https://batterywholesale.com", platform: "shopify" },
@@ -169,9 +172,9 @@ export const STORES: Store[] = [
   { id: "bulbamerica", name: "BulbAmerica", region: "US", base: "https://bulbamerica.com", platform: "shopify" },
   { id: "carfunland", name: "CarFunLand", region: "US", base: "https://carfunland.com", platform: "woocommerce" },
   { id: "diyautotune", name: "DIYAutoTune", region: "US", base: "https://diyautotune.com", platform: "shopify" },
-  { id: "greddy", name: "GReddy Performance Products", region: "US", base: "https://greddy.com", platform: "shopify", official: true },
+  { id: "greddy", name: "GReddy Performance Products", region: "US", base: "https://greddy.com", platform: "shopify", official: true, brand: "GReddy" },
   { id: "kooksheaders", name: "Kooks Headers", region: "US", base: "https://kooksheaders.com", platform: "shopify", official: true },
-  { id: "odysseybattery", name: "Odyssey Battery", region: "US", base: "https://www.odysseybattery.com", platform: "woocommerce", official: true },
+  { id: "odysseybattery", name: "Odyssey Battery", region: "US", base: "https://www.odysseybattery.com", platform: "woocommerce", official: true, brand: "Odyssey" },
   // Probe round 3 (2026-11-10): more readable US, Canadian and UK shops.
   { id: "bestparts", name: "BestParts.ca", region: "CA", base: "https://bestparts.ca", platform: "shopify" },
   { id: "maperformance", name: "MAPerformance", region: "US", base: "https://maperformance.com", platform: "shopify" },
@@ -202,10 +205,10 @@ export const STORES: Store[] = [
   { id: "valvetronic", name: "Valvetronic Designs", region: "US", base: "https://valvetronic.com", platform: "shopify" },
   { id: "wolfbox", name: "WOLFBOX", region: "US", base: "https://wolfbox.com", platform: "shopify", official: true },
   { id: "mactools", name: "Mac Tools", region: "US", base: "https://www.mactools.com", platform: "shopify", official: true, mixed: true },
-  { id: "venommotorsportsusa", name: "Venom Motorsports USA", region: "US", base: "https://venommotorsportsusa.com", platform: "shopify", official: true, mixed: true },
+  { id: "venommotorsportsusa", name: "Venom Motorsports USA", region: "US", base: "https://venommotorsportsusa.com", platform: "shopify", official: true, brand: "Venom Motorsports", mixed: true },
   { id: "batterytender", name: "Battery Tender\u00ae", region: "US", base: "https://batterytender.com", platform: "shopify", official: true },
   { id: "717supply", name: "717 SUPPLY", region: "US", base: "https://717supply.com", platform: "shopify", mixed: true },
-  { id: "mucoff", name: "Muc-Off UK", region: "UK", base: "https://muc-off.com", platform: "shopify", official: true, mixed: true },
+  { id: "mucoff", name: "Muc-Off UK", region: "UK", base: "https://muc-off.com", platform: "shopify", official: true, brand: "Muc-Off", mixed: true },
   { id: "ancel", name: "ANCEL", region: "US", base: "https://ancel.com", platform: "shopify", official: true },
   // Probe round 4 (2026-11-10): storecensus automotive directory.
   { id: "wiperblades", name: "Wiper Blades", region: "UK", base: "https://wiperblades.co.uk", platform: "shopify" },
@@ -271,5 +274,10 @@ export const STORES: Store[] = [
 
 /** The stores on Shopify: the cart-based checks (shipping quotes, multi-buys) and the checkout link read only these. */
 export const SHOPIFY_STORES: Store[] = STORES.filter((s) => s.platform === "shopify");
+
+/** The maker whose own shop this is (null for a retailer): a listing there whose vendor is the shop itself, or
+ *  empty, is that maker's part (lib/brand.ts listingBrand). Without it, Turbosmart's 1,370 listings keyed nothing. */
+export const makerOf = (s: Pick<Store, "official" | "brand" | "name"> | undefined): string | null =>
+  s?.official ? s.brand ?? s.name : null;
 
 export const STORE_BY_ID: Record<string, Store> = Object.fromEntries(STORES.map((s) => [s.id, s]));

@@ -7,7 +7,7 @@
 // up once per product and cached like Shopify's barcodes. Only when robots.txt
 // allows /wp-json/; about a request a second.
 import { REGION_BY_CODE } from "@/site";
-import type { Store } from "@/content/stores";
+import { makerOf, type Store } from "@/content/stores";
 import { eanOf } from "../ean";
 import { listingBrand } from "../brand";
 import { partKey } from "../partno";
@@ -125,7 +125,7 @@ export async function readWoo(store: Store, cache: BarcodeCache, budget: { looku
     res.seen++;
     const name = decode(parent?.name ?? p.name);
     // Brand + the maker's part number first (lib/partno.ts), else a barcode.
-    let ean = partKey(listingBrand(wooBrand(p) || wooBrand(parent ?? p), name, store.name), p.sku) ?? eanOf({ sku: p.sku ?? null });
+    let ean = partKey(listingBrand(wooBrand(p) || wooBrand(parent ?? p), name, store.name, makerOf(store)), p.sku) ?? eanOf({ sku: p.sku ?? null });
     if (!ean && p.type !== "variation") {
       const key = `${store.id}:w${p.id}`;
       let codes = cachedCodes(cache[key]);
