@@ -374,7 +374,7 @@ html[data-season="christmas"] .xmas-gift {
   --fm-on-accent: rgb(var(--card));
   --fm-accent-soft: rgb(var(--accent-pale));
   --fm-radius: 16px;
-  --fm-head: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+  --fm-head: var(--font-barlow), "Arial Narrow", Arial, sans-serif;
 }
 
 /* Rate us card and "What people say" (components/site-reviews): drawn in the site's own theme, light and night. */
