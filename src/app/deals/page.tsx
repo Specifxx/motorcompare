@@ -4,6 +4,7 @@ import { REGIONS } from "@/site";
 import { dealsIn } from "@/lib/data";
 import { TileGrid } from "@/components/ProductTile";
 import { PageHead } from "@/components/Section";
+import { ShareButton } from "@/components/ShareButton";
 
 export const metadata: Metadata = {
   title: "Car parts deals today",
@@ -19,6 +20,7 @@ export default function Deals() {
         title="Car parts deals today"
         sub="In-stock products where the cheapest store is at least 10% under the dearest one in your region, biggest gap first. Same part number, same size, different price."
       />
+      <ShareButton title="Car parts deals today" path="/deals" medium="deals" className="mb-6" />
       {REGIONS.map((r) => {
         const deals = dealsIn(r.code, 60).map((d) => d.f);
         return (

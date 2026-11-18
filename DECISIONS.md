@@ -267,3 +267,10 @@ The `noKey` samples from the 17 Nov import (PR #53) showed why big shops key not
   rebuild kits; Wipers Direct: random SKUs, no vendor; Auto Paint HQ: mixed-to-order paint). No other shop sells the
   same thing under a shared number, so no key rule can or should match them. They stay read (they cost import time
   only) until a cull of zero-yield stores is worth a separate change.
+
+## Deals page: share button and its own link preview (owner, 2026-11-18: "we need more shareable artefacts")
+
+`/deals` gets a share button (medium `deals`, `utm_source=share&utm_medium=deals`) and `src/app/deals/opengraph-image.tsx`:
+the guide card's look (`lib/og/guide-image.tsx`) titled with the page's own title, five rows of the biggest gaps between
+the cheapest and the dearest store for the same product in the default region, from `dealsIn` (or, on a thin day, the
+same `shareRows` rule over every product with two stores up). A static route drawn at the day's build, like every page.
