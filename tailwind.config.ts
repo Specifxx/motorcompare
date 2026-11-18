@@ -28,8 +28,8 @@ export default {
         star: v("star"),
       },
       fontFamily: {
-        sans: ['"Inter Variable"', "system-ui", "Segoe UI", "Arial", "sans-serif"],
-        display: ['"Barlow Condensed"', "Arial Narrow", "Arial", "sans-serif"],
+        sans: ["var(--font-inter)", "system-ui", "Segoe UI", "Arial", "sans-serif"],
+        display: ["var(--font-barlow)", "Arial Narrow", "Arial", "sans-serif"],
       },
       borderRadius: { blob: "14px" },
       boxShadow: {
