@@ -67,13 +67,13 @@ export default function Home() {
       <section className="sc-hero wash relative overflow-hidden border-b border-line">
         {/* The motion layer (owner, 2026-11-06): a slowly drifting wash. Decoration only; globals.css "motion" block. */}
         <span className="mo-bg mo-aurora" aria-hidden="true" />
-        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-6 px-4 pb-10 pt-10 md:grid-cols-[1.15fr_1fr] md:pb-12 md:pt-14">
+        <div className="relative mx-auto grid max-w-6xl grid-cols-1 items-center gap-6 px-4 pb-7 pt-6 md:grid-cols-[1.15fr_1fr] md:pb-12 md:pt-14">
           <div className="min-w-0">
             <p className="mo-enter eyebrow mb-4 text-accent-deep">Car parts price comparison</p>
             <h1 className="mo-enter h-display max-w-3xl [--mo-d:1] text-[2.4rem] leading-[1.05] sm:text-6xl">
               The right part. <span className="mo-shine text-accent">The best price.</span>
             </h1>
-            <p className="mo-enter mt-5 max-w-xl text-lg leading-relaxed text-soft [--mo-d:2]">
+            <p className="mo-enter mt-3 max-w-xl text-base leading-relaxed text-soft [--mo-d:2] sm:mt-5 sm:text-lg">
               The same part, every store&apos;s price, side by side. {stores ? `${stores} stores` : "Stores"} compared daily.
             </p>
                         <div className="mo-enter mt-4 max-w-xl [--mo-d:3]">
@@ -83,7 +83,9 @@ export default function Home() {
                 <Link prefetch={false} href="/fit" className="font-semibold text-accent-deep">Shop by part code →</Link>
               </p>
             </div>
-            <div className="mo-enter mt-8 flex flex-wrap items-center gap-2 text-sm text-soft [--mo-d:4]">
+            {/* Phone hero, 2026-11-19 (owner: too much going on on a phone, KaeYoung first): headline, one line and the part-code
+                search. The count chips and the two hero products show from md up; the shelves follow straight after. */}
+            <div className="mo-enter mt-8 hidden flex-wrap items-center gap-2 text-sm text-soft [--mo-d:4] md:flex">
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{total.toLocaleString("en-US")}</b> products</span>
               <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line"><b className="font-semibold text-ink">{stores}</b> stores</span>
               {meta && <span className="rounded-full bg-card/80 px-3 py-1 ring-1 ring-line">Checked <LiveAgo iso={meta.updatedAt} initial={ago(meta.updatedAt)} /></span>}
@@ -91,7 +93,7 @@ export default function Home() {
           </div>
           {/* Two popular products with price and stores, right of the copy from md, under the search on a phone
               (owner, 2026-11-05): the site's job shown, not described. The hero art it replaces stays in Art.tsx. */}
-          <div className="mo-enter relative mx-auto w-full max-w-md md:max-w-none [--mo-d:3]">
+          <div className="mo-enter relative mx-auto hidden w-full max-w-md md:block md:max-w-none [--mo-d:3]">
             <HeroPicks />
           </div>
         </div>
@@ -100,9 +102,9 @@ export default function Home() {
       <div className="mx-auto max-w-6xl px-4">
         {/* Christmas only (1 November to Boxing Day; hidden by CSS otherwise). Points at the live sale page. */}
         <ChristmasBanner href={saleStrip(new Date().toISOString().slice(0, 10))?.href ?? "/boxing-day"} />
-        <section className="mt-16">
-          <h2 data-reveal className="h-display mb-6 text-2xl">Shop by part</h2>
-          <div data-reveal="stagger" className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+        <section className="mt-8 md:mt-16">
+          <h2 data-reveal className="h-display mb-4 text-2xl md:mb-6">Shop by part</h2>
+          <div data-reveal="stagger" className="phone-rail phone-rail-sm scroller grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {HOME_STEPS.map((k) => CAT_BY_KEY[k]).filter((c) => counts[c.key] > 0).sort(byEverydayThenCount(counts)).map((c) => (
               <Link prefetch={false} key={c.key} href={`/${c.key}`} className={`tile-hover flex items-center gap-3 rounded-2xl px-3.5 py-3.5 ${CAT_TINT[c.key]}`}>
                 <span className="mo-wiggle grid h-12 w-12 shrink-0 place-items-center rounded-xl bg-card/80">
@@ -128,18 +130,21 @@ export default function Home() {
             <div key={r.code} className={`rp rp-${r.code}`}>
               {pop.length > 0 && (
                 <Section title={`Popular ${r.phrase}`} sub="Stocked by the most stores." href="/popular" more="All popular">
-                  <TileGrid products={pop} region={r.code} />
+                  <TileGrid products={pop} region={r.code} rail />
                 </Section>
               )}
               {deals.length > 0 && (
                 <Section title={`Biggest savings ${r.phrase}`} sub="Same part, at least 10% cheaper at one store." href="/deals" more="All deals">
-                  <TileGrid products={deals} region={r.code} />
+                  <TileGrid products={deals} region={r.code} rail />
                 </Section>
               )}
+              {/* New arrivals from md up: a phone gets two shelves, popular and savings (2026-11-19). */}
               {fresh.length > 0 && (
-                <Section title="New arrivals" href="/new" more="Everything new">
-                  <TileGrid products={fresh} region={r.code} />
-                </Section>
+                <div className="hidden md:block">
+                  <Section title="New arrivals" href="/new" more="Everything new">
+                    <TileGrid products={fresh} region={r.code} />
+                  </Section>
+                </div>
               )}
               {!deals.length && !pop.length && (
                 <p className="card mt-10 p-6 text-center text-soft">No store has products in stock right now.</p>
@@ -149,15 +154,14 @@ export default function Home() {
         })}
 
         {/* The one ad block (owner, 2026-11-13): between sections, below the hero and the product grids. */}
-        {/* The one ad block (owner, 2026-11-13): between sections, below the hero and the product grids. */}
         <InlineAds page="home" />
 
         {brands.length > 0 && (
           <Section title="Popular brands" href="/brands" more="All brands">
-            <ul data-reveal="stagger" className="flex flex-wrap gap-2">
+            <ul data-reveal="stagger" className="scroller -mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none] md:mx-0 md:flex-wrap md:overflow-visible md:px-0">
               {brands.map((b) => (
                 <li key={b.slug}>
-                  <Link prefetch={false} href={`/brands/${b.slug}`} className="tile-hover inline-flex items-center gap-2 rounded-full border border-line bg-card px-4 py-2 text-sm font-medium transition hover:border-soft">
+                  <Link prefetch={false} href={`/brands/${b.slug}`} className="tile-hover inline-flex items-center gap-2 whitespace-nowrap rounded-full border border-line bg-card px-4 py-2 text-sm font-medium transition hover:border-soft">
                     {b.name} <span className="text-xs text-soft">{b.products.length}</span>
                   </Link>
                 </li>
@@ -166,7 +170,7 @@ export default function Home() {
           </Section>
         )}
 
-        <section className="mt-20">
+        <section className="mt-20 hidden md:block">
           <h2 data-reveal className="h-display mb-6 text-2xl sm:text-3xl">How MotorCompare works</h2>
           <ol data-reveal="stagger" className="grid gap-6 sm:grid-cols-3">
             {[
@@ -183,7 +187,7 @@ export default function Home() {
           </ol>
         </section>
 
-        <section className="mt-16">
+        <section className="mt-16 hidden md:block">
           <h2 data-reveal className="h-display mb-4 text-2xl sm:text-3xl">Price guides</h2>
           <ul data-reveal className="grid gap-x-6 gap-y-2 text-sm sm:grid-cols-2">
             {GUIDES.map((g) => (
@@ -199,7 +203,7 @@ export default function Home() {
         {/* The site's own star score and approved reviews (owner, 2026-11-03), loaded in the browser; nothing until there is a rating. */}
         <SiteReviews className="mt-20" />
 
-        <section className="mt-16 max-w-3xl">
+        <section className="mt-12 max-w-3xl md:mt-16">
           <h2 data-reveal className="h-display mb-4 text-2xl sm:text-3xl">Questions</h2>
           <div data-reveal="stagger" className="space-y-5">
             {FAQ.map(([q, a]) => (
