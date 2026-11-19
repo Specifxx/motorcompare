@@ -6,6 +6,7 @@ import { VEHICLE_INDEX_MIN } from "@/content/vehicles";
 import { CAT_MIN_INDEXED, sitemapProducts } from "@/lib/index-tiers";
 import { GUIDES } from "@/lib/guides";
 import { LIVE_POSTS } from "@/content/blog";
+import { withoutOffSeasonSales } from "@/lib/sale-seasons";
 
 // A lean core (SEO audit 2026-11-07, src/lib/index-tiers.ts sitemapProducts): hubs, guides, the
 // SITEMAP_PRODUCTS most widely stocked products and the brands that carry one of them. Every other
@@ -15,7 +16,7 @@ import { LIVE_POSTS } from "@/content/blog";
 // PRODUCTS_PER_FILE, widely stocked first. Served by the static routes /sitemap.xml and /sitemaps/<part>.xml.
 export interface SitemapUrl {
   url: string;
-  lastModified: string;
+  lastModified?: string;
   priority: number;
 }
 export const PRODUCTS_PER_FILE = 5000;
@@ -23,7 +24,10 @@ export const PRODUCTS_PER_FILE = 5000;
 export const HUB_PER_PAGE = 48;
 
 const updated = () => getMeta()?.updatedAt ?? new Date().toISOString();
-const u = (p: string, priority: number): SitemapUrl => ({ url: `${SITE.url}${p}`, lastModified: updated(), priority });
+// Pages whose words do not change with the day's prices carry no lastmod: dating them "today" on every release is the
+// re-dating to look fresh that Google's guidance calls search-engine-first (search-engine-first audit, 2026-11-19).
+const PROSE_PAGES = new Set(["/about", "/disclosure", "/how-we-pick-stores", "/list-your-store", "/creators", "/widgets", "/contact", "/terms", "/privacy"]);
+const u = (p: string, priority: number): SitemapUrl => ({ url: `${SITE.url}${p}`, ...(PROSE_PAGES.has(p) ? {} : { lastModified: updated() }), priority });
 
 const coreProducts = () => sitemapProducts(getProducts());
 const productUrls = () => coreProducts().map((f) => u(`/product/${f.slug}`, 0.7));
@@ -48,7 +52,7 @@ export const allSitemapUrls = () => sitemapParts().flatMap((p) => sitemapPart(p)
 const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 export function urlsetXml(urls: SitemapUrl[]): string {
-  const rows = urls.map((x) => `<url><loc>${esc(x.url)}</loc><lastmod>${esc(x.lastModified)}</lastmod><priority>${x.priority}</priority></url>`);
+  const rows = urls.map((x) => `<url><loc>${esc(x.url)}</loc>${x.lastModified ? `<lastmod>${esc(x.lastModified)}</lastmod>` : ""}<priority>${x.priority}</priority></url>`);
   return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows.join("\n")}\n</urlset>\n`;
 }
 
@@ -66,7 +70,7 @@ function pageUrls(): SitemapUrl[] {
     u("/is-this-a-good-price", 0.6),
     u("/black-friday", 0.8),
     u("/cyber-monday", 0.8),
-    ...["/boxing-day", "/january-sales"].map((p) => u(p, 0.7)),
+    ...withoutOffSeasonSales(["/boxing-day", "/january-sales"], new Date().toISOString().slice(0, 10)).map((p) => u(p, 0.7)),
     u("/basket", 0.5),
     u("/new", 0.7),
     u("/brands", 0.8),
