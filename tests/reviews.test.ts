@@ -82,7 +82,7 @@ test("ops monitor: reviews off is a setup step; held reviews warn once a day", (
   assert.equal(judgeReviews(file, true, at(12)).status, "ok");
   assert.equal(judgeReviews({ ...file, held: 0 }, true, at(9)).status, "ok");
   assert.equal(judgeReviews({ ...file, error: "timeout" }, true, at(12)).status, "warn");
-  assert.equal(judgeReviews({ ...file, exportedAt: "2026-10-27T06:30:00Z" }, true, at(12)).status, "warn");
+  assert.equal(judgeReviews({ ...file, exportedAt: "2026-10-20T06:30:00Z" }, true, at(12)).status, "warn"); // weekly import: amber after a week and a day
   assert.match(judgeReviews(file, true, at(12), { error: "HTTP 401" }).detail, /can't be read/);
   assert.match(judgeReviews(file, true, at(12), { tokenExpires: "2026-11-05 00:00:00 UTC" }).detail, /expires in 5 day/);
   assert.equal(judgeReviews(file, true, at(12), { tokenExpires: "2027-10-30 00:00:00 UTC" }).status, "ok");

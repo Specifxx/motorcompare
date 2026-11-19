@@ -31,10 +31,16 @@ async function get(p: string) {
   return r;
 }
 
+/** The import runs once a week (owner, 2026-11-19: MotorCompare idle, weekly import and release), so every age
+ *  check allows one week plus a day before amber and nine days before red. */
+const WEEK_H = 7 * 24;
+const IDLE_OK_H = WEEK_H + 30;
+const IDLE_RED_H = WEEK_H + 54;
+
 export function judgeFreshness(updatedAt: string, now = Date.now()): Omit<Result, "name"> {
   const h = (now - Date.parse(updatedAt)) / 3_600_000;
-  if (h < 30) return { status: "ok", detail: `${h.toFixed(1)}h old` };
-  return { status: h < 54 ? "warn" : "fail", detail: `prices are ${h.toFixed(0)}h old: check the Import prices workflow` };
+  if (h < IDLE_OK_H) return { status: "ok", detail: `${h.toFixed(1)}h old` };
+  return { status: h < IDLE_RED_H ? "warn" : "fail", detail: `prices are ${h.toFixed(0)}h old: check the Import prices workflow (weekly)` };
 }
 
 /** "Smells like" (lib/notes.ts): the import should find notes for a good share of the catalogue
@@ -77,7 +83,7 @@ export function judgeReviews(
   if (!file) return { status: "warn", detail: "no reviews export yet (data/public/reviews.json missing)" };
   if (file.error) return { status: "warn", detail: `the last reviews export could not read the store: ${file.error}` };
   const h = (now - Date.parse(file.exportedAt)) / 3_600_000;
-  if (h > 54) return { status: "warn", detail: `reviews last exported ${h.toFixed(0)}h ago: check the Import prices workflow` };
+  if (h > IDLE_OK_H) return { status: "warn", detail: `reviews last exported ${h.toFixed(0)}h ago: check the Import prices workflow` };
   const rated = Object.keys(file.products).length;
   if (file.held > 0 && new Date(now).getUTCHours() === 9) return { status: "warn", detail: `${file.held} review(s) waiting for you at /admin/reviews` };
   return { status: "ok", detail: `${rated} products rated${file.held ? `, ${file.held} held` : ""}` };
@@ -93,7 +99,7 @@ export function judgePartnerFeeds(file: PartnerPricesFile | null, now = Date.now
   for (const [k, r] of feeds) {
     const h = r.at ? (now - Date.parse(r.at)) / 3_600_000 : Infinity;
     if (r.error) bad.push(`${k}: ${r.error}`);
-    else if (h > 54) bad.push(`${k}: last read ${h.toFixed(0)}h ago`);
+    else if (h > IDLE_OK_H) bad.push(`${k}: last read ${h.toFixed(0)}h ago`);
     else good.push(`${k} ${r.kept}/${r.rows}`);
   }
   return bad.length ? { status: "warn", detail: bad.join("; ") } : { status: "ok", detail: `${good.join(", ")} prices kept` };
@@ -113,13 +119,13 @@ export function judgeShipping(file: Record<string, { at: string }> | null, store
 }
 
 /** The product-page readers (import.yml's page jobs, scripts/read-pages.ts): each page store's last run, from
- *  data/state/pages/<id>.json. Their readings age out after five days, so a stopped reader is amber at two days
- *  and red when no page store has read anything in three. */
+ *  data/state/pages/<id>.json. The import runs weekly (2026-11-19), so a reader is amber after eight and a half days
+ *  and red when no page store has read anything in that time. */
 export function judgePages(runs: Record<string, { at: string; read: number; stopped?: string } | null>, now = Date.now()): Omit<Result, "name"> {
   const ids = Object.keys(runs);
   if (!ids.length) return { status: "ok", detail: "no page stores" };
   const age = (at?: string) => (at ? (now - Date.parse(at)) / 86_400_000 : Infinity);
-  const stale = ids.filter((id) => !(age(runs[id]?.at) < 2.5));
+  const stale = ids.filter((id) => !(age(runs[id]?.at) < 8.5));
   const fresh = ids.length - stale.length;
   const stopped = ids.filter((id) => runs[id]?.stopped).map((id) => `${id}: ${runs[id]!.stopped}`);
   if (!ids.some((id) => runs[id])) return { status: "warn", detail: "page stores not read yet: the next Import prices run reads them" };
@@ -230,7 +236,7 @@ async function main() {
       if (!process.env.EBAY_CLIENT_ID) return { status: "warn", detail: "EBAY_CLIENT_ID not set in GitHub secrets: no eBay listings yet (search links still earn)" };
       if (!meta.ebay) return { status: "warn", detail: "no eBay run recorded yet" };
       const age = (Date.now() - Date.parse(meta.ebay.at)) / 3_600_000;
-      if (age > 30) return { status: "warn", detail: `last eBay run ${age.toFixed(0)}h ago` };
+      if (age > IDLE_OK_H) return { status: "warn", detail: `last eBay run ${age.toFixed(0)}h ago` };
       return { status: "ok", detail: `${meta.ebay.calls}/${meta.ebay.budget} calls on ${meta.ebay.day}` };
     }),
   ]);
