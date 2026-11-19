@@ -75,9 +75,10 @@ test("search: every word must match; a barcode finds its product", () => {
 
 test("ops monitor judgements", () => {
   const now = Date.parse("2026-10-30T12:00:00Z");
-  assert.equal(judgeFreshness("2026-10-30T05:00:00Z", now).status, "ok");
-  assert.equal(judgeFreshness("2026-10-29T00:00:00Z", now).status, "warn");
-  assert.equal(judgeFreshness("2026-10-27T00:00:00Z", now).status, "fail");
+  // Weekly import (2026-11-19): ok within a week and a day, amber to nine days, red after.
+  assert.equal(judgeFreshness("2026-10-24T05:00:00Z", now).status, "ok");
+  assert.equal(judgeFreshness("2026-10-22T00:00:00Z", now).status, "warn");
+  assert.equal(judgeFreshness("2026-10-20T00:00:00Z", now).status, "fail");
   const run = (ok: boolean, listings = 10) => ({ ok, matched: 5, listings, refused: {}, noEan: 0, ms: 1, error: ok ? undefined : "HTTP 429" });
   assert.equal(judgeStores({ updatedAt: "", products: 1, stores: { a: run(true), b: run(true) } }, 2).status, "ok");
   assert.equal(judgeStores({ updatedAt: "", products: 1, stores: { a: run(false), b: run(true), c: run(true), d: run(true) } }, 4).status, "warn");

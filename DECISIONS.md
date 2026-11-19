@@ -394,3 +394,13 @@ content "spread across a large network of sites" and re-dating pages to look fre
   latest import: their words do not change with prices.
 
 Black Friday and Cyber Monday pages are unchanged (in season). Judge the effect on 1 to 8 Dec against 3 to 9 Nov.
+
+## 2026-11-19 — Idle: one import and one release a week
+
+Owner, 2026-11-19: "figure compare and motorcompare have earnt 0 dollars maybe they were bad ideas". The Monday report of
+16 Nov: A$0.00 earned in 30 days, 141 visitors and 6 buy clicks in a week, 0 pages in Bing, and A$18.93 of Vercel in its
+first costed week, the most of any small site. The site stays live and unchanged (hosts, URLs and pages untouched), but
+its agent loop is off and `import.yml` and the fallback `production-deploy.yml` run on Mondays only, so it builds once a
+week and spends its eBay calls once a week instead of daily (the 3,300 a day on Cyberpunk Compare's keyset are free for
+the owner to move). The ops monitor's age checks allow a week and a day before amber and nine days before red.
+Undo by restoring the two daily crons and the old thresholds in `scripts/ops-monitor.ts`.

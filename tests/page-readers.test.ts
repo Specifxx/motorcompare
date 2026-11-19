@@ -136,7 +136,8 @@ test("ops: the page readers are judged by their last run", async () => {
   assert.equal(judgePages({}, now).status, "ok");
   assert.equal(judgePages({ a: { at: "2026-11-06", read: 10 } }, now).status, "ok");
   assert.equal(judgePages({ a: { at: "2026-11-06", read: 10 }, b: null }, now).status, "warn");
-  assert.equal(judgePages({ a: { at: "2026-11-01", read: 10 }, b: null }, now).status, "fail");
+  assert.equal(judgePages({ a: { at: "2026-10-28", read: 10 }, b: null }, now).status, "fail");
+  assert.equal(judgePages({ a: { at: "2026-11-01", read: 10 } }, now).status, "ok"); // weekly import
   assert.equal(judgePages({ a: null, b: null }, now).status, "warn");
 });
 
