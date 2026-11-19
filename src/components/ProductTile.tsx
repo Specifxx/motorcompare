@@ -81,9 +81,10 @@ export function ProductTile({ f, region, options, from }: { f: Product; region?:
   );
 }
 
-export function TileGrid({ products, region }: { products: Product[]; region?: RegionCode }) {
+/** `rail`: one sideways row on a phone (the home page's shelves, 2026-11-19), the usual grid from md up. */
+export function TileGrid({ products, region, rail }: { products: Product[]; region?: RegionCode; rail?: boolean }) {
   return (
-    <div data-reveal="stagger" className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5">
+    <div data-reveal="stagger" className={`grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 2xl:grid-cols-5${rail ? " phone-rail scroller" : ""}`}>
       {groupFamilies(products, region ?? DEFAULT_REGION).map((g) => (
         <ProductTile key={g.lead.ean} f={g.lead} region={region} options={g.n} from={g.from} />
       ))}
