@@ -492,11 +492,14 @@ function DeliveredLine({ f, region }: { f: Product; region: RegionCode }) {
 function Faq({ f, regions, rated }: { f: Product; regions: RegionCode[]; rated: ProductReviews | undefined }) {
   const qa: [string, string][] = [];
   qa.push([`Will ${f.name} fit my car?`, `${CAT_BY_KEY[f.cat].fit} Check that code against your old part or your owner's manual before you buy; when in doubt, ask the store.`]);
-  for (const r of regions) {
+  // One question for every region, not one per region: the same question reworded for each country is copy written for
+  // searches, not readers (search-engine-first audit, 2026-11-19).
+  const cheapest = regions.flatMap((r) => {
     const b = bestIn(f, r);
     const reg = REGIONS.find((x) => x.code === r)!;
-    if (b) qa.push([`Where is ${f.name} cheapest ${reg.phrase}?`, `${storeName(b.offer.s)} at ${money(b.offer.p, r)}, the lowest of ${b.stores} store${b.stores === 1 ? "" : "s"} we compared at our last check.`]);
-  }
+    return b ? [`${reg.phrase}, ${storeName(b.offer.s)} at ${money(b.offer.p, r)} (the lowest of ${b.stores} store${b.stores === 1 ? "" : "s"})`] : [];
+  });
+  if (cheapest.length) qa.push([`Where is ${f.name} cheapest?`, `At our last check: ${cheapest.join("; ")}.`]);
   if (rated && rated.n >= SCHEMA_MIN_RATINGS) {
     qa.push([`What do shoppers rate ${f.name}?`, `${starsText(rated.avg)} out of 5 from ${rated.n} MotorCompare shoppers' ratings, with ${rated.dist[4] + rated.dist[3]} giving it four or five stars.`]);
   }
