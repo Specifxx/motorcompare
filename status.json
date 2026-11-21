@@ -1,0 +1,78 @@
+{
+ "v": 1,
+ "site": "motorcompare.app",
+ "at": "2026-11-21T11:54:01.212Z",
+ "overall": "warn",
+ "checks": [
+  {
+   "name": "Live site",
+   "status": "warn",
+   "detail": "SITE_URL repository variable not set: live checks skipped"
+  },
+  {
+   "name": "Search index",
+   "status": "warn",
+   "detail": "SITE_URL not set"
+  },
+  {
+   "name": "Daily price import",
+   "status": "ok",
+   "detail": "66.8h old"
+  },
+  {
+   "name": "Store imports",
+   "status": "warn",
+   "detail": "s4wdpartshop: https://4wdpartshop.com.au/wp-json/wc/store/v1/products?per_page=100&page=1: HTTP 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"te; iilumo: https://iilumo.com/products.json?limit=250&page=1&country=AU: HTTP 401 ; akracing: https://akracing.com.au/wp-json/wc/store/v1/products?per_page=100&page=1: HTTP 403 <!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta http-equiv=\"Content-Type\" content=\"text/; brakesg: https://brakesg.com/robots.txt: fetch failed; partifyusa: Maximum call stack size exceeded; partify: Maximum call stack size exceeded; coverking: Maximum call stack size exceeded"
+  },
+  {
+   "name": "Catalogue",
+   "status": "ok",
+   "detail": "42670 products"
+  },
+  {
+   "name": "Data size",
+   "status": "warn",
+   "detail": "products.json is 28.1 MB: builds slow down; trim fields in src/lib/products-file.ts before raising minStoresPerRegion"
+  },
+  {
+   "name": "Ratings and reviews",
+   "status": "ok",
+   "detail": "0 products rated"
+  },
+  {
+   "name": "Link audit",
+   "status": "ok",
+   "detail": "16586 links checked, 885 found wrong (5.3%), last run 3h ago"
+  },
+  {
+   "name": "Delivery quotes",
+   "status": "ok",
+   "detail": "162 of 201 stores quoted"
+  },
+  {
+   "name": "Store deals",
+   "status": "ok",
+   "detail": "163 of 201 stores checked; 0 run multi-buys or gifts on 0 products"
+  },
+  {
+   "name": "Page readers",
+   "status": "ok",
+   "detail": "no page stores"
+  },
+  {
+   "name": "Partner feeds",
+   "status": "ok",
+   "detail": "no partner feed set up yet "
+  },
+  {
+   "name": "Amazon ASINs",
+   "status": "warn",
+   "detail": "Amazon ASIN finder last ran over two days ago for US, UK, CA, EU, AU: check the Import prices workflow. US 0 ASINs (23639 waiting); UK 0 ASINs (832 waiting); CA 0 ASINs (4514 waiting); EU 0 ASINs (0 waiting); AU 0 ASINs (18571 waiting)"
+  },
+  {
+   "name": "eBay listings",
+   "status": "ok",
+   "detail": "3300/3300 calls on 2026-11-18"
+  }
+ ]
+}
