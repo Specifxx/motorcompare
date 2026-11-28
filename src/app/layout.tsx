@@ -17,6 +17,7 @@ import { Footer } from "@/components/Footer";
 import { QuickView } from "@/components/QuickView";
 import { RailDock } from "@/components/InlineAds";
 import { RateCard } from "@/components/site-reviews/RateCard";
+import { DealsPopup } from "@/components/DealsPopup";
 import { headerMenus, navGroups, quickLinks } from "@/lib/nav";
 import { menuFacts } from "@/lib/menu-facts";
 import { CategoryStrip } from "@/components/CategoryStrip";
@@ -90,6 +91,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <QuickView />
         {/* Rate us (owner, 2026-11-03): the corner card, asking only after real use; the ratings are kept by the shared review service. */}
         <RateCard />
+        {/* Black Friday and after: real Amazon and eBay products in a corner card, once a visit (owner, 2026-11-28). */}
+        <DealsPopup />
         {/* Phones: the eBay tiles in the phone dock, after a scroll, never on a product page. */}
         {SITE.sideRails && <RailDock />}
         <Analytics />
